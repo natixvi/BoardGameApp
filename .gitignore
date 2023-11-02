@@ -1,1 +1,26 @@
 Screenshots/
+
+# Pliki i foldery generowane przez Visual Studio
+.vscode/
+.vs/
+bin/
+obj/
+packages/
+
+# Foldery projektu
+[Tt]emp/
+[Oo]bj/
+[Bb]in/
+
+# Pliki projektu
+*.user
+*.suo
+*.sln.docstates
+*.suo
+*.user
+*.sln.docstates
+
+# Przykładowe foldery i pliki do zignorowania
+[Tt]est[Rr]esult*
+[Bb]in/
+[Oo]bj/
