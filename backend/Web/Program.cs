@@ -1,6 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Persistance.Data;
+using Persistance.Seeder;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
+builder.Services.AddScoped<ApiSeeder>(); //Ka¿de ¿¹danie korzysta z tej samej instancji ApiSeeder w ramach jednego zasiêgu scope
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BoardGameAppDbContext") ?? throw new InvalidOperationException("Connection string 'BoardGameAppDbContext' not found.")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -8,6 +16,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+var scope = app.Services.CreateScope(); //tworzy nowy zasiêg, w celu zarz¹dania cyklem ¿ycia us³ug, towrozy loklany zasiêg który ucyæ do pobrania us³ug z kontenera
+var seeder = scope.ServiceProvider.GetService<ApiSeeder>(); // Tutaj w obrêbie stworoznego zasiêgu, pobieramy us³ugê Api seeder i otrzymujemy jej instancjê z zasiêgu aplikacji
+
+if(seeder != null)
+{
+   seeder.Seed();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
