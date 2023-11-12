@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities;
-public class Role
+namespace Domain.IRepositories;
+public class IAccountRepository
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
 }
-

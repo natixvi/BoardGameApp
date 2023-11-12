@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities;
-public class Role
+namespace Services.Services;
+public class AccountService
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-}
 
+
+}
