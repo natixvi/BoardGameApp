@@ -1,16 +1,17 @@
-﻿using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
-
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace Services.Services;
 public class AccountService
 {
-    private readonly IPasswordHasher<User> passwordHasher;
+   
+  
 
     //private readonly JwtSettings jwtSettings;
 
-    public AccountService(IPasswordHasher<User> passwordHasher)
+    public AccountService()
     {
-        this.passwordHasher = passwordHasher;
+
+        
     }
 }

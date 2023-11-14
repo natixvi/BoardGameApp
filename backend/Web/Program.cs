@@ -3,18 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Persistance.Data;
 using Persistance.Seeder;
+using Services.Interfaces;
 using Services.Mappers;
+using Services.Services;
 using System.Text;
-using Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Utowrzenie obiektu jwtSetting, pobranie danych jwt z pliku konfiguracyjnego app i przypisuje je do obiektu jwtSettings
-var jwtSettings = new JwtSettings();
-builder.Configuration.GetSection("Jwt").Bind(jwtSettings);
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
 //Wstrzykniêcie jwtSetting do kontenera zale¿noœci
-builder.Services.AddSingleton(jwtSettings);
+builder.Services.AddSingleton<IJwtSettings>(jwtSettings);
 
 //Konfiguracja us³ug uwierzytelniania w aplikacji, paramenrty jwt jakie s¹ weryfikowane i inne opcje
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
