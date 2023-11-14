@@ -2,5 +2,6 @@
 public interface IJwtSettings
 {
     string JwtKey { get; }
+    int JwtExpireTime { get; }
     string JwtIssuer { get; }
 }

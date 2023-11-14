@@ -4,5 +4,5 @@
 namespace Services.Interfaces;
 public interface IJwtService
 {
-    string GenerateJwtToken(LoginDto dto);
+    string GenerateJwtToken(UserDto dto);
 }
