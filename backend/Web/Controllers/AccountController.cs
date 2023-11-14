@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.DTOs.User;
+using Services.Interfaces;
 
 namespace Web.Controllers;
 
@@ -6,9 +8,17 @@ namespace Web.Controllers;
 [ApiController]
 public class AccountController: ControllerBase
 {
-    public AccountController()
+    private readonly IAccountService accountService;
+
+    public AccountController(IAccountService accountService)
     {
-        
+        this.accountService = accountService;
+    }
+
+    [HttpPost("register")]
+    public ActionResult RegisterUser([FromBody] RegisterUserDto registerUserDto)
+    {
+      
     }
 
  

@@ -1,12 +1,19 @@
-﻿namespace Services.Services;
-public class AccountService
+﻿using Domain.IRepositories;
+using Services.DTOs.User;
+using Services.Interfaces;
+
+namespace Services.Services;
+public class AccountService : IAccountService
 {
-   
-    //private readonly JwtSettings jwtSettings;
+    private readonly IAccountRepository accountRepository;
 
-    public AccountService()
+    public AccountService(IAccountRepository accountRepository) 
     {
+        this.accountRepository = accountRepository;
+    }
 
+    public void RegisterUser(RegisterUserDto registerUserDto)
+    {
         
     }
 }

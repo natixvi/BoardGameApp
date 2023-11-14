@@ -1,7 +1,9 @@
+using Domain.IRepositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Persistance.Data;
+using Persistance.Repositories;
 using Persistance.Seeder;
 using Services.Interfaces;
 using Services.Mappers;
@@ -35,14 +37,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // Add services to the container.
 
+builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+builder.Services.AddTransient<IJwtService, IJwtService>();
+
 builder.Services.AddScoped<ApiSeeder>(); //Ka¿de ¿¹danie korzysta z tej samej instancji ApiSeeder w ramach jednego zasiêgu scope
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BoardGameAppDbContext") ?? throw new InvalidOperationException("Connection string 'BoardGameAppDbContext' not found.")));
-
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddControllers();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
