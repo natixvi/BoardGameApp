@@ -18,10 +18,10 @@ public class JwtService : IJwtService
     {
         var claims = new List<Claim>(){
 
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("Id", user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email,user.Email),
                 new Claim(JwtRegisteredClaimNames.Sub, user.NickName),
-                new Claim(ClaimTypes.Role, $"{user.Role}"),
+                new Claim("role",  user.Role.Name)
 
         };
 
@@ -29,7 +29,7 @@ public class JwtService : IJwtService
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var expires = DateTime.Now.AddMinutes(jwtSettings.JwtExpireTime);
 
-        var token = new JwtSecurityToken(jwtSettings.JwtIssuer, jwtSettings.JwtIssuer, claims, expires, signingCredentials: cred);
+        var token = new JwtSecurityToken(jwtSettings.JwtIssuer, jwtSettings.JwtIssuer, claims, expires : DateTime.Now.AddMinutes(600), signingCredentials: cred);
         return new JwtSecurityTokenHandler().WriteToken(token);
 
     }

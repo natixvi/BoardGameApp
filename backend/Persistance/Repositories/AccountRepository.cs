@@ -41,6 +41,6 @@ public class AccountRepository : IAccountRepository
 
     public async Task<User?> GetUser(string email)
     {
-        return await appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return await appDbContext.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.Email == email);
     }
 }
