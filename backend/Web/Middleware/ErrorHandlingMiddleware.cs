@@ -10,22 +10,25 @@ public class ErrorHandlingMiddleware : IMiddleware
         {
             await next.Invoke(context);
         }
-        catch (DuplicateUserDataException)
+        catch (DuplicateUserDataException ex)
         {
-            context.Response.StatusCode = 500;
-            await context.Response.WriteAsync("Something went wrong!");
+            context.Response.StatusCode = 400;
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync(ex.Message);
         }
-        catch ()
+        catch (PasswordsMustBeTheSameException ex)
         {
-            context.Response.StatusCode = 500;
-            await context.Response.WriteAsync("Something went wrong!");
+            context.Response.StatusCode = 400;
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync(ex.Message);
         }
-        catch ()
+        catch (RoleDoesntExistException ex)
         {
-            context.Response.StatusCode = 500;
-            await context.Response.WriteAsync("Something went wrong!");
+            context.Response.StatusCode = 404;
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync(ex.Message);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             context.Response.StatusCode = 500;
             await context.Response.WriteAsync("Something went wrong!");
