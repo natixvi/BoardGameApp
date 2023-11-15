@@ -33,9 +33,14 @@ public class AccountRepository : IAccountRepository
         return existingUser != null;
     }
 
-    public Role? GetDefaultRegisterUserRole()
+    public async Task<Role?> GetDefaultRegisterUserRole()
     {
-        var defaultRole = appDbContext.Roles.FirstOrDefault(r => r.Name == "User");
+        var defaultRole = await appDbContext.Roles.FirstOrDefaultAsync(r => r.Name == "User");
         return defaultRole;
+    }
+
+    public async Task<User?> GetUser(string email)
+    {
+        return await appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 }

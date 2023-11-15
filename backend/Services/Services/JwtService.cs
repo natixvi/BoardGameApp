@@ -1,5 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using Services.DTOs.User;
+﻿using Domain.Entities;
+using Microsoft.IdentityModel.Tokens;
 using Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,13 +14,13 @@ public class JwtService : IJwtService
     {
         this.jwtSettings = jwtSettings;
     }
-    public string GenerateJwtToken(UserDto user)
+    public string GenerateJwtToken(User user)
     {
         var claims = new List<Claim>(){
 
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Sub, user.NickName),
                 new Claim(ClaimTypes.Role, $"{user.Role}"),
 
         };

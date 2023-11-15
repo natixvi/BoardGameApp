@@ -21,6 +21,12 @@ public class AccountController: ControllerBase
         await accountService.RegisterUserAsync(registerUserDto);
         return Ok();
     }
+    [HttpPost("login")]
+    public async Task<ActionResult<string>> LoginUserAsync([FromBody] LoginUserDto loginUserDto)
+    {
+        var token =  await accountService.LoginUser(loginUserDto);
+        return Ok(token);
+    }
 
  
 }

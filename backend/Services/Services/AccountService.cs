@@ -12,12 +12,26 @@ public class AccountService : IAccountService
     private readonly IAccountRepository accountRepository;
     private readonly IPasswordHasher<User> passwordHasher;
     private readonly IMapper mapper;
+    private readonly IJwtService jwtService;
 
-    public AccountService(IAccountRepository accountRepository, IPasswordHasher<User> passwordHasher, IMapper mapper) 
+    public AccountService(IAccountRepository accountRepository, IPasswordHasher<User> passwordHasher, IMapper mapper, IJwtService jwtService) 
     {
         this.accountRepository = accountRepository;
         this.passwordHasher = passwordHasher;
         this.mapper = mapper;
+        this.jwtService = jwtService;
+    }
+
+    public async Task<string?> LoginUser(LoginUserDto loginUser)
+    {
+        var user = await accountRepository.GetUser(loginUser.Email);
+        if (user == null) throw new BadRequestException("Invalid email or password");
+
+        var verifyPassword = passwordHasher.VerifyHashedPassword(user, user.Password, loginUser.Password);
+        if(verifyPassword == PasswordVerificationResult.Failed) throw new BadRequestException("Invalid email or password");
+
+        var token = jwtService.GenerateJwtToken(user);
+        return token;
     }
 
     public async Task RegisterUserAsync(RegisterUserDto registerUserDto)
@@ -31,11 +45,13 @@ public class AccountService : IAccountService
         var hashedPassword = passwordHasher.HashPassword(user, registerUserDto.Password);
         user.Password = hashedPassword;
 
-        var defaultRole = accountRepository.GetDefaultRegisterUserRole();
+        var defaultRole = await accountRepository.GetDefaultRegisterUserRole();
         if (defaultRole == null) throw new RoleDoesntExistException("Cannot register user at this moment!");
 
         user.Role = defaultRole;
 
         await accountRepository.RegisterUser(user);
     }
+
+    
 }

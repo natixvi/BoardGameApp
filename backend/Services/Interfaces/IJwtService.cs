@@ -1,8 +1,8 @@
-﻿using Services.DTOs.User;
+﻿using Domain.Entities;
 
 
 namespace Services.Interfaces;
 public interface IJwtService
 {
-    string GenerateJwtToken(UserDto dto);
+    string GenerateJwtToken(User user);
 }

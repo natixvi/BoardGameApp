@@ -28,6 +28,12 @@ public class ErrorHandlingMiddleware : IMiddleware
             context.Response.ContentType = "text/plain";
             await context.Response.WriteAsync(ex.Message);
         }
+        catch (BadRequestException ex)
+        {
+            context.Response.StatusCode = 400;
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync(ex.Message);
+        }
         catch (Exception)
         {
             context.Response.StatusCode = 500;
