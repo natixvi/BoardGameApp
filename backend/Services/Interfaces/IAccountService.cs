@@ -1,4 +1,5 @@
-﻿using Services.DTOs.User;
+﻿using Domain.Entities;
+using Services.DTOs.User;
 
 namespace Services.Interfaces;
 public interface IAccountService

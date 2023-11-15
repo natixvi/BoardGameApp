@@ -23,15 +23,22 @@ public class AccountService : IAccountService
     public async Task RegisterUserAsync(RegisterUserDto registerUserDto)
     {
         //Najpier chcemy sprawdzic czy uzytkownik o danym nicku juz nie itsniej pozniej sprawdzaymy email
-        if (await accountRepository.NickNameExist(registerUserDto.UserName)) throw new DuplicateUserDataException("This nickname already exist.");
+        Console.WriteLine(registerUserDto.NickName);
+        if (await accountRepository.NickNameExist(registerUserDto.NickName)) throw new DuplicateUserDataException("This nickname already exist.");
         if (await accountRepository.EmailExist(registerUserDto.Email)) throw new DuplicateUserDataException("For this email already exisits account");
 
         if (registerUserDto.Password != registerUserDto.ConfirmPassword) throw new PasswordsMustBeTheSameException("Passwords are diffrents");
 
         var user = mapper.Map<User>(registerUserDto);
+        Console.WriteLine(user.NickName + "  " + user.Email+ "  "+  user.Password + "   "+  user.Role);
         var hashedPassword = passwordHasher.HashPassword(user, registerUserDto.Password);
         user.Password = hashedPassword;
 
-        accountRepository.RegisterUser(user);
+        var defaultRole = accountRepository.GetDefaultRegisterUserRole();
+        if (defaultRole == null) throw new RoleDoesntExistException("Cannot register user at this moment!");
+
+        user.Role = defaultRole;
+
+        await accountRepository.RegisterUser(user);
     }
 }

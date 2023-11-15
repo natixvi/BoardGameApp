@@ -13,7 +13,8 @@ public class AccountRepository : IAccountRepository
         this.appDbContext = appDbContext;
     }
 
-    public async void RegisterUser(User user)
+   
+    public async Task RegisterUser(User user)
     {
         appDbContext.Users.Add(user);
         await appDbContext.SaveChangesAsync(); 
@@ -21,12 +22,20 @@ public class AccountRepository : IAccountRepository
 
     public async Task<bool> EmailExist(string email)
     {
-        return await appDbContext.Users.AnyAsync(e => e.Email == email);
+        var existingUser = await appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return existingUser != null;
 
     }
 
     public async Task<bool> NickNameExist(string nickName)
     {
-        return await appDbContext.Users.AnyAsync(e => e.NickName == nickName);
+        var existingUser = await appDbContext.Users.FirstOrDefaultAsync(u => u.NickName == nickName);
+        return existingUser != null;
+    }
+
+    public Role? GetDefaultRegisterUserRole()
+    {
+        var defaultRole = appDbContext.Roles.FirstOrDefault(r => r.Name == "User");
+        return defaultRole;
     }
 }
