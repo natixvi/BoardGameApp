@@ -10,7 +10,7 @@ namespace Services.Services;
 public class AccountService : IAccountService
 {
     private readonly IAccountRepository accountRepository;
-    private readonly Microsoft.AspNetCore.Identity.IPasswordHasher<User> passwordHasher;
+    private readonly IPasswordHasher<User> passwordHasher;
     private readonly IMapper mapper;
 
     public AccountService(IAccountRepository accountRepository, IPasswordHasher<User> passwordHasher, IMapper mapper) 
