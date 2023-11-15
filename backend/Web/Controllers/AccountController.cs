@@ -18,7 +18,8 @@ public class AccountController: ControllerBase
     [HttpPost("register")]
     public ActionResult RegisterUser([FromBody] RegisterUserDto registerUserDto)
     {
-      
+        accountService.RegisterUserAsync(registerUserDto);
+        return Ok();
     }
 
  

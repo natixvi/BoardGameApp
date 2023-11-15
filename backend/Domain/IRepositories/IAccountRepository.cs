@@ -8,5 +8,7 @@ using System.Threading.Tasks;
 namespace Domain.IRepositories;
 public interface IAccountRepository
 {
-    Task RegisterUser(User user);
+    void RegisterUser(User user);
+    Task<bool> NickNameExist(string nickName);
+    Task<bool> EmailExist(string email);
 }

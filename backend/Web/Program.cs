@@ -9,10 +9,11 @@ using Services.Interfaces;
 using Services.Mappers;
 using Services.Services;
 using System.Text;
+using Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Utowrzenie obiektu jwtSetting, pobranie danych jwt z pliku konfiguracyjnego app i przypisuje je do obiektu jwtSettings
+//Utworzenie obiektu jwtSetting, pobranie danych jwt z pliku konfiguracyjnego app i przypisuje je do obiektu jwtSettings
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
 //Wstrzykniêcie jwtSetting do kontenera zale¿noœci
@@ -39,7 +40,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
-builder.Services.AddTransient<IJwtService, IJwtService>();
+builder.Services.AddTransient<IJwtService, JwtService>();
 
 builder.Services.AddScoped<ApiSeeder>(); //Ka¿de ¿¹danie korzysta z tej samej instancji ApiSeeder w ramach jednego zasiêgu scope
 
@@ -72,6 +73,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

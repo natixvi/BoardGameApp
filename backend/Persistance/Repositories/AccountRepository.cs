@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.IRepositories;
+using Microsoft.EntityFrameworkCore;
 using Persistance.Data;
 
 namespace Persistance.Repositories;
@@ -11,9 +12,21 @@ public class AccountRepository : IAccountRepository
     {
         this.appDbContext = appDbContext;
     }
-    public async Task RegisterUser(User user)
+
+    public async void RegisterUser(User user)
     {
         appDbContext.Users.Add(user);
         await appDbContext.SaveChangesAsync(); 
+    }
+
+    public async Task<bool> EmailExist(string email)
+    {
+        return await appDbContext.Users.AnyAsync(e => e.Email == email);
+
+    }
+
+    public async Task<bool> NickNameExist(string nickName)
+    {
+        return await appDbContext.Users.AnyAsync(e => e.NickName == nickName);
     }
 }

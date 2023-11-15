@@ -3,5 +3,5 @@
 namespace Services.Interfaces;
 public interface IAccountService
 {
-    void RegisterUser(RegisterUserDto registerUserDto);
+    Task RegisterUserAsync(RegisterUserDto registerUserDto);
 }
