@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.DTOs.User;
 using Services.Interfaces;
+using System.Text.Json;
 
 namespace Web.Controllers;
 
@@ -29,7 +30,7 @@ public class AccountController: ControllerBase
     public async Task<ActionResult<string>> LoginUserAsync([FromBody] LoginUserDto loginUserDto)
     {
         var token =  await accountService.LoginUser(loginUserDto);
-        return Ok(token);
+        return Ok(JsonSerializer.Serialize(new {token = token}));
     }
 
 
