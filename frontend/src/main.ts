@@ -5,11 +5,12 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { JwtInterceptor } from './app/services/jwt/jwt.interceptor'
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(AppRoutingModule),
+        importProvidersFrom(BrowserModule, ReactiveFormsModule, AppRoutingModule),
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi()),
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

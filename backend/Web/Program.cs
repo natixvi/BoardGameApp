@@ -15,6 +15,18 @@ using Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:4200")
+                         .AllowAnyHeader()
+                         .AllowAnyMethod()
+                         .AllowCredentials();
+                      });
+});
+
 //Utworzenie obiektu jwtSetting, pobranie danych jwt z pliku konfiguracyjnego app i przypisuje je do obiektu jwtSettings
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
@@ -110,6 +122,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseCors();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

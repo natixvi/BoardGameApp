@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { environment } from '../../config';
-import { userLoginData } from '../../models/user/userLoginData';
 import { Observable, catchError, of, tap, throwError } from 'rxjs';
 import { UnauthorizedError } from '../../exceptions/UnauthorizedError';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { GeneralError } from '../../exceptions/GeneralError';
 import { AuthService } from '../auth/auth.service';
+import { userLoginData } from 'src/app/models/userLoginData';
 
 @Injectable({
   providedIn: 'root'

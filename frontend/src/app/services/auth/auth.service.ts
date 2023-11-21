@@ -18,7 +18,8 @@ export class AuthService {
 
   private checkToken(){
     const token = this.getToken();
-    this._isLoggedIn$.next(!token);
+    this._isLoggedIn$.next(!!token);
+    console.log(this._isLoggedIn$)
   }
 
   login(token: string) {
@@ -27,7 +28,7 @@ export class AuthService {
   }
 
   getParsedToken(){
-    const token = this.getToken() ?? '';
+    const token = this.getToken() ?? "";
     return JSON.parse(atob(token.split('.')[1]))
   }
 

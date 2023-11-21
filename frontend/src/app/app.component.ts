@@ -12,10 +12,12 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [RouterOutlet],
-  providers: []
+  imports: [CommonModule, RouterOutlet],
+  providers: [MessageService]
 
 })
 export class AppComponent {
-  //constructor(public authService: AuthService){}
+  constructor(public authService: AuthService){}
+
+
 }
