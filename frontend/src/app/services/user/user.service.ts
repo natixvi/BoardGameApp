@@ -12,6 +12,7 @@ import { userLoginData } from '../../models/user/userLoginData';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private authService: AuthService) {  console.log('userservice created!');}
