@@ -1,6 +1,0 @@
-<p>home-page works!</p>
-
-<div *ngIf="authService.isLoggedIn$ | async as isLoggedIn">
-    <p *ngIf="isLoggedIn">Witaj, {{ authService.getParsedToken().role}}!</p>
-  </div>
-

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http'
+import { HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { environment } from '../../config';
 import { Observable, catchError, of, tap, throwError } from 'rxjs';
 import { UnauthorizedError } from '../../exceptions/UnauthorizedError';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { GeneralError } from '../../exceptions/GeneralError';
 import { AuthService } from '../auth/auth.service';
-import { userLoginData } from 'src/app/models/userLoginData';
+import { userLoginData } from '../../models/user/userLoginData';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {  console.log('userservice created!');}
 
   login(credentials: userLoginData){
     return this.http.post<any>(`${this.apiUrl}/Account/login`, credentials).pipe(

@@ -1,15 +1,1 @@
-<div class = "form">
-    <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-        <div >
-            <label>Email: <input formControlName="email" placeholder="Email"></label>
-        </div>
-            <small *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)">
-                Enter a valid email address.
-            </small>
-        <div>
-            <label>Password: <input formControlName="password" placeholder="Password"></label>
-        </div>
-        <button type="submit">Log in</button>
-    </form> 
-</div>
 <p>login works!</p>
