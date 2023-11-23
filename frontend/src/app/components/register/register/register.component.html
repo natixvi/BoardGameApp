@@ -1,1 +1,30 @@
+<div class = "form">
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <div >
+            <label>NickName: <input formControlName="nickName" type="text" pInputText placeholder="nickName"></label>
+        </div>
+        <small *ngIf="registerForm.controls.nickName.invalid && (registerForm.controls.nickName.dirty || registerForm.controls.nickName.touched)">
+            Enter a nickName.
+        </small>
+        <div >
+            <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>
+        </div>
+            <small *ngIf="registerForm.controls.email.invalid && (registerForm.controls.email.dirty || registerForm.controls.email.touched)">
+                Enter a valid email address.
+            </small>
+        <div>
+            <label>Password: <input formControlName="password" type="password" pInputText placeholder="Password"></label>
+        </div>
+            <!-- <small *ngIf="registerForm.controls.passwords.invalid && (registerForm.controls.passwords.password.dirty || registerForm.controls.email.touched)">
+                Passwords must be the same.
+            </small> -->
+        <div >
+            <label>Confirm Password: <input formControlName="confirmPassword" type="password" pInputText placeholder="Confirm Password"></label>
+        </div>
+            <small *ngIf = "registerForm.get('passwords')?.hasError('notSame') && registerForm.get('passwords')?.get('confirmPassword')?.dirty">
+                Passwords must be the same.
+            </small>
+        <button type="submit">Register</button>
+    </form> 
+</div>
 <p>register works!</p>

@@ -7,6 +7,7 @@ import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { AuthService } from './auth.service';
 import { userLoginData } from '../models/user/userLoginData';
+import { UserRegisterData } from '../models/user/userRegisterData';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,15 @@ export class UserService {
       tap((response) => { 
         console.log(response)
         this.authService.login(response.token);
+      }),
+      catchError(error => this.handleError(error))
+    );;
+  }
+
+  register(registerData: UserRegisterData){
+    return this.http.post<any>(`${this.apiUrl}/Account/register`, registerData).pipe(
+      tap((response) => { 
+        console.log(response)
       }),
       catchError(error => this.handleError(error))
     );;
