@@ -33,12 +33,11 @@ public class AccountController: ControllerBase
         return Ok(JsonSerializer.Serialize(new {token = token}));
     }
 
-
-    [Authorize(Roles = "Admin")]
     [HttpGet("roles")]
     public ActionResult<string> GetRoles()
     {
-        return Ok("działa kjuikyiuhui");
+        var roles = new List<string> { "Admin", "User" };
+        return Ok(roles);
     }
 
  

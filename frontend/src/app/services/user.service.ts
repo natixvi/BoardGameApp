@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http'
-import { environment } from '../../config';
+import { environment } from '../config';
 import { Observable, catchError, of, tap, throwError } from 'rxjs';
-import { UnauthorizedError } from '../../exceptions/UnauthorizedError';
-import { BadRequestError } from '../../exceptions/BadRequestError';
-import { GeneralError } from '../../exceptions/GeneralError';
-import { AuthService } from '../auth/auth.service';
-import { userLoginData } from '../../models/user/userLoginData';
-
+import { UnauthorizedError } from '../exceptions/UnauthorizedError';
+import { BadRequestError } from '../exceptions/BadRequestError';
+import { GeneralError } from '../exceptions/GeneralError';
+import { AuthService } from './auth.service';
+import { userLoginData } from '../models/user/userLoginData';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class UserService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private authService: AuthService) {  console.log('userservice created!');}
@@ -25,6 +23,10 @@ export class UserService {
       }),
       catchError(error => this.handleError(error))
     );;
+  }
+
+  getRoles(): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/Account/roles`);
   }
 
   private handleError(error: HttpErrorResponse): Observable<any>{

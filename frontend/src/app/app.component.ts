@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import {MessageService } from 'primeng/api';
+import { CommonModule, DatePipe } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AuthService } from './services/auth.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet,  RouterLink, RouterLinkActive],
   providers: [MessageService, DatePipe]
+
 })
 export class AppComponent {
+  constructor(public authService: AuthService) {}
   title = 'frontend';
 }
