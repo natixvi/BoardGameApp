@@ -22,7 +22,12 @@ export class UserService {
         console.log(response)
         this.authService.login(response.token);
       }),
-      catchError(error => this.handleError(error))
+      catchError(error => {
+        console.log('Błąd podczas logowania:' , error);
+        console.log(error.status);
+        console.log(error.error);
+        return this.handleError(error);
+      })
     );;
   }
 
@@ -31,8 +36,12 @@ export class UserService {
       tap((response) => { 
         console.log(response)
       }),
-      catchError(error => this.handleError(error))
-    );;
+      catchError( error => {
+        console.log('Błąd podczas rejestracji:', error);
+        console.log(error.status);
+        return this.handleError(error);
+      })
+      );
   }
 
   getRoles(): Observable<any>{
@@ -41,19 +50,11 @@ export class UserService {
 
   private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 401) {
-      return of(new UnauthorizedError('Unauthorized'));
+      return throwError(() => new UnauthorizedError(error.error));
     } else if (error.status === 400) {
-      return of(new BadRequestError('Invalid email or password'));
+      return throwError(() => new BadRequestError(error.error));
     } else {
-      return of(new GeneralError('An error occurred'));
+      return throwError(() => new GeneralError(error.error));
     }
-
-    
-      // if (error.status === 401){
-    //   return throwError(() => new UnauthorizedError('Unauthorized'));
-    // }
-    // else if (error.status === 400){
-    //   return throwError(() => new BadRequestError('Invalid email or password'));
-    // }
   }
 }

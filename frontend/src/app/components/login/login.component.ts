@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { UnauthorizedError } from '../../exceptions/UnauthorizedError';
 import { userLoginData } from '../../models/user/userLoginData';
 import { UserService } from '../../services/user.service';
+import { BadRequestError } from '../../exceptions/BadRequestError';
 
 @Component({
   selector: 'app-login',
@@ -34,9 +35,16 @@ export class LoginComponent {
         this.router.navigate(['home']);
       },
       error: (e) =>{
-        if(e instanceof UnauthorizedError){
-          this.messageService.add({severity: 'error', summary: 'Error', detail: 'Server connection error'})
+        if (e instanceof BadRequestError){
+          console.log("weszlo do komponentu i error")
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+          this.loginForm.reset();
         }
+        else if (e instanceof UnauthorizedError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+          this.loginForm.reset();
+        }
+        else this.messageService.add({severity: 'error', summary: 'Error', detail: 'Server connection error.'});
       }
     
     });

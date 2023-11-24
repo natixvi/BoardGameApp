@@ -24,7 +24,7 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
         catch (RoleDoesntExistException ex)
         {
-            context.Response.StatusCode = 404;
+            context.Response.StatusCode = 500;
             context.Response.ContentType = "text/plain";
             await context.Response.WriteAsync(ex.Message);
         }
