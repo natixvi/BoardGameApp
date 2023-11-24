@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { AbstractControlOptions, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { DuplicateUserDataError } from '../../../exceptions/DuplicateUserDataError';
 import { UserRegisterData } from '../../../models/user/userRegisterData';
-import { checkPasswordsValidator } from '../../validators/checkPasswordsValidator';
+import { checkPasswordsValidator } from '../../validators/checkPasswords.validator';
 import { userLoginData } from '../../../models/user/userLoginData';
 
 
@@ -22,11 +22,9 @@ export class RegisterComponent {
   registerForm=this.formBuilder.group({
     nickName: ['', Validators.required],
     email: ['', [Validators.email,Validators.required]],
-    passwords: this.formBuilder.group({
-      password: ['', Validators.required, Validators.minLength(8)],
-      confirmPassword: ['', Validators.required, Validators.minLength(8)]
-    }, {Validators: checkPasswordsValidator}) 
-  }, {updateOn: 'submit'})
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
+    },{validators: checkPasswordsValidator, updateOn: 'submit'}  as AbstractControlOptions)
 
   router: Router = inject(Router);
 
@@ -42,8 +40,8 @@ export class RegisterComponent {
     const registerData = {
       nickName: this.registerForm.get('nickName')?.value,
       email: this.registerForm.get('email')?.value,
-      password: this.registerForm.get('passwords')?.get('password')?.value,
-      confirmPassword: this.registerForm.get('passwords')?.get('confirmPassword')?.value
+      password: this.registerForm.get('password')?.value,
+      confirmPassword: this.registerForm.get('confirmPassword')?.value
       
     } as UserRegisterData;
 
@@ -52,7 +50,7 @@ export class RegisterComponent {
       next: () => {
         const loginData = {
           email: this.registerForm.get('email')?.value,
-          password: this.registerForm.get('passwords')?.get('password')?.value
+          password: this.registerForm.get('password')?.value
         } as userLoginData
 
         this.userService.login(loginData).subscribe(

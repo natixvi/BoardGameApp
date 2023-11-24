@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,9 +20,11 @@ export class HomePageComponent implements OnInit {
   isLoggedIn: boolean = false;
   roles: any;
 
+  router = inject(Router);
+
   ngOnInit(): void {
     this.currentDate = new Date()
-    this.currentDate.setDate(this.currentDate.getDate() + 2);
+    //this.currentDate.setDate(this.currentDate.getDate() + 2);
     this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
         this.userInfo = this.authService.getParsedToken();
@@ -41,6 +44,11 @@ export class HomePageComponent implements OnInit {
         console.error('Error:', error);
       }
     );
+  }
+
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 
 

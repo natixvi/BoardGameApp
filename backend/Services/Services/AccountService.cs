@@ -39,7 +39,7 @@ public class AccountService : IAccountService
         if (await accountRepository.NickNameExist(registerUserDto.NickName)) throw new DuplicateUserDataException("This nickname is already taken.");
         if (await accountRepository.EmailExist(registerUserDto.Email)) throw new DuplicateUserDataException("For this email there is already an account.");
 
-        if (registerUserDto.Password != registerUserDto.ConfirmPassword) throw new PasswordsMustBeTheSameException("Passwords must be teh same!");
+        if (registerUserDto.Password != registerUserDto.ConfirmPassword) throw new PasswordsMustBeTheSameException("Passwords must be the same!");
 
         var user = mapper.Map<User>(registerUserDto);
         var hashedPassword = passwordHasher.HashPassword(user, registerUserDto.Password);

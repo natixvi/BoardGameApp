@@ -15,7 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
     console.log("Inside JwtInterceptor intercept");
     const token = this.authService.getToken()
     const currentDate = new Date() ;
-    currentDate.setDate(currentDate.getDate() + 2);
+    //currentDate.setDate(currentDate.getDate() + 2);
     if (token) {
       const expirationDate = new Date(this.authService.getParsedToken().exp * 1000);
       if (expirationDate > currentDate ) {

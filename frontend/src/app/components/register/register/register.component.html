@@ -1,30 +1,56 @@
 <div class = "form">
     <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <!-- <form [formGroup]="registerForm" (ngSubmit)="registerUser()" errorTailor> -->
         <div >
             <label>NickName: <input formControlName="nickName" type="text" pInputText placeholder="nickName"></label>
         </div>
-        <small *ngIf="registerForm.controls.nickName.invalid && (registerForm.controls.nickName.dirty || registerForm.controls.nickName.touched)">
-            Enter a nickName.
-        </small>
+        <div class="error-messages error" *ngIf="registerForm.controls.nickName.invalid && (registerForm.controls.nickName.dirty || registerForm.controls.nickName.touched)">
+            <small *ngIf="registerForm.controls.nickName.errors?.['required']">
+                NickName is required.
+            </small>
+        </div>
         <div >
             <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>
         </div>
-            <small *ngIf="registerForm.controls.email.invalid && (registerForm.controls.email.dirty || registerForm.controls.email.touched)">
-                Enter a valid email address.
+        <div class="error-messages error" *ngIf="registerForm.controls.email.invalid && (registerForm.controls.email.dirty || registerForm.controls.email.touched)"> 
+            <small *ngIf="registerForm.controls.email.errors?.['email']">
+                Enter valid email.
             </small>
+            <small *ngIf="registerForm.controls.email.errors?.['required']">
+                Email is required.
+            </small>
+        </div>
         <div>
             <label>Password: <input formControlName="password" type="password" pInputText placeholder="Password"></label>
         </div>
-            <!-- <small *ngIf="registerForm.controls.passwords.invalid && (registerForm.controls.passwords.password.dirty || registerForm.controls.email.touched)">
-                Passwords must be the same.
-            </small> -->
-        <div >
+        <div class="error-messages error" *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)"> 
+            <small *ngIf="registerForm.controls.password.errors?.['required']">
+                Password is required.
+            </small>
+            <small *ngIf="registerForm.controls.password.errors?.['minlength']">
+                Passwords myst be at least 8 characters long.
+            </small>
+        </div>
+        <div>
             <label>Confirm Password: <input formControlName="confirmPassword" type="password" pInputText placeholder="Confirm Password"></label>
         </div>
-            <small *ngIf = "registerForm.get('passwords')?.hasError('notSame') && registerForm.get('passwords')?.get('confirmPassword')?.dirty">
-                Passwords must be the same.
+        <div class="error-messages error" *ngIf="registerForm.controls.confirmPassword.invalid && (registerForm.controls.confirmPassword.dirty || registerForm.controls.confirmPassword.touched)"> 
+            <small *ngIf="registerForm.controls.confirmPassword.errors?.['required']">
+                Confirm Password is required.
             </small>
+            <small *ngIf="registerForm.controls.confirmPassword.errors?.['passNotMatch']">
+                Passwords are diffrent.
+            </small>
+        </div>
+        <div>
+            <small *ngIf="registerForm.errors?.['passNotMatch']">
+                Passwords are diffrent.
+            </small> 
+        </div>  
         <button type="submit">Register</button>
+        <button mat-button routerLink="/login" routerLinkActive="active">
+            Already have an account? Login here.
+        </button>
     </form> 
 </div>
-<p>register works!</p>
+
