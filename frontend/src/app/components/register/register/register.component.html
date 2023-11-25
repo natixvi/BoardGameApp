@@ -48,7 +48,7 @@
             <small class="error-message">User already exist.</small>
         </div> 
         <button type="submit">Register</button>
-        <button mat-button routerLink="/login" routerLinkActive="active">
+        <button pbutton [routerLink]="['/login']">
             Already have an account? Login here.
         </button>
     </form> 

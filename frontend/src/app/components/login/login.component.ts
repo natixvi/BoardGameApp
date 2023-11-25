@@ -7,11 +7,13 @@ import { UnauthorizedError } from '../../exceptions/UnauthorizedError';
 import { userLoginData } from '../../models/user/userLoginData';
 import { UserService } from '../../services/user.service';
 import { BadRequestError } from '../../exceptions/BadRequestError';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
  
@@ -36,7 +38,6 @@ export class LoginComponent {
       },
       error: (e) =>{
         if (e instanceof BadRequestError){
-          console.log("weszlo do komponentu i error")
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
           this.loginForm.reset();
         }

@@ -3,17 +3,18 @@ import { Component, inject } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserRegisterData } from '../../../models/user/userRegisterData';
 import { checkPasswordsValidator } from '../../validators/checkPasswords.validator';
 import { userLoginData } from '../../../models/user/userLoginData';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 
@@ -36,7 +37,6 @@ export class RegisterComponent {
       this.messageService.add({severity: 'error', summary: 'Error', detail: 'Incorrect register data!'});
       return;
     }
-
     const registerData = {
       nickName: this.registerForm.get('nickName')?.value,
       email: this.registerForm.get('email')?.value,
@@ -48,17 +48,14 @@ export class RegisterComponent {
     this.userService.register(registerData).subscribe(
       {
       next: () => {
-        console.log('Rejestracja udana');
         const loginData = {
           email: this.registerForm.get('email')?.value,
           password: this.registerForm.get('password')?.value
         } as userLoginData
-        console.log('Przed logowaniem');
 
         this.userService.login(loginData).subscribe(
           {
             next: () => {
-              console.log('Logowanie udane');
               this.router.navigate(['home']);
             }
           }
@@ -66,11 +63,10 @@ export class RegisterComponent {
 
       },
       error: (e) =>{
-        console.log('Błąd rejestracji:', e);
         if (e instanceof BadRequestError){
           this.messageService.add({severity: 'error', summary: 'Błąd', detail: e.message});
-          this.registerForm.setErrors({ generalError: true });
           this.registerForm.reset();
+          this.registerForm.setErrors({ generalError: true });
         }
         else
         {
@@ -79,6 +75,5 @@ export class RegisterComponent {
       }
       
     });
-    console.log('Po rejestracji');
   }
 }

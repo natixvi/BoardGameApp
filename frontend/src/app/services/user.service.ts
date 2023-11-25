@@ -37,8 +37,6 @@ export class UserService {
         console.log(response)
       }),
       catchError( error => {
-        console.log('Błąd podczas rejestracji:', error);
-        console.log(error.status);
         return this.handleError(error);
       })
       );
