@@ -1,0 +1,56 @@
+<div class = "form">
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <!-- <form [formGroup]="registerForm" (ngSubmit)="registerUser()" errorTailor> -->
+        <div >
+            <label>NickName: <input formControlName="nickName" type="text" pInputText placeholder="nickName"></label>
+        </div>
+        <div class="error-messages" *ngIf="registerForm.controls.nickName.invalid && (registerForm.controls.nickName.dirty || registerForm.controls.nickName.touched)">
+            <small *ngIf="registerForm.controls.nickName.errors?.['required']">
+                NickName is required.
+            </small>
+        </div>
+        <div >
+            <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>
+        </div>
+        <div class="error-messages" *ngIf="registerForm.controls.email.invalid && (registerForm.controls.email.dirty || registerForm.controls.email.touched)"> 
+            <small *ngIf="registerForm.controls.email.errors?.['email']">
+                Enter valid email.
+            </small>
+            <small *ngIf="registerForm.controls.email.errors?.['required']">
+                Email is required.
+            </small>
+        </div>
+        <div>
+            <label>Password: <input formControlName="password" type="password" pInputText placeholder="Password"></label>
+        </div>
+        <div class="error-messages" *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)"> 
+            <small *ngIf="registerForm.controls.password.errors?.['required']">
+                Password is required.
+            </small>
+            <small *ngIf="registerForm.controls.password.errors?.['minlength']">
+                Passwords myst be at least 8 characters long.
+            </small>
+        </div>
+        <div>
+            <label>Confirm Password: <input formControlName="confirmPassword" type="password" pInputText placeholder="Confirm Password"></label>
+        </div>
+        <div class="error-messages" *ngIf="registerForm.controls.confirmPassword.invalid && (registerForm.controls.confirmPassword.dirty || registerForm.controls.confirmPassword.touched)"> 
+            <small *ngIf="registerForm.controls.confirmPassword.errors?.['required']">
+                Confirm Password is required.
+            </small>
+        </div>
+        <div *ngIf="registerForm.errors?.['passNotMatch']">
+            <small>
+                Passwords are diffrent.
+            </small> 
+        </div> 
+        <div *ngIf="registerForm.errors?.['generalError']">
+            <small class="error-message">User already exist.</small>
+        </div> 
+        <button type="submit">Register</button>
+        <button pbutton [routerLink]="['/login']">
+            Already have an account? Login here.
+        </button>
+    </form> 
+</div>
+
