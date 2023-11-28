@@ -2,3 +2,11 @@
     cursor: pointer;
     color: #007bff;
   }
+
+  .bg-dark-gray {
+    background-color: #333333; 
+  }
+
+  .custom-toggler-icon{
+    background-color: #ffffff;
+  }

@@ -1,9 +1,11 @@
-<div class = "form">
+<div class = "container">
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-        <div >
+        <h2>Sign in</h2>
+        <div class="form">
+        <div class="label">
             <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>
         </div>
-        <div class="error-messages error" *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"> 
+        <div class="error-messages" *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"> 
             <small *ngIf="loginForm.controls.email.errors?.['email']">
                 Enter a valid email address.
             </small>
@@ -11,17 +13,18 @@
                 Email is required.
             </small>
         </div>
-        <div>
+        <div class="label">
             <label>Password: <input formControlName="password" type="password" pInputText placeholder="Password"></label>
         </div>
-        <div class="error-messages error" *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"> 
+        <div class="error-messages" *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"> 
             <small *ngIf="loginForm.controls.password.errors?.['required']">
                 Password is required.
             </small>
         </div>
         <button type="submit">Log in</button>
+        <span class="link" [routerLink]="['/register']">
+            Don't have an account? Register here. 
+        </span>
+    </div>
     </form> 
-    <button pbutton [routerLink]="['/register']">
-        Don't have an account? Register here. 
-    </button>
 </div>
