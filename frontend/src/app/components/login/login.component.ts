@@ -3,14 +3,17 @@ import { Component} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { UnauthorizedError } from 'src/app/exceptions/UnauthorizedError';
-import { userLoginData } from 'src/app/models/userLoginData';
-import { UserService } from 'src/app/services/user/user.service';
+import { UnauthorizedError } from '../../exceptions/UnauthorizedError';
+import { userLoginData } from '../../models/user/userLoginData';
+import { UserService } from '../../services/user.service';
+import { BadRequestError } from '../../exceptions/BadRequestError';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
  
@@ -34,9 +37,15 @@ export class LoginComponent {
         this.router.navigate(['home']);
       },
       error: (e) =>{
-        if(e instanceof UnauthorizedError){
-          this.messageService.add({severity: 'error', summary: 'Error', detail: 'Server connection error'})
+        if (e instanceof BadRequestError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+          this.loginForm.reset();
         }
+        else if (e instanceof UnauthorizedError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+          this.loginForm.reset();
+        }
+        else this.messageService.add({severity: 'error', summary: 'Error', detail: 'Server connection error.'});
       }
     
     });

@@ -1,19 +1,6 @@
-import { importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
-import { withInterceptorsFromDi, provideHttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AppRoutingModule } from './app/app-routing.module';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { JwtInterceptor } from './app/services/jwt/jwt.interceptor'
-import { ReactiveFormsModule } from '@angular/forms';
 
-
-bootstrapApplication(AppComponent, {
-    providers: [
-        importProvidersFrom(BrowserModule, ReactiveFormsModule, AppRoutingModule),
-        provideAnimations(),
-        provideHttpClient(withInterceptorsFromDi()),
-        {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
-    ]
-})
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
