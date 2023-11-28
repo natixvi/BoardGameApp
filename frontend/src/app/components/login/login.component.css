@@ -3,12 +3,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px; 
-    height: 500px;
+    width: 500px; 
+    height: auto;
     background-color:#333333;
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 40px 40px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 40px 40px 0 rgba(0, 0, 0, 0.2); 
    
 }
 
@@ -36,7 +36,7 @@
     background-color: #777676 ;
     border-radius: 5px;
     border: 1px solid #777676;
-    color: #000000;
+    color: #ffffff;
 
 }
 
@@ -69,9 +69,6 @@
 
 .container .error-messages small{
     display: block;
-    background-color: #f7d1d1;
-    padding: 5px;
-    border-radius: 5px;
-    color: #cc0000; 
+    color: #f55a5a; 
     margin: 0 0 5px 0;
 } 

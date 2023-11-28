@@ -33,7 +33,7 @@
                 Password is required.
             </small>
             <small *ngIf="registerForm.controls.password.errors?.['minlength']">
-                Passwords myst be at least 8 characters long.
+                Passwords must be at least 8 characters long.
             </small>
         </div>
         <div class="label">
@@ -49,8 +49,8 @@
                 Passwords are diffrent.
             </small> 
         </div> 
-        <div *ngIf="registerForm.errors?.['generalError']">
-            <small class="error-message">User already exist.</small>
+        <div class="error-messages" *ngIf="registerForm.errors?.['generalError']">
+            <small >This email address or nickname is already taken!</small>
         </div> 
         <button pbutton type="submit">Create an account</button>
         <span class="link" [routerLink]="['/login']">

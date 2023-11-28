@@ -64,7 +64,7 @@ export class RegisterComponent {
       },
       error: (e) =>{
         if (e instanceof BadRequestError){
-          this.messageService.add({severity: 'error', summary: 'Error !', detail: "Account already exist!"});
+          this.messageService.add({severity: 'error', summary: 'Error !', detail: "This email address or nickname is already taken!"});
           this.registerForm.get('password')?.reset();
           this.registerForm.get('confirmPassword')?.reset();
           //this.registerForm.reset();
