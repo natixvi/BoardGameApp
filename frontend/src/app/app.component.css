@@ -7,6 +7,8 @@
   
   .content {
     flex: 1;
+    z-index: 500;
+    background-color: #4b4b4b; 
   }
   
   footer {
