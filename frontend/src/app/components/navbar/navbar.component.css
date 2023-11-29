@@ -1,3 +1,7 @@
+.navbar{
+  position: relative;
+  z-index: 1000;
+}
 .nav-item.logout-link:hover {
     cursor: pointer;
     color: #007bff;
@@ -10,3 +14,12 @@
   .custom-toggler-icon{
     background-color: #ffffff;
   }
+
+  @media only screen and (max-width: 600px) {
+    .navbar-brand{
+      font-size: 1em;
+    }  
+    .navbar-toggler{
+      font-size: 1rem;
+    }
+}
