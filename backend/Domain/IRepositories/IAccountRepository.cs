@@ -6,5 +6,5 @@ public interface IAccountRepository
     Task<bool> NickNameExist(string nickName);
     Task<bool> EmailExist(string email);
     Task<User?> GetUser(string email);
-    Task<Role?> GetDefaultRegisterUserRole();
+    Task<int> GetDefaultRegisterUserRole();
 }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Data;
@@ -33,10 +34,11 @@ public class AccountRepository : IAccountRepository
         return existingUser != null;
     }
 
-    public async Task<Role?> GetDefaultRegisterUserRole()
+    public async Task<int> GetDefaultRegisterUserRole()
     {
         var defaultRole = await appDbContext.Roles.FirstOrDefaultAsync(r => r.Name == "User");
-        return defaultRole;
+        if (defaultRole == null) throw new RoleDoesntExistException("Cannot register user at this moment!");
+        return defaultRole.Id;
     }
 
     public async Task<User?> GetUser(string email)

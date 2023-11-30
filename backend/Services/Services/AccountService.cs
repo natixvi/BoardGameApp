@@ -45,10 +45,8 @@ public class AccountService : IAccountService
         var hashedPassword = passwordHasher.HashPassword(user, registerUserDto.Password);
         user.Password = hashedPassword;
 
-        var defaultRole = await accountRepository.GetDefaultRegisterUserRole();
-        if (defaultRole == null) throw new RoleDoesntExistException("Cannot register user at this moment!");
-
-        user.Role = defaultRole;
+        var defaultRoleId = await accountRepository.GetDefaultRegisterUserRole();
+        user.RoleId = defaultRoleId;
 
         await accountRepository.RegisterUser(user);
     }
