@@ -9,12 +9,13 @@ import { checkPasswordsValidator } from '../validators/checkPasswords.validator'
 import { userLoginData } from '../../models/user/userLoginData';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { ButtonModule } from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule, PasswordModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 
@@ -28,9 +29,14 @@ export class RegisterComponent {
     },{validators: checkPasswordsValidator, updateOn: 'submit'}  as AbstractControlOptions)
 
   router: Router = inject(Router);
+  value: string | undefined;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private messageService: MessageService){}
 
+  fieldTextType: boolean | undefined;
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 
   registerUser() {
     if (this.registerForm.invalid){
