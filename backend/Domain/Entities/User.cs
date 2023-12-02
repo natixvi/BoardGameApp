@@ -11,8 +11,8 @@ public class User
     public string Email { get; set; }
     public int RoleId { get; set; }
     public virtual Role Role { get; set; }
-    public virtual List<FavouriteUser> FavouriteUsers { get; set; }
-    public virtual List<FavouriteGame> FavouriteGames { get; set; }
+    public virtual List<FavouriteUser>? FavouriteUsers { get; set; }
+    public virtual List<MyBoardGame>? FavouriteGames { get; set; }
   
 }
 

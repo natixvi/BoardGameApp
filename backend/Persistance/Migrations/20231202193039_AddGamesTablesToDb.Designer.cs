@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistance.Data;
 
@@ -11,9 +12,11 @@ using Persistance.Data;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202193039_AddGamesTablesToDb")]
+    partial class AddGamesTablesToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,6 +65,38 @@ namespace Persistance.Migrations
                     b.ToTable("BoardGames");
                 });
 
+            modelBuilder.Entity("Domain.Entities.FavouriteGame", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BoardGameId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ReviewDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BoardGameId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavouriteGames");
+                });
+
             modelBuilder.Entity("Domain.Entities.FavouriteUser", b =>
                 {
                     b.Property<int>("Id")
@@ -81,41 +116,6 @@ namespace Persistance.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("FavouriteUsers");
-                });
-
-            modelBuilder.Entity("Domain.Entities.MyBoardGame", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoardGameId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsFavourite")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Rate")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ReviewDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardGameId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MyBoardGames");
                 });
 
             modelBuilder.Entity("Domain.Entities.Role", b =>
@@ -168,16 +168,7 @@ namespace Persistance.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.Entities.FavouriteUser", b =>
-                {
-                    b.HasOne("Domain.Entities.User", null)
-                        .WithMany("FavouriteUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Entities.MyBoardGame", b =>
+            modelBuilder.Entity("Domain.Entities.FavouriteGame", b =>
                 {
                     b.HasOne("Domain.Entities.BoardGame", "BoardGame")
                         .WithMany()
@@ -194,6 +185,15 @@ namespace Persistance.Migrations
                     b.Navigation("BoardGame");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.FavouriteUser", b =>
+                {
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany("FavouriteUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
