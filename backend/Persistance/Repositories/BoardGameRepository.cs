@@ -1,8 +1,6 @@
 ﻿using Domain.Entities;
-using Domain.Exceptions;
 using Domain.IRepositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Persistance.Data;
 
 namespace Persistance.Repositories;
