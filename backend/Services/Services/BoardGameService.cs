@@ -31,7 +31,17 @@ public class BoardGameService : IBoardGameService
     }
     public async Task UpdateBoardGame(int id, UpdateBoardGameDto updateBoardGameDto)
     {
-        await gameRepository.UpdateBoardGame(id, mapper.Map<BoardGame>(updateBoardGameDto));
+        var boardGame = await gameRepository.GetBoardGameById(id);
+        if (boardGame == null) throw new NotFoundException("Board game not found!");
 
+        boardGame.Name = updateBoardGameDto.Name;
+        boardGame.Publisher = updateBoardGameDto.Publisher;
+        boardGame.Description = updateBoardGameDto.Description;
+        boardGame.Players = updateBoardGameDto.Players;
+        boardGame.Age = updateBoardGameDto.Age;
+        boardGame.Time = updateBoardGameDto.Time;
+        boardGame.ImageUrl = updateBoardGameDto.ImageUrl;
+        
+        await gameRepository.UpdateAsync(boardGame);
     }
 }

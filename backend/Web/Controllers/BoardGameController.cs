@@ -25,6 +25,12 @@ public class BoardGameController : ControllerBase
         var boardGame = await gameService.GetBoardGameById(id);
         return Ok(boardGame);
     }
+    [HttpPut("update/{id}")]
+    public async Task<ActionResult> UpdateBoardGame([FromRoute] int id, [FromBody] UpdateBoardGameDto updateBoardGameDto)
+    {
+        await gameService.UpdateBoardGame(id, updateBoardGameDto);
+        return Ok();
+    }
 
 }
 

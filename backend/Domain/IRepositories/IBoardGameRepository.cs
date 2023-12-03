@@ -1,9 +1,8 @@
 ﻿using Domain.Entities;
 
 namespace Domain.IRepositories;
-public interface IBoardGameRepository
+public interface IBoardGameRepository : IBaseRepository<BoardGame>
 {
     Task<List<BoardGame>> GetBoardGames();
     Task<BoardGame?> GetBoardGameById(int id);
-    Task UpdateBoardGame(int id, BoardGame boardGame);
 }

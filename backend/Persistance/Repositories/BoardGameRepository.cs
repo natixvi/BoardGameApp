@@ -6,11 +6,11 @@ using Microsoft.Identity.Client;
 using Persistance.Data;
 
 namespace Persistance.Repositories;
-public class BoardGameRepository : IBoardGameRepository
+public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameRepository
 {
     private readonly AppDbContext appDbContext;
 
-    public BoardGameRepository(AppDbContext appDbContext)
+    public BoardGameRepository(AppDbContext appDbContext) : base(appDbContext)
     {
         this.appDbContext = appDbContext;
     }
@@ -24,23 +24,5 @@ public class BoardGameRepository : IBoardGameRepository
         var game = await appDbContext.BoardGames.FirstOrDefaultAsync(g => g.Id == id);
         return game;
     }
-
-    public async Task UpdateBoardGame(int id, BoardGame boardGame)
-    {
-        var game = await appDbContext.BoardGames.FirstOrDefaultAsync(g => g.Id == id);
-        if (game is null)
-        {
-            throw new NotFoundException($"Game with Id {id} does not exist!");
-        }
-
-        game.Name = boardGame.Name;
-        game.Publisher = boardGame.Publisher;
-        game.Description = boardGame.Description;
-        game.Players = boardGame.Players;
-        game.Age = boardGame.Age;
-        game.ImageUrl = boardGame.ImageUrl;
-
-        await appDbContext.SaveChangesAsync();
-    } 
 
 }
