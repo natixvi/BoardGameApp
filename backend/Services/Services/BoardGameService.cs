@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Exceptions;
 using Domain.IRepositories;
 using Services.DTOs.BoardGame;
@@ -27,5 +28,10 @@ public class BoardGameService : IBoardGameService
         var boardGame = await gameRepository.GetBoardGameById(id);
         if (boardGame == null) throw new NotFoundException("Board game not found!");
         return mapper.Map<BoardGameDto>(boardGame);
+    }
+    public async Task UpdateBoardGame(int id, UpdateBoardGameDto updateBoardGameDto)
+    {
+        await gameRepository.UpdateBoardGame(id, mapper.Map<BoardGame>(updateBoardGameDto));
+
     }
 }

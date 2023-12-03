@@ -12,5 +12,7 @@ public class AutoMapperProfile: Profile
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();
         CreateMap<BoardGame, BoardGameDto>();
+        CreateMap<UpdateBoardGameDto, BoardGame>();
+        CreateMap<AddBoardGameDto, BoardGame>();
     }
 }
