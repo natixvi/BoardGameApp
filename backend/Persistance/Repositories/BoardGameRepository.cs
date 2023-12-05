@@ -12,11 +12,6 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
     {
         this.appDbContext = appDbContext;
     }
-/*    public async Task<List<BoardGame>> GetBoardGames()
-    {
-        var games = await appDbContext.BoardGames.ToListAsync();
-        return games;
-    }*/
 
     public async Task<List<BoardGame>> GetBoardGames()
     {
@@ -27,6 +22,13 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
     {
         var game = await appDbContext.BoardGames.FirstOrDefaultAsync(g => g.Id == id);
         return game;
+    }
+
+    public async Task<int> CreateBoardGame(BoardGame game)
+    {
+        appDbContext.BoardGames.Add(game);
+        await appDbContext.SaveChangesAsync();
+        return game.Id;
     }
 
 }

@@ -44,4 +44,18 @@ public class BoardGameService : IBoardGameService
         
         await gameRepository.UpdateAsync(boardGame);
     }
+
+    public async Task DeleteBoardGame(int id)
+    {
+        var boardGame = await gameRepository.GetBoardGameById(id);
+        if (boardGame == null) throw new NotFoundException("Board game not found!");
+
+        await gameRepository.DeleteAsync(boardGame);
+    }
+
+    public async Task<int> CreateBoardGame(AddBoardGameDto addBoardGameDto)
+    {
+        var boardGameId = await gameRepository.CreateBoardGame(mapper.Map<BoardGame>(addBoardGameDto));
+        return (boardGameId);
+    }
 }

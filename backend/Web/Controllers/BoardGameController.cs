@@ -35,5 +35,19 @@ public class BoardGameController : ControllerBase
         return Ok();
     }
 
+    [HttpPost("add")]
+    public async Task<IActionResult> AddBoardGame([FromBody] AddBoardGameDto addBoardGameDto)
+    {
+        var boardGameId = await gameService.CreateBoardGame(addBoardGameDto);
+        return Created($"/boardgame/{boardGameId}", null);
+    }
+
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> DeleteBoardGame([FromRoute] int id)
+    {
+        await gameService.DeleteBoardGame(id);
+        return NoContent();
+    }
+
 }
 
