@@ -19,7 +19,6 @@ export class UserService {
   login(credentials: userLoginData){
     return this.http.post<any>(`${this.apiUrl}/Account/login`, credentials).pipe(
       tap((response) => { 
-        console.log(response)
         this.authService.login(response.token);
       }),
       catchError(error => {

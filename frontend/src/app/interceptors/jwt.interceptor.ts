@@ -14,8 +14,8 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log("Inside JwtInterceptor intercept");
     const token = this.authService.getToken()
+    console.log(token)
     const currentDate = new Date() ;
-    //currentDate.setDate(currentDate.getDate() + 2);
     if (token) {
       const expirationDate = new Date(this.authService.getParsedToken().exp * 1000);
       if (expirationDate > currentDate ) {
@@ -26,6 +26,7 @@ export class JwtInterceptor implements HttpInterceptor {
         });
       } 
       else {
+        console.log("inside inter logout")
         this.authService.logout();
       }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Services.DTOs.BoardGame;
 using Services.Interfaces;
 
@@ -25,6 +26,7 @@ public class BoardGameController : ControllerBase
         var boardGame = await gameService.GetBoardGameById(id);
         return Ok(boardGame);
     }
+    [Authorize(Roles = "Admin")]
     [HttpPut("update/{id}")]
     public async Task<ActionResult> UpdateBoardGame([FromRoute] int id, [FromBody] UpdateBoardGameDto updateBoardGameDto)
     {
