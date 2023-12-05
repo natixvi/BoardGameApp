@@ -13,13 +13,15 @@ public class AccountService : IAccountService
     private readonly IPasswordHasher<User> passwordHasher;
     private readonly IMapper mapper;
     private readonly IJwtService jwtService;
+    private readonly IUserContextService userContextService;
 
-    public AccountService(IAccountRepository accountRepository, IPasswordHasher<User> passwordHasher, IMapper mapper, IJwtService jwtService) 
+    public AccountService(IAccountRepository accountRepository, IPasswordHasher<User> passwordHasher, IMapper mapper, IJwtService jwtService, IUserContextService userContextService) 
     {
         this.accountRepository = accountRepository;
         this.passwordHasher = passwordHasher;
         this.mapper = mapper;
         this.jwtService = jwtService;
+        this.userContextService = userContextService;
     }
 
     public async Task<string?> LoginUser(LoginUserDto loginUser)
@@ -50,6 +52,12 @@ public class AccountService : IAccountService
 
         await accountRepository.RegisterUser(user);
     }
+
+/*    public async Task<string?> EditUser(EditUserDto updateUserDto)
+    {
+        var userId = userContextService.GetUserId;
+
+    }*/
 
     //public async Task UpdateUser()
 

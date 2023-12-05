@@ -59,8 +59,10 @@ builder.Services.AddTransient<IBoardGameRepository, BoardGameRepository>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
 
 builder.Services.AddScoped<ApiSeeder>(); //Ka¿de ¿¹danie korzysta z tej samej instancji ApiSeeder w ramach jednego zasiêgu scope
+builder.Services.AddHttpContextAccessor();
 
 /*builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BoardGameAppDbContext") ?? throw new InvalidOperationException("Connection string 'BoardGameAppDbContext' not found."), b => b.MigrationsAssembly("Persistance")));

@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using System.Threading.Tasks;
 
 namespace Domain.IRepositories;
 public interface IBoardGameRepository : IBaseRepository<BoardGame>
