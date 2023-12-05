@@ -16,19 +16,20 @@ public class BoardGameController : ControllerBase
         this.gameService = gameService;
     }
     [HttpGet]
-    public async Task<ActionResult<List<BoardGameDto>>> GetBoardGames() {
+    //public async Task<ActionResult<List<BoardGameDto>>> GetBoardGames() {
+    public async Task<IActionResult> GetBoardGames() {
         var boardGames = await gameService.GetBoardGames();
         return Ok(boardGames);
     }
     [HttpGet("{id}")]
-    public async Task<ActionResult<BoardGameDto>> GetBoardGameById([FromRoute] int id)
+    public async Task<IActionResult> GetBoardGameById([FromRoute] int id)
     {
         var boardGame = await gameService.GetBoardGameById(id);
         return Ok(boardGame);
     }
     [Authorize(Roles = "Admin")]
     [HttpPut("update/{id}")]
-    public async Task<ActionResult> UpdateBoardGame([FromRoute] int id, [FromBody] UpdateBoardGameDto updateBoardGameDto)
+    public async Task<IActionResult> UpdateBoardGame([FromRoute] int id, [FromBody] UpdateBoardGameDto updateBoardGameDto)
     {
         await gameService.UpdateBoardGame(id, updateBoardGameDto);
         return Ok();

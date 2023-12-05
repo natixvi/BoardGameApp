@@ -12,6 +12,12 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
     {
         this.appDbContext = appDbContext;
     }
+/*    public async Task<List<BoardGame>> GetBoardGames()
+    {
+        var games = await appDbContext.BoardGames.ToListAsync();
+        return games;
+    }*/
+
     public async Task<List<BoardGame>> GetBoardGames()
     {
         var games = await appDbContext.BoardGames.ToListAsync();
