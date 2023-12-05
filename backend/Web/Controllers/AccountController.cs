@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Web.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 [Authorize]
 public class AccountController: ControllerBase

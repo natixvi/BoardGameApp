@@ -4,7 +4,7 @@ using Services.Interfaces;
 
 namespace Web.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class BoardGameController : ControllerBase
 {

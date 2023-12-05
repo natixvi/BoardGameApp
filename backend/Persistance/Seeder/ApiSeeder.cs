@@ -87,7 +87,7 @@ public class ApiSeeder
                     NickName = "user",
                     Password = passwordHasher.HashPassword(null, password: "useruser"),
                     Email = "user@example.com",
-                    RoleId = 1
+                    RoleId = 2
                 }
         };
                
