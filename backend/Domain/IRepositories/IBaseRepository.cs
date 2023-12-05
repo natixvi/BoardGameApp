@@ -2,6 +2,6 @@
 public interface IBaseRepository<T>
 {
 /*    Task CreateAsync(T entity);*/
-    Task DeleteAsync(T entity);
-    Task UpdateAsync(T entity);
+    Task Delete(T entity);
+    Task Update(T entity);
 }

@@ -10,13 +10,13 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         AppDbContext = appDbContext;
     }
-    public async Task DeleteAsync(T entity)
+    public async Task Delete(T entity)
     {
         AppDbContext.Set<T>().Remove(entity);
         await AppDbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task Update(T entity)
     {
         AppDbContext.Set<T>().Update(entity);
         await AppDbContext.SaveChangesAsync();

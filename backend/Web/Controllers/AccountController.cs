@@ -20,23 +20,22 @@ public class AccountController: ControllerBase
 
     [HttpPost("register")]
     [AllowAnonymous]
-    public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserDto registerUserDto)
+    public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto registerUserDto)
     {
-        await accountService.RegisterUserAsync(registerUserDto);
+        await accountService.RegisterUser(registerUserDto);
         return Ok();
     }
+
     [HttpPost("login")]
     [AllowAnonymous]
     //public async Task<ActionResult<string>> LoginUserAsync([FromBody] LoginUserDto loginUserDto)
-    public async Task<IActionResult> LoginUserAsync([FromBody] LoginUserDto loginUserDto)
+    public async Task<IActionResult> LoginUser([FromBody] LoginUserDto loginUserDto)
     {
         var token =  await accountService.LoginUser(loginUserDto);
         return Ok(JsonSerializer.Serialize(new {token = token}));
     } 
 
-
     [HttpGet("roles")]
-    //public ActionResult<string> GetRoles()
     public IActionResult GetRoles()
     {
         var roles = new List<string> { "Admin", "User" };

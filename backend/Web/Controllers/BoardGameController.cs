@@ -15,26 +15,21 @@ public class BoardGameController : ControllerBase
     {
         this.gameService = gameService;
     }
+
     [HttpGet]
-    //public async Task<ActionResult<List<BoardGameDto>>> GetBoardGames() {
     public async Task<IActionResult> GetBoardGames() {
         var boardGames = await gameService.GetBoardGames();
         return Ok(boardGames);
     }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetBoardGameById([FromRoute] int id)
     {
         var boardGame = await gameService.GetBoardGameById(id);
         return Ok(boardGame);
     }
-    [Authorize(Roles = "Admin")]
-    [HttpPut("update/{id}")]
-    public async Task<IActionResult> UpdateBoardGame([FromRoute] int id, [FromBody] UpdateBoardGameDto updateBoardGameDto)
-    {
-        await gameService.UpdateBoardGame(id, updateBoardGameDto);
-        return Ok();
-    }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("add")]
     public async Task<IActionResult> AddBoardGame([FromBody] AddBoardGameDto addBoardGameDto)
     {
@@ -42,6 +37,15 @@ public class BoardGameController : ControllerBase
         return Created($"/boardgame/{boardGameId}", null);
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpPut("update/{id}")]
+    public async Task<IActionResult> UpdateBoardGame([FromRoute] int id, [FromBody] UpdateBoardGameDto updateBoardGameDto)
+    {
+        await gameService.UpdateBoardGame(id, updateBoardGameDto);
+        return Ok();
+    }
+    
+    [Authorize(Roles = "Admin")]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> DeleteBoardGame([FromRoute] int id)
     {

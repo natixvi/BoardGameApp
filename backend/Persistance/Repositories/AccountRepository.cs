@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Persistance.Data;
 
 namespace Persistance.Repositories;
-public class AccountRepository : IAccountRepository
+public class AccountRepository : BaseRepository<User>, IAccountRepository
 {
     private readonly AppDbContext appDbContext;
 
-    public AccountRepository(AppDbContext appDbContext)
+    public AccountRepository(AppDbContext appDbContext) : base(appDbContext)
     {
         this.appDbContext = appDbContext;
     }

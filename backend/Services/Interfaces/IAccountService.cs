@@ -3,6 +3,6 @@
 namespace Services.Interfaces;
 public interface IAccountService
 {
-    Task RegisterUserAsync(RegisterUserDto registerUserDto);
+    Task RegisterUser(RegisterUserDto registerUserDto);
     Task<string?> LoginUser(LoginUserDto loginUser);
 }

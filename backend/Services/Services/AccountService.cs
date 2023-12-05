@@ -34,7 +34,7 @@ public class AccountService : IAccountService
         return token;
     }
 
-    public async Task RegisterUserAsync(RegisterUserDto registerUserDto)
+    public async Task RegisterUser(RegisterUserDto registerUserDto)
     {
         if (await accountRepository.NickNameExist(registerUserDto.NickName)) throw new DuplicateUserDataException("This nickname is already taken.");
         if (await accountRepository.EmailExist(registerUserDto.Email)) throw new DuplicateUserDataException("For this email there is already an account.");
@@ -50,6 +50,8 @@ public class AccountService : IAccountService
 
         await accountRepository.RegisterUser(user);
     }
+
+    //public async Task UpdateUser()
 
 
 

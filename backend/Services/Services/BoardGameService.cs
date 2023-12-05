@@ -42,7 +42,7 @@ public class BoardGameService : IBoardGameService
         boardGame.Time = updateBoardGameDto.Time;
         boardGame.ImageUrl = updateBoardGameDto.ImageUrl;
         
-        await gameRepository.UpdateAsync(boardGame);
+        await gameRepository.Update(boardGame);
     }
 
     public async Task DeleteBoardGame(int id)
@@ -50,7 +50,7 @@ public class BoardGameService : IBoardGameService
         var boardGame = await gameRepository.GetBoardGameById(id);
         if (boardGame == null) throw new NotFoundException("Board game not found!");
 
-        await gameRepository.DeleteAsync(boardGame);
+        await gameRepository.Delete(boardGame);
     }
 
     public async Task<int> CreateBoardGame(AddBoardGameDto addBoardGameDto)
