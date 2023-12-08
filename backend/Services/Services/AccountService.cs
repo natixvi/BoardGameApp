@@ -26,7 +26,7 @@ public class AccountService : IAccountService
 
     public async Task<string?> LoginUser(LoginUserDto loginUser)
     {
-        var user = await accountRepository.GetUser(loginUser.Email);
+        var user = await accountRepository.GetUserByEmail(loginUser.Email);
         if (user == null) throw new BadRequestException("Invalid email or password");
 
         var verifyPassword = passwordHasher.VerifyHashedPassword(user, user.Password, loginUser.Password);
@@ -53,15 +53,57 @@ public class AccountService : IAccountService
         await accountRepository.RegisterUser(user);
     }
 
-/*    public async Task<string?> EditUser(EditUserDto updateUserDto)
+    public async Task<string?> UpdateUser (UpdateUserDto updateUserDto)
     {
-        var userId = userContextService.GetUserId;
+        var userId = userContextService.GetUserId();
+        if(userId == null) throw new BadRequestException("User cannot be edited!");
+        var user = await accountRepository.GetUserById((int)userId);
+        if(user == null) throw new NotFoundException("User not found!");
 
-    }*/
+        if(user.Email != updateUserDto.Email)
+        {
+            if(! await accountRepository.IsEmailUniqueForUpdate(updateUserDto.Email, (int)userId)) throw new DuplicateUserDataException("For this email there is already an account.");
+            user.Email = updateUserDto.Email;
+        }
+        if (user.NickName != updateUserDto.NickName)
+        {
+            if (!await accountRepository.IsNickNameUniqueForUpdate(updateUserDto.NickName, (int)userId)) throw new DuplicateUserDataException("This nickname is already taken.");
+            user.NickName = updateUserDto.NickName;   
+        }
+        
+        await accountRepository.Update(user);   
 
-    //public async Task UpdateUser()
+        var token = jwtService.GenerateJwtToken(user);
+        return token;
+    }
+
+    public async Task UpdateUserPassword(UpdateUserPasswordDto updateUserPasswordDto)
+    {
+        var userId = userContextService.GetUserId();
+        if (userId == null) throw new BadRequestException("User cannot be edited!");
+        var user = await accountRepository.GetUserById((int)userId);
+        if (user == null) throw new NotFoundException("User not found!");
+
+        if (updateUserPasswordDto.Password != updateUserPasswordDto.ConfirmPassword) throw new PasswordsMustBeTheSameException("Passwords must be the same!");
+
+        var hashedPassword = passwordHasher.HashPassword(user, updateUserPasswordDto.Password);
+        user.Password = hashedPassword;
+
+        await accountRepository.Update(user);
+
+    }
+
+    public async Task DeleteAccount()
+    {
+        var userId = userContextService.GetUserId();
+        if (userId == null) throw new BadRequestException("User cannot be delited!");
+        var user = await accountRepository.GetUserById((int)userId);
+        if (user == null) throw new NotFoundException("User not found!");
+
+        await accountRepository.Delete(user);
+    }
 
 
 
-    
+
 }

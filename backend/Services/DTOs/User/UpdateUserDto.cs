@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Services.DTOs.User;
-public class EditUserDto
+public class UpdateUserDto
 {
     public string NickName { get; set; }
     [EmailAddress(ErrorMessage = "Invalid email address.")]
