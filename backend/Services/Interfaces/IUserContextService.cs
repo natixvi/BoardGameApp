@@ -4,5 +4,6 @@ namespace Services.Interfaces;
 public interface IUserContextService
 {
     ClaimsPrincipal User { get; }
-    int? GetUserId();
+    int? GetUserId {  get; }
+    //int? GetUserId();
 }

@@ -13,17 +13,6 @@ public class UserContextService : IUserContextService
     }
     public ClaimsPrincipal User => httpContextAccessor.HttpContext?.User;
 
-    //public int? GetUserId => User is null ? null: int.Parse(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
-    public int? GetUserId()
-    {
-        if (User is null) return null;
-    
-        var nameIdentifierClaim = User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
-
-        if (nameIdentifierClaim is null || !int.TryParse(nameIdentifierClaim.Value, out var userId)) return null;
-
-        return userId;
-    }
+    public int? GetUserId => User is null ? null: int.Parse(User.FindFirst(c => c.Type == "Id").Value);
 
 }

@@ -7,6 +7,6 @@ public interface IAccountService
     Task RegisterUser(RegisterUserDto registerUserDto);
     Task<string?> LoginUser(LoginUserDto loginUser);
     Task<string?> UpdateUser(UpdateUserDto updateUserDto);
-    Task UpdateUserPassword(UpdateUserPasswordDto updateUserPasswordDto);
+    Task UpdateUserPassword(ChangePasswordDto updateUserPasswordDto);
     Task DeleteAccount();
 }

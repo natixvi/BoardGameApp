@@ -51,16 +51,5 @@ public class AccountRepository : BaseRepository<User>, IAccountRepository
         return await appDbContext.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.Id == id);
     }
 
-    public async Task<bool> IsEmailUniqueForUpdate(string email, int id)
-    {
-        var existingUser = await appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.Id == id);
-        return existingUser == null;
-    }
-
-    public async Task<bool> IsNickNameUniqueForUpdate(string nickName, int id)
-    {
-        var existingUser = await appDbContext.Users.FirstOrDefaultAsync(u => u.NickName == nickName && u.Id == id);
-        return existingUser == null;
-    }
 
 }

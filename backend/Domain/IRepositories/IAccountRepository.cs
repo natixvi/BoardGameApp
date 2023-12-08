@@ -10,6 +10,4 @@ public interface IAccountRepository : IBaseRepository<User>
     Task<User?> GetUserByEmail(string email);
     Task<User?> GetUserById(int id);
     Task<int> GetDefaultRegisterUserRole();
-    Task<bool> IsEmailUniqueForUpdate(string email, int id);
-    Task<bool> IsNickNameUniqueForUpdate(string nickName, int id);
 }
