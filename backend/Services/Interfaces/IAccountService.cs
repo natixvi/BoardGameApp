@@ -1,5 +1,4 @@
 ﻿using Services.DTOs.User;
-using System.Threading.Tasks;
 
 namespace Services.Interfaces;
 public interface IAccountService
@@ -9,4 +8,5 @@ public interface IAccountService
     Task<string?> UpdateUser(UpdateUserDto updateUserDto);
     Task UpdateUserPassword(ChangePasswordDto updateUserPasswordDto);
     Task DeleteAccount();
+    Task<UserDto> GetUserById(int id);
 }

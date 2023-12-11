@@ -9,6 +9,7 @@ public class AutoMapperProfile: Profile
 {
     public AutoMapperProfile()
     {
+        CreateMap<User, UserDto>();
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();
         CreateMap<BoardGame, BoardGameDto>();

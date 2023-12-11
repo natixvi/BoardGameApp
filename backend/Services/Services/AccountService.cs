@@ -108,7 +108,17 @@ public class AccountService : IAccountService
         await accountRepository.Delete(user);
     }
 
+    public async Task<UserDto> GetUserById(int id)
+    {
+        var user = await accountRepository.GetUserById(id);
+        if (user == null) throw new NotFoundException("User not found!");
+        return mapper.Map<UserDto>(user);
+    }
 
 
-
+    public async Task<List<UserDto>> GetUsers()
+    {
+        var users = await accountRepository.GetUsers();
+        return mapper.Map<List<UserDto>>(users);
+    }
 }

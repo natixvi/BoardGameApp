@@ -42,7 +42,7 @@ public class BoardGameController : ControllerBase
     public async Task<IActionResult> UpdateBoardGame([FromRoute] int id, [FromBody] UpdateBoardGameDto updateBoardGameDto)
     {
         await gameService.UpdateBoardGame(id, updateBoardGameDto);
-        return Ok();
+        return Ok("Boardgame with id: "+ id + "has been updated.");
     }
     
     [Authorize(Roles = "Admin")]

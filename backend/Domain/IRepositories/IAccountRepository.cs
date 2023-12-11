@@ -10,4 +10,5 @@ public interface IAccountRepository : IBaseRepository<User>
     Task<User?> GetUserByEmail(string email);
     Task<User?> GetUserById(int id);
     Task<int> GetDefaultRegisterUserRole();
+    Task<List<User>> GetUsers();
 }
