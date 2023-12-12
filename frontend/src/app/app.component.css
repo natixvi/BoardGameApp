@@ -8,12 +8,12 @@
   .content {
     flex: 1;
     z-index: 500;
-    background-color: #4b4b4b; 
+    background-color: #ffffff; 
   }
   
   footer {
-    background-color: #333333;
-    color: #ffffff;
+    background-color: #94b883;
+    color: #000000;
     text-align: center;
     padding: 10px;
   }

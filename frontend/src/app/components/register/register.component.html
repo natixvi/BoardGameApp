@@ -3,7 +3,7 @@
         <!-- <form [formGroup]="registerForm" (ngSubmit)="registerUser()" errorTailor> -->
         <h2>Sign up</h2>
         <div class="label">
-            <label>NickName: <input formControlName="nickName" type="text" pInputText placeholder="nickName"></label>
+            <label>NickName: <input formControlName="nickName" type="text" pInputText placeholder="NickName"></label>
         </div>
         <div class="error-messages" *ngIf="registerForm.controls.nickName.invalid && (registerForm.controls.nickName.dirty || registerForm.controls.nickName.touched)">
             <small *ngIf="registerForm.controls.nickName.errors?.['required']">

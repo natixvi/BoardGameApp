@@ -6,7 +6,7 @@ import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { AuthService } from './auth.service';
-import { userLoginData } from '../models/user/userLoginData';
+import { UserLoginData } from '../models/user/userLoginData';
 import { UserRegisterData } from '../models/user/userRegisterData';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class UserService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private authService: AuthService) {  console.log('userservice created!');}
 
-  login(credentials: userLoginData){
+  login(credentials: UserLoginData){
     return this.http.post<any>(`${this.apiUrl}/Account/login`, credentials).pipe(
       tap((response) => { 
         this.authService.login(response.token);

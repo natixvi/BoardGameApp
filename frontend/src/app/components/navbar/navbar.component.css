@@ -4,18 +4,34 @@
 }
 .nav-item.logout-link:hover {
     cursor: pointer;
-    color: #007bff;
+    color: #42533a;
   }
 
+.nav-link{
+  font-size: 20px;
+  padding-top: 10px;;
+}
+
   .bg-dark-gray {
-    background-color: #333333; 
+    background-color: #769468; 
   }
 
   .custom-toggler-icon{
     background-color: #ffffff;
   }
 
+  @media only screen and (max-width: 1000px) {
+    .nav-link{
+      font-size: 1.1rem;
+      padding-top: 0px;;
+    }
+  }
   @media only screen and (max-width: 600px) {
+    .nav-link{
+      font-size: 1rem;
+      padding-top: 0px;;
+    }
+    
     .navbar-brand{
       font-size: 1em;
     }  

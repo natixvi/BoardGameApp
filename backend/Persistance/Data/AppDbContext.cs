@@ -12,5 +12,29 @@ public class AppDbContext : DbContext
     public DbSet<MyBoardGame> MyBoardGames { get; set; }
     public DbSet<FavouriteUser> FavouriteUsers { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<FavouriteUser>()
+            .HasIndex(f => new { f.UserId, f.FavUserId })
+            .IsUnique();
+        modelBuilder.Entity<FavouriteUser>()
+           .HasIndex(f => new { f.FavUserId, f.UserId })
+           .IsUnique();
+
+        modelBuilder.Entity<FavouriteUser>()
+            .HasOne(f => f.User)
+            .WithMany(u => u.FavouriteUsers)
+            .HasForeignKey(f => f.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<FavouriteUser>()
+            .HasOne(f => f.FavUser)
+            .WithMany()
+            .HasForeignKey(f => f.FavUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+    
+}
+
 }
 

@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UnauthorizedError } from '../../exceptions/UnauthorizedError';
-import { userLoginData } from '../../models/user/userLoginData';
+import { UserLoginData } from '../../models/user/userLoginData';
 import { UserService } from '../../services/user.service';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { RouterModule } from '@angular/router';
@@ -32,7 +32,7 @@ export class LoginComponent {
       this.messageService.add({severity: 'error', summary: 'Error', detail: 'Incorrect login data!'});
       return;
     }
-    this.userService.login(this.loginForm.value as userLoginData).subscribe({
+    this.userService.login(this.loginForm.value as UserLoginData).subscribe({
       next: () => {
         this.router.navigate(['home']);
       },

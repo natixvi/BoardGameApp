@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 import { Router, RouterModule } from '@angular/router';
 import { UserRegisterData } from '../../models/user/userRegisterData';
 import { checkPasswordsValidator } from '../validators/checkPasswords.validator';
-import { userLoginData } from '../../models/user/userLoginData';
+import { UserLoginData } from '../../models/user/userLoginData';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
@@ -57,7 +57,7 @@ export class RegisterComponent {
         const loginData = {
           email: this.registerForm.get('email')?.value,
           password: this.registerForm.get('password')?.value
-        } as userLoginData
+        } as UserLoginData
 
         this.userService.login(loginData).subscribe(
           {

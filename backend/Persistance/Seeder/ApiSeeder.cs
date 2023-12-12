@@ -112,7 +112,7 @@ public class ApiSeeder
                 Players = "1-4",
                 Time = "30-120 Min",
                 Age = 12,
-                ImageUrl = "https://cf.geekdo-images.com/6GqH14TJJhza86BX5HCLEQ__imagepagezoom/img/KSw9NO99xtXI2yKI9jp7yyWw6M0=/fit-in/1200x900/filters:no_upscale():strip_icc()/pic5674958.jpg"
+                ImageUrl = "https://cf.geekdo-images.com/6GqH14TJJhza86BX5HCLEQ__itemrep/img/ETni1QwddAVjM-xLhciF0UM0FxQ=/fit-in/246x300/filters:strip_icc()/pic5674958.jpg"
             },
             new BoardGame()
             {
@@ -128,7 +128,7 @@ public class ApiSeeder
                 Players = "1-5",
                 Time = "90-120 Min",
                 Age = 14,
-                ImageUrl = "https://cf.geekdo-images.com/7k_nOxpO9OGIjhLq2BUZdA__imagepage/img/zoz-t_z9nqqxL7OwQenbqp9PRl8=/fit-in/900x600/filters:no_upscale():strip_icc()/pic3163924.jpg"
+                ImageUrl = "https://cf.geekdo-images.com/7k_nOxpO9OGIjhLq2BUZdA__itemrep/img/RVh5N-_HcMziJ3M6Q1eLTlj8XIQ=/fit-in/246x300/filters:strip_icc()/pic3163924.jpg"
             },
             new BoardGame()
             {
