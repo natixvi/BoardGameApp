@@ -1,6 +1,5 @@
-<div class="card">  
-    <p-dataView #dv [value]="games" [paginator]="true" [rows]="3" filterBy="name"
-        [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+<div class="data-box">  
+    <p-dataView #dv [value]="games" [paginator]="true" [rows]="3" >
         <ng-template pTemplate="header">
             <div class="flex justify-content-end">
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
@@ -8,69 +7,43 @@
         </ng-template>
         <ng-template let-game pTemplate="listItem">
             <div class="col-12">
-                <div class="game-list-item">
-                    <img [src]="game.imageUrl" [alt]="game.name"/>
-                    <div class="game-list-detail">
+                <div class = "game-list-item">
+                    <div class="image-box">
+                        <img [src]="game.imageUrl" [alt]="game.name"/>
+                    </div>
+                    <div class= "game-list-detail">
                         <div class="game-name">{{game.name}}</div>
                         <div class="game-description">{{game.description}}</div>
-                        <i class="pi pi-tag game-category-icon"></i><span class="game-category">{{game.publisher}}</span>
-                    </div>
-                    <div class="game-list-action">
-                        <span class="game-price">${{game.players}}</span>
-                    </div>
+                        <!-- <i class="pi pi-tag game-publisher-icon"></i> <span class="game-publisher">Publisher: {{game.publisher}}</span>
+                        <div class = "game-players">Players: {{game.players}}</div>
+                        <div class = "game-time">Time: {{game.time}}</div>
+                        <div class = "game-age">Age: {{game.age}} years</div> -->
+                    </div> 
                 </div>
             </div>
         </ng-template>
         <ng-template let-game pTemplate="gridItem">
             <div class="col-12 md:col-4">
                 <div class="game-grid-item card">
-                    <div class="game-grid-item-top">
-                        <div>
-                            <i class="pi pi-tag game-category-icon"></i>
-                            <span class="game-category">{{game.publisher}}</span>
-                        </div>
-                    </div>
-                    <div class="game-grid-item-content">
-                        <img [src]=" game.imageUrl" [alt]="game.name"/>
+                    <img [src]=" game.imageUrl" [alt]="game.name"/>
+                    <div class="game-grid-detail">
                         <div class="game-name">{{game.name}}</div>
                         <div class="game-description">{{game.description}}</div>
-                    </div>
-                    <div class="game-grid-item-bottom">
-                        <span class="game-price">${{game.players}}</span>
                     </div>
                 </div>
             </div>
         </ng-template>
     </p-dataView>
-    <!-- <p-dataView #dv [value]="games" layout="list" [paginator]="true" [rows]="3" filterBy="name">
-        <ng-template pTemplate="header">
-            <div class="flex justify-content-end">
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-            </div>
-        </ng-template>
-        <ng-template let-game pTemplate="listItem">
-            <div class="p-col-12 p-md-4">
-                <div class="game-list-item card"> 
-                    <div class="game-list-item-top"> 
-                      <h1>{{game.name}}</h1> 
-                    </div> 
-                    <div class="game-list-item-content"> 
-                      {{game.description}}
-                    </div> 
-                  </div> 
-            </div>
-        </ng-template>
-        <ng-template let-game pTemplate="gridItem">
-                <div class="p-col-12 p-md-4">
-                    <div class="game-grid-item card"> 
-                        <div class="game-grid-item-top"> 
-                          <h1>{{game.name}}</h1> 
-                        </div> 
-                        <div class="game-grid-item-content"> 
-                          {{game.description}}
-                        </div> 
-                      </div> 
-                </div>
-        </ng-template>
-    </p-dataView> -->
 </div>
+
+<!-- <div class="game-list-item">
+    <img [src]="game.imageUrl" [alt]="game.name"/>
+    <div class="game-list-detail">
+        <div class="game-name">{{game.name}}</div>
+        <div class="game-description">{{game.description}}</div>
+        <i class="pi pi-tag game-category-icon"></i><span class="game-category">{{game.publisher}}</span>
+    </div>
+    <div class="game-list-action">
+        <span class="game-price">${{game.players}}</span>
+    </div>
+</div> -->
