@@ -8,6 +8,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),

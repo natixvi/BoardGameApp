@@ -9,6 +9,7 @@
     flex: 1;
     z-index: 500;
     background-color: #ffffff; 
+    margin-top: 80px;
   }
   
   footer {
@@ -18,3 +19,12 @@
     padding: 10px;
   }
 
+  ::ng-deep .p-button {
+    border-radius: 5%;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .content{
+      margin-top: 70px;
+    }
+  }

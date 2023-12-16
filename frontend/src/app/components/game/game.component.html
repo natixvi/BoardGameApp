@@ -1,8 +1,11 @@
 <div class="data-box">  
-    <p-dataView #dv [value]="games"[paginator]="true" [rows]="5" [lazy]="true" filterBy="name">
+    <p-dataView #dv [value]="games"[paginator]="true" [rows]="5"  filterBy="name">
         <ng-template pTemplate="header">
-                <input type="search" pInputText placeholder="Search by name" (input)="dv.filter($any($event).target.value)">
-            <div class="flex justify-content-end">
+            <div class="flex flex-row justify-content-between">
+                <span class="p-input-icon-left mb-2 md:mb-0 search">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search"/>
+                </span>
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
             </div>
         </ng-template>
@@ -15,40 +18,31 @@
                     <div class= "game-list-detail">
                         <div class="game-name">{{game.name}}</div>
                         <!-- <div class="game-publisher-icon game-publisher"><i class="pi pi-tag"></i>{{game.publisher}}</div> -->
-                        <div class="game-rating">Overall rate: </div>
+                        <div class="game-rating"><i class="pi pi-star-fill"></i>Overall rate: </div>
                         <div class="game-description">{{game.description}}</div>
-                        <!--<div class = "game-players">Players: {{game.players}}</div>
-                        <div class = "game-time">Time: {{game.time}}</div>
-                        <div class = "game-age">Age: {{game.age}} years</div> -->
                     </div> 
-                    <div class="game-list-action">
-                        <div class="game-add-to-list"><button>Add the game to your list of games</button></div>
+                    <div class="game-list-button">
+                       <p-button label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
                     </div>     
                 </div>
             </div>
         </ng-template>
         <ng-template let-game pTemplate="gridItem">
-            <div class="col-12 md:col-4">
+            <div class="col-12 md:col-6 lg:col-4">
                 <div class="game-grid-item card">
-                    <img [src]=" game.imageUrl" [alt]="game.name"/>
-                    <div class="game-grid-detail">
+                     <div class="game-grid-detail">
+                        <div class="image-box">
+                            <img [src]=" game.imageUrl" [alt]="game.name"/>
+                        </div>
                         <div class="game-name">{{game.name}}</div>
                         <div class="game-description">{{game.description}}</div>
                     </div>
+                    <div class="game-grid-action">
+                        <span class="game-rating"><i class="pi pi-star-fill"></i>Overall rate: </span>
+                        <p-button label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
+                     </div> 
                 </div>
             </div>
         </ng-template>
     </p-dataView>
 </div>
-
-<!-- <div class="game-list-item">
-    <img [src]="game.imageUrl" [alt]="game.name"/>
-    <div class="game-list-detail">
-        <div class="game-name">{{game.name}}</div>
-        <div class="game-description">{{game.description}}</div>
-        <i class="pi pi-tag game-category-icon"></i><span class="game-category">{{game.publisher}}</span>
-    </div>
-    <div class="game-list-action">
-        <span class="game-price">${{game.players}}</span>
-    </div>
-</div> -->
