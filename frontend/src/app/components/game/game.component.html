@@ -1,6 +1,7 @@
 <div class="data-box">  
-    <p-dataView #dv [value]="games" [paginator]="true" [rows]="3" >
+    <p-dataView #dv [value]="games"[paginator]="true" [rows]="5" [lazy]="true" filterBy="name">
         <ng-template pTemplate="header">
+                <input type="search" pInputText placeholder="Search by name" (input)="dv.filter($any($event).target.value)">
             <div class="flex justify-content-end">
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
             </div>
@@ -13,12 +14,16 @@
                     </div>
                     <div class= "game-list-detail">
                         <div class="game-name">{{game.name}}</div>
+                        <!-- <div class="game-publisher-icon game-publisher"><i class="pi pi-tag"></i>{{game.publisher}}</div> -->
+                        <div class="game-rating">Overall rate: </div>
                         <div class="game-description">{{game.description}}</div>
-                        <!-- <i class="pi pi-tag game-publisher-icon"></i> <span class="game-publisher">Publisher: {{game.publisher}}</span>
-                        <div class = "game-players">Players: {{game.players}}</div>
+                        <!--<div class = "game-players">Players: {{game.players}}</div>
                         <div class = "game-time">Time: {{game.time}}</div>
                         <div class = "game-age">Age: {{game.age}} years</div> -->
                     </div> 
+                    <div class="game-list-action">
+                        <div class="game-add-to-list"><button>Add the game to your list of games</button></div>
+                    </div>     
                 </div>
             </div>
         </ng-template>
