@@ -17,6 +17,12 @@
         </ul>
         <ul class="navbar-nav mb-1 mb-lg-0">
           <ng-container *ngIf="(isLoggedIn$ | async) as isLoggedIn">
+            <li class="nav-item edit-link">
+              <a class="nav-link text-light">Profile</a>
+            </li>
+            <!-- <li class="nav-item edit-link">
+              <a class="nav-link text-light">Admin Panel</a>
+            </li> -->
             <li class="nav-item logout-link">
               <a class="nav-link text-light" (click)="logout()">Logout</a>
             </li>

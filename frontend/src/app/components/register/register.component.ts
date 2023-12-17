@@ -73,7 +73,6 @@ export class RegisterComponent {
           this.messageService.add({severity: 'error', summary: 'Error !', detail: "This email address or nickname is already taken!"});
           this.registerForm.get('password')?.reset();
           this.registerForm.get('confirmPassword')?.reset();
-          //this.registerForm.reset();
           this.registerForm.setErrors({ generalError: true });
         }
         else
