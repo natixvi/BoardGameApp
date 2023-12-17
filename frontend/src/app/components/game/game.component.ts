@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DataViewModule} from 'primeng/dataview';
 import { Game } from '../../models/game/game';
 import { GameService } from '../../services/game.service';
@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -19,6 +19,8 @@ import { InputTextModule } from 'primeng/inputtext';
 })
 export class GameComponent implements OnInit {
     games: Game[] = [];
+    router = inject(Router);
+    
     constructor(private gameService : GameService, private messageService : MessageService) {}
 
      ngOnInit() {

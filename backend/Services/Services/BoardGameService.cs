@@ -27,9 +27,10 @@ public class BoardGameService : IBoardGameService
 
         foreach (var game in boardGamesDto)
         {
-            var ratingList = await myBoardGameRepository.GetRatingsByGameId(game.Id);
+
+            List<MyBoardGame> ratingList = await myBoardGameRepository.GetRatingListForGameId(game.Id);
             double avgRating = ratingList.Any() ? ratingList.Average(r => r.Rate) : 0;
-            game.Rating = avgRating;
+            game.Rating = Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
         } 
         
         return boardGamesDto;
@@ -41,7 +42,7 @@ public class BoardGameService : IBoardGameService
         if (boardGame == null) throw new NotFoundException("Board game not found!");
         var boardGameDto = mapper.Map<BoardGameDto>(boardGame);
 
-        var ratingList = await myBoardGameRepository.GetRatingsByGameId(boardGameDto.Id);
+        var ratingList = await myBoardGameRepository.GetRatingListForGameId(boardGameDto.Id);
         double avgRating = ratingList.Any() ? ratingList.Average(r => r.Rate) : 0;
         boardGameDto.Rating = avgRating;
 

@@ -13,8 +13,8 @@ public class MyBoardGameRepository: IMyBoardGameRepository
         this.appDbContext = appDbContext;
     }
 
-    public async Task<List<MyBoardGame>> GetRatingsByGameId(int gameId)
+    public async Task<List<MyBoardGame>> GetRatingListForGameId(int gameId)
     {
-        return await appDbContext.MyBoardGames.Where(g => g.Id == gameId).ToListAsync();
+        return await appDbContext.MyBoardGames.Where(g => g.BoardGameId == gameId).ToListAsync();
     }
 }

@@ -6,5 +6,6 @@ export interface Game{
     players : string,
     time  : string,
     age : number,
-    imageUrl : string
+    imageUrl : string,
+    rating: number
 }

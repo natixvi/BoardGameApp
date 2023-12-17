@@ -3,5 +3,5 @@
 namespace Domain.IRepositories;
 public interface IMyBoardGameRepository
 {
-    Task<List<MyBoardGame>> GetRatingsByGameId(int gameId);
+    Task<List<MyBoardGame>> GetRatingListForGameId(int gameId);
 }
