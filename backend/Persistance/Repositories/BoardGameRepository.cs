@@ -30,5 +30,4 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
         await appDbContext.SaveChangesAsync();
         return game.Id;
     }
-
 }
