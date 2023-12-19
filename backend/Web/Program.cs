@@ -57,6 +57,7 @@ builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 builder.Services.AddTransient<IBoardGameService, BoardGameService>();
 builder.Services.AddTransient<IBoardGameRepository, BoardGameRepository>();
 builder.Services.AddTransient<IMyBoardGameRepository, MyBoardGameRepository>();
+builder.Services.AddTransient<IMyBoardGameService, MyBoardGameService>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();

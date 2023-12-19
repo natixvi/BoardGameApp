@@ -10,44 +10,41 @@ public class BoardGameService : IBoardGameService
 {
     private readonly IBoardGameRepository gameRepository;
     private readonly IMapper mapper;
-    private readonly IMyBoardGameRepository myBoardGameRepository;
+    private readonly IMyBoardGameService myBoardGameService;
 
-    public BoardGameService(IBoardGameRepository gameRepository, IMapper mapper, IMyBoardGameRepository myBoardGameRepository)
+    public BoardGameService(IBoardGameRepository gameRepository, IMapper mapper, IMyBoardGameService myBoardGameService)
     {
         this.gameRepository = gameRepository;
         this.mapper = mapper;
-        this.myBoardGameRepository = myBoardGameRepository;
+        this.myBoardGameService = myBoardGameService;
     }
     public async Task<List<BoardGameDto>> GetBoardGames()
     {
         var boardGames = await gameRepository.GetBoardGames();
         if (boardGames == null) throw new NotFoundException("Board games not found!");
 
+        Console.WriteLine(boardGames[1].Name);
         var boardGamesDto = mapper.Map<List<BoardGameDto>>(boardGames);
-
+        Console.WriteLine(boardGamesDto[1].Name);
         foreach (var game in boardGamesDto)
         {
+            game.Rating = await myBoardGameService.CalculateAverageRating(game.Id);
+        }
 
-            List<MyBoardGame> ratingList = await myBoardGameRepository.GetRatingListForGameId(game.Id);
-            double avgRating = ratingList.Any() ? ratingList.Average(r => r.Rate) : 0;
-            game.Rating = Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
-            game.NumOfVoters = ratingList.Count();
-        } 
-        
         return boardGamesDto;
     }
 
-    public async Task<BoardGameDto> GetBoardGameById(int id)
+    public async Task<BoardGameDetailsDto> GetBoardGameById(int id)
     {
         var boardGame = await gameRepository.GetBoardGameById(id);
         if (boardGame == null) throw new NotFoundException("Board game not found!");
-        var boardGameDto = mapper.Map<BoardGameDto>(boardGame);
+        var boardGameDetailsDto = mapper.Map<BoardGameDetailsDto>(boardGame);
 
-        var ratingList = await myBoardGameRepository.GetRatingListForGameId(boardGameDto.Id);
-        double avgRating = ratingList.Any() ? ratingList.Average(r => r.Rate) : 0;
-        boardGameDto.Rating = avgRating;
+        boardGameDetailsDto.Rating = await myBoardGameService.CalculateAverageRating(boardGameDetailsDto.Id); 
+        var gameReviews = await myBoardGameService.GetGameReviews(boardGameDetailsDto.Id);
+        if (gameReviews != null) boardGameDetailsDto.Reviews = gameReviews;
 
-        return boardGameDto;
+        return boardGameDetailsDto;
     }
     public async Task UpdateBoardGame(int id, UpdateBoardGameDto updateBoardGameDto)
     {

@@ -13,7 +13,11 @@ public class AutoMapperProfile: Profile
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();
         CreateMap<BoardGame, BoardGameDto>();
+        CreateMap<BoardGame, BoardGameDetailsDto>();
         CreateMap<UpdateBoardGameDto, BoardGame>();
         CreateMap<AddBoardGameDto, BoardGame>();
+
+        CreateMap<MyBoardGame, ReviewDto>()
+            .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.User.NickName));
     }
 }

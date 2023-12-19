@@ -6,7 +6,7 @@ public class MyBoardGame
     public virtual User User { get; set; }
     public int BoardGameId { get; set; }
     public virtual BoardGame BoardGame { get; set; }
-    public double Rate { get; set; }
+    public double Rating { get; set; }
     public string? ReviewDescription { get; set; }
     public DateTime CreatedDate{ get; set; }
     public bool IsFavourite { get; set; } = false;

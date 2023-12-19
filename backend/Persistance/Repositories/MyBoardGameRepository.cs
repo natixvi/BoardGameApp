@@ -17,4 +17,8 @@ public class MyBoardGameRepository: IMyBoardGameRepository
     {
         return await appDbContext.MyBoardGames.Where(g => g.BoardGameId == gameId).ToListAsync();
     }
+    public async Task<List<MyBoardGame>?> GetGameReviews(int gameId)
+    {
+        return await appDbContext.MyBoardGames.Include(g => g.User).Where(g => g.BoardGameId == gameId && !string.IsNullOrWhiteSpace(g.ReviewDescription)).ToListAsync();
+    }
 }
