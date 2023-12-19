@@ -7,6 +7,7 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
