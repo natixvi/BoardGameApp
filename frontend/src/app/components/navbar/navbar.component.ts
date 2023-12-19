@@ -2,8 +2,8 @@ import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [RouterModule, CommonModule, NgbCollapseModule],
+  imports: [RouterModule, CommonModule, NgbModule],
   encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {

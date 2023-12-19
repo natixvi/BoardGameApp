@@ -15,29 +15,18 @@
             <a class="nav-link text-light  " [routerLink]="['/games']">Games</a>
           </li>
         </ul>
-        <ul class="navbar-nav mb-1 mb-lg-0">
+        <div class="navbar-nav mb-1 mb-lg-0">
           <ng-container *ngIf="(isLoggedIn$ | async) as isLoggedIn">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                Account
-              </a>
-              <ul ngbDropdown class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item text-light" href="#">Profile</a></li>
-                <li><a class="dropdown-item text-light" href="#">Edit profile</a></li>
-                <li><a class="dropdown-item text-light" href="#">Game list</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a class="dropdown-item text-light" (click)="logout()">Logout</a></li>
-              </ul>
-            </li>
-            <!-- <li class="nav-item edit-link">
-              <a class="nav-link text-light">Profile</a>
-            </li> -->
-            <!-- <li class="nav-item edit-link">
-              <a class="nav-link text-light">Admin Panel</a>
-            </li> -->
-            <!-- <li class="nav-item logout-link">
-              <a class="nav-link text-light" (click)="logout()">Logout</a>
-            </li> -->
+            <div ngbDropdown class="d-inline-block">
+              <button  class="nav-link text-light" id="dropdown" ngbDropdownToggle type="button">Account</button> 
+              <div ngbDropdownMenu aria-labelledby="dropdown" placement="bottom-right">
+                <button ngbDropdownItem >Profile</button> 
+                <button ngbDropdownItem>Edit profile</button> 
+                <button ngbDropdownItem>Game list</button>
+                <div class="dropdown-divider"></div> 
+                <button ngbDropdownItem (click)="logout()">Logout</button> 
+              </div> 
+            </div>
           </ng-container>
           <ng-container *ngIf="!(isLoggedIn$ | async)">
             <li class="nav-item">
@@ -47,9 +36,9 @@
               <a class="nav-link text-light" [routerLink]="['/register']">Register</a>
             </li>
           </ng-container>
-        </ul>
+        </div>
       </div>
     </div>
-</nav>
+  </nav>
 
 
