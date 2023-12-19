@@ -7,5 +7,6 @@ export interface Game{
     time  : string,
     age : number,
     imageUrl : string,
-    rating: number
+    rating: number,
+    numOfVoters: number
 }

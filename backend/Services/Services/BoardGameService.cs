@@ -31,6 +31,7 @@ public class BoardGameService : IBoardGameService
             List<MyBoardGame> ratingList = await myBoardGameRepository.GetRatingListForGameId(game.Id);
             double avgRating = ratingList.Any() ? ratingList.Average(r => r.Rate) : 0;
             game.Rating = Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
+            game.NumOfVoters = ratingList.Count();
         } 
         
         return boardGamesDto;

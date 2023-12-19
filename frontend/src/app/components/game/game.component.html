@@ -18,7 +18,10 @@
                     <div class= "game-list-detail">
                         <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
                         <!-- <div class="game-publisher-icon game-publisher"><i class="pi pi-tag"></i>{{game.publisher}}</div> -->
-                        <div class="game-rating"><i class="pi pi-star-fill"></i>Overall rate: {{game.rating}}</div>
+                        <div class="game-rating"><i class="pi pi-star-fill"></i>Overall rate: {{game.rating}}
+                            <div><i class="pi pi-users"></i>Voters: {{game.numOfVoters}}</div>
+                        </div>
+
                         <div class="game-description">{{game.description}}</div>
                     </div> 
                     <div class="game-list-button">
