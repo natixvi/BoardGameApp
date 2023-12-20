@@ -141,15 +141,34 @@ i{
     }
   }
 
+  @media (min-width: 1100px) and (max-width: 1250px) {
+
+    .game-list-item .image-box{
+        width: 19%;
+    }
+    
+  } 
+  
+  @media (min-width: 500px) and (max-width: 1100px) {
+    .list-button{
+        font-size: 14px;
+    }
+    
+  }
+
+
+
 @media screen and (max-width: 1100px) {
     .game-list-item img{
         width: 100%;
         align-items: center;
     }
+
     .game-grid-action 
     {
        flex-direction: column;
     }
+
 }
 
 @media screen and (max-width: 700px) {
@@ -183,6 +202,9 @@ i{
 @media screen and (max-width: 576px) {
     .game-list-item .img{
         width: 80%;
+    }
+    .game-list-item .image-box{
+        width: 60%;
     }
    
 

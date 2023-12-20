@@ -17,14 +17,13 @@
                     </div>
                     <div class= "game-list-detail">
                         <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
-                        <!-- <div class="game-publisher-icon game-publisher"><i class="pi pi-tag"></i>{{game.publisher}}</div> -->
                         <div class="game-rating"><i class="pi pi-star-fill"></i>Rating: {{game.rating}} 
                         </div>
 
                         <div class="game-description">{{game.description}}</div>
                     </div> 
                     <div class="game-list-button">
-                       <p-button label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
+                       <p-button label="Add to list" icon="pi pi-plus" iconPos="right" class="list-button"></p-button>
                     </div>     
                 </div>
             </div>

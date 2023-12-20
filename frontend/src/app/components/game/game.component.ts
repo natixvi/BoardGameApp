@@ -24,17 +24,21 @@ export class GameComponent implements OnInit {
     constructor(private gameService : GameService, private messageService : MessageService) {}
 
      ngOnInit() {
-         this.gameService.getGames().subscribe({
-          next: (data : Game[]) =>{
-            this.games = data;
-          },
-          error: (e) => {
-            if (e instanceof BadRequestError){
-              this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-            }
-            else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+        this.getGames();
+    }
+
+    getGames() : void{
+      this.gameService.getGames().subscribe({
+        next: (data : Game[]) =>{
+          this.games = data;
+        },
+        error: (e) => {
+          if (e instanceof BadRequestError){
+            this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
           }
-         })
+          else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+        }
+       })
     }
 
 }

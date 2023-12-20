@@ -1,1 +1,14 @@
-<p>game-detail works! game id: {{gameId}}</p>
+<div>
+    <p>game-detail works! game id: {{gameId}}</p>
+    <p> game id: {{gameDetails?.id}}</p>
+    <p> game name: {{gameDetails?.name}}</p>
+    <p> game publisher: {{gameDetails?.publisher}}</p>
+    <p> game rating: {{gameDetails?.rating}}</p>
+</div>
+<div>Reviews: </div><br>
+<div *ngFor="let review of gameDetails?.reviews"> 
+    <span> Rating: {{ review.rating }}</span><br>
+    <span> Description: {{ review.reviewDescription }}</span><br>
+    <span> Created date: {{review.createdDate | date: "dd-MM-YYYY hh:mm:ss"}}</span><br>
+    <span> User: {{ review.nickName }}</span><br><br>
+</div>

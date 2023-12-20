@@ -1,3 +1,5 @@
+import { Review } from "./review";
+
 export interface GameDetails{
     id : number,
     name : string,
@@ -8,5 +10,5 @@ export interface GameDetails{
     age : number,
     imageUrl : string,
     rating: number,
-    numOfVoters: number
+    reviews: Review[]
 }

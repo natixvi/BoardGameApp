@@ -5,6 +5,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Game } from '../models/game/game';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
+import { GameDetails } from '../models/game/gameDetail';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +22,15 @@ export class GameService {
         })
       );
    }
+
+   getGameById(gameId: number) : Observable<GameDetails>{
+    return this.http.get<GameDetails>(`${this.apiUrl}/boardgame/${gameId}`).pipe(
+      catchError(error => {
+        console.log('Error while loading game:' , error);
+        return this.handleError(error);
+      })
+    );
+ }
 
    private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 400) {
