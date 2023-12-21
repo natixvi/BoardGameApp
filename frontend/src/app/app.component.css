@@ -13,7 +13,7 @@
   }
   
   footer {
-    background-color: #2b3186;
+    background-color: #00539C;
     color: #ffffff;
     text-align: center;
     padding: 10px;
@@ -21,10 +21,29 @@
 
   ::ng-deep .p-button {
     border-radius: 5%;
+    border: 1px solid #EEA47F;
+    background-color: #EEA47F;
   }
+
+  ::ng-deep .p-button:enabled:active {
+    background: #f19364;
+    border-color: #f19364;
+  }
+  ::ng-deep .p-button:enabled:hover {
+    background: #f19364;
+    border-color: #f19364;
+  }
+  ::ng-deep .p-button:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem rgba(241, 147, 100, 0.5);
+  }
+
 
   @media only screen and (max-width: 1000px) {
     .content{
       margin-top: 70px;
     }
   }
+
+  /* Royal Blue #00539C 034c8b , Peach #EEA47F f19364*/

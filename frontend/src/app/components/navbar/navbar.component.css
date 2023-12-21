@@ -7,7 +7,7 @@
 }
 .nav-item.logout-link:hover {
     cursor: pointer;
-    color: #42533a;
+    color: #034c8b;
   }
 
 .nav-link{
@@ -16,14 +16,15 @@
 }
 
   .bg-dark-gray {
-    background-color: #2b3186; 
+    background-color: #00539C; 
+    /* 2b3186 */
   }
 
   .custom-toggler-icon{
     background-color: #ffffff;
   }
   .navbar-nav .dropdown-menu{
-    background-color: #2b3186;
+    background-color: #00539C;
     right: -13px;
     left: auto;
     border-radius: 0; 
@@ -36,7 +37,7 @@
 
   .navbar-nav .dropdown-item:hover {
     cursor: pointer;
-    background-color: #192086; 
+    background-color: #034c8b; 
   
   }
   @media only screen and (max-width: 1000px) {

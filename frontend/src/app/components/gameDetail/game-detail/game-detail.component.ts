@@ -6,18 +6,19 @@ import { MessageService } from 'primeng/api';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { CommonModule,  DatePipe } from '@angular/common';
 import { Review } from '../../../models/game/review';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-game-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule],
   templateUrl: './game-detail.component.html',
   styleUrls: ['./game-detail.component.css']
 })
 export class GameDetailComponent implements OnInit {
   gameId: number = 0;
   router = inject(Router);
-  gameDetails: GameDetails | undefined
+  gameDetails: GameDetails = { } as GameDetails
 
 
   constructor(private route: ActivatedRoute, private gameService: GameService, private messageService: MessageService, private datepipe: DatePipe){}
@@ -38,6 +39,7 @@ export class GameDetailComponent implements OnInit {
         this.gameDetails = data;
         this.gameDetails.reviews.forEach((review: Review) => {
           review.createdDate = new Date(review.createdDate);
+          
         });
        
       },

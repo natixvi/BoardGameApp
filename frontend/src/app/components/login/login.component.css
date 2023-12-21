@@ -46,15 +46,16 @@ input::placeholder {
 .container button[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #3B82F6;
-    color: white;
+    background-color: #EEA47F;
+    /* 3B82F6 */
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .container button[type="submit"]:hover {
-    background-color: #4f90f8;
+    background-color: #f19364;
 }
 
 .container .link {

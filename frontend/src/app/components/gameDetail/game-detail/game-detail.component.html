@@ -1,14 +1,38 @@
-<div>
-    <p>game-detail works! game id: {{gameId}}</p>
-    <p> game id: {{gameDetails?.id}}</p>
-    <p> game name: {{gameDetails?.name}}</p>
-    <p> game publisher: {{gameDetails?.publisher}}</p>
-    <p> game rating: {{gameDetails?.rating}}</p>
-</div>
-<div>Reviews: </div><br>
-<div *ngFor="let review of gameDetails?.reviews"> 
-    <span> Rating: {{ review.rating }}</span><br>
-    <span> Description: {{ review.reviewDescription }}</span><br>
-    <span> Created date: {{review.createdDate | date: "dd-MM-YYYY hh:mm:ss"}}</span><br>
-    <span> User: {{ review.nickName }}</span><br><br>
+<div class="game-detail-box">
+    <div class="game-general">
+        <div class="image-box">
+            <img [src]="gameDetails.imageUrl" [alt]="gameDetails.name"/>
+        </div>
+        <div class="general-info">
+            <div class = "game-main">
+                <div class = "game-name">{{gameDetails.name}}</div>
+                <div class="game-rating"><i class="pi pi-star-fill"></i>Rating: {{gameDetails.rating}} </div>
+            </div>
+            <div class="game-details">
+                <div class="game-players">{{gameDetails.players}} Players </div>
+                <div class="game-time">{{gameDetails.time}}</div>
+                <div class="game-age">Age: {{gameDetails.age}}+</div>
+                <div class="game-publisher">Publisher: {{gameDetails.publisher}}</div>
+            </div>   
+            <div class="add-button">
+                <p-button label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
+            </div>
+        </div>
+    </div>
+    <div class = "game-others">
+        <h6>Description</h6>
+        <div class="game-description">
+            {{gameDetails.description}}
+        </div>
+        <div class = "game-reviews">
+            <h6>Reviews</h6>
+            <div *ngIf="gameDetails?.reviews?.length === 0" class="no-content">No content</div>
+            <div *ngFor="let review of gameDetails?.reviews" class="game-review">
+                <span class="review-user">User: {{ review.nickName }}</span>
+                <span class="review-rating"><i class="pi pi-star-fill"></i>{{ review.rating }}</span>
+                <div class="review-desc">{{ review.reviewDescription }}</div>
+                <div class= "review-date">{{review.createdDate | date: "dd-MM-YYYY hh:mm:ss"}}</div>
+            </div>
+        </div>   
+    </div>
 </div>
