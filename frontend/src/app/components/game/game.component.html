@@ -1,12 +1,17 @@
 <div class="data-box">  
     <p-dataView #dv [value]="games"[paginator]="true" [rows]="5"  filterBy="name">
         <ng-template pTemplate="header">
-            <div class="flex flex-row justify-content-between">
+            <div class="flex flex-col md:flex-row justify-content-between">
+                <div class="mb-2 md:mb-0">
                 <span class="p-input-icon-left mb-2 md:mb-0 search">
                     <i class="pi pi-search"></i>
                     <input type="search" pInputText placeholder="Search"/>
                 </span>
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+                <div class="md:ml-2">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+                
             </div>
         </ng-template>
         <ng-template let-game pTemplate="listItem">

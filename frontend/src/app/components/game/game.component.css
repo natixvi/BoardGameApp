@@ -131,6 +131,19 @@ i{
     justify-content: space-between;
 }
 
+@media screen and (max-width: 470px) {
+    .flex-col.md\:flex-row {
+        flex-direction: column-reverse !important;
+        margin-bottom: 0.3rem;
+    }
+    .search input {
+        margin-top: 10px;
+    }
+    .p-dataViewLayoutOptions {
+        margin-left: auto;
+    }
+
+}
 @media (min-width: 992px) and (max-width: 1700px) {
     .game-grid-item img {
       max-width: 90%; 
