@@ -92,3 +92,54 @@ i{
 .review-rating{
     margin-left: 5px;
 }
+.header{
+    font-weight: bold;
+    color: #3c3c3d;
+}
+
+.game-details .desc{
+    font-size: small;
+}
+@media (min-width: 600px) and (max-width: 772px) {
+    .game-details{
+        flex-direction: column;
+        margin-top: 0.5rem; 
+        
+    }
+
+}
+@media (max-width: 599px) {
+    .game-general{
+        flex-direction: column;
+        align-items: center;
+    }
+    .general-info{
+        padding-left:  0px;
+    }
+    .game-details div{
+        margin-right: 0;
+    }
+    .game-detils{
+        text-align: center;
+    }
+    .game-details .header  {
+        justify-content: space-between;
+    }
+    .game-name{
+        margin-top: 1rem;
+        text-align: center;
+    }
+    .game-rating{
+        text-align: center;
+    }
+
+    .add-button p-button{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .game-details .header{
+        display: block;
+    }
+
+}
