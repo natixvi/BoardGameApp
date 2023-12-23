@@ -37,9 +37,9 @@
 
 .game-name{
     margin-bottom: 0.2rem;
-    font-weight: bold;
+    font-weight: 1000;
     font-size: larger;
-    color: #3c3c3d;
+    color: #00539C;
     cursor: pointer;
 }
 

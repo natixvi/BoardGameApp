@@ -16,7 +16,6 @@
     background-color: #00539C;
     color: #ffffff;
     text-align: center;
-    padding: 10px;
   }
 
   ::ng-deep .p-button {
@@ -46,4 +45,4 @@
     }
   }
 
-  /* Royal Blue #00539C 034c8b , Peach #EEA47F f19364*/
+  /* Royal Blue #00539C 034c8b , Peach #EEA47F f19364 font: 495057*/

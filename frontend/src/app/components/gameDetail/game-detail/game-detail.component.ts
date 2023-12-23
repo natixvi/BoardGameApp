@@ -7,11 +7,12 @@ import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { CommonModule,  DatePipe } from '@angular/common';
 import { Review } from '../../../models/game/review';
 import { ButtonModule } from 'primeng/button';
+import { DataViewModule} from 'primeng/dataview';
 
 @Component({
   selector: 'app-game-detail',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, DataViewModule],
   templateUrl: './game-detail.component.html',
   styleUrls: ['./game-detail.component.css']
 })
@@ -19,7 +20,7 @@ export class GameDetailComponent implements OnInit {
   gameId: number = 0;
   router = inject(Router);
   gameDetails: GameDetails = { } as GameDetails
-
+  reviews: Review[] = []
 
   constructor(private route: ActivatedRoute, private gameService: GameService, private messageService: MessageService, private datepipe: DatePipe){}
 
@@ -41,7 +42,7 @@ export class GameDetailComponent implements OnInit {
           review.createdDate = new Date(review.createdDate);
           
         });
-       
+        this.reviews = this.gameDetails?.reviews; 
       },
       error: (e) => {
         if (e instanceof BadRequestError){

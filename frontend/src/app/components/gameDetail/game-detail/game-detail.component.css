@@ -23,14 +23,19 @@
 }
 
 .game-name{
-    font-weight: bold;
-    font-size: larger;
+    font-weight: 1000;
+    font-size: x-large;
+    color: #00539C;
+}
+.game-rating{
+    font-weight: 500;
     color: #3c3c3d;
 }
 .general-info{
     flex: 1;
     padding-left: 20px;
     box-sizing: border-box;
+    width: 100%;
 }
 
 i{
@@ -50,6 +55,10 @@ i{
     margin-right: 1rem;
 }
 
+.game-details > div:last-child {
+    margin-right: 0;
+}
+
 .add-button{
     margin-top: 1rem;
 }
@@ -64,43 +73,48 @@ i{
 }
 .game-others h6{
     font-weight: bold;
+    color: #3c3c3d
 }
 .game-description{
-    padding: 0 1rem 0 1rem;
+   color: #495057;
  }
 
 .no-content{
     padding: 0 1rem 0 1rem;
 }
 .game-reviews{
-    margin-top: 0.5rem;
+    margin-top: 2rem;
 }
 
-.game-review{
-    padding: 0 1rem 0 1rem;
-    border: 1.5px solid #e6e4e4;
-    border-radius: 10px; 
-    margin-bottom: 0.5rem;
+.top-review{
+    display: flex;
+    justify-content: space-between;  
 }
 .review-user{
     margin-top: 0.5rem;
+    font-weight: bolder;
+    order: 1;
+    font-size: large;
 }
 .review-date{
-    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    order: 2;
 }
 
 .review-rating{
-    margin-left: 5px;
+    margin-bottom: 0.4rem;
 }
+
+.review-desc{
+    margin-bottom: 1rem;
+}
+
 .header{
     font-weight: bold;
     color: #3c3c3d;
 }
 
-.game-details .desc{
-    font-size: small;
-}
-@media (min-width: 600px) and (max-width: 772px) {
+@media (min-width: 600px) and (max-width: 833px) {
     .game-details{
         flex-direction: column;
         margin-top: 0.5rem; 
@@ -116,11 +130,22 @@ i{
     .general-info{
         padding-left:  0px;
     }
+    .game-details{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
     .game-details div{
         margin-right: 0;
     }
-    .game-detils{
-        text-align: center;
+
+    .game-details div{
+        margin-right: 1rem;
+    }
+    
+    .game-details > div:last-child {
+        margin-right: 0;
     }
     .game-details .header  {
         justify-content: space-between;
