@@ -6,8 +6,8 @@ public class ChangePasswordDto
     [Required]
     public string OldPassword { get; set; }
     [Required]
-    public string Password { get; set; }
+    public string NewPassword { get; set; }
     [Required]
-    public string ConfirmPassword { get; set; }
+    public string ConfirmNewPassword { get; set; }
 
 }
