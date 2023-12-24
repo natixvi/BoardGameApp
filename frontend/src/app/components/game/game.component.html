@@ -22,7 +22,7 @@
                     </div>
                     <div class= "game-list-detail">
                         <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
-                        <div class="game-rating"><i class="pi pi-star-fill"></i>Rating: {{game.rating}} 
+                        <div class="game-rating"><i class="pi pi-star-fill"></i> Rating: <span class="rating-value">{{game.rating === 0 ? '-' : game.rating}}</span>
                         </div>
 
                         <div class="game-description">{{game.description}}</div>

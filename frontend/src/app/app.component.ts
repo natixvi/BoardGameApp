@@ -5,7 +5,7 @@ import { AuthService } from './services/auth.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from './components/nav/navbar/navbar.component';
 
 
 @Component({

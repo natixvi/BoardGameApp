@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';

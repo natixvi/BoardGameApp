@@ -8,6 +8,7 @@ import { CommonModule,  DatePipe } from '@angular/common';
 import { Review } from '../../../models/game/review';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule} from 'primeng/dataview';
+import { NotFoundError } from '../../../exceptions/NotFoundError';
 
 @Component({
   selector: 'app-game-detail',
@@ -33,7 +34,7 @@ export class GameDetailComponent implements OnInit {
     this.getGameDetails();
 
   }
-  
+
   getGameDetails(): void{
     this.gameService.getGameById(this.gameId).subscribe({
       next: (data: GameDetails) =>{
@@ -45,11 +46,16 @@ export class GameDetailComponent implements OnInit {
         this.reviews = this.gameDetails?.reviews; 
       },
       error: (e) => {
-        if (e instanceof BadRequestError){
+        if(e instanceof NotFoundError){
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-          //this.router.navigate(['notfound']);
+          this.router.navigate(['notfound']);
+        } 
+        else if (e instanceof BadRequestError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+          this.router.navigate(['notfound']);
         }
         else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+        this.router.navigate(['notfound']);  
       }
     })
   }

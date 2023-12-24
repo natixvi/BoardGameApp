@@ -20,9 +20,9 @@
             <div ngbDropdown class="d-inline-block">
               <button  class="nav-link text-light" id="dropdown" ngbDropdownToggle type="button">Account</button> 
               <div ngbDropdownMenu aria-labelledby="dropdown" placement="bottom-right">
-                <button ngbDropdownItem >Profile</button> 
-                <button ngbDropdownItem>Edit profile</button> 
-                <button ngbDropdownItem>Game list</button>
+                <button ngbDropdownItem [routerLink]="['/notfound']">Profile</button> 
+                <button ngbDropdownItem [routerLink]="['/editAccount']">Edit profile</button> 
+                <button ngbDropdownItem [routerLink]="['/notfound']">Game list</button>
                 <div class="dropdown-divider"></div> 
                 <button ngbDropdownItem (click)="logout()">Logout</button> 
               </div> 

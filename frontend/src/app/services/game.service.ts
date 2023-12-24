@@ -6,6 +6,8 @@ import { Game } from '../models/game/game';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { GameDetails } from '../models/game/gameDetail';
+import { UnauthorizedError } from '../exceptions/UnauthorizedError';
+import { NotFoundError } from '../exceptions/NotFoundError';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,9 +35,14 @@ export class GameService {
  }
 
    private handleError(error: HttpErrorResponse): Observable<any>{
-    if (error.status === 400) {
+    if (error.status === 401) {
+      return throwError(() => new UnauthorizedError(error.error));
+    } else if (error.status === 400) {
       return throwError(() => new BadRequestError(error.error));
-    } else {
+    } else if (error.status === 404){
+      return throwError(() => new NotFoundError(error.error));
+    }
+    else {
       return throwError(() => new GeneralError(error.error));
     }
   }
