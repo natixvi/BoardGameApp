@@ -53,6 +53,16 @@ public class AccountService : IAccountService
         await accountRepository.RegisterUser(user);
     }
 
+    public async Task<UserInfoDto> GetUser()
+    {
+        var userId = userContextService.GetUserId;
+        if (userId == null) throw new NotFoundException("User not found!");
+        var user = await accountRepository.GetUserById((int)userId);
+        if (user == null) throw new NotFoundException("User not found!");
+        return mapper.Map<UserInfoDto>(user);
+
+    }
+
     public async Task<string?> UpdateUser (UpdateUserDto updateUserDto)
     {
         

@@ -34,12 +34,20 @@ public class AccountController: ControllerBase
         return Ok(JsonSerializer.Serialize(new {token = token}));
     }
 
+    [HttpGet("user-data")]
+    public async Task<IActionResult> GetUser()
+    {
+        var userInfo = await accountService.GetUser();
+        return Ok(userInfo);
+    }
+
     [HttpPut("update-profile")]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
     {
         var token = await accountService.UpdateUser(updateUserDto);
         return Ok(JsonSerializer.Serialize(new {token = token}));
     }
+
 
     [HttpPut("change-password")]
     public async Task<IActionResult> UpdateUserPassword([FromBody] ChangePasswordDto updateUserPasswordDto)
