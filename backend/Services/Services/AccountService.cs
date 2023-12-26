@@ -67,6 +67,7 @@ public class AccountService : IAccountService
     {
         
         var userId = userContextService.GetUserId;
+        Console.WriteLine("idusfhsdikhf: userif:" + userId);
         if(userId == null) throw new BadRequestException("User cannot be edited!");
         var user = await accountRepository.GetUserById((int)userId);
         if(user == null) throw new NotFoundException("User not found!");
@@ -99,8 +100,8 @@ public class AccountService : IAccountService
         var verifyPassword = passwordHasher.VerifyHashedPassword(user, user.Password, updateUserPasswordDto.OldPassword);
         if (verifyPassword == PasswordVerificationResult.Failed) throw new BadRequestException("Invalid old password");  
 
-        if (updateUserPasswordDto.NewPassword != updateUserPasswordDto.ConfirmNewPassword) throw new PasswordsMustBeTheSameException("Passwords must be the same!");
-        var hashedPassword = passwordHasher.HashPassword(user, updateUserPasswordDto.NewPassword);
+        if (updateUserPasswordDto.Password != updateUserPasswordDto.ConfirmPassword) throw new PasswordsMustBeTheSameException("Passwords must be the same!");
+        var hashedPassword = passwordHasher.HashPassword(user, updateUserPasswordDto.Password);
         user.Password = hashedPassword;
 
         await accountRepository.Update(user);
