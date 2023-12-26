@@ -21,8 +21,7 @@
         <form [formGroup]="changePassForm" (ngSubmit)="changePassword()">
             <h2>Change password</h2>
             <div class="label">
-                <label >Old password: <input formControlName="oldPassword" type="password" placeholder="Old password"></label>
-            
+                <label >Old password: <input formControlName="oldPassword" type="password" placeholder="Old password"></label>        
             </div>
             <!-- <div class="error-messages" *ngIf="changePassForm.controls.newPassword.invalid && (changePassForm.controls.newPassword.dirty || changePassForm.controls.newPassword.touched)"> 
                 <small *ngIf="changePassForm.controls.newPassword.errors?.['required']">

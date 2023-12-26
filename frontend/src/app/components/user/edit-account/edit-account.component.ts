@@ -31,8 +31,9 @@ export class EditAccountComponent implements OnInit {
     oldPassword: ['', Validators.required],
     newPassword: ['', [Validators.required, Validators.minLength(8)]],
     confirmNewPassword:  ['', [Validators.required, Validators.minLength(8)]]
-  }, {validators: checkPasswordsValidator({ passwordControlName: 'newPassword',
-  confirmPasswordControlName: 'confirmNewPassword' }), updateOn: 'submit'}  as AbstractControlOptions )
+    },{validators: checkPasswordsValidator, updateOn: 'submit'} as AbstractControlOptions)
+  // }, {validators: checkPasswordsValidator({ passwordControlName: 'newPassword',
+  // confirmPasswordControlName: 'confirmNewPassword' }), updateOn: 'submit'}  as AbstractControlOptions )
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private messageService: MessageService){}
   ngOnInit(): void {
@@ -95,6 +96,7 @@ export class EditAccountComponent implements OnInit {
         this.changePassForm.reset();
       },
       error: (e) => {
+        
         console.error(e);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User changing password failed.' });
       }
