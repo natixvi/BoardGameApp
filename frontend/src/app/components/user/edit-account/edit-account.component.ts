@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { AbstractControlOptions, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { Router, RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
+import { NotFoundError } from '../../../exceptions/NotFoundError';
+import { checkPasswordsValidator } from '../../validators/checkPasswords.validator';
+import { UserService } from '../../../services/user.service';
+import { EditUserData } from '../../../models/user/editUserData';
+import { ChangeUserPasswordData } from '../../../models/user/changeUserPasswordData';
 
 @Component({
   selector: 'app-edit-account',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule, PasswordModule],
   templateUrl: './edit-account.component.html',
   styleUrls: ['./edit-account.component.css']
 })
@@ -16,10 +27,9 @@ export class EditAccountComponent implements OnInit {
 
   changePassForm = this.formBuilder.group({
     oldPassword: ['', Validators.required],
-    newPassword: ['', [Validators.required, Validators.minLength(8)]],
-    confirmNewPassword:  ['', [Validators.required, Validators.minLength(8)]]
-  }, {validators: checkPasswordsValidator({ passwordControlName: 'newPassword',
-  confirmPasswordControlName: 'confirmNewPassword' }), updateOn: 'submit'}  as AbstractControlOptions )
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    confirmPassword:  ['', [Validators.required, Validators.minLength(8)]]
+  },{validators: checkPasswordsValidator, updateOn: 'submit'}  as AbstractControlOptions)
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private messageService: MessageService){}
   ngOnInit(): void {
@@ -72,8 +82,8 @@ export class EditAccountComponent implements OnInit {
     }
     const changePasswordData = {
       oldPassword: this.changePassForm.get('oldPassword')?.value,
-      newPassword: this.changePassForm.get('newPassword')?.value,
-      confirmNewPassword: this.changePassForm.get('confirmNewPassword')?.value
+      newPassword: this.changePassForm.get('password')?.value,
+      confirmNewPassword: this.changePassForm.get('confirmPassword')?.value
     } as ChangeUserPasswordData
 
     this.userService.changeUserPassword(changePasswordData).subscribe({

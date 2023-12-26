@@ -26,8 +26,7 @@ export class RegisterComponent {
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
-    },{validators: checkPasswordsValidator({ passwordControlName: 'password',
-    confirmPasswordControlName: 'confirmPassword' }), updateOn: 'submit'}  as AbstractControlOptions)
+  },{validators: checkPasswordsValidator, updateOn: 'submit'}  as AbstractControlOptions)
 
   router: Router = inject(Router);
   value: string | undefined;
