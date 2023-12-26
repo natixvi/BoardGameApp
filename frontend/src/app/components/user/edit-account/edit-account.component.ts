@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './edit-account.component.html',
   styleUrls: ['./edit-account.component.css']
 })
-export class EditAccountComponent implements OnInit {
+export class EditAccountComponent {
 
 }
