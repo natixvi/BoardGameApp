@@ -20,7 +20,7 @@ export class UserService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private authService: AuthService) {  console.log('userservice created!');}
 
-  login(credentials: UserLoginData){
+  login(credentials: UserLoginData) : Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/Account/login`, credentials).pipe(
       tap((response) => { 
         this.authService.login(response.token);
@@ -34,23 +34,20 @@ export class UserService {
     );;
   }
 
-  register(registerData: UserRegisterData){
-    return this.http.post<any>(`${this.apiUrl}/Account/register`, registerData).pipe(
-      tap((response) => { 
-        console.log(response)
-      }),
+  register(registerData: UserRegisterData) : Observable<string>{
+    return this.http.post(`${this.apiUrl}/Account/register`, registerData, { responseType: "text"}).pipe(
       catchError( error => {
         return this.handleError(error);
       })
       );
   }
 
-  getUserInfo(){
+  getUserInfo() : Observable<UserInfo>{
     return this.http.get<UserInfo>(`${this.apiUrl}/Account/user-data`).pipe(catchError(error => {
       return this.handleError(error);}))
   }
 
-  editUserData(editUserData: EditUserData){
+  editUserData(editUserData: EditUserData) : Observable<any>{
     return this.http.put<any>(`${this.apiUrl}/Account/update-profile`, editUserData).pipe(
       tap((response) => {
         console.log(response)
@@ -62,21 +59,15 @@ export class UserService {
     )
   }
 
-  changeUserPassword(changeUserPasswordData: ChangeUserPasswordData){
-    return this.http.put<any>(`${this.apiUrl}/Account/change-password`, changeUserPasswordData).pipe(
-      tap((response) => {
-        console.log(response)
-      }),
+  changeUserPassword(changeUserPasswordData: ChangeUserPasswordData) : Observable<string>{
+    return this.http.put(`${this.apiUrl}/Account/change-password`, changeUserPasswordData, {responseType: 'text'}).pipe(
       catchError( error => {
         return this.handleError(error)
       })
     )
   }
-  deleteAccount(){
+  deleteAccount() : Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/Account/delete`).pipe(
-      tap((response) => {
-        console.log(response)
-      }),
       catchError( error => {
         return this.handleError(error)
       })

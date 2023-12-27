@@ -22,7 +22,7 @@ import { PasswordModule } from 'primeng/password';
 })
 export class RegisterComponent {
   registerForm=this.formBuilder.group({
-    nickName: ['', Validators.required],
+    nickName: ['', [Validators.required, Validators.maxLength(30)]],
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(8)]]

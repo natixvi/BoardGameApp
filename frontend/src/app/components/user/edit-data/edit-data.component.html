@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="edit-profile">
+        <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
+            <h2>Edit data</h2>
+            <div class="label">
+                <label>NickName: <input formControlName="nickName" type="text" pInputText placeholder="NickName"></label>
+            </div>
+            <div class="label">
+                <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>
+            </div>
+            <div class="error-messages" *ngIf="editProfileForm.controls.email.invalid && (editProfileForm.controls.email.dirty || editProfileForm.controls.email.touched)"> 
+                <small *ngIf="editProfileForm.controls.email.errors?.['email']">
+                    Enter valid email.
+                </small>
+            </div>
+            <button pbutton type="submit">Edit data</button>
+        </form>
+    </div>
+</div>

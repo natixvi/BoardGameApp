@@ -7,13 +7,14 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(BrowserModule, ReactiveFormsModule),
+    importProvidersFrom(BrowserModule, ReactiveFormsModule, ButtonModule),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

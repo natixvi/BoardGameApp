@@ -1,3 +1,6 @@
+/* @import 'node_modules/bootstrap/dist/css/bootstrap.min.css'; */
+
+
 .navbar{
   position: fixed;
   top: 0;
@@ -15,14 +18,14 @@
   padding-top: 10px;;
 }
 
-  .bg-dark-gray {
+.bg-dark-gray {
     background-color: #00539C; 
     /* 2b3186 */
-  }
+}
 
-  .custom-toggler-icon{
+.custom-toggler-icon{
     background-color: #ffffff;
-  }
+}
   .navbar-nav .dropdown-menu{
     background-color: #00539C;
     right: -13px;
