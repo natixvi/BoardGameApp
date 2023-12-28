@@ -1,47 +1,4 @@
-/* @import 'node_modules/bootstrap/dist/css/bootstrap.min.css'; */
 
-.navbar{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-}
-.nav-item.logout-link:hover {
-    cursor: pointer;
-    color: #034c8b;
-  }
-
-.nav-link{
-  font-size: 20px;
-  padding-top: 10px;;
-}
-
-.bg-dark-gray {
-    background-color: #00539C; 
-    /* 2b3186 */
-}
-
-.custom-toggler-icon{
-    background-color: #ffffff;
-}
-  .navbar-nav .dropdown-menu{
-    background-color: #00539C;
-    right: -13px;
-    left: auto;
-    border-radius: 0; 
-
-  }
-  .navbar-nav .dropdown-item {
-    padding: 8px 16px;
-    color: #ffffff; 
-  }
-
-  .navbar-nav .dropdown-item:hover {
-    cursor: pointer;
-    background-color: #034c8b; 
-  
-  }
   @media only screen and (max-width: 1000px) {
     .nav-link{
       font-size: 1.1rem;
@@ -80,7 +37,7 @@
   padding: 10px 20px;
 }
 
-.logo {
+.p-menubar .logo {
   margin-right: 10px;
 }
 
@@ -102,10 +59,31 @@
 }
 
 .p-menuitem-text {
+  color: #ffffff;
   padding: 8px 16px;
 }
 
+.p-menuitem-icon {
+  color: #ffffff;
+}
+
+.p-menubar .p-submenu-list{
+  background-color: #00539C !important;
+  color: #ffffff;
+}
+.p-menubar .p-menubar-root-list{
+  background-color: #00539C !important;
+  color: #ffffff;
+}
+
+.p-submenu-icon{
+  color: #ffffff;
+}
+.p-menubar .p-icon{
+  color: #ffffff;
+}
 .p-dropdown-items .p-dropdown-item {
+  background-color: #00539C !important;
   color: #ffffff;
 }
 
@@ -113,3 +91,5 @@
   background-color: #034c8b;
   cursor: pointer;
 }
+
+

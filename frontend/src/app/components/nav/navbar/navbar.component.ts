@@ -24,52 +24,37 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-    this.menuItems();
-  }
-
-  private menuItems() : void{
-    if(this.isLoggedIn$){
+    this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.items = [
+        
         {
           label: 'Home',
-          icon: 'pi pi-home', 
-          routerLink: ['/home'] 
+          icon: 'pi pi-home',
+          routerLink: ['/home'],
         },
         {
           label: 'Games',
-          icon: 'pi pi-game',
-          routerLink: ['/games'] 
+          icon: 'pi pi-list',
+          routerLink: ['/games'],
         },
         {
           label: 'Account',
           icon: 'pi pi-user',
+          visible: isLoggedIn,
           items: [
             { label: 'Profile', icon: 'pi pi-user', routerLink: ['/notfound'] },
             { label: 'Edit Profile', icon: 'pi pi-pencil', routerLink: ['/editAccount'] },
             { label: 'Game List', icon: 'pi pi-list', routerLink: ['/notfound'] },
-            { separator: true },
+            { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
           ],
-        }
-      ]
-    }
-    else{
-      this.items = [
-        {
-          label: 'Home',
-          icon: 'pi pi-home', 
-          routerLink: ['/home'] 
         },
-        {
-          label: 'Games',
-          icon: 'pi pi-game',
-          routerLink: ['/games'] 
-        },
-         { label: 'Login', icon: 'pi pi-sign-in', routerLink: ['/login'] },
-        { label: 'Register', icon: 'pi pi-user-plus', routerLink: ['/register'] },
-      ]
-    }
+        { label: 'Login', icon: 'pi pi-sign-in', visible: !isLoggedIn, routerLink: ['/login'] },
+        { label: 'Register', icon: 'pi pi-user-plus', visible: !isLoggedIn,routerLink: ['/register'] },
+      ];
+    });
   }
+  
   logout(){
     this.authService.logout();
     this.router.navigate(['login']);

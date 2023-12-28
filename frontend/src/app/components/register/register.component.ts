@@ -10,12 +10,13 @@ import { UserLoginData } from '../../models/user/userLoginData';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule, PasswordModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule, PasswordModule, InputTextModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 
