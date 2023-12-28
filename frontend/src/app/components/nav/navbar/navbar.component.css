@@ -61,3 +61,55 @@
       font-size: 1rem;
     }
 }
+
+.p-menubar {
+  background-color: #00539C;
+  border: 0; 
+  border-radius: 0; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.board-game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo {
+  margin-right: 10px;
+}
+
+.board-game-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.p-menuitem-link {
+  font-size: 20px;
+  padding-top: 10px;
+  color: #ffffff !important;
+}
+
+.p-menuitem-link:hover {
+  background-color: #034c8b !important;
+  cursor: pointer;
+}
+
+.p-menuitem-text {
+  padding: 8px 16px;
+}
+
+.p-dropdown-items .p-dropdown-item {
+  color: #ffffff;
+}
+
+.p-dropdown-items .p-dropdown-item:hover {
+  background-color: #034c8b;
+  cursor: pointer;
+}
