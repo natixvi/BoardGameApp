@@ -40,6 +40,27 @@
 .p-menubar .logo {
   margin-right: 10px;
 }
+.p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+  background: #034c8b !important;
+}
+
+.p-menubar .p-menuitem.p-highlight > .p-menuitem-content {
+  background: #034c8b !important;
+}
+.p-menuitem-link {
+  font-size: 18px !important;
+}
+
+@media screen and (max-width: 960px){
+  .p-menubar .p-menubar-button:focus {
+    box-shadow: 0 0 0 0.1rem #ffffff;
+  }
+  .p-menubar .p-menubar-button:hover{
+    background: #034c8b;
+  }
+
+}
+
 
 .board-game-title {
   color: #ffffff;
@@ -72,6 +93,10 @@
   color: #ffffff;
 }
 .p-menubar .p-menubar-root-list{
+  background-color: #00539C !important;
+  color: #ffffff;
+}
+.p-menubar .p-submenu-list{
   background-color: #00539C !important;
   color: #ffffff;
 }
