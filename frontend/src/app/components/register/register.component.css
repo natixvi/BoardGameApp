@@ -14,15 +14,29 @@
 
 .container h2{
     text-align: center;
-    color: #000000;
     border-bottom: 2px solid #cacaca; 
     padding-bottom: 10px;
     margin-bottom: 20px;
+    font-size: x-large;
 }
+
 input::placeholder {
     color: #a5a5a5; 
 }
 
+::ng-deep .p-password{
+    display: block ;
+    border-radius: 5px;
+    border: 1px solid #8d8d8d;
+}
+::ng-deep .p-password input{ 
+    width: 100%;
+    border: 0;
+    padding: 8px;
+}
+::ng-deep .p-password input::placeholder{
+    color: #a5a5a5;
+}
 .container .label{
     width: 100%;
     margin-bottom: 10px;
@@ -35,7 +49,7 @@ input::placeholder {
 
 .container input{
     width: 100%;
-    padding: 5px; 
+    padding: 8px; 
     background-color: #ffffff ;
     border-radius: 5px;
     border: 1px solid #8d8d8d;
@@ -52,6 +66,7 @@ input::placeholder {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 15px;
 }
 
 .container button[type="submit"]:hover {

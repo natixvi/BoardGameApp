@@ -21,7 +21,7 @@
             </small>
         </div>
         <div class="label">
-            <label >Password: <input formControlName="password" pInputText type="password" placeholder="Password"></label>
+            <label >Password: <p-password formControlName="password" placeholder="Password" [toggleMask]="true"></p-password></label>
         
         </div>
         <div class="error-messages" *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)"> 
@@ -33,7 +33,7 @@
             </small>
         </div>
         <div class="label">
-            <label>Confirm Password: <input formControlName="confirmPassword" pInputText type="password" placeholder="Confirm Password"></label>
+            <label>Confirm Password: <p-password formControlName="confirmPassword" type="password" placeholder="Confirm Password" [toggleMask]="true" [feedback]=false></p-password></label>
         </div>
         <div class="error-messages" *ngIf="registerForm.controls.confirmPassword.invalid && (registerForm.controls.confirmPassword.dirty || registerForm.controls.confirmPassword.touched)"> 
             <small *ngIf="registerForm.controls.confirmPassword.errors?.['required']">

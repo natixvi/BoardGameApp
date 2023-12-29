@@ -20,12 +20,12 @@
         </div>
     </div>
     <div class = "game-others">
-        <h6>Description</h6>
+        <h3>Description</h3>
         <div class="game-description">
             {{gameDetails.description}}
         </div>
         <div class = "game-reviews">
-            <h6>Reviews</h6>
+            <h3>Reviews</h3>
             <p-dataView #dv [value]="reviews"[paginator]="true" [rows]="2">
                 <ng-template let-review pTemplate="listItem">
                     <div class="col-12">

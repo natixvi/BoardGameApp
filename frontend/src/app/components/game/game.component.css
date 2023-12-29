@@ -47,10 +47,6 @@
     text-decoration: underline;
   }
 
-.game-publisher-icon{
-    margin-bottom: 1rem;
-}
-
 .game-description{
     overflow: hidden;
     text-overflow: ellipsis;
@@ -86,6 +82,8 @@ i{
 .game-grid-item {
     margin: 1rem;
     border: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
 }
 
 .card {
@@ -110,7 +108,7 @@ i{
 
 .game-grid-detail{
     text-align: center;
-    flex-grow: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -129,6 +127,20 @@ i{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0;
+}
+
+::ng-deep .p-selectbutton .p-button.p-highlight:hover {
+    background-color: #f19364;
+    border-color: #f19364;
+}
+::ng-deep .p-selectbutton .p-button.p-highlight{
+    background-color: #EEA47F;
+}
+::ng-deep .p-selectbutton .p-button {
+    background-color: #f1c7b1;
+    border-color: #f1c7b1;
+    color: #ffffff ;
 }
 
 @media screen and (max-width: 470px) {

@@ -14,7 +14,7 @@
             </small>
         </div>
         <div class="label">
-            <label>Password: <input formControlName="password" type="password" pInputText placeholder="Password"></label>
+            <label>Password: <p-password formControlName="password" placeholder="Password" [toggleMask]="true" [feedback]=false></p-password></label>
         </div>
         <div class="error-messages" *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"> 
             <small *ngIf="loginForm.controls.password.errors?.['required']">

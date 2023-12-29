@@ -10,11 +10,12 @@ import { BadRequestError } from '../../exceptions/BadRequestError';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule,PasswordModule, InputTextModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
  
