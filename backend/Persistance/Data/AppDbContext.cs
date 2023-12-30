@@ -9,7 +9,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<BoardGame> BoardGames { get; set; }
-    public DbSet<MyBoardGame> MyBoardGames { get; set; }
+    public DbSet<UserBoardGame> UserBoardGames { get; set; }
     public DbSet<FavouriteUser> FavouriteUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

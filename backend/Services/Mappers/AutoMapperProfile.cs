@@ -19,7 +19,7 @@ public class AutoMapperProfile: Profile
         CreateMap<UpdateBoardGameDto, BoardGame>();
         CreateMap<AddBoardGameDto, BoardGame>();
 
-        CreateMap<MyBoardGame, ReviewDto>()
+        CreateMap<UserBoardGame, ReviewDto>()
             .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.User.NickName));
     }
 }

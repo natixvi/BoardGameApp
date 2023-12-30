@@ -26,10 +26,18 @@
                         </div>
 
                         <div class="game-description">{{game.description}}</div>
+                        <div>{{game.isInUserList}}</div>
                     </div> 
-                    <div class="game-list-button">
+                    <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
+                        <p-button *ngIf="!game.isInUserList" label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
+                        <p-button *ngIf="game.isInUserList" label="Remove from list" icon="pi pi-minus" iconPos="right"></p-button>
+                    </div>
+                    <ng-template #notLoggedIn>
+                        <p-button label="Add to list" icon="pi pi-plus" iconPos="right" [routerLink]="['/login']"></p-button>
+                    </ng-template>
+                    <!-- <div class="game-list-button">
                        <p-button label="Add to list" icon="pi pi-plus" iconPos="right" class="list-button"></p-button>
-                    </div>     
+                    </div>      -->
                 </div>
             </div>
         </ng-template>

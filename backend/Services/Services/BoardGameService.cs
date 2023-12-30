@@ -10,13 +10,13 @@ public class BoardGameService : IBoardGameService
 {
     private readonly IBoardGameRepository gameRepository;
     private readonly IMapper mapper;
-    private readonly IMyBoardGameService myBoardGameService;
+    private readonly IUserBoardGameService myBoardGameService;
 
-    public BoardGameService(IBoardGameRepository gameRepository, IMapper mapper, IMyBoardGameService myBoardGameService)
+    public BoardGameService(IBoardGameRepository gameRepository, IMapper mapper, IUserBoardGameService userBoardGameService)
     {
         this.gameRepository = gameRepository;
         this.mapper = mapper;
-        this.myBoardGameService = myBoardGameService;
+        this.myBoardGameService = userBoardGameService;
     }
     public async Task<List<BoardGameDto>> GetBoardGames()
     {

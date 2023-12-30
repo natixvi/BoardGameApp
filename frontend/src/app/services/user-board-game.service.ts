@@ -2,40 +2,29 @@ import { Injectable } from '@angular/core';
 import { environment } from '../config';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Game } from '../models/game/game';
+import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
-import { GameDetails } from '../models/game/gameDetail';
-import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { NotFoundError } from '../exceptions/NotFoundError';
+
 @Injectable({
   providedIn: 'root'
 })
-export class GameService {
+export class UserBoardGameService {
   private apiUrl = environment.apiUrl;
-  
+
   constructor(private http: HttpClient,) { }
 
-
-   getGames() : Observable<Game[]>{
-      return this.http.get<Game[]>(`${this.apiUrl}/boardgame`).pipe(
-        catchError(error => {
-          console.log('Error while loading games:' , error);
-          return this.handleError(error);
-        })
-      );
-   }
-
-   getGameById(gameId: number) : Observable<GameDetails>{
-    return this.http.get<GameDetails>(`${this.apiUrl}/boardgame/${gameId}`).pipe(
+  isGameInUserList(gameId: number): Observable<boolean>{
+    return this.http.get<boolean>(`${this.apiUrl}/userboardgame/is-game-in-list/${gameId}`).pipe(
       catchError(error => {
-        console.log('Error while loading game:' , error);
+        console.log('Error loading status game on user list' , error);
         return this.handleError(error);
       })
     );
- }
+  }
 
-   private handleError(error: HttpErrorResponse): Observable<any>{
+  private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 401) {
       return throwError(() => new UnauthorizedError(error.error));
     } else if (error.status === 400) {
@@ -47,5 +36,4 @@ export class GameService {
       return throwError(() => new GeneralError(error.error));
     }
   }
-
 }

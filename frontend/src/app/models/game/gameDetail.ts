@@ -10,5 +10,6 @@ export interface GameDetails{
     age : number,
     imageUrl : string,
     rating: number,
-    reviews: Review[]
+    reviews: Review[],
+    isInUserList: boolean
 }

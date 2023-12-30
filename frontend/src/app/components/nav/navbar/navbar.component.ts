@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   router = inject(Router);
   isLoggedIn$: Observable<boolean> | undefined;
 
-  constructor(public authService: AuthService, ){}
+  constructor(public authService: AuthService){}
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;

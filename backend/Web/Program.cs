@@ -54,14 +54,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddTransient<IBoardGameService, BoardGameService>();
 builder.Services.AddTransient<IBoardGameRepository, BoardGameRepository>();
-builder.Services.AddTransient<IMyBoardGameRepository, MyBoardGameRepository>();
-builder.Services.AddTransient<IMyBoardGameService, MyBoardGameService>();
+builder.Services.AddTransient<IUserBoardGameRepository, UserBoardGameRepository>();
+builder.Services.AddTransient<IUserBoardGameService, UserBoardGameService>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
-builder.Services.AddScoped<IUserContextService, UserContextService>();
+
 
 builder.Services.AddScoped<ApiSeeder>(); //Ka¿de ¿¹danie korzysta z tej samej instancji ApiSeeder w ramach jednego zasiêgu scope
 builder.Services.AddHttpContextAccessor();

@@ -1,5 +1,5 @@
 ﻿namespace Domain.Entities;
-public class MyBoardGame
+public class UserBoardGame
 {
     public int Id { get; set; }
     public int UserId { get; set; }

@@ -4,4 +4,5 @@ export interface Game{
     description : string,
     imageUrl : string,
     rating: number,
+    isInUserList: boolean
 }
