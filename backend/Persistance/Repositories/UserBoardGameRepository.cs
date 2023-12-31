@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Persistance.Data;
 
 namespace Persistance.Repositories;
-public class UserBoardGameRepository : IUserBoardGameRepository
+public class UserBoardGameRepository : BaseRepository<UserBoardGame>, IUserBoardGameRepository
 {
     private readonly AppDbContext appDbContext;
 
-    public UserBoardGameRepository(AppDbContext appDbContext)
+    public UserBoardGameRepository(AppDbContext appDbContext) : base(appDbContext)
     {
         this.appDbContext = appDbContext;
     }
@@ -27,5 +27,16 @@ public class UserBoardGameRepository : IUserBoardGameRepository
         return appDbContext.UserBoardGames.AnyAsync(g => g.BoardGameId == gameId && g.UserId == userId);
     }
 
+    public async Task<int> AddGameToUserList(UserBoardGame userBoardGame)
+    {
+        appDbContext.UserBoardGames.Add(userBoardGame);
+        await appDbContext.SaveChangesAsync();
+        return userBoardGame.BoardGameId;
+    }
+
+    public async Task<UserBoardGame?> GetUserBoardGameById(int gameId, int userId)
+    {
+        return await appDbContext.UserBoardGames.FirstOrDefaultAsync(g => g.BoardGameId == gameId && g.UserId == userId);
+    }
 
 }

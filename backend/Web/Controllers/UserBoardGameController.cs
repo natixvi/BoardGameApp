@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.DTOs.UserBoardGame;
 using Services.Interfaces;
 
 namespace Web.Controllers;
@@ -22,4 +24,17 @@ public class UserBoardGameController : ControllerBase
         return Ok(isGameInUserList);
     }
 
+    [HttpPost("add/{gameId}")]
+    public async Task<IActionResult> AddGameToUserList([FromRoute] int gameId, [FromBody] AddUserBoardGameDto addUserBoardGameDto)
+    {
+        var userBoardGameId = await userBoardGameService.AddGameToUserList(gameId, addUserBoardGameDto);
+        return Created($"/UserBoardGame/{userBoardGameId}", null);
+    }
+
+    [HttpDelete("delete/{gameId}")]
+    public async Task<IActionResult> DeleteGameFromUserList([FromRoute] int gameId)
+    {
+        await userBoardGameService.DeleteGameFromUserList(gameId);
+        return NoContent();
+    }   
 }

@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Services.DTOs.BoardGame;
 using Services.DTOs.User;
+using Services.DTOs.UserBoardGame;
 
 namespace Services.Mappers;
 
@@ -18,6 +19,9 @@ public class AutoMapperProfile: Profile
         CreateMap<BoardGame, BoardGameDetailsDto>();
         CreateMap<UpdateBoardGameDto, BoardGame>();
         CreateMap<AddBoardGameDto, BoardGame>();
+
+        CreateMap<AddUserBoardGameDto, UserBoardGame>();
+        CreateMap<AddUserBoardGameDto, BoardGame>();
 
         CreateMap<UserBoardGame, ReviewDto>()
             .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.User.NickName));

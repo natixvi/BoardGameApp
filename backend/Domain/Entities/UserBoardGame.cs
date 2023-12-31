@@ -9,5 +9,5 @@ public class UserBoardGame
     public double Rating { get; set; }
     public string? ReviewDescription { get; set; }
     public DateTime CreatedDate{ get; set; }
-    public bool IsFavourite { get; set; } = false;
+    public bool IsFavourite { get; set; }
 }
