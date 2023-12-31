@@ -15,7 +15,14 @@
                 <div class="game-publisher"><span class="header">Publisher: </span><span class="desc">{{gameDetails.publisher}}</span></div>
             </div>   
             <div class="add-button">
-                <p-button label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
+                <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
+                    <p-button *ngIf="!gameDetails.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
+                    <p-button *ngIf="gameDetails.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right"></p-button>
+                </div>
+                <ng-template #notLoggedIn>
+                    <p-button severity="success" label="Add to list" icon="pi pi-plus" iconPos="right" [routerLink]="['/login']"></p-button>
+                </ng-template>
+                <!-- <p-button label="Add to list" icon="pi pi-plus" iconPos="right"></p-button> -->
             </div>
         </div>
     </div>

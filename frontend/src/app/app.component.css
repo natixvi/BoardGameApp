@@ -25,9 +25,7 @@
     z-index: 1000;
   }
 
-
-  ::ng-deep .p-button {
-    border-radius: 5%;
+  /* ::ng-deep .p-button {
     border: 1px solid #EEA47F;
     background-color: #EEA47F;
   }
@@ -45,13 +43,7 @@
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem rgba(241, 147, 100, 0.5);
-  }
-
-  /* ::ng-deep .p-dialog .p-dialog-footer button {
-    margin: 0.0.5rem 0 0;
-    width: auto;
   } */
-
 
   @media only screen and (max-width: 1000px) {
     .content{

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GameDetails } from '../../../models/game/gameDetail';
 import { GameService } from '../../../services/game.service';
 import { MessageService } from 'primeng/api';
@@ -9,11 +9,15 @@ import { Review } from '../../../models/game/review';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule} from 'primeng/dataview';
 import { NotFoundError } from '../../../exceptions/NotFoundError';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../../services/auth.service';
+import { Game } from '../../../models/game/game';
+import { UserBoardGameService } from '../../../services/user-board-game.service';
 
 @Component({
   selector: 'app-game-detail',
   standalone: true,
-  imports: [CommonModule, ButtonModule, DataViewModule],
+  imports: [CommonModule, ButtonModule, DataViewModule,  RouterModule],
   templateUrl: './game-detail.component.html',
   styleUrls: ['./game-detail.component.css']
 })
@@ -22,8 +26,10 @@ export class GameDetailComponent implements OnInit {
   router = inject(Router);
   gameDetails: GameDetails = { } as GameDetails
   reviews: Review[] = []
+  isLoggedIn$: Observable<boolean> | undefined;
+  isLoggedIn: boolean = false;
 
-  constructor(private route: ActivatedRoute, private gameService: GameService, private messageService: MessageService, private datepipe: DatePipe){}
+  constructor(private route: ActivatedRoute,public authService: AuthService,private userBoardGameService: UserBoardGameService, private gameService: GameService, private messageService: MessageService, private datepipe: DatePipe){}
 
   ngOnInit() {
     this.route.params.subscribe({
@@ -31,13 +37,25 @@ export class GameDetailComponent implements OnInit {
         this.gameId = params['id'];
       }
     });
-    this.getGameDetails();
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+      
+     });
+   
+    this.getGameDetails(this.isLoggedIn);
 
   }
 
-  getGameDetails(): void{
+  getGameDetails(isLoggedIn : boolean): void{
     this.gameService.getGameById(this.gameId).subscribe({
       next: (data: GameDetails) =>{
+        if(isLoggedIn){
+          this.checkIfGameIsInUserList(data)
+        }
+        else{
+          data.isInUserList = false;
+        }
         this.gameDetails = data;
         this.gameDetails.reviews.forEach((review: Review) => {
           review.createdDate = new Date(review.createdDate);
@@ -58,6 +76,25 @@ export class GameDetailComponent implements OnInit {
         this.router.navigate(['notfound']);  
       }
     })
+  }
+
+  checkIfGameIsInUserList(game: GameDetails) {
+    this.userBoardGameService.isGameInUserList(game.id).subscribe( {
+      next: (result: boolean) =>{
+        game.isInUserList = result;
+      },
+      error: (e) => {
+        if (e instanceof BadRequestError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else if(e instanceof NotFoundError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+      }
+    }
+
+    )
   }
 
 

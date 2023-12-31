@@ -106,6 +106,9 @@ i{
     cursor: pointer;
 }
 
+::ng-deep .game-list-button .p-button{
+    width: 150px;
+}
 .game-grid-detail{
     text-align: center;
     flex: 1;
@@ -142,6 +145,16 @@ i{
     border-color: #f1c7b1;
     color: #ffffff ;
 }
+
+::ng-deep .p-selectbutton .p-button:enabled:hover {
+    background: #f19364;
+    border-color: #f19364;
+  }
+  ::ng-deep .p-selectbutton .p-button:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem rgba(241, 147, 100, 0.5);
+  } 
 
 @media screen and (max-width: 470px) {
     .flex-col.md\:flex-row {
