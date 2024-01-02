@@ -24,6 +24,15 @@ export class UserBoardGameService {
     );
   }
 
+  deleteGameFromUserList(gameId: number): Observable<any>{
+    return this.http.delete<any>(`${this.apiUrl}/userboardgame/delete/${gameId}`).pipe(
+      catchError(error => {
+        console.log('Error deleting game from user list' , error);
+        return this.handleError(error);
+      })
+    );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 401) {
       return throwError(() => new UnauthorizedError(error.error));

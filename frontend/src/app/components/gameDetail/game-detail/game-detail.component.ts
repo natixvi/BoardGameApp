@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GameDetails } from '../../../models/game/gameDetail';
 import { GameService } from '../../../services/game.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { CommonModule,  DatePipe } from '@angular/common';
 import { Review } from '../../../models/game/review';
@@ -11,7 +11,6 @@ import { DataViewModule} from 'primeng/dataview';
 import { NotFoundError } from '../../../exceptions/NotFoundError';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
-import { Game } from '../../../models/game/game';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
 
 @Component({
@@ -22,6 +21,7 @@ import { UserBoardGameService } from '../../../services/user-board-game.service'
   styleUrls: ['./game-detail.component.css']
 })
 export class GameDetailComponent implements OnInit {
+
   gameId: number = 0;
   router = inject(Router);
   gameDetails: GameDetails = { } as GameDetails
@@ -29,7 +29,7 @@ export class GameDetailComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
 
-  constructor(private route: ActivatedRoute,public authService: AuthService,private userBoardGameService: UserBoardGameService, private gameService: GameService, private messageService: MessageService, private datepipe: DatePipe){}
+  constructor(private route: ActivatedRoute, public authService: AuthService,private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService, private datepipe: DatePipe){}
 
   ngOnInit() {
     this.route.params.subscribe({
@@ -97,5 +97,34 @@ export class GameDetailComponent implements OnInit {
     )
   }
 
+  addGameToList() {
+    throw new Error('Method not implemented.');
+  }
 
+  deleteGameFromList(gameId : number) : void {
+    this.confirmationService.confirm({
+      message: "Are you sure you want to delete game from your list?",
+      header: "Delete confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.userBoardGameService.deleteGameFromUserList(gameId).subscribe({
+          next: () => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game deleted!' });
+          },
+
+          error: (e) => {
+            console.error('Error while deleting game', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while deleting game.'});
+          }
+        })   
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Delete game from list canceled.' });
+        this.confirmationService.close();
+      }
+    })
+  }
+   
 }
+
