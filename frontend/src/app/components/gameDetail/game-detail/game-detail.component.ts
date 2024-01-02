@@ -93,7 +93,6 @@ export class GameDetailComponent implements OnInit {
         else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
       }
     }
-
     )
   }
 
@@ -109,7 +108,8 @@ export class GameDetailComponent implements OnInit {
       accept: () => {
         this.userBoardGameService.deleteGameFromUserList(gameId).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game deleted!' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game deleted from teh list!' });
+            this.ngOnInit();
           },
 
           error: (e) => {

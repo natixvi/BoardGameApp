@@ -30,14 +30,11 @@
                     </div> 
                     <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
                         <p-button *ngIf="!game.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
-                        <p-button *ngIf="game.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right"></p-button>
+                        <p-button *ngIf="game.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(game.id)"></p-button>
                     </div>
                     <ng-template #notLoggedIn>
                         <p-button label="Add to list" severity="success"  icon="pi pi-plus" iconPos="right" [routerLink]="['/login']"></p-button>
                     </ng-template>
-                    <!-- <div class="game-list-button">
-                       <p-button label="Add to list" icon="pi pi-plus" iconPos="right" class="list-button"></p-button>
-                    </div>      -->
                 </div>
             </div>
         </ng-template>
@@ -55,7 +52,7 @@
                         <span class="game-rating"><i class="pi pi-star-fill"></i>Rating: {{game.rating}}</span>
                         <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
                             <p-button *ngIf="!game.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right"></p-button>
-                            <p-button *ngIf="game.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right"></p-button>
+                            <p-button *ngIf="game.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(game.id)"></p-button>
                         </div>
                         <ng-template #notLoggedIn>
                             <p-button severity="success" label="Add to list" icon="pi pi-plus" iconPos="right" [routerLink]="['/login']"></p-button>
