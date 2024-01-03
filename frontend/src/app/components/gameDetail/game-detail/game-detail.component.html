@@ -16,7 +16,45 @@
             </div>   
             <div class="add-button">
                 <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
-                    <p-button *ngIf="!gameDetails.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="addGameToList()"></p-button>
+                    <p-button *ngIf="!gameDetails.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="showAddGameForm()"></p-button>
+                    <div class="form-container" *ngIf="isFormVisible"> 
+                        <form [formGroup]="gameAddForm" (ngSubmit)="addGameToList()">
+                            <h2>Add game to list</h2>
+                            <div class="form">
+                                <div class="label">
+                                    <label for="rating">Rating (0-10):</label>
+                                    <input id="rating" type="number" formControlName="rating" />
+                                </div>
+                                <div class="error-messages" *ngIf="gameAddForm.controls.rating.invalid && (gameAddForm.controls.rating.dirty || gameAddForm.controls.rating.touched)">
+                                    <small *ngIf="gameAddForm.controls.rating.errors?.['required']">
+                                        Rating is required.
+                                    </small>
+                                    <small *ngIf="gameAddForm.controls.rating.errors?.['min']">
+                                        Rating must be at least 0.
+                                    </small>
+                                    <small *ngIf="gameAddForm.controls.rating.errors?.['max']">
+                                        Rating must be at most 10.
+                                    </small>
+                                </div>
+                                <div class="label">
+                                    <label for="review">Review: </label>
+                                    <input pInputText id="review" type="text" formControlName="review" />
+                                </div>
+                                <div class="error-messages" *ngIf="gameAddForm.get('review')?.invalid && (gameAddForm.get('review')?.dirty || gameAddForm.get('review')?.touched)">
+                                    <small *ngIf="gameAddForm.get('Review')?.hasError('max')">
+                                        Review must be at most 1000 characters.
+                                    </small>
+                                </div>
+                                <div>
+                                <label>
+                                    Add to Favorites
+                                    <i class="pi pi-heart-fill"  [class.highlighted]="isActive" (click)="onClick()"></i>
+                                </label>
+                                </div>               
+                                <button type="submit" [disabled]="gameAddForm.invalid">Add game to list</button>
+                            </div>
+                    </form> 
+                </div>
                     <p-button *ngIf="gameDetails.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(gameDetails.id)"></p-button>
                 </div>
                 <ng-template #notLoggedIn>

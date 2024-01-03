@@ -6,6 +6,7 @@ import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { NotFoundError } from '../exceptions/NotFoundError';
+import { AddGameToList } from '../models/game/addGameToList';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,19 @@ export class UserBoardGameService {
     );
   }
 
+  addGameToUserList(gameId: number, addedGame: AddGameToList) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/userboardgame/add/${gameId}`, addedGame).pipe(
+      catchError(error => {
+        console.log('Error while adding game to user list' , error);
+        return this.handleError(error);
+      })
+    );
+  }
+
   deleteGameFromUserList(gameId: number): Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/userboardgame/delete/${gameId}`).pipe(
       catchError(error => {
-        console.log('Error deleting game from user list' , error);
+        console.log('Error while deleting game from user list' , error);
         return this.handleError(error);
       })
     );
