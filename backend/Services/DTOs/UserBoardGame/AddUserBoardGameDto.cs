@@ -1,4 +1,6 @@
-﻿namespace Services.DTOs.UserBoardGame;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Services.DTOs.UserBoardGame;
 public class AddUserBoardGameDto
 {
     public double Rating { get; set; }

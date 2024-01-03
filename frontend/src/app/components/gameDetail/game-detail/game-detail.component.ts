@@ -126,14 +126,13 @@ export class GameDetailComponent implements OnInit {
       icon: 'pi pi-info-circle',
       accept: () => {
         const currentDate = new Date();
-        const datePipe = new DatePipe('pl');
-        // const isoDateString = datePipe.transform(currentDate, 'yyyy-MM-ddTHH:mm:ss.SSSXXX', 'pl');
-        // const isoDateStringCorrected = isoDateString?.substring(0, isoDateString.length - 2);
+        currentDate.setHours(currentDate.getHours() + 1);
+        const isoDateString = currentDate.toISOString();
 
         const addedGameData = {
           rating: this.gameAddForm.get('rating')?.value, 
           reviewDescription : this.gameAddForm.get('review')?.value, 
-          // createdDate : isoDateStringCorrected,
+          createdDate: isoDateString,
           isFavourite: this.gameAddForm.get('addToFavourites')?.value
         } as AddGameToList;
 

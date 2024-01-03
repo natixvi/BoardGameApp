@@ -76,7 +76,7 @@
                         <div lass="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                             <div class="top-review">
                                 <div class="review-user">{{ review.nickName }}</div>
-                                <div class= "review-date">{{review.createdDate | date: "dd-MM-YYYY hh:mm"}}</div>
+                                <div class= "review-date">{{review.createdDate | date: 'dd-MM-yyyy HH:mm':'pl'}}</div>
                             </div>  
                             <div class="review-rating"><i class="pi pi-star-fill"></i>Rating: {{ review.rating }}</div>
                             <div class="review-desc">{{ review.reviewDescription }}</div>
