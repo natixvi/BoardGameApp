@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Services.DTOs.BoardGame;
+using Services.DTOs.Review;
 using Services.DTOs.User;
 using Services.DTOs.UserBoardGame;
 

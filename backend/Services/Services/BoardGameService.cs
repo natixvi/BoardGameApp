@@ -41,8 +41,8 @@ public class BoardGameService : IBoardGameService
         var boardGameDetailsDto = mapper.Map<BoardGameDetailsDto>(boardGame);
 
         boardGameDetailsDto.Rating = await myBoardGameService.CalculateAverageRating(boardGameDetailsDto.Id); 
-        var gameReviews = await myBoardGameService.GetGameReviews(boardGameDetailsDto.Id);
-        if (gameReviews != null) boardGameDetailsDto.Reviews = gameReviews;
+      /*  var gameReviews = await myBoardGameService.GetGameReviews(boardGameDetailsDto.Id);
+        if (gameReviews != null) boardGameDetailsDto.Reviews = gameReviews;*/
 
         return boardGameDetailsDto;
     }

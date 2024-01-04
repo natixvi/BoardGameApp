@@ -1,32 +1,29 @@
-<form [formGroup]="gameAddForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="rating">Rating (0-10):</label>
-      <input id="rating" type="number" formControlName="rating" />
-      <div *ngIf="gameAddForm.get('rating')?.hasError('required') && gameAddForm.get('rating')?.touched">
-        Rating is required.
+<div class="container"> 
+  <form [formGroup]="gameAddForm" (ngSubmit)="addGameToList()">
+      <h2>Add game to list</h2>
+      <div class="form">
+          <div class="label">
+              <label for="rating">Rating: <p-rating formControlName="rating" [stars]="10" ></p-rating></label>
+          </div>
+          <div class="error-messages" *ngIf="gameAddForm.controls.rating.invalid && (gameAddForm.controls.rating.dirty || gameAddForm.controls.rating.touched)">
+              <small *ngIf="gameAddForm.controls.rating.errors?.['required']">
+                  Rating is required.
+              </small>
+              <small *ngIf="gameAddForm.controls.rating.errors?.['min']">
+                  Rating must be at least 0.
+              </small>
+              <small *ngIf="gameAddForm.controls.rating.errors?.['max']">
+                  Rating must be at most 10.
+              </small>
+          </div>
+
+          <div class="label">
+            <label (click)="onClick()" class="favourites-label">
+              Add to Favorites
+              <i class="pi pi-heart-fill"  [class.highlighted]="isActive" ></i>
+            </label>
+          </div>               
+          <button type="submit" [disabled]="gameAddForm.invalid">Add game to list</button>
       </div>
-      <div *ngIf="gameAddForm.get('rating')?.hasError('min') && gameAddForm.get('rating')?.touched">
-        Rating must be at least 0.
-      </div>
-      <div *ngIf="gameAddForm.get('rating')?.hasError('max') && gameAddForm.get('rating')?.touched">
-        Rating must be at most 10.
-      </div>
-    </div>
-  
-    <div>
-      <label for="review">Review:</label>
-      <textarea id="review" formControlName="review"></textarea>
-      <div *ngIf="gameAddForm.get('review')?.hasError('required') && gameAddForm.get('review')?.touched">
-        Review is required.
-      </div>
-    </div>
-  
-    <div>
-      <label>
-        <input type="checkbox" formControlName="addToFavorites" />
-        Add to Favorites
-      </label>
-    </div>
-  
-    <button type="submit" [disabled]="gameAddForm.invalid">Submit</button>
-  </form>
+  </form> 
+</div>

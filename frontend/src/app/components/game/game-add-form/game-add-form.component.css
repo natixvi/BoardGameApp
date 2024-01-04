@@ -1,0 +1,99 @@
+.pi-heart-fill{
+    color: #8a8a8a;
+}
+.highlighted{
+    color: #ff0000;
+}
+
+::ng-deep .p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
+    color: #ffd000;
+}
+
+
+
+.favourites-label {
+    display: block;
+    cursor: pointer; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; 
+    height: auto;
+    background-color:#ffffff;
+    border: 1.5px solid #c7c7c7;
+    padding: 30px;
+    border-radius: 10px; 
+    box-shadow: 0 40px 40px 0 rgba(0, 0, 0, 0.2); 
+   
+}
+
+.container h2{
+    text-align: center;
+    border-bottom: 2px solid #cacaca; 
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: x-large;
+}
+input::placeholder {
+    color: #a5a5a5; 
+}
+
+.container .label{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container .label label {
+    width: 100%;
+    color: #000000;
+}
+
+.container input {
+    width: 100%;
+    padding: 8px; 
+    background-color: #ffffff ;
+    border-radius: 5px;
+    border: 1px solid #8d8d8d;
+    color: #000000;
+
+}
+
+.container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #EEA47F;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.container button[type="submit"]:hover {
+    background-color: #f19364;
+}
+
+
+.container .error-messages small{
+    display: block;
+    color: #ff5252; 
+    margin: 0 0 5px 0;
+} 
+
+@media only screen and (min-width: 601px) and (max-width: 1000px) {
+    .container{
+        width: 60%; 
+    }    
+}
+
+@media only screen and (max-width: 600px) {
+    .container{
+        width: 80%; 
+    }    
+}

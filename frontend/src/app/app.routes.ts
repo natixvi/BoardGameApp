@@ -11,6 +11,7 @@ import { authGuard } from './guards/auth.guard';
 import { EditDataComponent } from './components/user/edit-data/edit-data.component';
 import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 import { DeleteAccountComponent } from './components/user/delete-account/delete-account.component';
+import { GameAddFormComponent } from './components/game/game-add-form/game-add-form.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {path: 'games/:id', component: GameDetailComponent},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
+  {path: 'games/:id/add-to-list', component: GameAddFormComponent, canActivate:[authGuard] },
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},
   {path: 'editUserData', component: EditDataComponent, canActivate:[authGuard]},
   {path: 'changePassword', component: ChangePasswordComponent, canActivate:[authGuard]},

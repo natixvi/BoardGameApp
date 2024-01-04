@@ -17,10 +17,10 @@ public class UserBoardGameRepository : BaseRepository<UserBoardGame>, IUserBoard
     {
         return await appDbContext.UserBoardGames.Where(g => g.BoardGameId == gameId).ToListAsync();
     }
-    public async Task<List<UserBoardGame>?> GetGameReviews(int gameId)
+/*    public async Task<List<UserBoardGame>?> GetGameReviews(int gameId)
     {
         return await appDbContext.UserBoardGames.Include(g => g.User).Where(g => g.BoardGameId == gameId && !string.IsNullOrWhiteSpace(g.ReviewDescription)).ToListAsync();
-    }
+    }*/
 
     public Task<bool> IsGameInUserList(int gameId, int? userId)
     {

@@ -12,13 +12,11 @@ import { NotFoundError } from '../../../exceptions/NotFoundError';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AddGameToList } from '../../../models/game/addGameToList';
 
 @Component({
   selector: 'app-game-detail',
   standalone: true,
-  imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, ButtonModule, DataViewModule, RouterModule],
   templateUrl: './game-detail.component.html',
   styleUrls: ['./game-detail.component.css']
 })
@@ -30,17 +28,9 @@ export class GameDetailComponent implements OnInit {
   reviews: Review[] = []
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
-  isFormVisible = false;
-  isActive = false;
 
-  gameAddForm = this.formBuilder.group({
-    rating: [null, [Validators.required,  Validators.min(0), Validators.max(10)]],
-    review: [''],
-    addToFavourites: [false]
-  })
-  
 
-  constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, public authService: AuthService,private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService, private datepipe: DatePipe){
+  constructor( private route: ActivatedRoute, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
   }
 
   ngOnInit() {
@@ -56,11 +46,6 @@ export class GameDetailComponent implements OnInit {
      });
     this.getGameDetails(this.isLoggedIn);
 
-  }
-
-  onClick(){
-    this.isActive = !this.isActive;
-    this.gameAddForm.get('addToFavourites')?.setValue(this.isActive);
   }
 
   getGameDetails(isLoggedIn : boolean): void{
@@ -110,51 +95,6 @@ export class GameDetailComponent implements OnInit {
       }
     }
     )
-  }
-
-  showAddGameForm() {
-    this.isFormVisible = !this.isFormVisible;
-    if (!this.isFormVisible) {
-      this.gameAddForm.reset();
-    }
-  }
-
-  addGameToList() : void {
-    this.confirmationService.confirm({
-      message: "Are you sure you want to add game to your list?",
-      header: "Confirmation",
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        const currentDate = new Date();
-        currentDate.setHours(currentDate.getHours() + 1);
-        const isoDateString = currentDate.toISOString();
-
-        const addedGameData = {
-          rating: this.gameAddForm.get('rating')?.value, 
-          reviewDescription : this.gameAddForm.get('review')?.value, 
-          createdDate: isoDateString,
-          isFavourite: this.gameAddForm.get('addToFavourites')?.value
-        } as AddGameToList;
-
-        this.userBoardGameService.addGameToUserList(this.gameId, addedGameData).subscribe({
-          next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game added to the list!' });
-            this.isFormVisible = false;
-            this.ngOnInit();
-          },
-
-          error: (e) => {
-            console.error('Error while adding game to list', e);
-            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while adding game to list.'});
-          }
-        })
-        this.confirmationService.close();
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Add game to list canceled.' });
-        this.confirmationService.close();
-      }
-    })
   }
 
   deleteGameFromList(gameId : number) : void {

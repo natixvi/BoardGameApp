@@ -1,4 +1,6 @@
-﻿namespace Services.DTOs.BoardGame;
+﻿using Services.DTOs.Review;
+
+namespace Services.DTOs.BoardGame;
 public class BoardGameDetailsDto
 {
     public int Id { get; set; }
@@ -9,6 +11,6 @@ public class BoardGameDetailsDto
     public string Time { get; set; }
     public int Age { get; set; }
     public string ImageUrl { get; set; }
-    public double Rating { get; set; }
+    public double? Rating { get; set; }
     public List<ReviewDto>? Reviews { get; set; }
 }

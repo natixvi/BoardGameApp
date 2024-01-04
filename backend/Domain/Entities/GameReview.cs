@@ -1,11 +1,10 @@
 ﻿namespace Domain.Entities;
-public class UserBoardGame
+public class GameReview
 {
     public int Id { get; set; }
     public int UserId { get; set; }
     public virtual User User { get; set; }
     public int BoardGameId { get; set; }
     public virtual BoardGame BoardGame { get; set; }
-    public double Rating { get; set; }
-    public bool IsFavourite { get; set; }
+    public string ReviewDescription { get; set; }
 }

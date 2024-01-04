@@ -1,7 +1,6 @@
-﻿namespace Services.DTOs.BoardGame;
+﻿namespace Services.DTOs.Review;
 public class ReviewDto
 {
-    public double Rating { get; set; }
     public string ReviewDescription { get; set; }
     public DateTime CreatedDate { get; set; }
     public int UserId { get; set; }

@@ -25,25 +25,6 @@
     z-index: 1000;
   }
 
-  /* ::ng-deep .p-button {
-    border: 1px solid #EEA47F;
-    background-color: #EEA47F;
-  }
-
-  ::ng-deep .p-button:enabled:active {
-    background: #f19364;
-    border-color: #f19364;
-  }
-
-  ::ng-deep .p-button:enabled:hover {
-    background: #f19364;
-    border-color: #f19364;
-  }
-  ::ng-deep .p-button:focus {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem rgba(241, 147, 100, 0.5);
-  } */
 
   @media only screen and (max-width: 1000px) {
     .content{

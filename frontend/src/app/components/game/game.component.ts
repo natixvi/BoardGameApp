@@ -5,7 +5,7 @@ import { GameService } from '../../services/game.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -14,6 +14,7 @@ import { NotFoundError } from '../../exceptions/NotFoundError';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-game',
@@ -27,7 +28,7 @@ export class GameComponent implements OnInit {
     router = inject(Router);
     isLoggedIn$: Observable<boolean> | undefined;
     isLoggedIn: boolean = false;
-    
+
     constructor(private gameService : GameService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
      ngOnInit() {
@@ -39,10 +40,9 @@ export class GameComponent implements OnInit {
         } 
         else {
           this.getGames();
- 
+          
         }
       });
-      
     }
 
     getGamesLoggedUser() : void{
@@ -89,7 +89,9 @@ export class GameComponent implements OnInit {
         else if(e instanceof NotFoundError){
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
         }
-        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+        else{
+          console.error('Server connection Error!')
+        }
       }
     }
 

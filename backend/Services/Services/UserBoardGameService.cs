@@ -31,11 +31,6 @@ public class UserBoardGameService : IUserBoardGameService
         return Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
     }
 
-    public async Task<List<ReviewDto>?> GetGameReviews(int gameId)
-    {
-        var boardGameReviews = await userBoardGameRepository.GetGameReviews(gameId);
-        return mapper.Map<List<ReviewDto>>(boardGameReviews);
-    }
 
     public async Task<bool> IsGameInUserList(int gameId)
     {
