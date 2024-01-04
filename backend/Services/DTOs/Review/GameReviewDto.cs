@@ -1,5 +1,5 @@
 ﻿namespace Services.DTOs.Review;
-public class ReviewDto
+public class GameReviewDto
 {
     public string ReviewDescription { get; set; }
     public DateTime CreatedDate { get; set; }

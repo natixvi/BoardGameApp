@@ -12,5 +12,5 @@ public class BoardGameDetailsDto
     public int Age { get; set; }
     public string ImageUrl { get; set; }
     public double? Rating { get; set; }
-    public List<ReviewDto>? Reviews { get; set; }
+    public List<GameReviewDto>? Reviews { get; set; }
 }

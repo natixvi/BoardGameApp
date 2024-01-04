@@ -6,5 +6,6 @@ public class GameReview
     public virtual User User { get; set; }
     public int BoardGameId { get; set; }
     public virtual BoardGame BoardGame { get; set; }
+    public DateTime CreatedDate { get; set; }
     public string ReviewDescription { get; set; }
 }

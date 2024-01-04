@@ -24,7 +24,6 @@ public class AutoMapperProfile: Profile
         CreateMap<AddUserBoardGameDto, UserBoardGame>();
         CreateMap<AddUserBoardGameDto, BoardGame>();
 
-        CreateMap<UserBoardGame, ReviewDto>()
-            .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.User.NickName));
+        CreateMap<AddGameReviewDto, GameReview>();
     }
 }
