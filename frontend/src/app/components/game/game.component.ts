@@ -36,6 +36,14 @@ export class GameComponent implements OnInit {
     constructor(private gameService : GameService, public addGameFormService: AddGameFormService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
      ngOnInit() {
+      this.initialData();
+
+      this.addGameFormService.getGameAddedObservable().subscribe(() => {
+        window.location.reload();
+      });
+     }
+    
+    initialData(){
       this.isLoggedIn$ = this.authService.isLoggedIn$;
       this.isLoggedIn$.subscribe((isLoggedIn) => {
         this.isLoggedIn = isLoggedIn;
@@ -43,15 +51,10 @@ export class GameComponent implements OnInit {
           this.getGamesLoggedUser();
         } 
         else {
-          this.getGames();
-          
+          this.getGames();         
         }
       });
-      this.addGameFormService.getGameAddedObservable().subscribe(() => {
-        window.location.reload();
-      });
-     }
-  
+    } 
     openForm(gameId: number, gameName: string): void {
       this.selectedGameId = gameId;
       this.addGameFormService.openForm(gameId, gameName);
@@ -64,7 +67,6 @@ export class GameComponent implements OnInit {
             this.checkIfGameIsInUserList(game);
           })
           this.games = data;
-
         },
         error: (e) => {
           if (e instanceof BadRequestError){
@@ -75,9 +77,7 @@ export class GameComponent implements OnInit {
        })
     }
   
-  showForm(){
-    this.showform = true;
-  }
+
   getGames() {
     this.gameService.getGames().subscribe({
       next: (data : Game[]) =>{
@@ -108,9 +108,7 @@ export class GameComponent implements OnInit {
           console.error('Server connection Error!')
         }
       }
-    }
-
-    )
+    })
   }
 
   deleteGameFromList(gameId : number) : void {

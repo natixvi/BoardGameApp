@@ -23,7 +23,6 @@ export class GameAddFormComponent {
 
   @Input() gameId: number | null = null;
   @Input() gameName: string | null = null;
-  // gameId: number = 0;
   isActive = false;
   router = inject(Router);
 
@@ -60,7 +59,7 @@ export class GameAddFormComponent {
 
         this.userBoardGameService.addGameToUserList(this.gameId, addedGameData).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game added to the list!' });
+            this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game added to list.'})
             this.addGameFormService.gameAdded();
             this.addGameFormService.closeForm();
           },

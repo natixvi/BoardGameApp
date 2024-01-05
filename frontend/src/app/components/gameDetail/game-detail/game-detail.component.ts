@@ -16,14 +16,17 @@ import { RatingModule } from 'primeng/rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FormControl, Validators } from '@angular/forms';
+import { GameAddFormComponent } from "../../game/game-add-form/game-add-form.component";
+import { AddGameFormService } from '../../../services/add-game-form.service';
+
 
 
 @Component({
-  selector: 'app-game-detail',
-  standalone: true,
-  imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, ReactiveFormsModule, RatingModule, FormsModule, OverlayPanelModule],
-  templateUrl: './game-detail.component.html',
-  styleUrls: ['./game-detail.component.css']
+    selector: 'app-game-detail',
+    standalone: true,
+    templateUrl: './game-detail.component.html',
+    styleUrls: ['./game-detail.component.css'],
+    imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, ReactiveFormsModule, RatingModule, FormsModule, OverlayPanelModule, GameAddFormComponent]
 })
 export class GameDetailComponent implements OnInit {
   
@@ -34,10 +37,12 @@ export class GameDetailComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
   rateValue: number | undefined;
+  showform: boolean = false;
+  selectedGameId: number | null = null;
 
   reviewControl = new FormControl('', [Validators.maxLength(1000)]);
 
-  constructor( private route: ActivatedRoute, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
+  constructor( private route: ActivatedRoute,public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
   }
 
   ngOnInit() {
@@ -52,7 +57,14 @@ export class GameDetailComponent implements OnInit {
       
      });
     this.getGameDetails(this.isLoggedIn);
+    this.addGameFormService.getGameAddedObservable().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 
+  openForm(gameId: number, gameName: string): void {
+    this.selectedGameId = gameId;
+    this.addGameFormService.openForm(gameId, gameName);
   }
 
   getGameDetails(isLoggedIn : boolean): void{

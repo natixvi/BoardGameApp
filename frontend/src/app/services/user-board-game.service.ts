@@ -13,8 +13,6 @@ import { AddGameToList } from '../models/game/addGameToList';
 })
 export class UserBoardGameService {
   private apiUrl = environment.apiUrl;
-  private _isGameInUserList$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public isGameInUserList$: Observable<boolean> = this._isGameInUserList$.asObservable()
 
   constructor(private http: HttpClient,) { }
 
