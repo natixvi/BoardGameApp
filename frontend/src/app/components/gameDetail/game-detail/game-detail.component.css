@@ -4,6 +4,7 @@
     height: 100%;
 }
 
+
 .game-general{
     width: 100%;
     padding: 1rem;
@@ -46,6 +47,11 @@ i{
 .pi-star-fill{
     color: #ffd000;
 }
+
+::ng-deep .p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
+    color: #ffd000;
+}
+
 
 .game-details{
     display: flex;
@@ -103,8 +109,13 @@ i{
     order: 2;
 }
 
-.review-rating{
-    margin-bottom: 0.4rem;
+.review-header{
+    border-bottom: 2px solid #cacaca; 
+    margin-bottom: 20px;
+    display: flex;
+}
+.review-header h3{
+    flex: 1;
 }
 
 .review-desc{

@@ -7,9 +7,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NavbarComponent } from './components/nav/navbar/navbar.component';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
-import localePl from '@angular/common/locales/pl';
+// import localePl from '@angular/common/locales/pl';
 
-registerLocaleData(localePl);
+// registerLocaleData(localePl);
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,8 @@ registerLocaleData(localePl);
   styleUrls: ['./app.component.css'],
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, ToastModule, ConfirmDialogModule, NavbarComponent],
-  providers: [MessageService, DatePipe, ConfirmationService, { provide: LOCALE_ID, useValue: 'pl' } ]
+  providers: [MessageService, DatePipe, ConfirmationService ]
+  // providers: [MessageService, DatePipe, ConfirmationService, { provide: LOCALE_ID, useValue: 'pl' } ]
 
 })
 export class AppComponent {

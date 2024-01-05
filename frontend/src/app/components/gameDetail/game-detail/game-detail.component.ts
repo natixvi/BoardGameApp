@@ -1,10 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GameDetails } from '../../../models/game/gameDetail';
 import { GameService } from '../../../services/game.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
-import { CommonModule,  DatePipe } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { Review } from '../../../models/game/review';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule} from 'primeng/dataview';
@@ -12,23 +12,30 @@ import { NotFoundError } from '../../../exceptions/NotFoundError';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { FormControl, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-game-detail',
   standalone: true,
-  imports: [CommonModule, ButtonModule, DataViewModule, RouterModule],
+  imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, ReactiveFormsModule, RatingModule, FormsModule, OverlayPanelModule],
   templateUrl: './game-detail.component.html',
   styleUrls: ['./game-detail.component.css']
 })
 export class GameDetailComponent implements OnInit {
-
+  
   gameId: number = 0;
   router = inject(Router);
   gameDetails: GameDetails = { } as GameDetails
   reviews: Review[] = []
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
+  rateValue: number | undefined;
 
+  reviewControl = new FormControl('', [Validators.maxLength(1000)]);
 
   constructor( private route: ActivatedRoute, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
   }
@@ -95,6 +102,21 @@ export class GameDetailComponent implements OnInit {
       }
     }
     )
+  }
+  
+  submitRating(){
+    if(!this.gameDetails.isInUserList){
+      this.messageService.add({severity: 'error', summary: 'Error', detail:"You must add game to list if you want rate them."});
+      this.router.navigate(['/games/', this.gameDetails.id, 'add-to-list']);
+    }
+    else{
+      console.error(this.rateValue)
+      this.messageService.add({severity: 'success', summary: 'Success', detail:"Success you rate game"});
+    }
+  }
+
+  addGameReview(){
+
   }
 
   deleteGameFromList(gameId : number) : void {

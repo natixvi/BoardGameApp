@@ -22,6 +22,10 @@
                 <ng-template #notLoggedIn>
                     <p-button severity="success" label="Add to list" icon="pi pi-plus" iconPos="right" [routerLink]="['/login']"></p-button>
                 </ng-template>
+                <div class="rate"> 
+                    <p-rating [(ngModel)]="rateValue" [stars]="10" [cancel]="false" ></p-rating>
+                    <button pButton (click)="submitRating()" class="p-button-secondary p-button-text">Rate Game</button>
+                </div>
             </div>
         </div>
     </div>
@@ -31,16 +35,37 @@
             {{gameDetails.description}}
         </div>
         <div class = "game-reviews">
-            <h3>Reviews</h3>
+            <div class="review-header">
+                <h3>Reviews</h3>
+                <p-overlayPanel #op>
+                    <div class="form-container"> 
+                        <form (ngSubmit)="addGameReview()">
+                            <h2>Add game review</h2>
+                            <div class="form">
+                                <div class="label">
+                                    <label for="review">Review: </label>
+                                    <textarea id="review" [formControl]="reviewControl" rows="4"></textarea>
+                                </div>
+                                <div class="error-messages" *ngIf="reviewControl.invalid && (reviewControl.dirty || reviewControl.touched)">
+                                    <small *ngIf="reviewControl.hasError('maxlength')">
+                                        Review must be at most 1000 characters.
+                                    </small>
+                                </div>            
+                                <button pButton type="submit" [disabled]="reviewControl.invalid">Add game review</button>
+                            </div>
+                        </form>
+                    </div>
+                </p-overlayPanel>
+                <button pButton type="button" icon="pi pi-plus" class="p-button-rounded p-button-secondary p-button-text" (click)="op.toggle($event)"></button>
+            </div>  
             <p-dataView #dv [value]="reviews"[paginator]="true" [rows]="2">
                 <ng-template let-review pTemplate="listItem">
                     <div class="col-12">
                         <div lass="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                             <div class="top-review">
-                                <div class="review-user">{{ review.nickName }}</div>
+                                <div class="review-user"><span class="pi pi-user"></span>{{ review.nickName }}</div>
                                 <div class= "review-date">{{review.createdDate | date: 'dd-MM-yyyy HH:mm':'pl'}}</div>
                             </div>  
-                            <div class="review-rating"><i class="pi pi-star-fill"></i>Rating: {{ review.rating }}</div>
                             <div class="review-desc">{{ review.reviewDescription }}</div>
                         </div> 
                     </div>
