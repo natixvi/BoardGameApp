@@ -25,7 +25,7 @@ export class UserBoardGameService {
     );
   }
 
-  addGameToUserList(gameId: number, addedGame: AddGameToList) : Observable<any>{
+  addGameToUserList(gameId: number | null, addedGame: AddGameToList) : Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/userboardgame/add/${gameId}`, addedGame).pipe(
       catchError(error => {
         console.log('Error while adding game to user list' , error);

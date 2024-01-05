@@ -5,31 +5,35 @@ import { GameService } from '../../services/game.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BadRequestError } from '../../exceptions/BadRequestError';
 import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserBoardGameService } from '../../services/user-board-game.service';
 import { NotFoundError } from '../../exceptions/NotFoundError';
-import { Observable } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { GameAddFormComponent } from "./game-add-form/game-add-form.component";
+import { AddGameFormService } from '../../services/add-game-form.service';
 
 
 @Component({
-  selector: 'app-game',
-  standalone: true,
-  imports: [DataViewModule, DropdownModule, CommonModule, FormsModule, RouterModule, ButtonModule, InputTextModule],
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+    selector: 'app-game',
+    standalone: true,
+    templateUrl: './game.component.html',
+    styleUrls: ['./game.component.css'],
+    imports: [DataViewModule, DropdownModule, CommonModule, FormsModule, RouterModule, ButtonModule, InputTextModule, GameAddFormComponent]
 })
 export class GameComponent implements OnInit {
     games: Game[] = [];
     router = inject(Router);
     isLoggedIn$: Observable<boolean> | undefined;
     isLoggedIn: boolean = false;
+    showform: boolean = false;
+    selectedGameId: number | null = null;
 
-    constructor(private gameService : GameService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
+    constructor(private gameService : GameService, public addGameFormService: AddGameFormService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
      ngOnInit() {
       this.isLoggedIn$ = this.authService.isLoggedIn$;
@@ -43,6 +47,14 @@ export class GameComponent implements OnInit {
           
         }
       });
+      this.addGameFormService.getGameAddedObservable().subscribe(() => {
+        window.location.reload();
+      });
+     }
+  
+    openForm(gameId: number, gameName: string): void {
+      this.selectedGameId = gameId;
+      this.addGameFormService.openForm(gameId, gameName);
     }
 
     getGamesLoggedUser() : void{
@@ -62,7 +74,10 @@ export class GameComponent implements OnInit {
         }
        })
     }
-
+  
+  showForm(){
+    this.showform = true;
+  }
   getGames() {
     this.gameService.getGames().subscribe({
       next: (data : Game[]) =>{

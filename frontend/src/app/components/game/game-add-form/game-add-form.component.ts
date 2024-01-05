@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -9,6 +9,8 @@ import { AddGameToList } from '../../../models/game/addGameToList';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
 import { Location } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
+import { AddGameFormService } from '../../../services/add-game-form.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-game-add-form',
@@ -19,28 +21,26 @@ import { RatingModule } from 'primeng/rating';
 })
 export class GameAddFormComponent {
 
-  gameId: number = 0;
+  @Input() gameId: number | null = null;
+  @Input() gameName: string | null = null;
+  // gameId: number = 0;
   isActive = false;
   router = inject(Router);
 
   gameAddForm = this.formBuilder.group({
-    rating: [null, [Validators.min(0), Validators.max(10)]],
+    rating: [null],
     addToFavourites: [false]
   })
 
-  constructor(private formBuilder: FormBuilder, private location: Location, private route: ActivatedRoute, private userBoardGameService: UserBoardGameService, private messageService: MessageService, private confirmationService: ConfirmationService){}
-
-  ngOnInit() {
-    this.route.params.subscribe({
-      next: (params) =>{
-        this.gameId = params['id'];
-      }
-    });
-  }
+  constructor(private addGameFormService: AddGameFormService, private formBuilder: FormBuilder, private location: Location, private route: ActivatedRoute, private userBoardGameService: UserBoardGameService, private messageService: MessageService, private confirmationService: ConfirmationService){}
 
   onClick(){
     this.isActive = !this.isActive;
     this.gameAddForm.get('addToFavourites')?.setValue(this.isActive);
+  }
+
+  closeForm(): void {
+    this.addGameFormService.closeForm();
   }
 
   addGameToList() : void {
@@ -61,7 +61,8 @@ export class GameAddFormComponent {
         this.userBoardGameService.addGameToUserList(this.gameId, addedGameData).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game added to the list!' });
-            this.location.back();
+            this.addGameFormService.gameAdded();
+            this.addGameFormService.closeForm();
           },
 
           error: (e) => {

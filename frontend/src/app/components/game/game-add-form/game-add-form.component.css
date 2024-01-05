@@ -8,8 +8,24 @@
 ::ng-deep .p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
     color: #ffd000;
 }
+.header-add-form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #cacaca; 
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
 
-
+.header-add-form .middle {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .header-add-form .left, .header-add-form .right {
+    flex-shrink: 0;
+  }
 
 .favourites-label {
     display: block;
@@ -19,11 +35,7 @@
 }
 
 .container{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px; 
+    width: auto; 
     height: auto;
     background-color:#ffffff;
     border: 1.5px solid #c7c7c7;
@@ -34,11 +46,9 @@
 }
 
 .container h2{
-    text-align: center;
-    border-bottom: 2px solid #cacaca; 
-    padding-bottom: 10px;
-    margin-bottom: 20px;
     font-size: x-large;
+    padding: 0;
+    margin: 0;
 }
 input::placeholder {
     color: #a5a5a5; 

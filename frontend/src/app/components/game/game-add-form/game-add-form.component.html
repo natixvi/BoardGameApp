@@ -1,22 +1,14 @@
 <div class="container"> 
   <form [formGroup]="gameAddForm" (ngSubmit)="addGameToList()">
-      <h2>Add game to list</h2>
+      <div class="header-add-form">
+        <div class="left"></div>
+        <div class="middle">Add {{gameName}} to list</div> 
+        <div class="pi pi-times right" (click)="closeForm()"></div>
+      </div>
       <div class="form">
           <div class="label">
               <label for="rating">Rating: <p-rating formControlName="rating" [stars]="10" ></p-rating></label>
           </div>
-          <div class="error-messages" *ngIf="gameAddForm.controls.rating.invalid && (gameAddForm.controls.rating.dirty || gameAddForm.controls.rating.touched)">
-              <small *ngIf="gameAddForm.controls.rating.errors?.['required']">
-                  Rating is required.
-              </small>
-              <small *ngIf="gameAddForm.controls.rating.errors?.['min']">
-                  Rating must be at least 0.
-              </small>
-              <small *ngIf="gameAddForm.controls.rating.errors?.['max']">
-                  Rating must be at most 10.
-              </small>
-          </div>
-
           <div class="label">
             <label (click)="onClick()" class="favourites-label">
               Add to Favorites
@@ -26,4 +18,5 @@
           <button type="submit" [disabled]="gameAddForm.invalid">Add game to list</button>
       </div>
   </form> 
+ 
 </div>
