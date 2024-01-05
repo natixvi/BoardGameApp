@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../config';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, throwError } from 'rxjs';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
@@ -13,6 +13,8 @@ import { AddGameToList } from '../models/game/addGameToList';
 })
 export class UserBoardGameService {
   private apiUrl = environment.apiUrl;
+  private _isGameInUserList$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isGameInUserList$: Observable<boolean> = this._isGameInUserList$.asObservable()
 
   constructor(private http: HttpClient,) { }
 
