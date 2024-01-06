@@ -84,12 +84,6 @@
     font-size: 19px;
 }
 
-.favourites-label {
-    cursor: pointer; 
-    margin-left: 10px;
-    font-size: 19px;
-}
-
 .game-button p-button{
     line-height: 5px;
     margin-top: 1rem;
@@ -173,6 +167,89 @@ i{
     font-weight: bold;
     color: #3c3c3d;
 }
+
+.header-add-form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #cacaca; 
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.header-add-form .middle {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+.header-add-form .left, .header-add-form .right {
+    flex-shrink: 0;
+}
+
+.favourites-label {
+    font-size: 16px;
+    display: block;    
+    padding: 0;
+    margin: 20px 0 20px 0;
+}
+
+.favourites-label .pi-heart-fill{
+    cursor: pointer; 
+}
+.container{
+    width: auto; 
+    height: auto;
+    background-color:#ffffff;
+    border: 1.5px solid #c7c7c7;
+    padding: 30px;
+    border-radius: 10px; 
+    box-shadow: 0 40px 40px 0 rgba(0, 0, 0, 0.2); 
+   
+}
+
+input::placeholder {
+    color: #a5a5a5; 
+}
+
+.container .label{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container .label label {
+    width: 100%;
+    color: #000000;
+}
+
+.container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #EEA47F;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.container button[type="submit"]:hover {
+    background-color: #f19364;
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1000px) {
+    .container{
+        width: 60%; 
+    }    
+}
+
+@media only screen and (max-width: 600px) {
+    .container{
+        width: 80%; 
+    }    
+}
+
+
 
 @media (max-width: 833px) {
     .game-details{

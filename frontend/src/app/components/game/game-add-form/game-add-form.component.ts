@@ -10,8 +10,6 @@ import { UserBoardGameService } from '../../../services/user-board-game.service'
 import { Location } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { AddGameFormService } from '../../../services/add-game-form.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-
 @Component({
   selector: 'app-game-add-form',
   standalone: true,

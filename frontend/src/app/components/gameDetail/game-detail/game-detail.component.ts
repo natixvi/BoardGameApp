@@ -8,18 +8,18 @@ import { CommonModule} from '@angular/common';
 import { Review } from '../../../models/game/review';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule} from 'primeng/dataview';
-import { NotFoundError } from '../../../exceptions/NotFoundError';
 import { EMPTY, Observable, map, of, switchMap } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FormControl, Validators } from '@angular/forms';
 import { GameAddFormComponent } from "../../game/game-add-form/game-add-form.component";
 import { AddGameFormService } from '../../../services/add-game-form.service';
 import { UserGameDetails } from '../../../models/userGame/UserGameDetails';
-import { forkJoin } from 'rxjs';
+import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
+
 
 @Component({
     selector: 'app-game-detail',
@@ -41,10 +41,16 @@ export class GameDetailComponent implements OnInit {
   showform: boolean = false;
   selectedGameId: number | null = null;
   isActive = false;
+  openUserGameForm = false;
+
+  gameEditForm = this.formBuilder.group({
+    rating: [0],
+    addToFavourites: [false]
+  })
   
   reviewControl = new FormControl('', [Validators.maxLength(1000)]);
 
-  constructor( private route: ActivatedRoute,public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
+  constructor( private route: ActivatedRoute, private formBuilder: FormBuilder, public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
   }
 
   ngOnInit() {
@@ -70,6 +76,9 @@ export class GameDetailComponent implements OnInit {
           if (userGameDetails) {
             this.rateValue = userGameDetails.rating;
             this.isFavourite = userGameDetails.isFavourite;
+            this.isActive = userGameDetails.isFavourite
+            this.gameEditForm.controls['rating'].setValue(userGameDetails.rating),
+            this.gameEditForm.controls['addToFavourites'].setValue(userGameDetails.isFavourite)
           } 
         },
         error: (error) => {
@@ -85,7 +94,7 @@ export class GameDetailComponent implements OnInit {
 
   onClick(){
     this.isActive = !this.isActive;
-    this.isFavourite = this.isActive;
+    this.gameEditForm.get('addToFavourites')?.setValue(this.isActive)
   }
 
   openForm(gameId: number, gameName: string): void {
@@ -121,125 +130,58 @@ export class GameDetailComponent implements OnInit {
   return this.userBoardGameService.getUserGameDetails(gameDetails.id);
   }
 
-  // getGameDetails(isLoggedIn: boolean): void {
-  //   this.gameService.getGameById(this.gameId).pipe(
-  //     switchMap((data: GameDetails) => {
-  //       if (isLoggedIn) {
-  //         return this.checkIfGameIsInUserList(data).pipe(
-  //           map((isInList: boolean) => ({ data, isInList }))
-  //         );
-  //       } else {
-  //         data.isInUserList = false;
-  //         return of({ data, isInList: false });
-  //       }
-  //     })
-  //   ).subscribe({
-  //     next: ({ data, isInList }: { data: GameDetails, isInList: boolean }) => {
-  //       this.gameDetails = data;
-  //       this.gameDetails.reviews.forEach((review: Review) => {
-  //         review.createdDate = new Date(review.createdDate);
-  //       });
-  //       this.gameDetails.isInUserList = isInList;
-  //       this.reviews = this.gameDetails?.reviews;
-  //     },
-  //     error: (e) => {
-  //       if (e instanceof NotFoundError || e instanceof BadRequestError) {
-  //         this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
-  //         this.router.navigate(['notfound']);
-  //       } else {
-  //         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server connection Error!' });
-  //         this.router.navigate(['notfound']);
-  //       }
-  //     }
-  //   });
-  // }
-  
-  // checkIfGameIsInUserList(game: GameDetails): Observable<boolean> {
-  //   return this.userBoardGameService.isGameInUserList(game.id);
-  // }
-  
-  // getUserGameDetails() : void{
-  //   console.error(this.gameDetails.isInUserList)
-  //   if(this.gameDetails.isInUserList){
-  //     this.userBoardGameService.getUserGameDetails(this.gameId).subscribe({
-  //       next: (data: UserGameDetails) => {
-  //         this.rateValue = data.rating;
-  //         this.isFavourite = data.isFavourite;
-  //       },
-  //       error: (e) => {
-  //         if(e instanceof NotFoundError){
-  //           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-  //         } 
-  //         else if (e instanceof BadRequestError){
-  //           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-  //         }
-  //         else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
-  //       }
-  //     })
-  //   }
-  // }
-
-
-  // getGameDetails(isLoggedIn: boolean): void {
-  //     this.gameService.getGameById(this.gameId).subscribe({
-  //     next: (data: GameDetails) =>{
-  //       if(isLoggedIn){
-  //          this.checkIfGameIsInUserList(data);
-  //       }
-  //       else{
-  //         data.isInUserList = false;
-  //       }
-  //       this.gameDetails = data;
-  //       this.gameDetails.reviews.forEach((review: Review) => {
-  //         review.createdDate = new Date(review.createdDate);
-          
-  //       });
-  //       this.reviews = this.gameDetails?.reviews; 
-  //     },
-  //     error: (e) => {
-  //       if(e instanceof NotFoundError){
-  //         this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-  //         this.router.navigate(['notfound']);
-  //       } 
-  //       else if (e instanceof BadRequestError){
-  //         this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-  //         this.router.navigate(['notfound']);
-  //       }
-  //       else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
-  //       this.router.navigate(['notfound']);  
-  //     }
-  //   })}
-
-  // checkIfGameIsInUserList(game: GameDetails): void{
-  //   this.userBoardGameService.isGameInUserList(game.id).subscribe( {
-  //     next: (result: boolean) =>{
-  //       game.isInUserList = result;
-  //     },
-  //     error: (e) => {
-  //       if (e instanceof BadRequestError){
-  //         this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-  //       }
-  //       else if(e instanceof NotFoundError){
-  //         this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-  //       }
-  //       else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
-  //     }
-  //   }
-  //   )
-  // }
-  
-  submitRating(){
-    if(!this.gameDetails.isInUserList){
-      this.messageService.add({severity: 'warn', summary: 'warn', detail:"You must add game to your list if you want rate them."});
-      this.openForm(this.gameDetails.id, this.gameDetails.name)
-    }
-    else{
-      this.messageService.add({severity: 'success', summary: 'Success', detail:"Success you rate game"});
-    }
+  showEditUserGameForm(){
+    this.openUserGameForm = true;
   }
 
-  addGameReview(){
+  closeForm(){
+    this.openUserGameForm = false;
+  }
 
+  editUserGameDetails(){
+    this.confirmationService.confirm({
+      message: "Are you sure you want to edit game on your list?",
+      header: "Confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+
+        const editUserGameData = {
+          rating: this.gameEditForm.get('rating')?.value, 
+          isFavourite: this.gameEditForm.get('addToFavourites')?.value
+        } as EditUserGameDetails;
+
+        this.userBoardGameService.editUserGameDetails(this.gameId, editUserGameData).subscribe({
+          next: () => {
+            this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game edited.'})
+            this.openUserGameForm = false;
+            this.ngOnInit();
+          },
+
+          error: (e) => {
+            console.error('Error while editing game in list', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while editing game in list.'});
+          }
+        })
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Edit game in list canceled.' });
+        this.confirmationService.close();
+      }
+    })
+  }
+  
+  // submitRating(){
+  //   if(!this.gameDetails.isInUserList){
+  //     this.messageService.add({severity: 'warn', summary: 'warn', detail:"You must add game to your list if you want rate them."});
+  //     this.openForm(this.gameDetails.id, this.gameDetails.name)
+  //   }
+  //   else{
+  //     this.messageService.add({severity: 'success', summary: 'Success', detail:"Success you rate game"});
+  //   }
+  // }
+
+  addGameReview(){
   }
 
   deleteGameFromList(gameId : number) : void {

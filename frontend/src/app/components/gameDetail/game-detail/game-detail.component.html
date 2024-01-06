@@ -29,7 +29,32 @@
                     <div *ngIf="gameDetails.isInUserList" class="game-added-to-list">
                         <div class="rate"> 
                             <p-rating [(ngModel)]="rateValue" [stars]="10" [cancel]="false" [disabled]="true"></p-rating>
-                            <button pButton (click)="submitRating()" class="p-button-secondary p-button-text">Edit</button>
+                            <button pButton (click)="showEditUserGameForm()" class="p-button-secondary p-button-text">Edit</button>
+                            <div *ngIf="openUserGameForm" class="overlay">
+                            <div class="container"> 
+                                <form [formGroup]="gameEditForm" (ngSubmit)="editUserGameDetails()">
+                                    <div class="header-add-form">
+                                      <div class="left"></div>
+                                      <div class="middle">Edit "{{gameDetails.name}}" on your list</div> 
+                                      <div class="pi pi-times right" (click)="closeForm()"></div>
+                                    </div>
+                                    <div class="form">
+                                        <div class="label">
+                                            <label for="rating">Rating: <p-rating formControlName="rating" [stars]="10" ></p-rating></label>
+                                        </div>
+                                        <div class="label">
+                                          <label class="favourites-label">
+                                            Add to Favorites
+                                            <i  *ngIf="isActive" (click)="onClick()" class="pi pi-heart-fill fav" ></i>
+                                            <i *ngIf="!isActive" (click)="onClick()" class="pi pi-heart-fill nofav" ></i>
+                                          </label>
+                                        </div>               
+                                        <button type="submit" [disabled]="gameEditForm.invalid">Edit game stats on list</button>
+                                    </div>
+                                </form> 
+                               
+                              </div>
+                            </div>
                         </div>
                         <p-button severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(gameDetails.id)"></p-button>   
                     </div>     
