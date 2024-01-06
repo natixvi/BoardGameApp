@@ -11,5 +11,5 @@ export interface GameDetails{
     imageUrl : string,
     rating: number,
     reviews: Review[],
-    isInUserList: boolean
+    isInUserList: boolean;
 }

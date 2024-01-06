@@ -31,7 +31,7 @@
                         <p-button *ngIf="!game.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openForm(game.id, game.name)"></p-button>  
                         <app-game-add-form *ngIf="addGameFormService.getIsOpen() &&  addGameFormService.getSelectedGameId() === game.id; else noForm" [gameId]="addGameFormService.getSelectedGameId()" [gameName]="addGameFormService.getSelectedGameName()" class="overlay"></app-game-add-form>
                         <ng-template #noForm>
-                          </ng-template>
+                        </ng-template>
                         <p-button *ngIf="game.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(game.id)"></p-button>
                     </div>
                     <ng-template #notLoggedIn>

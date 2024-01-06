@@ -20,7 +20,6 @@ export const routes: Routes = [
   {path: 'games/:id', component: GameDetailComponent},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
-  {path: 'games/:id/add-to-list', component: GameAddFormComponent, canActivate:[authGuard] },
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},
   {path: 'editUserData', component: EditDataComponent, canActivate:[authGuard]},
   {path: 'changePassword', component: ChangePasswordComponent, canActivate:[authGuard]},

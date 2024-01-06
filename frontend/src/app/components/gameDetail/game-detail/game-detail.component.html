@@ -4,31 +4,40 @@
             <img [src]="gameDetails.imageUrl" [alt]="gameDetails.name"/>
         </div>
         <div class="general-info">
-            <div class = "game-main">
-                <div class = "game-name">{{gameDetails.name}}</div>
-                <div class="game-rating"><i class="pi pi-star-fill"></i> Rating: <span class="rating-value">{{gameDetails.rating === 0 ? '-' : gameDetails.rating}}</span></div>
+            <div>
+                <div class = "game-main">
+                    <div class = "game-name"><div>{{gameDetails.name}}</div>
+                    <div *ngIf="!isFavourite" class="pi pi-heart-fill nofav"></div>
+                    <div *ngIf="isFavourite" class="pi pi-heart-fill fav"></div> 
+                </div>
+                    <div class="game-rating"><i class="pi pi-star-fill"></i> Rating: <span class="rating-value">{{gameDetails.rating === 0 ? '-' : gameDetails.rating}}</span></div>
+                </div>
+                <div class="game-details">
+                    <div class="game-players"><span class="header">Players: </span><span class="desc">{{gameDetails.players}}</span> </div>
+                    <div class="game-time"><span class="header">Time: </span><span class="desc">{{gameDetails.time}}</span></div>
+                    <div class="game-age"><span class="header">Age: </span><span class="desc">{{gameDetails.age}}+</span></div>
+                    <div class="game-publisher"><span class="header">Publisher: </span><span class="desc">{{gameDetails.publisher}}</span></div>
+                </div>   
             </div>
-            <div class="game-details">
-                <div class="game-players"><span class="header">Players: </span><span class="desc">{{gameDetails.players}}</span> </div>
-                <div class="game-time"><span class="header">Time: </span><span class="desc">{{gameDetails.time}}</span></div>
-                <div class="game-age"><span class="header">Age: </span><span class="desc">{{gameDetails.age}}+</span></div>
-                <div class="game-publisher"><span class="header">Publisher: </span><span class="desc">{{gameDetails.publisher}}</span></div>
-            </div>   
-            <div class="add-button">
+            <div class="game-button">
                 <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
-                    <p-button *ngIf="!gameDetails.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openForm(gameDetails.id, gameDetails.name)"></p-button>  
-                    <app-game-add-form *ngIf="addGameFormService.getIsOpen() &&  addGameFormService.getSelectedGameId() === gameDetails.id; else noForm" [gameId]="addGameFormService.getSelectedGameId()" [gameName]="addGameFormService.getSelectedGameName()" class="overlay"></app-game-add-form>
-                    <ng-template #noForm>
-                    </ng-template>
-                    <p-button *ngIf="gameDetails.isInUserList"  severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(gameDetails.id)"></p-button>
+                    <div *ngIf="!gameDetails.isInUserList" class="game-add-to-list">
+                        <p-button  severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openForm(gameDetails.id, gameDetails.name)"></p-button>  
+                        <app-game-add-form *ngIf="addGameFormService.getIsOpen() &&  addGameFormService.getSelectedGameId() === gameDetails.id; else noForm" [gameId]="addGameFormService.getSelectedGameId()" [gameName]="addGameFormService.getSelectedGameName()" class="overlay"></app-game-add-form>
+                        <ng-template #noForm> </ng-template>
+                    </div> 
+                    <div *ngIf="gameDetails.isInUserList" class="game-added-to-list">
+                        <div class="rate"> 
+                            <p-rating [(ngModel)]="rateValue" [stars]="10" [cancel]="false" [disabled]="true"></p-rating>
+                            <button pButton (click)="submitRating()" class="p-button-secondary p-button-text">Edit</button>
+                        </div>
+                        <p-button severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(gameDetails.id)"></p-button>   
+                    </div>     
                 </div>
                 <ng-template #notLoggedIn>
                     <p-button severity="success" label="Add to list" icon="pi pi-plus" iconPos="right" [routerLink]="['/login']"></p-button>
                 </ng-template>
-                <div class="rate"> 
-                    <p-rating [(ngModel)]="rateValue" [stars]="10" [cancel]="false" ></p-rating>
-                    <button pButton (click)="submitRating()" class="p-button-secondary p-button-text">Rate Game</button>
-                </div>
+                
             </div>
         </div>
     </div>

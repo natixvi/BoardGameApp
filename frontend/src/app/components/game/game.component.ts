@@ -11,7 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserBoardGameService } from '../../services/user-board-game.service';
 import { NotFoundError } from '../../exceptions/NotFoundError';
-import { Observable, switchMap, tap } from 'rxjs';
+import { Observable} from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { GameAddFormComponent } from "./game-add-form/game-add-form.component";

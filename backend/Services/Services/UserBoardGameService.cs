@@ -98,8 +98,9 @@ public class UserBoardGameService : IUserBoardGameService
         var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
         if (userBoardGame == null) throw new BadRequestException("Game is not in user list");
 
-        userBoardGame.Rating = (double)editUserBoardGameDetails.Rating;
-        userBoardGame.IsFavourite = editUserBoardGameDetails.IsFavourite;
+        if (editUserBoardGameDetails.Rating != null) userBoardGame.Rating = (double)editUserBoardGameDetails.Rating;
+        if(editUserBoardGameDetails.IsFavourite != null) userBoardGame.IsFavourite = (bool)editUserBoardGameDetails.IsFavourite;
+
 
         await userBoardGameRepository.Update(userBoardGame);
 
