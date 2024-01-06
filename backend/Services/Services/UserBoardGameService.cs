@@ -26,7 +26,7 @@ public class UserBoardGameService : IUserBoardGameService
     {
         Console.WriteLine(gameId);
         var ratingList = await userBoardGameRepository.GetRatingListForGameId(gameId);
-        double avgRating = ratingList.Any() ? ratingList.Average(r => r.Rating) : 0;
+        double avgRating = (ratingList.Any() ? ratingList.Average(r => r.Rating) : 0);
         Console.WriteLine(avgRating);
         return Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
     }
@@ -72,4 +72,36 @@ public class UserBoardGameService : IUserBoardGameService
         await userBoardGameRepository.Delete(userBoardGame);
     }
 
+    public async Task<UserBoardGameDetails> GetUserBoardGameDetails(int gameId)
+    {
+        var userId = userContextService.GetUserId;
+        if (userId == null) throw new NotFoundException("User not found!");
+
+        var game = await boardGameRepository.GetBoardGameById(gameId);
+        if (game == null) throw new NotFoundException("Board game not found!");
+
+        var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
+        if (userBoardGame == null) throw new BadRequestException("Game is not in user list");
+
+        return mapper.Map<UserBoardGameDetails>(userBoardGame);
+
+    }
+
+    public async Task UpdateUserBoardGameDetails(int gameId, EditUserBoardGameDetails editUserBoardGameDetails)
+    {
+        var userId = userContextService.GetUserId;
+        if (userId == null) throw new NotFoundException("User not found!");
+
+        var game = await boardGameRepository.GetBoardGameById(gameId);
+        if (game == null) throw new NotFoundException("Board game not found!");
+
+        var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
+        if (userBoardGame == null) throw new BadRequestException("Game is not in user list");
+
+        userBoardGame.Rating = (double)editUserBoardGameDetails.Rating;
+        userBoardGame.IsFavourite = editUserBoardGameDetails.IsFavourite;
+
+        await userBoardGameRepository.Update(userBoardGame);
+
+    }
 }

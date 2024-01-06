@@ -23,6 +23,8 @@ public class AutoMapperProfile: Profile
 
         CreateMap<AddUserBoardGameDto, UserBoardGame>();
         CreateMap<AddUserBoardGameDto, BoardGame>();
+        CreateMap<UserBoardGame, UserBoardGameDetails>();
+        CreateMap<EditUserBoardGameDetails, UserBoardGame>();
 
         CreateMap<AddGameReviewDto, GameReview>();
     }

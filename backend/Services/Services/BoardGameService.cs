@@ -42,6 +42,7 @@ public class BoardGameService : IBoardGameService
         var boardGameDetailsDto = mapper.Map<BoardGameDetailsDto>(boardGame);
         boardGameDetailsDto.Reviews = boardGame.GameReviews.Select(review => new GameReviewDto
         {
+            Id = review.Id,
             ReviewDescription = review.ReviewDescription,
             CreatedDate = review.CreatedDate,
             UserId = review.UserId,

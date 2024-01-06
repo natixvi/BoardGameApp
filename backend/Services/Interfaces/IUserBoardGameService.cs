@@ -8,4 +8,6 @@ public interface IUserBoardGameService
     Task<bool> IsGameInUserList(int gameId);
     Task<int> AddGameToUserList(int gameId, AddUserBoardGameDto addUserBoardGameDto);
     Task DeleteGameFromUserList(int gameId);
+    Task<UserBoardGameDetails> GetUserBoardGameDetails(int gameId);
+    Task UpdateUserBoardGameDetails(int gameId, EditUserBoardGameDetails editUserBoardGameDetails);
 }

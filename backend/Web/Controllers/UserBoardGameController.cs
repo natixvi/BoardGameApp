@@ -36,5 +36,19 @@ public class UserBoardGameController : ControllerBase
     {
         await userBoardGameService.DeleteGameFromUserList(gameId);
         return NoContent();
-    }   
+    }
+
+    [HttpGet("details/{gameId}")]
+    public async Task<IActionResult> GetUserBoardGameDetails([FromRoute] int gameId)
+    {
+        var userBoardGameDetails = await userBoardGameService.GetUserBoardGameDetails(gameId);
+        return Ok(userBoardGameDetails);
+    }
+
+    [HttpPut("edit/{gameId}")]
+    public async Task<IActionResult> UpdateUserBoardGameDetails([FromRoute] int gameId, [FromBody] EditUserBoardGameDetails editUserBoardGameDetails)
+    {
+        await userBoardGameService.UpdateUserBoardGameDetails(gameId, editUserBoardGameDetails);
+        return Ok("User boardgame with id: " + gameId + "has been updated.");
+    }
 }
