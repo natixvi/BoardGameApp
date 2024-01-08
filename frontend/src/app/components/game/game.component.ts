@@ -37,12 +37,16 @@ export class GameComponent implements OnInit {
 
      ngOnInit() {
       this.initialData();
+      this.addGameEvent(); 
+    }
 
-      this.addGameFormService.getGameAddedObservable().subscribe(() => {
-        window.location.reload();
+    addGameEvent(){
+      this.addGameFormService.getGameAddedObservable()
+      .subscribe(() => {
+        this.initialData();
       });
-     }
-    
+    }
+
     initialData(){
       this.isLoggedIn$ = this.authService.isLoggedIn$;
       this.isLoggedIn$.subscribe((isLoggedIn) => {
@@ -120,7 +124,7 @@ export class GameComponent implements OnInit {
         this.userBoardGameService.deleteGameFromUserList(gameId).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game deleted from the list!' });
-            this.ngOnInit();
+            this.initialData();
           },
 
           error: (e) => {

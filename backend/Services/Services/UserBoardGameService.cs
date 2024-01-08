@@ -2,7 +2,6 @@
 using Domain.Entities;
 using Domain.Exceptions;
 using Domain.IRepositories;
-using Services.DTOs.BoardGame;
 using Services.DTOs.UserBoardGame;
 using Services.Interfaces;
 
@@ -26,7 +25,7 @@ public class UserBoardGameService : IUserBoardGameService
     {
         Console.WriteLine(gameId);
         var ratingList = await userBoardGameRepository.GetRatingListForGameId(gameId);
-        double avgRating = (ratingList.Any() ? ratingList.Average(r => r.Rating) : 0);
+        double avgRating = (ratingList.Any() ? ratingList.Where(r => r.Rating > 0).Average(r => r.Rating) : 0);
         Console.WriteLine(avgRating);
         return Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
     }
@@ -98,8 +97,10 @@ public class UserBoardGameService : IUserBoardGameService
         var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
         if (userBoardGame == null) throw new BadRequestException("Game is not in user list");
 
+
         if (editUserBoardGameDetails.Rating != null) userBoardGame.Rating = (double)editUserBoardGameDetails.Rating;
-        if(editUserBoardGameDetails.IsFavourite != null) userBoardGame.IsFavourite = (bool)editUserBoardGameDetails.IsFavourite;
+        Console.WriteLine(userBoardGame.Rating);
+        if (editUserBoardGameDetails.IsFavourite != null) userBoardGame.IsFavourite = (bool)editUserBoardGameDetails.IsFavourite;
 
 
         await userBoardGameRepository.Update(userBoardGame);

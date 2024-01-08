@@ -27,6 +27,7 @@ public class UserBoardGameController : ControllerBase
     [HttpPost("add/{gameId}")]
     public async Task<IActionResult> AddGameToUserList([FromRoute] int gameId, [FromBody] AddUserBoardGameDto addUserBoardGameDto)
     {
+  
         var userBoardGameId = await userBoardGameService.AddGameToUserList(gameId, addUserBoardGameDto);
         return Created($"/UserBoardGame/{userBoardGameId}", null);
     }

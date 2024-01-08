@@ -43,7 +43,7 @@
                                             <label for="rating">Rating: <p-rating formControlName="rating" [stars]="10" ></p-rating></label>
                                         </div>
                                         <div class="label">
-                                          <label class="favourites-label">
+                                          <label  for="rating" class="favourites-label">
                                             Add to Favorites
                                             <i  *ngIf="isActive" (click)="onClick()" class="pi pi-heart-fill fav" ></i>
                                             <i *ngIf="!isActive" (click)="onClick()" class="pi pi-heart-fill nofav" ></i>

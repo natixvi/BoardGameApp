@@ -46,7 +46,7 @@ export class UserBoardGameService {
   }
 
   editUserGameDetails(gameId: number, editUserGameDetails: EditUserGameDetails) : Observable<string>{
-    return this.http.put<string>(`${this.apiUrl}/userboardgame/edit/${gameId}`, editUserGameDetails).pipe(
+    return this.http.put(`${this.apiUrl}/userboardgame/edit/${gameId}`, editUserGameDetails, {responseType: 'text'}).pipe(
       catchError(error => {
         console.log('Error while edit user game details' , error);
         return this.handleError(error);

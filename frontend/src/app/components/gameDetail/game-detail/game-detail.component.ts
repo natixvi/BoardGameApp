@@ -139,6 +139,7 @@ export class GameDetailComponent implements OnInit {
   }
 
   editUserGameDetails(){
+    console.error(this.gameEditForm.get('rating')?.value)
     this.confirmationService.confirm({
       message: "Are you sure you want to edit game on your list?",
       header: "Confirmation",
