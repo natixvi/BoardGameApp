@@ -14,6 +14,10 @@ public class GameReviewRepository : BaseRepository<GameReview>, IGameReviewRepos
         this.appDbContext = appDbContext;
     }
 
+    public async Task<GameReview?> GetGameReviewById(int reviewId)
+    {
+        return await appDbContext.GameReviews.FirstOrDefaultAsync(r => r.Id == reviewId);
+    }
     public async Task CreateReview(GameReview gameReview)
     {
         appDbContext.GameReviews.Add(gameReview);

@@ -35,9 +35,10 @@ export class GameDetailComponent implements OnInit {
   router = inject(Router);
   gameDetails: GameDetails = { } as GameDetails
   reviews: Review[] = []
-  // userReview: Review | undefined;
+  userReview: Review | undefined;
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
+  userId: number = 0;
   rateValue: number | undefined;
   isFavourite: boolean | undefined;
   showform: boolean = false;
@@ -45,6 +46,7 @@ export class GameDetailComponent implements OnInit {
   isFavActive: boolean = false;
   openUserGameForm: boolean = false;
   showAddReviewForm: boolean = false;
+  userReviewExist: boolean = false;
 
   gameEditForm = this.formBuilder.group({
     rating: [0],
@@ -62,9 +64,9 @@ export class GameDetailComponent implements OnInit {
         this.gameId = params['id'];
       }
     });
-
-    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.userId = this.authService.getParsedToken().Id;
     
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
       this.getGameDetails(this.isLoggedIn).pipe(
@@ -83,7 +85,15 @@ export class GameDetailComponent implements OnInit {
             review.createdDate = new Date(review.createdDate);
             
           });
-          this.reviews = this.gameDetails?.reviews;
+          this.reviews = this.gameDetails?.reviews.filter(review => String(review.userId) !== String(this.userId));
+          this.reviews?.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
+          this.userReview = this.gameDetails.reviews.find((review) => String(review.userId) === String(this.userId));
+
+          if (this.userReview) {
+            this.userReview.createdDate = new Date(this.userReview.createdDate);
+            this.reviews.unshift(this.userReview);
+            this.userReviewExist = true;
+          }
 
           if (userGameDetails) {
             this.rateValue = userGameDetails.rating;
@@ -225,6 +235,12 @@ export class GameDetailComponent implements OnInit {
         this.confirmationService.close();
       }
     })
+  }
+  editUserReview(){
+
+  }
+  deleteUserReview(){
+    
   }
 
   deleteGameFromList(gameId : number) : void {

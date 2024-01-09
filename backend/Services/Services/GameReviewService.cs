@@ -36,6 +36,27 @@ public class GameReviewService : IGameReviewService
 
         await gameReviewRepository.CreateReview(gameReview);
     }
+     public async Task EditUserGameReview(int reviewId, EditGameReview editGameReview)
+     {
+        var userId = GetUserContextId();
+        var review = await gameReviewRepository.GetGameReviewById(reviewId);
+        if (review == null) throw new NotFoundException("Review not found");
+        if (review.UserId != userId) throw new UnathorizedException("Unathorized! You cannot edit this review");
+
+        review.ReviewDescription = editGameReview.ReviewDescription;
+        await gameReviewRepository.Update(review);
+     }
+
+    public async Task DeleteUserGameReview(int reviewId)
+    {
+        var userId = GetUserContextId();
+        var review = await gameReviewRepository.GetGameReviewById(reviewId);
+        if (review == null) throw new NotFoundException("Review not found");
+        if (review.UserId != userId) throw new UnathorizedException("Unathorized! You cannot delete this review");
+
+        await gameReviewRepository.Delete(review);
+    }
+
 
     public async Task<bool> IfUserCreatedReview(int gameId)
     {

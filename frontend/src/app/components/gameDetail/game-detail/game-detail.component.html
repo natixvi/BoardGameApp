@@ -102,7 +102,15 @@
                                 <div class="review-user">{{ review.nickName }}</div>
                                 <div class= "review-date">{{review.createdDate | date: 'dd-MM-yyyy HH:mm':'pl'}}</div>
                             </div>  
-                            <div class="review-desc">{{ review.reviewDescription }}</div>
+                            <div class="review-others">
+                                <div class="review-desc-container">
+                                    <div class="review-desc">{{ review.reviewDescription }}</div>
+                                </div>
+                                <div *ngIf="review.userId.toString() === this.userId.toString()" class="user-Review-buttons">
+                                    <button pButton icon="pi pi-pencil"  class="p-button-rounded p-button-secondary p-button-text" (onClick)="editUserReview()"></button>
+                                    <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (onClick)="deleteUserReview()"></button>
+                                </div>   
+                            </div>
                         </div> 
                     </div>
                 </ng-template>

@@ -5,4 +5,6 @@ public interface IGameReviewRepository : IBaseRepository<GameReview>
 {
     Task CreateReview(GameReview gameReview);
     Task<bool> IfUserCreateReview(int gameId, int? userId);
+
+    Task<GameReview?> GetGameReviewById(int reviewId);
 }

@@ -189,8 +189,16 @@ i{
     flex: 1;
 }
 
-.review-desc{
+.review-others{
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-desc-container{
+    flex: 1;
+    margin-right: 10px;
 }
 
 .header{
