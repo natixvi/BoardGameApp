@@ -19,7 +19,7 @@ import { AddGameFormService } from '../../../services/add-game-form.service';
 import { UserGameDetails } from '../../../models/userGame/UserGameDetails';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { AddGameReview } from '../../../models/game/addGameReview';
+import { AddGameReview } from '../../../models/review/addGameReview';
 import { GameReviewService } from '../../../services/game-review.service';
 
 
@@ -195,6 +195,7 @@ export class GameDetailComponent implements OnInit {
       }
     })
   }
+
   showReviewForm(){
     if(!this.isLoggedIn)  this.router.navigate(['login']);
     this.showAddReviewForm = !this.showAddReviewForm;
@@ -237,11 +238,44 @@ export class GameDetailComponent implements OnInit {
       }
     })
   }
+  enableEditMode(review : Review){
+
+  }
+  saveUserReview(reviewId : number){
+
+  }
+
+  disableEditMode(review: Review){
+
+  }
   editUserReview(){
 
   }
-  deleteUserReview(){
 
+  deleteUserReview(reviewId: number){
+    this.confirmationService.confirm({
+      message: "Are you sure you want to delete game review?",
+      header: "Delete review confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.gameReviewService.deleteUserGameReview(reviewId).subscribe({
+          next: () => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review deleted!' });
+            this.ngOnInit();
+          },
+
+          error: (e) => {
+            console.error('Error while deleting user game review', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while deleting user game review.'});
+          }
+        })   
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Delete user game review canceled.' });
+        this.confirmationService.close();
+      }
+    })
   }
 
   deleteGameFromList(gameId : number) : void {

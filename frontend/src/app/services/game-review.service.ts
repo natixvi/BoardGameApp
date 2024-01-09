@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../config';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AddGameReview } from '../models/game/addGameReview';
+import { AddGameReview } from '../models/review/addGameReview';
 import { Observable, catchError, throwError } from 'rxjs';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
@@ -25,6 +25,15 @@ export class GameReviewService {
       })
     );
  }
+
+ deleteUserGameReview(reviewId: number) : Observable<any>{
+  return this.http.delete<any>(`${this.apiUrl}/boardgamereview/delete/${reviewId}`).pipe(
+    catchError(error => {
+      console.log('Error while deleting game review:' , error);
+      return this.handleError(error);
+    })
+  );
+}
 
  private handleError(error: HttpErrorResponse): Observable<any>{
   if (error.status === 401) {
