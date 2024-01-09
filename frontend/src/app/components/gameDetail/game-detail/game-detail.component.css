@@ -134,6 +134,36 @@ i{
     margin-top: 2rem;
 }
 
+.review-form-container{
+    margin: 20px 0 20px 0;
+    display: block;
+    width: 100%;
+}
+.add-review-desc textarea{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.add-review-button{
+    width: 100%;
+}
+
+.review-form-container button[type="submit"] {
+    padding: 10px;
+    background-color: #EEA47F;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+::ng-deep .review-form-container .p-button:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem rgba(241, 147, 100, 0.5);
+  } 
+
 .top-review{
     display: flex;
     justify-content: space-between;  
@@ -233,9 +263,10 @@ input::placeholder {
     font-size: 15px;
 }
 
-.container button[type="submit"]:hover {
+.container button[type="submit"]:hover, .review-form-container button[type="submit"]:hover{
     background-color: #f19364;
 }
+
 
 @media only screen and (min-width: 601px) and (max-width: 1000px) {
     .container{

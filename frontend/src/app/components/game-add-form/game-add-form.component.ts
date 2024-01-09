@@ -5,11 +5,11 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { AddGameToList } from '../../../models/game/addGameToList';
-import { UserBoardGameService } from '../../../services/user-board-game.service';
+import { AddGameToList } from '../../models/game/addGameToList';
+import { UserBoardGameService } from '../../services/user-board-game.service';
 import { Location } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
-import { AddGameFormService } from '../../../services/add-game-form.service';
+import { AddGameFormService } from '../../services/add-game-form.service';
 @Component({
   selector: 'app-game-add-form',
   standalone: true,
@@ -21,7 +21,7 @@ export class GameAddFormComponent {
 
   @Input() gameId: number | null = null;
   @Input() gameName: string | null = null;
-  isActive = false;
+  isFavActive = false;
   router = inject(Router);
 
   gameAddForm = this.formBuilder.group({
@@ -31,12 +31,12 @@ export class GameAddFormComponent {
 
   constructor(private addGameFormService: AddGameFormService, private formBuilder: FormBuilder, private location: Location, private route: ActivatedRoute, private userBoardGameService: UserBoardGameService, private messageService: MessageService, private confirmationService: ConfirmationService){}
 
-  onClick(){
-    this.isActive = !this.isActive;
-    this.gameAddForm.get('addToFavourites')?.setValue(this.isActive);
+  onFavClick(){
+    this.isFavActive = !this.isFavActive;
+    this.gameAddForm.get('addToFavourites')?.setValue(this.isFavActive);
   }
 
-  closeForm(): void {
+  closeAddForm(): void {
     this.addGameFormService.closeForm();
   }
 
@@ -46,10 +46,7 @@ export class GameAddFormComponent {
       header: "Confirmation",
       icon: 'pi pi-info-circle',
       accept: () => {
-        // const currentDate = new Date();
-        // currentDate.setHours(currentDate.getHours() + 1);
-        // const isoDateString = currentDate.toISOString();
-
+       
         const addedGameData = {
           rating: this.gameAddForm.get('rating')?.value, 
           isFavourite: this.gameAddForm.get('addToFavourites')?.value

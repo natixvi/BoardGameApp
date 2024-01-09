@@ -23,33 +23,27 @@ public class UserBoardGameService : IUserBoardGameService
 
     public async Task<double> CalculateAverageRating(int gameId)
     {
-        Console.WriteLine(gameId);
         var ratingList = await userBoardGameRepository.GetRatingListForGameId(gameId);
         double avgRating = (ratingList.Any() ? ratingList.Where(r => r.Rating > 0).Average(r => r.Rating) : 0);
-        Console.WriteLine(avgRating);
         return Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
     }
 
 
     public async Task<bool> IsGameInUserList(int gameId)
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found!");
-        var game = await boardGameRepository.GetBoardGameById(gameId);
-        if (game == null) throw new NotFoundException("Board game not found!");
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
+
         return await userBoardGameRepository.IsGameInUserList(gameId, userId);
     }
 
     public async Task<int> AddGameToUserList(int gameId, AddUserBoardGameDto addUserBoardGameDto)
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found!");
-
-        var game = await boardGameRepository.GetBoardGameById(gameId);
-        if (game == null) throw new NotFoundException("Board game not found!");
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
 
         var gameInUserList = await userBoardGameRepository.IsGameInUserList(gameId, userId);
-        if (gameInUserList) throw new BadRequestException("Game can be added to user list just once!");
+        if (gameInUserList) throw new DuplicateDataException("Game can be added to user list just once!");
 
         var userBoardGame = mapper.Map<UserBoardGame>(addUserBoardGameDto);
         userBoardGame.UserId = (int)userId;
@@ -59,11 +53,8 @@ public class UserBoardGameService : IUserBoardGameService
 
     public async Task DeleteGameFromUserList(int gameId)
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found!");
-
-        var game = await boardGameRepository.GetBoardGameById(gameId);
-        if (game == null) throw new NotFoundException("Board game not found!");
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
 
         var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
         if (userBoardGame == null) throw new BadRequestException("Game is not in user list");
@@ -73,11 +64,8 @@ public class UserBoardGameService : IUserBoardGameService
 
     public async Task<UserBoardGameDetails> GetUserBoardGameDetails(int gameId)
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found!");
-
-        var game = await boardGameRepository.GetBoardGameById(gameId);
-        if (game == null) throw new NotFoundException("Board game not found!");
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
 
         var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
         if (userBoardGame == null) throw new BadRequestException("Game is not in user list");
@@ -88,11 +76,9 @@ public class UserBoardGameService : IUserBoardGameService
 
     public async Task UpdateUserBoardGameDetails(int gameId, EditUserBoardGameDetails editUserBoardGameDetails)
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found!");
-
-        var game = await boardGameRepository.GetBoardGameById(gameId);
-        if (game == null) throw new NotFoundException("Board game not found!");
+        
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
 
         var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
         if (userBoardGame == null) throw new BadRequestException("Game is not in user list");
@@ -105,5 +91,17 @@ public class UserBoardGameService : IUserBoardGameService
 
         await userBoardGameRepository.Update(userBoardGame);
 
+    }
+
+    private int? GetUserContextId() {
+        var userId = userContextService.GetUserId;
+        if (userId == null) throw new UnathorizedException("Incorrect or missing user ID, no authorization!");
+        return userId;
+    }
+
+    private async Task CheckIfGameExist(int gameId)
+    {
+        var game = await boardGameRepository.GetBoardGameById(gameId);
+        if (game == null) throw new NotFoundException("Board game not found!");
     }
 }

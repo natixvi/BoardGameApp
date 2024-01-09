@@ -22,7 +22,7 @@
             <div class="game-button">
                 <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
                     <div *ngIf="!gameDetails.isInUserList" class="game-add-to-list">
-                        <p-button  severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openForm(gameDetails.id, gameDetails.name)"></p-button>  
+                        <p-button  severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openAddForm(gameDetails.id, gameDetails.name)"></p-button>  
                         <app-game-add-form *ngIf="addGameFormService.getIsOpen() &&  addGameFormService.getSelectedGameId() === gameDetails.id; else noForm" [gameId]="addGameFormService.getSelectedGameId()" [gameName]="addGameFormService.getSelectedGameName()" class="overlay"></app-game-add-form>
                         <ng-template #noForm> </ng-template>
                     </div> 
@@ -36,7 +36,7 @@
                                     <div class="header-add-form">
                                       <div class="left"></div>
                                       <div class="middle">Edit "{{gameDetails.name}}" on your list</div> 
-                                      <div class="pi pi-times right" (click)="closeForm()"></div>
+                                      <div class="pi pi-times right" (click)="closeEditForm()"></div>
                                     </div>
                                     <div class="form">
                                         <div class="label">
@@ -45,8 +45,8 @@
                                         <div class="label">
                                           <label  for="rating" class="favourites-label">
                                             Add to Favorites
-                                            <i  *ngIf="isActive" (click)="onClick()" class="pi pi-heart-fill fav" ></i>
-                                            <i *ngIf="!isActive" (click)="onClick()" class="pi pi-heart-fill nofav" ></i>
+                                            <i  *ngIf="isFavActive" (click)="onFavClick()" class="pi pi-heart-fill fav" ></i>
+                                            <i *ngIf="!isFavActive" (click)="onFavClick()" class="pi pi-heart-fill nofav" ></i>
                                           </label>
                                         </div>               
                                         <button type="submit" [disabled]="gameEditForm.invalid">Edit game stats on list</button>
@@ -74,26 +74,25 @@
         <div class = "game-reviews">
             <div class="review-header">
                 <h3>Reviews</h3>
-                <p-overlayPanel #op>
-                    <div class="form-container"> 
-                        <form (ngSubmit)="addGameReview()">
-                            <h2>Add game review</h2>
-                            <div class="form">
-                                <div class="label">
-                                    <label for="review">Review: </label>
-                                    <textarea id="review" [formControl]="reviewControl" rows="4"></textarea>
-                                </div>
-                                <div class="error-messages" *ngIf="reviewControl.invalid && (reviewControl.dirty || reviewControl.touched)">
-                                    <small *ngIf="reviewControl.hasError('maxlength')">
-                                        Review must be at most 1000 characters.
-                                    </small>
-                                </div>            
-                                <button pButton type="submit" [disabled]="reviewControl.invalid">Add game review</button>
-                            </div>
-                        </form>
+                <button pButton type="button" icon="pi pi-plus" class="p-button-rounded p-button-secondary p-button-text" (click)="showReviewForm()"></button>  
+            </div>
+            <div *ngIf="showAddReviewForm" class="review-form-container"> 
+                <form (ngSubmit)="addGameReview()">
+                    <h4>Add game review</h4>
+                    <div class="form">
+                        <div class="add-review-desc">
+                            <textarea id="review" pInputTextarea [autoResize]="true" placeholder="Review description..." [formControl]="reviewControl" rows="4"></textarea>
+                        </div>
+                        <div class="error-messages" *ngIf="reviewControl.invalid && (reviewControl.dirty || reviewControl.touched)">
+                            <small *ngIf="reviewControl.hasError('maxlength')">
+                                Review must be at most 1000 characters.
+                            </small>
+                        </div>
+                        <div class="add-review-button">
+                            <button pButton type="submit" [disabled]="reviewControl.invalid">Add game review</button>
+                        </div>            
                     </div>
-                </p-overlayPanel>
-                <button pButton type="button" icon="pi pi-plus" class="p-button-rounded p-button-secondary p-button-text" (click)="op.toggle($event)"></button>
+                </form>
             </div>  
             <p-dataView #dv [value]="reviews"[paginator]="true" [rows]="2">
                 <ng-template let-review pTemplate="listItem">

@@ -8,6 +8,7 @@ import { GeneralError } from '../exceptions/GeneralError';
 import { GameDetails } from '../models/game/gameDetail';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { NotFoundError } from '../exceptions/NotFoundError';
+import { AddGameReview } from '../models/game/addGameReview';
 @Injectable({
   providedIn: 'root'
 })
@@ -30,6 +31,15 @@ export class GameService {
     return this.http.get<GameDetails>(`${this.apiUrl}/boardgame/${gameId}`).pipe(
       catchError(error => {
         console.log('Error while loading game:' , error);
+        return this.handleError(error);
+      })
+    );
+ }
+
+ addGameReview(gameId: number, addGameReview : AddGameReview) : Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/boardgame/${gameId}/add-review`, addGameReview).pipe(
+      catchError(error => {
+        console.log('Error while adding game review:' , error);
         return this.handleError(error);
       })
     );

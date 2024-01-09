@@ -14,7 +14,7 @@ import { NotFoundError } from '../../exceptions/NotFoundError';
 import { Observable} from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { GameAddFormComponent } from "./game-add-form/game-add-form.component";
+import { GameAddFormComponent } from "../game-add-form/game-add-form.component";
 import { AddGameFormService } from '../../services/add-game-form.service';
 
 
@@ -30,12 +30,11 @@ export class GameComponent implements OnInit {
     router = inject(Router);
     isLoggedIn$: Observable<boolean> | undefined;
     isLoggedIn: boolean = false;
-    showform: boolean = false;
     selectedGameId: number | null = null;
 
     constructor(private gameService : GameService, public addGameFormService: AddGameFormService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
-     ngOnInit() {
+    ngOnInit() {
       this.initialData();
       this.addGameEvent(); 
     }
@@ -59,9 +58,24 @@ export class GameComponent implements OnInit {
         }
       });
     } 
-    openForm(gameId: number, gameName: string): void {
+
+    openAddForm(gameId: number, gameName: string): void {
       this.selectedGameId = gameId;
       this.addGameFormService.openForm(gameId, gameName);
+    }
+
+    getGames() {
+      this.gameService.getGames().subscribe({
+        next: (data : Game[]) =>{
+          this.games = data;
+        },
+        error: (e) => {
+          if (e instanceof BadRequestError){
+            this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+          }
+          else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+        }
+       })
     }
 
     getGamesLoggedUser() : void{
@@ -80,21 +94,6 @@ export class GameComponent implements OnInit {
         }
        })
     }
-  
-
-  getGames() {
-    this.gameService.getGames().subscribe({
-      next: (data : Game[]) =>{
-        this.games = data;
-      },
-      error: (e) => {
-        if (e instanceof BadRequestError){
-          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-        }
-        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
-      }
-     })
-  }
 
   checkIfGameIsInUserList(game: Game) {
     this.userBoardGameService.isGameInUserList(game.id).subscribe( {

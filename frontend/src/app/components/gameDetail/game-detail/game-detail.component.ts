@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GameDetails } from '../../../models/game/gameDetail';
 import { GameService } from '../../../services/game.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { CommonModule} from '@angular/common';
 import { Review } from '../../../models/game/review';
 import { ButtonModule } from 'primeng/button';
@@ -15,10 +14,12 @@ import { RatingModule } from 'primeng/rating';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FormControl, Validators } from '@angular/forms';
-import { GameAddFormComponent } from "../../game/game-add-form/game-add-form.component";
+import { GameAddFormComponent } from "../../game-add-form/game-add-form.component";
 import { AddGameFormService } from '../../../services/add-game-form.service';
 import { UserGameDetails } from '../../../models/userGame/UserGameDetails';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { AddGameReview } from '../../../models/game/addGameReview';
 
 
 @Component({
@@ -26,7 +27,7 @@ import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetail
     standalone: true,
     templateUrl: './game-detail.component.html',
     styleUrls: ['./game-detail.component.css'],
-    imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, ReactiveFormsModule, RatingModule, FormsModule, OverlayPanelModule, GameAddFormComponent]
+    imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, InputTextareaModule, ReactiveFormsModule, RatingModule, FormsModule, OverlayPanelModule, GameAddFormComponent]
 })
 export class GameDetailComponent implements OnInit {
   
@@ -34,14 +35,16 @@ export class GameDetailComponent implements OnInit {
   router = inject(Router);
   gameDetails: GameDetails = { } as GameDetails
   reviews: Review[] = []
+  // userReview: Review | undefined;
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
   rateValue: number | undefined;
   isFavourite: boolean | undefined;
   showform: boolean = false;
   selectedGameId: number | null = null;
-  isActive = false;
-  openUserGameForm = false;
+  isFavActive: boolean = false;
+  openUserGameForm: boolean = false;
+  showAddReviewForm: boolean = false;
 
   gameEditForm = this.formBuilder.group({
     rating: [0],
@@ -59,7 +62,9 @@ export class GameDetailComponent implements OnInit {
         this.gameId = params['id'];
       }
     });
+
     this.isLoggedIn$ = this.authService.isLoggedIn$;
+    
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
       this.getGameDetails(this.isLoggedIn).pipe(
@@ -72,11 +77,18 @@ export class GameDetailComponent implements OnInit {
         )
       ).subscribe({
         next: ({ gameDetails, userGameDetails }) => {
+
           this.gameDetails = gameDetails;
+          this.gameDetails.reviews.forEach((review: Review) => {
+            review.createdDate = new Date(review.createdDate);
+            
+          });
+          this.reviews = this.gameDetails?.reviews;
+
           if (userGameDetails) {
             this.rateValue = userGameDetails.rating;
             this.isFavourite = userGameDetails.isFavourite;
-            this.isActive = userGameDetails.isFavourite
+            this.isFavActive = userGameDetails.isFavourite
             this.gameEditForm.controls['rating'].setValue(userGameDetails.rating),
             this.gameEditForm.controls['addToFavourites'].setValue(userGameDetails.isFavourite)
           } 
@@ -92,12 +104,12 @@ export class GameDetailComponent implements OnInit {
     });
   }
 
-  onClick(){
-    this.isActive = !this.isActive;
-    this.gameEditForm.get('addToFavourites')?.setValue(this.isActive)
+  onFavClick(){
+    this.isFavActive = !this.isFavActive;
+    this.gameEditForm.get('addToFavourites')?.setValue(this.isFavActive)
   }
 
-  openForm(gameId: number, gameName: string): void {
+  openAddForm(gameId: number, gameName: string): void {
     this.selectedGameId = gameId;
     this.addGameFormService.openForm(gameId, gameName);
   }
@@ -123,6 +135,7 @@ export class GameDetailComponent implements OnInit {
   checkIfGameIsInUserList(game: GameDetails): Observable<boolean> {
     return this.userBoardGameService.isGameInUserList(game.id);
   }
+
   getUserGameDetails(gameDetails: GameDetails): Observable<UserGameDetails> {
     if (!gameDetails) {
       return EMPTY;
@@ -134,7 +147,7 @@ export class GameDetailComponent implements OnInit {
     this.openUserGameForm = true;
   }
 
-  closeForm(){
+  closeEditForm(){
     this.openUserGameForm = false;
   }
 
@@ -171,18 +184,47 @@ export class GameDetailComponent implements OnInit {
       }
     })
   }
+  showReviewForm(){
+    if(!this.isLoggedIn)  this.router.navigate(['login']);
+    this.showAddReviewForm = !this.showAddReviewForm;
+  }
   
-  // submitRating(){
-  //   if(!this.gameDetails.isInUserList){
-  //     this.messageService.add({severity: 'warn', summary: 'warn', detail:"You must add game to your list if you want rate them."});
-  //     this.openForm(this.gameDetails.id, this.gameDetails.name)
-  //   }
-  //   else{
-  //     this.messageService.add({severity: 'success', summary: 'Success', detail:"Success you rate game"});
-  //   }
-  // }
-
   addGameReview(){
+    this.confirmationService.confirm({
+      message: "Are you sure you want to add game review?",
+      header: "Add review confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+
+        const currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 1);
+        const isoDateString = currentDate.toISOString();
+
+        const addGameReviewData = {
+          reviewDescription: this.reviewControl.value,
+          createdDate: isoDateString
+        } as AddGameReview;
+
+
+        this.gameService.addGameReview(this.gameId, addGameReviewData).subscribe({
+          next: () => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review added!' });
+            this.showAddReviewForm = false;
+            this.ngOnInit();
+          },
+
+          error: (e) => {
+            console.error('Error while adding game review', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while adding game review.'});
+          }
+        })   
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Add game review canceled.' });
+        this.confirmationService.close();
+      }
+    })
   }
 
   deleteGameFromList(gameId : number) : void {

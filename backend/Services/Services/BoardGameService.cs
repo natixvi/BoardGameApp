@@ -19,14 +19,11 @@ public class BoardGameService : IBoardGameService
         this.mapper = mapper;
         this.myBoardGameService = userBoardGameService;
     }
-    public async Task<List<BoardGameDto>> GetBoardGames()
+    public async Task<List<BoardGameDto>?> GetBoardGames()
     {
         var boardGames = await gameRepository.GetBoardGames();
-        if (boardGames == null) throw new NotFoundException("Board games not found!");
-
-        Console.WriteLine(boardGames[1].Name);
+        if (boardGames == null) return null;
         var boardGamesDto = mapper.Map<List<BoardGameDto>>(boardGames);
-        Console.WriteLine(boardGamesDto[1].Name);
         foreach (var game in boardGamesDto)
         {
             game.Rating = await myBoardGameService.CalculateAverageRating(game.Id);

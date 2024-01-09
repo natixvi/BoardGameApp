@@ -3,16 +3,16 @@
       <div class="header-add-form">
         <div class="left"></div>
         <div class="middle">Add {{gameName}} to list</div> 
-        <div class="pi pi-times right" (click)="closeForm()"></div>
+        <div class="pi pi-times right" (click)="closeAddForm()"></div>
       </div>
       <div class="form">
           <div class="label">
               <label for="rating">Rating: <p-rating formControlName="rating" [stars]="10" ></p-rating></label>
           </div>
           <div class="label">
-            <label (click)="onClick()" class="favourites-label">
+            <label (click)="onFavClick()" class="favourites-label">
               Add to Favorites
-              <i class="pi pi-heart-fill"  [class.highlighted]="isActive" ></i>
+              <i class="pi pi-heart-fill"  [class.highlighted]="isFavActive" ></i>
             </label>
           </div>               
           <button type="submit" [disabled]="gameAddForm.invalid">Add game to list</button>

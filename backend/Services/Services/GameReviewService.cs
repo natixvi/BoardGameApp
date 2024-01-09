@@ -23,16 +23,14 @@ public class GameReviewService : IGameReviewService
 
     public async Task CreateReview(int gameId, AddGameReviewDto addGameReviewDto)
     {
-        var game = await boardGameRepository.GetBoardGameById(gameId);
-        if (game == null) throw new NotFoundException("Board game not found");
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found");
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
 
         var ifUserCreateReviewAlready = await IfUserCreatedReview(gameId);
-        if (ifUserCreateReviewAlready) throw new BadRequestException("Game review can be added just once!");
+        if (ifUserCreateReviewAlready) throw new DuplicateDataException("Game review can be added just once!");
 
         var gameReview = mapper.Map<GameReview>(addGameReviewDto);
-        Console.WriteLine(gameReview.ReviewDescription);
+
         gameReview.BoardGameId = gameId;
         gameReview.UserId = (int)userId;
 
@@ -41,11 +39,22 @@ public class GameReviewService : IGameReviewService
 
     public async Task<bool> IfUserCreatedReview(int gameId)
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found!");
-        var game = await boardGameRepository.GetBoardGameById(gameId);
-        if (game == null) throw new NotFoundException("Board game not found!");
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
 
         return await gameReviewRepository.IfUserCreateReview(gameId, userId);
+    }
+
+    private int? GetUserContextId()
+    {
+        var userId = userContextService.GetUserId;
+        if (userId == null) throw new UnathorizedException("Incorrect or missing user ID, no authorization!");
+        return userId;
+    }
+
+    private async Task CheckIfGameExist(int gameId)
+    {
+        var game = await boardGameRepository.GetBoardGameById(gameId);
+        if (game == null) throw new NotFoundException("Board game not found!");
     }
 }

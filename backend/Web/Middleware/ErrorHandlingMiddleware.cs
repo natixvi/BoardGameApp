@@ -10,9 +10,9 @@ public class ErrorHandlingMiddleware : IMiddleware
         {
             await next.Invoke(context);
         }
-        catch (DuplicateUserDataException ex)
+        catch (DuplicateDataException ex)
         {
-            context.Response.StatusCode = 400;
+            context.Response.StatusCode = 409;
             context.Response.ContentType = "text/plain";
             await context.Response.WriteAsync(ex.Message);
         }
@@ -37,6 +37,12 @@ public class ErrorHandlingMiddleware : IMiddleware
         catch (NotFoundException ex)
         {
             context.Response.StatusCode = 404;
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync(ex.Message);
+        }
+        catch (UnathorizedException ex)
+        {
+            context.Response.StatusCode = 401;
             context.Response.ContentType = "text/plain";
             await context.Response.WriteAsync(ex.Message);
         }

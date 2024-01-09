@@ -28,7 +28,7 @@
                         <div class="game-description">{{game.description}}</div>
                     </div> 
                     <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
-                        <p-button *ngIf="!game.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openForm(game.id, game.name)"></p-button>  
+                        <p-button *ngIf="!game.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openAddForm(game.id, game.name)"></p-button>  
                         <app-game-add-form *ngIf="addGameFormService.getIsOpen() &&  addGameFormService.getSelectedGameId() === game.id; else noForm" [gameId]="addGameFormService.getSelectedGameId()" [gameName]="addGameFormService.getSelectedGameName()" class="overlay"></app-game-add-form>
                         <ng-template #noForm>
                         </ng-template>
@@ -53,7 +53,7 @@
                     <div class="game-grid-action">
                         <span class="game-rating"><i class="pi pi-star-fill"></i>Rating: {{game.rating}}</span>
                         <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
-                            <p-button *ngIf="!game.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openForm(game.id, game.name)"></p-button>  
+                            <p-button *ngIf="!game.isInUserList" severity="success"  label="Add to list" icon="pi pi-plus" iconPos="right" (onClick)="openAddForm(game.id, game.name)"></p-button>  
                             <app-game-add-form *ngIf="addGameFormService.getIsOpen() &&  addGameFormService.getSelectedGameId() === game.id; else noForm" [gameId]="addGameFormService.getSelectedGameId()" [gameName]="addGameFormService.getSelectedGameName()" class="overlay"></app-game-add-form>
                             <ng-template #noForm>
                               </ng-template>

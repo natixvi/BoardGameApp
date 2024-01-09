@@ -38,8 +38,8 @@ public class AccountService : IAccountService
 
     public async Task RegisterUser(RegisterUserDto registerUserDto)
     {
-        if (await accountRepository.NickNameExist(registerUserDto.NickName)) throw new DuplicateUserDataException("This nickname is already taken.");
-        if (await accountRepository.EmailExist(registerUserDto.Email)) throw new DuplicateUserDataException("For this email there is already an account.");
+        if (await accountRepository.NickNameExist(registerUserDto.NickName)) throw new DuplicateDataException("This nickname is already taken.");
+        if (await accountRepository.EmailExist(registerUserDto.Email)) throw new DuplicateDataException("For this email there is already an account.");
 
         if (registerUserDto.Password != registerUserDto.ConfirmPassword) throw new PasswordsMustBeTheSameException("Passwords must be the same!");
 
@@ -74,14 +74,14 @@ public class AccountService : IAccountService
 
         if(user.Email != updateUserDto.Email)
         {
-            if (await accountRepository.EmailExist(updateUserDto.Email)) throw new DuplicateUserDataException("For this email there is already an account.");
+            if (await accountRepository.EmailExist(updateUserDto.Email)) throw new DuplicateDataException("For this email there is already an account.");
             user.Email = updateUserDto.Email;
         }
 
         Console.WriteLine(user.NickName + "  dto: " + updateUserDto.NickName);
         if (user.NickName != updateUserDto.NickName)
         {
-            if (await accountRepository.NickNameExist(updateUserDto.NickName)) throw new DuplicateUserDataException("This nickname is already taken.");
+            if (await accountRepository.NickNameExist(updateUserDto.NickName)) throw new DuplicateDataException("This nickname is already taken.");
             user.NickName = updateUserDto.NickName;
         }
         await accountRepository.Update(user);   
