@@ -20,6 +20,7 @@ import { UserGameDetails } from '../../../models/userGame/UserGameDetails';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddGameReview } from '../../../models/game/addGameReview';
+import { GameReviewService } from '../../../services/game-review.service';
 
 
 @Component({
@@ -55,7 +56,7 @@ export class GameDetailComponent implements OnInit {
   
   reviewControl = new FormControl('', [Validators.maxLength(1000)]);
 
-  constructor( private route: ActivatedRoute, private formBuilder: FormBuilder, public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
+  constructor( private route: ActivatedRoute, private gameReviewService: GameReviewService, private formBuilder: FormBuilder, public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
   }
 
   ngOnInit() {
@@ -216,7 +217,7 @@ export class GameDetailComponent implements OnInit {
         } as AddGameReview;
 
 
-        this.gameService.addGameReview(this.gameId, addGameReviewData).subscribe({
+        this.gameReviewService.addGameReview(this.gameId, addGameReviewData).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review added!' });
             this.showAddReviewForm = false;
@@ -240,7 +241,7 @@ export class GameDetailComponent implements OnInit {
 
   }
   deleteUserReview(){
-    
+
   }
 
   deleteGameFromList(gameId : number) : void {

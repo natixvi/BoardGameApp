@@ -12,12 +12,10 @@ namespace Web.Controllers;
 public class BoardGameController : ControllerBase
 {
     private readonly IBoardGameService gameService;
-    private readonly IGameReviewService gameReviewService;
 
-    public BoardGameController(IBoardGameService gameService, IGameReviewService gameReviewService)
+    public BoardGameController(IBoardGameService gameService)
     {
         this.gameService = gameService;
-        this.gameReviewService = gameReviewService;
     }
 
     [HttpGet]
@@ -31,14 +29,6 @@ public class BoardGameController : ControllerBase
     {
         var boardGame = await gameService.GetBoardGameById(id);
         return Ok(boardGame);
-    }
-
-    [HttpPost("{id}/add-review")]
-    [Authorize]
-    public async Task<IActionResult> CreateGameReview([FromRoute] int id, [FromBody] AddGameReviewDto addGameReviewDto)
-    {
-        await gameReviewService.CreateReview(id, addGameReviewDto);
-        return Created($"/boardgame/{id}", null);
     }
 
     [Authorize(Roles = "Admin")]
