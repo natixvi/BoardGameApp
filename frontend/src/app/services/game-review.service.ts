@@ -7,6 +7,8 @@ import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { NotFoundError } from '../exceptions/NotFoundError';
 import { GeneralError } from '../exceptions/GeneralError';
+import { EditUserGameReview } from '../models/review/editUserGameReview';
+import { DuplicatedDataError } from '../exceptions/DuplicatedDataError';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,15 @@ export class GameReviewService {
     );
  }
 
+ editGameReview(reviewId: number, editUserGameReview: EditUserGameReview): Observable<string>{
+  return this.http.put(`${this.apiUrl}/boardgamereview/edit/${reviewId}`, editUserGameReview, {responseType: 'text'}).pipe(
+    catchError(error => {
+      console.log('Error while editing game review:' , error);
+      return this.handleError(error);
+    })
+  );
+ }
+
  deleteUserGameReview(reviewId: number) : Observable<any>{
   return this.http.delete<any>(`${this.apiUrl}/boardgamereview/delete/${reviewId}`).pipe(
     catchError(error => {
@@ -42,6 +53,8 @@ export class GameReviewService {
     return throwError(() => new BadRequestError(error.error));
   } else if (error.status === 404){
     return throwError(() => new NotFoundError(error.error));
+  } else if (error.status === 409){
+    return throwError(() => new DuplicatedDataError(error.error));
   }
   else {
     return throwError(() => new GeneralError(error.error));

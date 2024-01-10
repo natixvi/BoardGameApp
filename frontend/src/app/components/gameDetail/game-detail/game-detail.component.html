@@ -104,14 +104,14 @@
                             </div>  
                             <div class="review-others">
                                 <div class="review-desc-container">
-                                    <div *ngIf="!review.editMode" class="review-desc">{{ review.reviewDescription }}</div>
-                                    <textarea *ngIf="review.editMode" [(ngModel)]="review.updatedReviewDescription" class="review-desc"></textarea>
+                                    <div *ngIf="!review.isEditMode" class="review-desc">{{ review.reviewDescription }}</div>
+                                    <textarea pInputTextarea [autoResize]="true" *ngIf="review.isEditMode" [(ngModel)]="review.reviewDescription" class="review-desc" rows="4"></textarea>
                                 </div>
                                 <div *ngIf="review.userId.toString() === this.userId.toString()" class="user-Review-buttons">
-                                    <button *ngIf="!review.editMode" pButton icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" (click)="enableEditMode(review)"></button>
-                                    <button *ngIf="!review.editMode" pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteUserReview(review.id)"></button>
-                                    <button *ngIf="review.editMode" pButton icon="pi pi-check" class="p-button-rounded p-button-success p-button-text" (click)="saveUserReview(review)"></button>
-                                    <button *ngIf="review.editMode" pButton icon="pi pi-times" class="p-button-rounded p-button-secondary p-button-text" (click)="disableEditMode(review)"></button>
+                                    <button *ngIf="!review.isEditMode" pButton icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" (click)="enableEditReviewMode(review)"></button>
+                                    <button *ngIf="!review.isEditMode" pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteUserReview(review.id)"></button>
+                                    <button *ngIf="review.isEditMode" pButton icon="pi pi-check" class="p-button-rounded p-button-success p-button-text" (click)="editUserReview(review)"></button>
+                                    <button *ngIf="review.isEditMode" pButton icon="pi pi-times" class="p-button-rounded p-button-secondary p-button-text" (click)="cancelEditReviewMode(review)"></button>
                                 </div>   
                             </div>
                         </div> 

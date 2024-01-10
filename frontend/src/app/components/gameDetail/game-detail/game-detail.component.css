@@ -201,6 +201,14 @@ i{
     margin-right: 10px;
 }
 
+.review-desc-container textarea{
+    width: 100%;
+}
+
+.user-Review-buttons{
+    margin-left: 40px;
+}
+
 .header{
     font-weight: bold;
     color: #3c3c3d;
@@ -327,20 +335,7 @@ input::placeholder {
     .header{
         margin-right: 10px;
     }
-    /* .game-details div{
-        margin-right: 0;
-    }
 
-    .game-details div{
-        margin-right: 1rem;
-    }
-    
-    .game-details > div:last-child {
-        margin-right: 0;
-    }
-    .game-details .header  {
-        justify-content: space-between;
-    } */
     .game-name{
         margin-top: 1rem;
         text-align: center;

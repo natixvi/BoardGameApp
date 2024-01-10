@@ -4,4 +4,5 @@ export interface Review{
     createdDate: Date,
     userId: number,
     nickName: string
+    isEditMode: boolean;
 }

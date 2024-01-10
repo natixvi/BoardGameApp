@@ -21,6 +21,9 @@ import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetail
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AddGameReview } from '../../../models/review/addGameReview';
 import { GameReviewService } from '../../../services/game-review.service';
+import { EditUserGameReview } from '../../../models/review/editUserGameReview';
+import { BadRequestError } from '../../../exceptions/BadRequestError';
+import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 
 
 @Component({
@@ -65,11 +68,13 @@ export class GameDetailComponent implements OnInit {
         this.gameId = params['id'];
       }
     });
-    this.userId = this.authService.getParsedToken().Id;
-    
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
+      if(this.isLoggedIn){
+          this.userId = this.authService.getParsedToken().Id;
+          console.error(this.userId )
+      }
       this.getGameDetails(this.isLoggedIn).pipe(
         switchMap((gameDetails: GameDetails) => 
           gameDetails.isInUserList ?
@@ -83,8 +88,7 @@ export class GameDetailComponent implements OnInit {
 
           this.gameDetails = gameDetails;
           this.gameDetails.reviews.forEach((review: Review) => {
-            review.createdDate = new Date(review.createdDate);
-            
+            review.createdDate = new Date(review.createdDate);            
           });
           this.reviews = this.gameDetails?.reviews.filter(review => String(review.userId) !== String(this.userId));
           this.reviews?.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
@@ -94,6 +98,7 @@ export class GameDetailComponent implements OnInit {
             this.userReview.createdDate = new Date(this.userReview.createdDate);
             this.reviews.unshift(this.userReview);
             this.userReviewExist = true;
+            this.userReview.isEditMode = false ;
           }
 
           if (userGameDetails) {
@@ -221,15 +226,20 @@ export class GameDetailComponent implements OnInit {
         this.gameReviewService.addGameReview(this.gameId, addGameReviewData).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review added!' });
-            this.showAddReviewForm = false;
             this.ngOnInit();
           },
-
           error: (e) => {
-            console.error('Error while adding game review', e);
-            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while adding game review.'});
+            if (e instanceof BadRequestError){
+              this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+            }
+            else if(e instanceof DuplicatedDataError){
+              this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+            }
+            else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
           }
-        })   
+        })  
+        this.reviewControl.reset(); 
+        this.showAddReviewForm = false;
         this.confirmationService.close();
       },
       reject: () => {
@@ -238,18 +248,43 @@ export class GameDetailComponent implements OnInit {
       }
     })
   }
-  enableEditMode(review : Review){
-
-  }
-  saveUserReview(reviewId : number){
-
+  enableEditReviewMode(review : Review){
+    review.isEditMode = true;
   }
 
-  disableEditMode(review: Review){
-
+  cancelEditReviewMode(review: Review){
+    review.isEditMode = false;
   }
-  editUserReview(){
 
+  editUserReview(review: Review){
+    this.confirmationService.confirm({
+      message: "Are you sure you want to edit game review?",
+      header: "Edit user review confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        const editUserReview = {
+          reviewDescription: review.reviewDescription
+        } as EditUserGameReview;
+
+        this.gameReviewService.editGameReview(review.id, editUserReview).subscribe({
+          next: () => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review edited!' });
+            review.isEditMode = false;
+            this.ngOnInit();
+          },
+
+          error: (e) => {
+            console.error('Error while editing game review', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while editing game review.'});
+          }
+        })   
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Edit user game review canceled.' });
+        this.confirmationService.close();
+      }
+    })
   }
 
   deleteUserReview(reviewId: number){
