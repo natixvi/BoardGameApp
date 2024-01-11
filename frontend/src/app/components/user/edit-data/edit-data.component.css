@@ -1,0 +1,24 @@
+h2{
+    margin-block-start: 5px;
+}
+
+
+
+@media only screen and (max-width: 800px) {
+    .container {
+        width: 100%;
+    }
+
+    .edit-profile{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
+    h2{
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-size: x-large;
+    }
+    
+}

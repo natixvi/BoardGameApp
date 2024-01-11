@@ -1,0 +1,39 @@
+.container-block {
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+}
+
+.card{
+    margin-right: 10px;
+}
+
+::ng-deep .p-element .p-dropdown-label{
+    width: 165px;
+}
+
+::ng-deep .p-dropdown-panel .p-dropdown-items{
+    padding: 0;
+}
+
+::ng-deep .p-dropdown-items .p-dropdown-item {
+    background-color: transparent !important;
+    color: #495057;
+}
+
+@media only screen and (max-width: 800px) {
+    .card{
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .container-block {
+        margin: 0;
+        display: block;
+    }
+
+    .content{
+        display: block;
+        margin-top: 1rem;
+    }
+    
+  }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { checkPasswordsValidator } from '../../validators/checkPasswords.validator';
@@ -24,7 +24,7 @@ export class ChangePasswordComponent {
     confirmPassword:  ['', [Validators.required, Validators.minLength(8)]]
   },{validators: checkPasswordsValidator, updateOn: 'submit'}  as AbstractControlOptions)
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private messageService: MessageService){}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private messageService: MessageService){}
   
   changePassword(){
     if (this.changePassForm.invalid){

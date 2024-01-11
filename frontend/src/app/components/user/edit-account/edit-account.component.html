@@ -1,20 +1,18 @@
-<div class="container">
-    <div>
-        <h2>Edit Profile</h2>
-        <p-button (click)="showSection('edit-data')">Edit Data</p-button>
-        <p-button (click)="showSection('change-password')">Change Password</p-button>
-        <p-button  (click)="showSection('delete-account')">Delete Account</p-button>
-      
-        <div *ngIf="activeSection === 'edit-data'">
-          <app-edit-data></app-edit-data>
+<div class="container-block">
+        <div class="card flex justify-content-left">
+            <p-dropdown [options]="activeSectionOptions" [(ngModel)]="selectedValue" optionLabel="label" optionValue="value"></p-dropdown> 
         </div>
-      
-        <div *ngIf="activeSection === 'change-password'">
-          <app-change-password></app-change-password>
+        <div class="content">
+          <div *ngIf="selectedValue === 'edit-data'">
+            <app-edit-data></app-edit-data>
+          </div>
+        
+          <div *ngIf="selectedValue === 'change-password'">
+            <app-change-password></app-change-password>
+          </div>
+        
+          <div *ngIf="selectedValue === 'delete-account'">
+            <app-delete-account></app-delete-account>
+          </div>
         </div>
-      
-        <div *ngIf="activeSection === 'delete-account'">
-          <app-delete-account></app-delete-account>
-        </div>
-      </div>
 </div>

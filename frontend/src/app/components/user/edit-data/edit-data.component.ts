@@ -7,11 +7,12 @@ import { UserService } from '../../../services/user.service';
 import { MessageService } from 'primeng/api';
 import { NotFoundError } from '../../../exceptions/NotFoundError';
 import { EditUserData } from '../../../models/user/editUserData';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-edit-data',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule, RouterModule, InputTextModule],
   templateUrl: './edit-data.component.html',
   styleUrls: ['./edit-data.component.css']
 })
