@@ -4,7 +4,6 @@ import { GameDetails } from '../../../models/game/gameDetail';
 import { GameService } from '../../../services/game.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CommonModule} from '@angular/common';
-import { Review } from '../../../models/game/review';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule} from 'primeng/dataview';
 import { EMPTY, Observable, map, of, switchMap } from 'rxjs';
@@ -19,11 +18,12 @@ import { AddGameFormService } from '../../../services/add-game-form.service';
 import { UserGameDetails } from '../../../models/userGame/UserGameDetails';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { AddGameReview } from '../../../models/review/addGameReview';
-import { GameReviewService } from '../../../services/game-review.service';
-import { EditUserGameReview } from '../../../models/review/editUserGameReview';
+import { AddGameComment } from '../../../models/comment/addGameComment';
+import { EditUserGameComment } from '../../../models/comment/editUserGameComment';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
+import { GameCommentService } from '../../../services/game-comment.service';
+import { Commentt } from '../../../models/comment/commentt';
 
 
 @Component({
@@ -38,8 +38,8 @@ export class GameDetailComponent implements OnInit {
   gameId: number = 0;
   router = inject(Router);
   gameDetails: GameDetails = { } as GameDetails
-  reviews: Review[] = []
-  userReview: Review | undefined;
+  comments: Commentt[] = []
+  userComment: Commentt | undefined;
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
   userId: number = 0;
@@ -49,17 +49,17 @@ export class GameDetailComponent implements OnInit {
   selectedGameId: number | null = null;
   isFavActive: boolean = false;
   openUserGameForm: boolean = false;
-  showAddReviewForm: boolean = false;
-  userReviewExist: boolean = false;
+  showAddCommentForm: boolean = false;
+  userCommentExist: boolean = false;
 
   gameEditForm = this.formBuilder.group({
     rating: [0],
     addToFavourites: [false]
   })
   
-  reviewControl = new FormControl('', [Validators.maxLength(1000)]);
+  commentControl = new FormControl('', [Validators.maxLength(1000)]);
 
-  constructor( private route: ActivatedRoute, private gameReviewService: GameReviewService, private formBuilder: FormBuilder, public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
+  constructor( private route: ActivatedRoute, private gameCommentService: GameCommentService, private formBuilder: FormBuilder, public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
   }
 
   ngOnInit() {
@@ -87,18 +87,18 @@ export class GameDetailComponent implements OnInit {
         next: ({ gameDetails, userGameDetails }) => {
 
           this.gameDetails = gameDetails;
-          this.gameDetails.reviews.forEach((review: Review) => {
-            review.createdDate = new Date(review.createdDate);            
+          this.gameDetails.comments.forEach((comment: Commentt) => {
+            comment.createdDate = new Date(comment.createdDate);            
           });
-          this.reviews = this.gameDetails?.reviews.filter(review => String(review.userId) !== String(this.userId));
-          this.reviews?.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
-          this.userReview = this.gameDetails.reviews.find((review) => String(review.userId) === String(this.userId));
+          this.comments = this.gameDetails?.comments.filter(comment => String(comment.userId) !== String(this.userId));
+          this.comments?.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
+          this.userComment = this.gameDetails.comments.find((comment) => String(comment.userId) === String(this.userId));
 
-          if (this.userReview) {
-            this.userReview.createdDate = new Date(this.userReview.createdDate);
-            this.reviews.unshift(this.userReview);
-            this.userReviewExist = true;
-            this.userReview.isEditMode = false ;
+          if (this.userComment) {
+            this.userComment.createdDate = new Date(this.userComment.createdDate);
+            this.comments.unshift(this.userComment);
+            this.userCommentExist = true;
+            this.userComment.isEditMode = false ;
           }
 
           if (userGameDetails) {
@@ -201,15 +201,15 @@ export class GameDetailComponent implements OnInit {
     })
   }
 
-  showReviewForm(){
+  showCommentForm(){
     if(!this.isLoggedIn)  this.router.navigate(['login']);
-    this.showAddReviewForm = !this.showAddReviewForm;
+    this.showAddCommentForm = !this.showAddCommentForm;
   }
   
-  addGameReview(){
+  addGameComment(){
     this.confirmationService.confirm({
-      message: "Are you sure you want to add game review?",
-      header: "Add review confirmation",
+      message: "Are you sure you want to add game comment?",
+      header: "Add comment confirmation",
       icon: 'pi pi-info-circle',
       accept: () => {
 
@@ -217,15 +217,15 @@ export class GameDetailComponent implements OnInit {
         currentDate.setHours(currentDate.getHours() + 1);
         const isoDateString = currentDate.toISOString();
 
-        const addGameReviewData = {
-          reviewDescription: this.reviewControl.value,
+        const addGameCommentData = {
+          commentDescription: this.commentControl.value,
           createdDate: isoDateString
-        } as AddGameReview;
+        } as AddGameComment;
 
 
-        this.gameReviewService.addGameReview(this.gameId, addGameReviewData).subscribe({
+        this.gameCommentService.addGameComment(this.gameId, addGameCommentData).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review added!' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game comment added!' });
             this.ngOnInit();
           },
           error: (e) => {
@@ -238,76 +238,74 @@ export class GameDetailComponent implements OnInit {
             else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
           }
         })  
-        this.reviewControl.reset(); 
-        this.showAddReviewForm = false;
+        this.commentControl.reset(); 
+        this.showAddCommentForm = false;
         this.confirmationService.close();
       },
       reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Add game review canceled.' });
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Add game comment canceled.' });
         this.confirmationService.close();
       }
     })
   }
-  enableEditReviewMode(review : Review){
-    review.isEditMode = true;
+  enableEditCommentMode(comment : Commentt){
+    comment.isEditMode = true;
   }
 
-  cancelEditReviewMode(review: Review){
-    review.isEditMode = false;
+  cancelEditCommentMode(comment: Commentt){
+    comment.isEditMode = false;
   }
 
-  editUserReview(review: Review){
+  editUserComment(comment: Commentt){
     this.confirmationService.confirm({
-      message: "Are you sure you want to edit game review?",
-      header: "Edit user review confirmation",
+      message: "Are you sure you want to edit game comment?",
+      header: "Edit user comment confirmation",
       icon: 'pi pi-info-circle',
       accept: () => {
-        const editUserReview = {
-          reviewDescription: review.reviewDescription
-        } as EditUserGameReview;
+        const editUserComment = {
+          commentDescription: comment.commentDescription
+        } as EditUserGameComment;
 
-        this.gameReviewService.editGameReview(review.id, editUserReview).subscribe({
+        this.gameCommentService.editGameComment(comment.id, editUserComment).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review edited!' });
-            review.isEditMode = false;
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game comment edited!' });
+            comment.isEditMode = false;
             this.ngOnInit();
           },
-
           error: (e) => {
-            console.error('Error while editing game review', e);
-            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while editing game review.'});
+            console.error('Error while editing game comment', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while editing game comment.'});
           }
         })   
         this.confirmationService.close();
       },
       reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Edit user game review canceled.' });
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Edit user game comment canceled.' });
         this.confirmationService.close();
       }
     })
   }
 
-  deleteUserReview(reviewId: number){
+  deleteUserComment(commentId: number){
     this.confirmationService.confirm({
-      message: "Are you sure you want to delete game review?",
-      header: "Delete review confirmation",
+      message: "Are you sure you want to delete game comment?",
+      header: "Delete comment confirmation",
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.gameReviewService.deleteUserGameReview(reviewId).subscribe({
+        this.gameCommentService.deleteUserGameComment(commentId).subscribe({
           next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game review deleted!' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game comment deleted!' });
             this.ngOnInit();
           },
-
           error: (e) => {
-            console.error('Error while deleting user game review', e);
-            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while deleting user game review.'});
+            console.error('Error while deleting user game comment', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while deleting user game comment.'});
           }
         })   
         this.confirmationService.close();
       },
       reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Delete user game review canceled.' });
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Delete user game comment canceled.' });
         this.confirmationService.close();
       }
     })

@@ -1,4 +1,4 @@
-import { Review } from "./review";
+import { Commentt } from "../comment/commentt";
 
 export interface GameDetails{
     id : number,
@@ -10,6 +10,6 @@ export interface GameDetails{
     age : number,
     imageUrl : string,
     rating: number,
-    reviews: Review[],
+    comments: Commentt[],
     isInUserList: boolean;
 }

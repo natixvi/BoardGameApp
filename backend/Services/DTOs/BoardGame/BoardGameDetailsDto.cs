@@ -1,4 +1,4 @@
-﻿using Services.DTOs.Review;
+﻿using Services.DTOs.Comment;
 
 namespace Services.DTOs.BoardGame;
 public class BoardGameDetailsDto
@@ -12,5 +12,5 @@ public class BoardGameDetailsDto
     public int Age { get; set; }
     public string ImageUrl { get; set; }
     public double? Rating { get; set; }
-    public List<GameReviewDto>? Reviews { get; set; }
+    public List<GameCommentDto>? Comments { get; set; }
 }

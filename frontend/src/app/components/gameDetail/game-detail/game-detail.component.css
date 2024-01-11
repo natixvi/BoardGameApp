@@ -134,21 +134,21 @@ i{
     margin-top: 2rem;
 }
 
-.review-form-container{
+.comment-form-container{
     margin: 20px 0 20px 0;
     display: block;
     width: 100%;
 }
-.add-review-desc textarea{
+.add-comment-desc textarea{
     width: 100%;
     margin-bottom: 10px;
 }
 
-.add-review-button{
+.add-comment-button{
     width: 100%;
 }
 
-.review-form-container button[type="submit"] {
+.comment-form-container button[type="submit"] {
     padding: 10px;
     background-color: #EEA47F;
     color: rgb(255, 255, 255);
@@ -158,54 +158,54 @@ i{
     font-size: 15px;
 }
 
-::ng-deep .review-form-container .p-button:focus {
+::ng-deep .comment-form-container .p-button:focus {
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem rgba(241, 147, 100, 0.5);
   } 
 
-.top-review{
+.top-comment{
     display: flex;
     justify-content: space-between;  
 }
-.review-user{
+.comment-user{
     margin-top: 0.5rem;
     margin-bottom: 0.3rem;
     font-weight: bolder;
     order: 1;
     font-size: large;
 }
-.review-date{
+.comment-date{
     margin-top: 0.5rem;
     order: 2;
 }
 
-.review-header{
+.comment-header{
     border-bottom: 2px solid #cacaca; 
     margin-bottom: 20px;
     display: flex;
 }
-.review-header h3{
+.comment-header h3{
     flex: 1;
 }
 
-.review-others{
+.comment-others{
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.review-desc-container{
+.comment-desc-container{
     flex: 1;
     margin-right: 10px;
 }
 
-.review-desc-container textarea{
+.comment-desc-container textarea{
     width: 100%;
 }
 
-.user-Review-buttons{
+.user-comment-buttons{
     margin-left: 40px;
 }
 
@@ -279,7 +279,7 @@ input::placeholder {
     font-size: 15px;
 }
 
-.container button[type="submit"]:hover, .review-form-container button[type="submit"]:hover{
+.container button[type="submit"]:hover, .comment-form-container button[type="submit"]:hover{
     background-color: #f19364;
 }
 

@@ -1,5 +1,5 @@
 ﻿namespace Domain.Entities;
-public class GameReview
+public class GameComment
 {
     public int Id { get; set; }
     public int UserId { get; set; }
@@ -7,5 +7,5 @@ public class GameReview
     public int BoardGameId { get; set; }
     public virtual BoardGame BoardGame { get; set; }
     public DateTime CreatedDate { get; set; }
-    public string ReviewDescription { get; set; }
+    public string CommentDescription { get; set; }
 }

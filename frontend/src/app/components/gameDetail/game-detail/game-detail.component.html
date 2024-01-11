@@ -71,47 +71,47 @@
         <div class="game-description">
             {{gameDetails.description}}
         </div>
-        <div class = "game-reviews">
-            <div class="review-header">
-                <h3>Reviews</h3>
-                <button pButton type="button" icon="pi pi-plus" class="p-button-rounded p-button-secondary p-button-text" (click)="showReviewForm()"></button>  
+        <div class = "game-comments">
+            <div class="comment-header">
+                <h3>Comments</h3>
+                <button pButton type="button" icon="pi pi-plus" class="p-button-rounded p-button-secondary p-button-text" (click)="showCommentForm()"></button>  
             </div>
-            <div *ngIf="showAddReviewForm" class="review-form-container"> 
-                <form (ngSubmit)="addGameReview()">
-                    <h4>Add game review</h4>
+            <div *ngIf="showAddCommentForm" class="comment-form-container"> 
+                <form (ngSubmit)="addGameComment()">
+                    <h4>Add game comment</h4>
                     <div class="form">
-                        <div class="add-review-desc">
-                            <textarea id="review" pInputTextarea [autoResize]="true" placeholder="Review description..." [formControl]="reviewControl" rows="4"></textarea>
+                        <div class="add-comment-desc">
+                            <textarea id="comment" pInputTextarea [autoResize]="true" placeholder="Comment description..." [formControl]="commentControl" rows="4"></textarea>
                         </div>
-                        <div class="error-messages" *ngIf="reviewControl.invalid && (reviewControl.dirty || reviewControl.touched)">
-                            <small *ngIf="reviewControl.hasError('maxlength')">
-                                Review must be at most 1000 characters.
+                        <div class="error-messages" *ngIf="commentControl.invalid && (commentControl.dirty || commentControl.touched)">
+                            <small *ngIf="commentControl.hasError('maxlength')">
+                                Comment must be at most 1000 characters.
                             </small>
                         </div>
-                        <div class="add-review-button">
-                            <button pButton type="submit" [disabled]="reviewControl.invalid">Add game review</button>
+                        <div class="add-comment-button">
+                            <button pButton type="submit" [disabled]="commentControl.invalid">Add game comment</button>
                         </div>            
                     </div>
                 </form>
             </div>  
-            <p-dataView #dv [value]="reviews"[paginator]="true" [rows]="2">
-                <ng-template let-review pTemplate="listItem">
+            <p-dataView #dv [value]="comments"[paginator]="true" [rows]="2">
+                <ng-template let-comment pTemplate="listItem">
                     <div class="col-12">
                         <div lass="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                            <div class="top-review">
-                                <div class="review-user">{{ review.nickName }}</div>
-                                <div class= "review-date">{{review.createdDate | date: 'dd-MM-yyyy HH:mm':'pl'}}</div>
+                            <div class="top-comment">
+                                <div class="comment-user">{{ comment.nickName }}</div>
+                                <div class= "comment-date">{{comment.createdDate | date: 'dd-MM-yyyy HH:mm':'pl'}}</div>
                             </div>  
-                            <div class="review-others">
-                                <div class="review-desc-container">
-                                    <div *ngIf="!review.isEditMode" class="review-desc">{{ review.reviewDescription }}</div>
-                                    <textarea pInputTextarea [autoResize]="true" *ngIf="review.isEditMode" [(ngModel)]="review.reviewDescription" class="review-desc" rows="4"></textarea>
+                            <div class="comment-others">
+                                <div class="comment-desc-container">
+                                    <div *ngIf="!comment.isEditMode" class="comment-desc">{{ comment.commentDescription }}</div>
+                                    <textarea pInputTextarea [autoResize]="true" *ngIf="comment.isEditMode" [(ngModel)]="comment.commentDescription" class="comment-desc" rows="4"></textarea>
                                 </div>
-                                <div *ngIf="review.userId.toString() === this.userId.toString()" class="user-Review-buttons">
-                                    <button *ngIf="!review.isEditMode" pButton icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" (click)="enableEditReviewMode(review)"></button>
-                                    <button *ngIf="!review.isEditMode" pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteUserReview(review.id)"></button>
-                                    <button *ngIf="review.isEditMode" pButton icon="pi pi-check" class="p-button-rounded p-button-success p-button-text" (click)="editUserReview(review)"></button>
-                                    <button *ngIf="review.isEditMode" pButton icon="pi pi-times" class="p-button-rounded p-button-secondary p-button-text" (click)="cancelEditReviewMode(review)"></button>
+                                <div *ngIf="comment.userId.toString() === this.userId.toString()" class="user-Comment-buttons">
+                                    <button *ngIf="!comment.isEditMode" pButton icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" (click)="enableEditCommentMode(comment)"></button>
+                                    <button *ngIf="!comment.isEditMode" pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text" (click)="deleteUserComment(comment.id)"></button>
+                                    <button *ngIf="comment.isEditMode" pButton icon="pi pi-check" class="p-button-rounded p-button-success p-button-text" (click)="editUserComment(comment)"></button>
+                                    <button *ngIf="comment.isEditMode" pButton icon="pi pi-times" class="p-button-rounded p-button-secondary p-button-text" (click)="cancelEditCommentMode(comment)"></button>
                                 </div>   
                             </div>
                         </div> 

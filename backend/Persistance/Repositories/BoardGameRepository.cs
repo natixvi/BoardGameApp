@@ -20,7 +20,7 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
     }
     public async Task<BoardGame?> GetBoardGameById(int id)
     {
-        var game = await appDbContext.BoardGames.Include(g => g.GameReviews).ThenInclude(review => review.User).FirstOrDefaultAsync(g => g.Id == id);
+        var game = await appDbContext.BoardGames.Include(g => g.GameComments).ThenInclude(review => review.User).FirstOrDefaultAsync(g => g.Id == id);
         return game;
     }
 

@@ -1,6 +1,6 @@
-export interface Review{
+export interface Commentt{
     id: number,
-    reviewDescription: string,
+    commentDescription: string,
     createdDate: Date,
     userId: number,
     nickName: string

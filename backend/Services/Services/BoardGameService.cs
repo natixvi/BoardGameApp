@@ -3,7 +3,7 @@ using Domain.Entities;
 using Domain.Exceptions;
 using Domain.IRepositories;
 using Services.DTOs.BoardGame;
-using Services.DTOs.Review;
+using Services.DTOs.Comment;
 using Services.Interfaces;
 
 namespace Services.Services;
@@ -37,13 +37,13 @@ public class BoardGameService : IBoardGameService
         var boardGame = await gameRepository.GetBoardGameById(id);
         if (boardGame == null) throw new NotFoundException("Board game not found!");
         var boardGameDetailsDto = mapper.Map<BoardGameDetailsDto>(boardGame);
-        boardGameDetailsDto.Reviews = boardGame.GameReviews.Select(review => new GameReviewDto
+        boardGameDetailsDto.Comments = boardGame.GameComments.Select(comment => new GameCommentDto
         {
-            Id = review.Id,
-            ReviewDescription = review.ReviewDescription,
-            CreatedDate = review.CreatedDate,
-            UserId = review.UserId,
-            NickName = review.User.NickName
+            Id = comment.Id,
+            CommentDescription = comment.CommentDescription,
+            CreatedDate = comment.CreatedDate,
+            UserId = comment.UserId,
+            NickName = comment.User.NickName
         }).ToList();
 
         boardGameDetailsDto.Rating = await myBoardGameService.CalculateAverageRating(boardGameDetailsDto.Id);

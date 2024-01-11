@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.DTOs.BoardGame;
-using Services.DTOs.Review;
+using Services.DTOs.Comment;
 using Services.Interfaces;
 
 namespace Web.Controllers;
