@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild, ViewContainerRef} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EditDataComponent } from "../edit-data/edit-data.component";
 import { ChangePasswordComponent } from "../change-password/change-password.component";
@@ -18,12 +18,5 @@ import { ButtonModule } from 'primeng/button';
 })
 
 export class EditAccountComponent{
-
-  selectedValue: string = 'edit-data';
-  activeSectionOptions: any[] = [
-    {label: 'Edit data', value: 'edit-data', inactive: false},
-    {label: 'Change password', value: 'change-password',  inactive: false},
-    {label: 'Delete account', value: 'delete-account',  inactive: true}
-  ]
 
 }

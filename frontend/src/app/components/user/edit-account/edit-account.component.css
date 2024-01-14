@@ -1,39 +1,33 @@
-.container-block {
-    margin: 20px;
-    padding: 20px;
+.container-block{
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.header-con{
+    margin-top: 20px;
+    width: auto;
+}
+h2{
+    text-align: center;
+    font-size: xx-large;
 }
 
-.card{
-    margin-right: 10px;
+.edit-sections div{ 
+    margin: 30px;
+    width: 500px;
 }
 
-::ng-deep .p-element .p-dropdown-label{
-    width: 165px;
+@media only screen and (min-width: 601px) and (max-width: 1000px) {
+    .edit-sections div{
+        width: 60%; 
+    }    
 }
 
-::ng-deep .p-dropdown-panel .p-dropdown-items{
-    padding: 0;
+@media only screen and (max-width: 600px) {
+    .edit-sections div{
+        width: 80%; 
+    }    
 }
 
-::ng-deep .p-dropdown-items .p-dropdown-item {
-    background-color: transparent !important;
-    color: #495057;
-}
-
-@media only screen and (max-width: 800px) {
-    .card{
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .container-block {
-        margin: 0;
-        display: block;
-    }
-
-    .content{
-        display: block;
-        margin-top: 1rem;
-    }
-    
-  }
