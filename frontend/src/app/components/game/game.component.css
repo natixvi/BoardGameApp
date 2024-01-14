@@ -259,3 +259,16 @@ i{
    
 
 }
+
+@media screen and (max-width: 400px) {
+    .image-box{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .game-grid-detail .image-box img{
+        width: 80%;
+    }
+   
+}

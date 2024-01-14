@@ -11,6 +11,7 @@ import { BadRequestError } from '../../exceptions/BadRequestError';
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { DuplicatedDataError } from '../../exceptions/DuplicatedDataError';
 
 
 @Component({
@@ -70,7 +71,7 @@ export class RegisterComponent {
 
       },
       error: (e) =>{
-        if (e instanceof BadRequestError){
+        if (e instanceof DuplicatedDataError){
           this.messageService.add({severity: 'error', summary: 'Error !', detail: "This email address or nickname is already taken!"});
           this.registerForm.get('password')?.reset();
           this.registerForm.get('confirmPassword')?.reset();

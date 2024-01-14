@@ -8,6 +8,8 @@ import { MessageService } from 'primeng/api';
 import { NotFoundError } from '../../../exceptions/NotFoundError';
 import { EditUserData } from '../../../models/user/editUserData';
 import { InputTextModule } from 'primeng/inputtext';
+import { BadRequestError } from '../../../exceptions/BadRequestError';
+import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 
 @Component({
   selector: 'app-edit-data',
@@ -61,8 +63,15 @@ export class EditDataComponent implements OnInit {
         this.messageService.add({severity: 'success', summary: "Success", detail: "User data has been changed."})
       },
       error: (e) => {
-        console.error(e);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User editing failed.' });
+        if (e instanceof DuplicatedDataError){
+          this.messageService.add({severity: 'error', summary: 'Error !', detail: "This email address or nickname is already taken!"});
+          this.editProfileForm.setErrors({ generalError: true });
+          this.ngOnInit();
+        }
+        else{
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server connection error' });
+        }
+        
       }
 
     })

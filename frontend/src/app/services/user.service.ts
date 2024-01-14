@@ -12,6 +12,7 @@ import { EditUserData } from '../models/user/editUserData';
 import { NotFoundError } from '../exceptions/NotFoundError';
 import { ChangeUserPasswordData } from '../models/user/changeUserPasswordData';
 import { UserInfo } from '../models/user/userInfo';
+import { DuplicatedDataError } from '../exceptions/DuplicatedDataError';
 
 @Injectable({
   providedIn: 'root'
@@ -84,7 +85,10 @@ export class UserService {
       return throwError(() => new BadRequestError(error.error));
     } else if(error.status === 404){
       return throwError(() => new NotFoundError(error.error));
-    } else {
+    } else if (error.status == 409){
+      return throwError( () => new DuplicatedDataError(error.error))
+    }
+    else {
       return throwError(() => new GeneralError(error.error));
     }
   }

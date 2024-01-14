@@ -2,30 +2,30 @@
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
         <h2>Sign in</h2>
         <div class="form">
-        <div class="label">
-            <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>
+            <div class="label">
+                <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>
+            </div>
+            <div class="error-messages" *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"> 
+                <small *ngIf="loginForm.controls.email.errors?.['email']">
+                    Enter a valid email address.
+                </small>
+                <small *ngIf="loginForm.controls.email.errors?.['required']">
+                    Email is required.
+                </small>
+            </div>
+            <div class="label">
+                <label>Password: <p-password formControlName="password" placeholder="Password" [toggleMask]="true" [feedback]=false></p-password></label>
+            </div>
+            <div class="error-messages" *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"> 
+                <small *ngIf="loginForm.controls.password.errors?.['required']">
+                    Password is required.
+                </small>
+            </div>
+            <button type="submit">Log in</button>
+            <span class="link" [routerLink]="['/register']">
+                Don't have an account? Register here. 
+            </span>
         </div>
-        <div class="error-messages" *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)"> 
-            <small *ngIf="loginForm.controls.email.errors?.['email']">
-                Enter a valid email address.
-            </small>
-            <small *ngIf="loginForm.controls.email.errors?.['required']">
-                Email is required.
-            </small>
-        </div>
-        <div class="label">
-            <label>Password: <p-password formControlName="password" placeholder="Password" [toggleMask]="true" [feedback]=false></p-password></label>
-        </div>
-        <div class="error-messages" *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"> 
-            <small *ngIf="loginForm.controls.password.errors?.['required']">
-                Password is required.
-            </small>
-        </div>
-        <button type="submit">Log in</button>
-        <span class="link" [routerLink]="['/register']">
-            Don't have an account? Register here. 
-        </span>
-    </div>
     </form> 
 </div>
 

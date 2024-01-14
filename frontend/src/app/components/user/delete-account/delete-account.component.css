@@ -1,3 +1,27 @@
 h2{
     margin-block-start: 5px;
 }
+
+.container{
+    width: 100%;
+}
+
+.button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.button button{
+    width: 100%;
+    justify-content: center;
+}
+
+::ng-deep .p-button-label{
+    flex: none;
+}
+@media only screen and (max-width: 1000px) {
+    h2{
+        font-size: large;
+    }
+}

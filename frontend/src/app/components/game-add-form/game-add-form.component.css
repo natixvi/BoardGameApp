@@ -27,6 +27,7 @@
     flex-shrink: 0;
   }
 
+
 .favourites-label {
     display: block;
     cursor: pointer; 
@@ -42,7 +43,7 @@
     padding: 30px;
     border-radius: 10px; 
     box-shadow: 0 40px 40px 0 rgba(0, 0, 0, 0.2); 
-   
+    overflow: hidden;
 }
 
 .container h2{

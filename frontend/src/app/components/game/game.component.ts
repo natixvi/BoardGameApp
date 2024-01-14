@@ -31,7 +31,7 @@ export class GameComponent implements OnInit {
     isLoggedIn$: Observable<boolean> | undefined;
     isLoggedIn: boolean = false;
     selectedGameId: number | null = null;
-
+  
     constructor(private gameService : GameService, public addGameFormService: AddGameFormService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
     ngOnInit() {
@@ -139,4 +139,6 @@ export class GameComponent implements OnInit {
       }
     })
   }
+
+
 }

@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="edit-profile">
+    <div class="edit-profile-form">
         <form [formGroup]="editProfileForm" (ngSubmit)="editProfile()">
             <h2>Edit data</h2>
             <div class="label">
@@ -13,7 +13,12 @@
                     Enter valid email.
                 </small>
             </div>
-            <button pButton type="submit" icon="pi pi-user-edit" label="Edit data"></button>
+            <div class="error-messages" *ngIf="editProfileForm.errors?.['generalError']">
+                <small >This email address or nickname is already taken!</small>
+            </div> 
+            <div class="button">
+                <button pButton type="submit" icon="pi pi-user-edit" label="Edit data" class="p-button-secondary p-button-text"></button>
+            </div>
         </form>
     </div>
 </div>

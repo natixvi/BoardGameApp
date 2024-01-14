@@ -1,4 +1,56 @@
+.container{
+    width: 100%;
+}
+
+.container .label label {
+    width: 100%;
+    color: #000000;
+}
+
+.edit-profile-form .label{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container input {
+    width: 100%;
+    padding: 8px; 
+    background-color: #ffffff ;
+    border: none;
+    border-bottom: 2px solid rgb(173, 173, 173);
+    color: #000000;
+
+}
+
+.container button[type="submit"] {
+    width: 100%;
+    justify-content: center;
+}
+
+::ng-deep .p-button-label{
+    flex: none;
+}
+
+.container .error-messages small{
+    display: block;
+    color: #ff5252; 
+    margin: 0 0 5px 0;
+} 
+
+
+input::placeholder {
+    color: #a5a5a5; 
+}
+
 h2{
     margin-block-start: 5px;
 }
+
+@media only screen and (max-width: 1000px) {
+    h2{
+        font-size: large;
+    }
+}
+
+
 
