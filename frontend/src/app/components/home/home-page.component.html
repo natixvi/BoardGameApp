@@ -1,7 +1,6 @@
 <p>home-page works!</p>
 <button (click)="getRoles()">Get Roles</button>
 <div *ngIf="roles">Roles: {{ roles }}</div>
-
 <div *ngIf="authService.isLoggedIn$ | async as isLoggedIn">
     <p *ngIf="isLoggedIn">Hello, {{ authService.getParsedToken().Id}}!<br>
       currdate: {{currentDate}}<br>

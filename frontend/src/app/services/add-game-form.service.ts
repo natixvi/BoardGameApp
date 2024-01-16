@@ -9,7 +9,6 @@ export class AddGameFormService {
   private isOpen = false;
   private selectedGameId: number | null = null;
   private selectedGameName: string | null = null;
-  private gameAddedSubject = new Subject<void>();
 
   openForm(gameId: number | null, gameName: string): void {
     this.isOpen = true;
@@ -35,11 +34,4 @@ export class AddGameFormService {
     return this.selectedGameName;
   }
 
-  gameAdded(): void {
-    this.gameAddedSubject.next();
-  }
-  
-  getGameAddedObservable(): Observable<void> {
-    return this.gameAddedSubject.asObservable();
-  }
 }

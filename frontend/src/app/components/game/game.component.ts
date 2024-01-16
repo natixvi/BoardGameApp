@@ -36,16 +36,14 @@ export class GameComponent implements OnInit {
 
     ngOnInit() {
       this.initialData();
-      this.addGameEvent(); 
     }
 
-    addGameEvent(){
-      this.addGameFormService.getGameAddedObservable()
-      .subscribe(() => {
+    onAddGameEvent($event: boolean){
+      if($event){
         this.initialData();
-      });
+      }
     }
-
+    
     initialData(){
       this.isLoggedIn$ = this.authService.isLoggedIn$;
       this.isLoggedIn$.subscribe((isLoggedIn) => {

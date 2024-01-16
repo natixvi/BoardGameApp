@@ -42,15 +42,10 @@ input::placeholder {
     color: #a5a5a5; 
 }
 
-h2{
+h3{
     margin-block-start: 5px;
 }
 
-@media only screen and (max-width: 1000px) {
-    h2{
-        font-size: large;
-    }
-}
 
 
 

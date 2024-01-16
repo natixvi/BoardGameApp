@@ -1,5 +1,4 @@
-﻿using Services.DTOs.BoardGame;
-using Services.DTOs.UserBoardGame;
+﻿using Services.DTOs.UserBoardGame;
 
 namespace Services.Interfaces;
 public interface IUserBoardGameService

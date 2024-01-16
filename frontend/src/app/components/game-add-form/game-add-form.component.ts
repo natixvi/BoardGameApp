@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -21,6 +21,8 @@ export class GameAddFormComponent {
 
   @Input() gameId: number | null = null;
   @Input() gameName: string | null = null;
+  @Output() addedGameEvent = new EventEmitter<boolean>();
+
   isFavActive = false;
   router = inject(Router);
 
@@ -29,7 +31,7 @@ export class GameAddFormComponent {
     addToFavourites: [false]
   })
 
-  constructor(private addGameFormService: AddGameFormService, private formBuilder: FormBuilder, private location: Location, private route: ActivatedRoute, private userBoardGameService: UserBoardGameService, private messageService: MessageService, private confirmationService: ConfirmationService){}
+  constructor(private addGameFormService: AddGameFormService, private formBuilder: FormBuilder,  private userBoardGameService: UserBoardGameService, private messageService: MessageService, private confirmationService: ConfirmationService){}
 
   onFavClick(){
     this.isFavActive = !this.isFavActive;
@@ -55,12 +57,13 @@ export class GameAddFormComponent {
         this.userBoardGameService.addGameToUserList(this.gameId, addedGameData).subscribe({
           next: () => {
             this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game added to list.'})
-            this.addGameFormService.gameAdded();
+            this.addedGameEvent.emit(true);
             this.addGameFormService.closeForm();
           },
 
           error: (e) => {
             console.error('Error while adding game to list', e);
+            this.addGameFormService.closeForm();
             this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while adding game to list.'});
           }
         })

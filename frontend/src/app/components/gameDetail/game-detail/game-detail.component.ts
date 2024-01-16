@@ -92,6 +92,7 @@ export class GameDetailComponent implements OnInit {
           });
           this.comments = this.gameDetails?.comments.filter(comment => String(comment.userId) !== String(this.userId));
           this.comments?.sort((a, b) => new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime());
+          
           this.userComment = this.gameDetails.comments.find((comment) => String(comment.userId) === String(this.userId));
 
           if (this.userComment) {
@@ -114,10 +115,12 @@ export class GameDetailComponent implements OnInit {
         }
       });
      });
+  }
 
-    this.addGameFormService.getGameAddedObservable().subscribe(() => {
+  onAddGameEvent($event: boolean){
+    if($event){
       this.ngOnInit();
-    });
+    }
   }
 
   onFavClick(){
