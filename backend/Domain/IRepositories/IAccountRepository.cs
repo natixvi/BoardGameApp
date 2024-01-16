@@ -11,4 +11,5 @@ public interface IAccountRepository : IBaseRepository<User>
     Task<User?> GetUserById(int id);
     Task<int> GetDefaultRegisterUserRole();
     Task<List<User>> GetUsers();
+    Task<bool> CheckIfUserExist(int userId);
 }

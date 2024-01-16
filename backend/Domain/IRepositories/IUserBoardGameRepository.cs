@@ -9,4 +9,5 @@ public interface IUserBoardGameRepository : IBaseRepository<UserBoardGame>
     Task<UserBoardGame?> GetUserBoardGameById(int gameId, int userId);
     Task<List<UserBoardGame>?> GetUserBoardGames(int userId);
     Task<List<UserBoardGame>?> GetUserFavouriteBoardGames(int userId);
+    Task ChangeUserGameFavouriteStatus(UserBoardGame userBoardGame);
 }

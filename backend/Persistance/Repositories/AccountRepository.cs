@@ -56,4 +56,9 @@ public class AccountRepository : BaseRepository<User>, IAccountRepository
         return await appDbContext.Users.ToListAsync();
     }
 
+    public async Task<bool> CheckIfUserExist(int userId)
+    {
+        return await appDbContext.Users.AnyAsync(u => u.Id == userId);
+    }
+
 }

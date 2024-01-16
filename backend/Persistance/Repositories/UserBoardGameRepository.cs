@@ -45,4 +45,11 @@ public class UserBoardGameRepository : BaseRepository<UserBoardGame>, IUserBoard
         return await appDbContext.UserBoardGames.Include(g => g.BoardGame).Where(g => g.UserId == userId && g.IsFavourite == true).ToListAsync();
     }
 
+    public async Task ChangeUserGameFavouriteStatus(UserBoardGame userBoardGame)
+    {
+        appDbContext.UserBoardGames.Update(userBoardGame);
+        await appDbContext.SaveChangesAsync();
+    }
+
+
 }

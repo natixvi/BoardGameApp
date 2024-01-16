@@ -13,13 +13,15 @@ public class UserBoardGameService : IUserBoardGameService
     private readonly IMapper mapper;
     private readonly IUserContextService userContextService;
     private readonly IBoardGameRepository boardGameRepository;
+    private readonly IAccountRepository accountRepository;
 
-    public UserBoardGameService(IUserBoardGameRepository userBoardGameRepository, IMapper mapper, IUserContextService userContextService, IBoardGameRepository boardGameRepository)
+    public UserBoardGameService(IUserBoardGameRepository userBoardGameRepository, IMapper mapper, IUserContextService userContextService, IBoardGameRepository boardGameRepository, IAccountRepository accountRepository)
     {
         this.userBoardGameRepository = userBoardGameRepository;
         this.mapper = mapper;
         this.userContextService = userContextService;
         this.boardGameRepository = boardGameRepository;
+        this.accountRepository = accountRepository;
     }
 
     public async Task<double> CalculateAverageRating(int gameId)
@@ -94,10 +96,10 @@ public class UserBoardGameService : IUserBoardGameService
     }
 
 
-    public async Task<List<UserBoardGameDto>?> GetUserBoardGames()
+    public async Task<List<UserBoardGameDto>?> GetUserBoardGames(int userId)
     {
-        var userId = GetUserContextId();
-        var userGames = await userBoardGameRepository.GetUserBoardGames((int)userId);
+        await CheckIfUserExist(userId);
+        var userGames = await userBoardGameRepository.GetUserBoardGames(userId);
         var userGamesDto = mapper.Map<List<UserBoardGameDto>>(userGames);
         foreach (var game in userGamesDto)
         {
@@ -107,10 +109,10 @@ public class UserBoardGameService : IUserBoardGameService
 
     }
 
-    public async Task<List<UserBoardGameDto>?> GetUserFavouriteBoardGames()
+    public async Task<List<UserBoardGameDto>?> GetUserFavouriteBoardGames(int userId)
     {
-        var userId = GetUserContextId();
-        var userGames = await userBoardGameRepository.GetUserFavouriteBoardGames((int)userId);
+        await CheckIfUserExist(userId);
+        var userGames = await userBoardGameRepository.GetUserFavouriteBoardGames(userId);
         var userFavGamesDto = mapper.Map<List<UserBoardGameDto>>(userGames);
         foreach (var game in userFavGamesDto)
         {
@@ -119,6 +121,18 @@ public class UserBoardGameService : IUserBoardGameService
         return userFavGamesDto;
     }
 
+    public async Task ChangeUserGameFavouriteStatus(int gameId)
+    {
+        var userId = GetUserContextId();
+        await CheckIfGameExist(gameId);
+
+        var userBoardGame = await userBoardGameRepository.GetUserBoardGameById(gameId, (int)userId);
+        if (userBoardGame == null) throw new BadRequestException("Board Game is not in user list");
+
+        userBoardGame.IsFavourite = !userBoardGame.IsFavourite;
+        await userBoardGameRepository.ChangeUserGameFavouriteStatus(userBoardGame);
+
+    }
 
     private int? GetUserContextId()
     {
@@ -132,4 +146,12 @@ public class UserBoardGameService : IUserBoardGameService
         var game = await boardGameRepository.GetBoardGameById(gameId);
         if (game == null) throw new NotFoundException("Board game not found!");
     }
+
+    private async Task CheckIfUserExist(int userId)
+    {
+        var userExist = await accountRepository.CheckIfUserExist(userId);
+        if(!userExist) throw new NotFoundException("User not found!");
+    }
+
+    
 }

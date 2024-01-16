@@ -10,6 +10,7 @@ public interface IUserBoardGameService
     Task DeleteGameFromUserList(int gameId);
     Task<UserBoardGameDetails> GetUserBoardGameDetails(int gameId);
     Task UpdateUserBoardGameDetails(int gameId, EditUserBoardGameDetails editUserBoardGameDetails);
-    Task<List<UserBoardGameDto>?> GetUserBoardGames();
-    Task<List<UserBoardGameDto>?> GetUserFavouriteBoardGames();
+    Task<List<UserBoardGameDto>?> GetUserBoardGames(int userId);
+    Task<List<UserBoardGameDto>?> GetUserFavouriteBoardGames(int userId);
+    Task ChangeUserGameFavouriteStatus(int gameId);
 }

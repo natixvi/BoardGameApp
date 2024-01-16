@@ -17,18 +17,27 @@ public class UserBoardGameController : ControllerBase
         this.userBoardGameService = userBoardGameService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetUserBoardGames()
+    [AllowAnonymous]
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetUserBoardGames([FromRoute] int userId)
     {
-        var userBoardGames = await userBoardGameService.GetUserBoardGames();
+        var userBoardGames = await userBoardGameService.GetUserBoardGames(userId);
         return Ok(userBoardGames);
     }
 
-    [HttpGet("favourite")]
-    public async Task<IActionResult> GetUserFavouriteBoardGames()
+    [AllowAnonymous]
+    [HttpGet("{userId}/favourite")]
+    public async Task<IActionResult> GetUserFavouriteBoardGames([FromRoute] int userId)
     {
-        var userFavBoardGames = await userBoardGameService.GetUserFavouriteBoardGames();
+        var userFavBoardGames = await userBoardGameService.GetUserFavouriteBoardGames(userId);
         return Ok(userFavBoardGames);
+    }
+
+    [HttpPost("favourite/{gameId}/change-fav-status")]
+    public async Task<IActionResult> ChangeUserGameFavouriteStatus([FromRoute] int gameId)
+    {
+        await userBoardGameService.ChangeUserGameFavouriteStatus(gameId);
+        return Ok("User boardgame with id: " + gameId + " has been updated.");
     }
 
     [HttpGet("is-game-in-list/{gameId}")]
@@ -64,6 +73,6 @@ public class UserBoardGameController : ControllerBase
     public async Task<IActionResult> UpdateUserBoardGameDetails([FromRoute] int gameId, [FromBody] EditUserBoardGameDetails editUserBoardGameDetails)
     {
         await userBoardGameService.UpdateUserBoardGameDetails(gameId, editUserBoardGameDetails);
-        return Ok("User boardgame with id: " + gameId + "has been updated.");
+        return Ok("User boardgame with id: " + gameId + " has been updated.");
     }
 }
