@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Exceptions;
 using Domain.IRepositories;
+using Services.DTOs.BoardGame;
 using Services.DTOs.UserBoardGame;
 using Services.Interfaces;
 
@@ -85,7 +86,6 @@ public class UserBoardGameService : IUserBoardGameService
 
 
         if (editUserBoardGameDetails.Rating != null) userBoardGame.Rating = (double)editUserBoardGameDetails.Rating;
-        Console.WriteLine(userBoardGame.Rating);
         if (editUserBoardGameDetails.IsFavourite != null) userBoardGame.IsFavourite = (bool)editUserBoardGameDetails.IsFavourite;
 
 
@@ -93,7 +93,35 @@ public class UserBoardGameService : IUserBoardGameService
 
     }
 
-    private int? GetUserContextId() {
+
+    public async Task<List<UserBoardGameDto>?> GetUserBoardGames()
+    {
+        var userId = GetUserContextId();
+        var userGames = await userBoardGameRepository.GetUserBoardGames((int)userId);
+        var userGamesDto = mapper.Map<List<UserBoardGameDto>>(userGames);
+        foreach (var game in userGamesDto)
+        {
+            game.Rating = await CalculateAverageRating(game.BoardGameId);
+        }
+        return userGamesDto;
+
+    }
+
+    public async Task<List<UserBoardGameDto>?> GetUserFavouriteBoardGames()
+    {
+        var userId = GetUserContextId();
+        var userGames = await userBoardGameRepository.GetUserFavouriteBoardGames((int)userId);
+        var userFavGamesDto = mapper.Map<List<UserBoardGameDto>>(userGames);
+        foreach (var game in userFavGamesDto)
+        {
+            game.Rating = await CalculateAverageRating(game.BoardGameId);
+        }
+        return userFavGamesDto;
+    }
+
+
+    private int? GetUserContextId()
+    {
         var userId = userContextService.GetUserId;
         if (userId == null) throw new UnathorizedException("Incorrect or missing user ID, no authorization!");
         return userId;

@@ -37,12 +37,12 @@ public class UserBoardGameRepository : BaseRepository<UserBoardGame>, IUserBoard
 
     public async Task<List<UserBoardGame>?> GetUserBoardGames(int userId)
     {
-        return await appDbContext.UserBoardGames.Where(g => g.UserId == userId).ToListAsync();
+        return await appDbContext.UserBoardGames.Include(g => g.BoardGame).Where(g => g.UserId == userId).ToListAsync();
     }
 
     public async Task<List<UserBoardGame>?> GetUserFavouriteBoardGames(int userId)
     {
-        return await appDbContext.UserBoardGames.Where(g => g.UserId == userId || g.IsFavourite == true).ToListAsync();
+        return await appDbContext.UserBoardGames.Include(g => g.BoardGame).Where(g => g.UserId == userId && g.IsFavourite == true).ToListAsync();
     }
 
 }

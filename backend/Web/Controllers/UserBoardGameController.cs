@@ -17,6 +17,20 @@ public class UserBoardGameController : ControllerBase
         this.userBoardGameService = userBoardGameService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetUserBoardGames()
+    {
+        var userBoardGames = await userBoardGameService.GetUserBoardGames();
+        return Ok(userBoardGames);
+    }
+
+    [HttpGet("favourite")]
+    public async Task<IActionResult> GetUserFavouriteBoardGames()
+    {
+        var userFavBoardGames = await userBoardGameService.GetUserFavouriteBoardGames();
+        return Ok(userFavBoardGames);
+    }
+
     [HttpGet("is-game-in-list/{gameId}")]
     public async Task<IActionResult> IsGameInUserList([FromRoute] int gameId)
     {

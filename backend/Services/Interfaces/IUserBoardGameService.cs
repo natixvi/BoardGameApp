@@ -1,4 +1,5 @@
-﻿using Services.DTOs.UserBoardGame;
+﻿using Domain.Entities;
+using Services.DTOs.UserBoardGame;
 
 namespace Services.Interfaces;
 public interface IUserBoardGameService
@@ -9,4 +10,6 @@ public interface IUserBoardGameService
     Task DeleteGameFromUserList(int gameId);
     Task<UserBoardGameDetails> GetUserBoardGameDetails(int gameId);
     Task UpdateUserBoardGameDetails(int gameId, EditUserBoardGameDetails editUserBoardGameDetails);
+    Task<List<UserBoardGameDto>?> GetUserBoardGames();
+    Task<List<UserBoardGameDto>?> GetUserFavouriteBoardGames();
 }

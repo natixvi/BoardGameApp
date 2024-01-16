@@ -26,6 +26,11 @@ public class AutoMapperProfile: Profile
         CreateMap<UserBoardGame, UserBoardGameDetails>();
         CreateMap<EditUserBoardGameDetails, UserBoardGame>();
 
+        CreateMap<UserBoardGame, UserBoardGameDto>()
+            .ForMember(dest => dest.Name, c => c.MapFrom(src => src.BoardGame.Name))
+            .ForMember(dest => dest.ImageUrl, c => c.MapFrom(src => src.BoardGame.ImageUrl))
+            .ForMember(dest => dest.UserRating, c => c.MapFrom(src => src.Rating));
+
         CreateMap<AddGameCommentDto, GameComment>();
     }
 }
