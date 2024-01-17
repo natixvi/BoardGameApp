@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { environment } from '../config';
 import { Observable, catchError, of, tap, throwError } from 'rxjs';
@@ -13,12 +13,15 @@ import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { ChangeUserPasswordData } from '../models/user/changeUserPasswordData';
 import { UserInfo } from '../models/user/userInfo';
 import { DuplicatedDataError } from '../exceptions/DuplicatedDataError';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private apiUrl = environment.apiUrl;
+  router = inject(Router);
+  
   constructor(private http: HttpClient, private authService: AuthService) {  console.log('userservice created!');}
 
   login(credentials: UserLoginData) : Observable<any>{
@@ -80,10 +83,13 @@ export class UserService {
 
   private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 401) {
+      this.router.navigate(['forbidden']);
       return throwError(() => new UnauthorizedError(error.error));
     } else if (error.status === 400) {
+      this.router.navigate(['notfound']);
       return throwError(() => new BadRequestError(error.error));
     } else if(error.status === 404){
+      this.router.navigate(['notfound']);
       return throwError(() => new ResourceNotFoundError(error.error));
     } else if (error.status == 409){
       return throwError( () => new DuplicatedDataError(error.error))

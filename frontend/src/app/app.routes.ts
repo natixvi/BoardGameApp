@@ -14,6 +14,7 @@ import { DeleteAccountComponent } from './components/user/delete-account/delete-
 import { ProfileComponent } from './components/user-profile/profile/profile.component';
 import { UserGameListComponent } from './components/user-profile/user-game-list/user-game-list.component';
 import { userGameListGuard } from './guards/user-game-list.guard';
+import { ForbiddenPageComponent } from './components/nav/forbidden-page/forbidden-page.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -21,6 +22,7 @@ export const routes: Routes = [
   {path: 'games', component: GameComponent},
   {path: 'games/:id', component: GameDetailComponent},
   {path: 'userProfile/:userId', component: ProfileComponent},
+  {path: 'forbidden', component: ForbiddenPageComponent},
   {path: 'userGameList/:userId', component: UserGameListComponent, canActivate:[userGameListGuard]},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},

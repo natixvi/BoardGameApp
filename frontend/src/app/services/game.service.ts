@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../config';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -8,12 +8,14 @@ import { GeneralError } from '../exceptions/GeneralError';
 import { GameDetails } from '../models/game/gameDetail';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
   private apiUrl = environment.apiUrl;
+  router = inject(Router);
   
   constructor(private http: HttpClient) { }
 
@@ -41,8 +43,10 @@ export class GameService {
     if (error.status === 401) {
       return throwError(() => new UnauthorizedError(error.error));
     } else if (error.status === 400) {
+      this.router.navigate(['notfound']);
       return throwError(() => new BadRequestError(error.error));
     } else if (error.status === 404){
+      this.router.navigate(['notfound']);
       return throwError(() => new ResourceNotFoundError(error.error));
     }
     else {

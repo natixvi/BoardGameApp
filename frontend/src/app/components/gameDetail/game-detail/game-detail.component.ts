@@ -114,11 +114,9 @@ export class GameDetailComponent implements OnInit {
         error: (e) => {
           if (e instanceof ResourceNotFoundError){
             console.error("Board game not found");
-            this.router.navigate(['notfound']);
           }
-          if (e instanceof BadRequestError){
+          else if (e instanceof BadRequestError){
             console.error("Board game not found, bad request error");
-            this.router.navigate(['notfound']);
           }
           else
           {

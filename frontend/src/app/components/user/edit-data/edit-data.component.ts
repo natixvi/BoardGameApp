@@ -39,7 +39,6 @@ export class EditDataComponent implements OnInit {
       error: (e) =>{
         if(e instanceof ResourceNotFoundError){
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-          this.router.navigate(['notfound']);
         }
         else{
           this.messageService.add({severity: 'error', summary: 'Error', detail: 'Server connection error'})

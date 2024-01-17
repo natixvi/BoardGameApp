@@ -9,9 +9,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 
-
-
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
