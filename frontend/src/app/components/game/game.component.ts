@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserBoardGameService } from '../../services/user-board-game.service';
-import { NotFoundError } from '../../exceptions/NotFoundError';
+import { ResourceNotFoundError } from '../../exceptions/ResourceNotFoundError';
 import { Observable} from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -102,7 +102,7 @@ export class GameComponent implements OnInit {
         if (e instanceof BadRequestError){
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
         }
-        else if(e instanceof NotFoundError){
+        else if(e instanceof ResourceNotFoundError){
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
         }
         else{

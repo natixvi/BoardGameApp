@@ -19,14 +19,19 @@ export class NavbarComponent implements OnInit {
   items: MenuItem[] | undefined;
   router = inject(Router);
   isLoggedIn$: Observable<boolean> | undefined;
+  isLoggedIn: boolean = false;
+  loggedInUserId: number = 0;
 
   constructor(public authService: AuthService){}
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+      if(this.isLoggedIn){
+          this.loggedInUserId = this.authService.getParsedToken().Id.toString();
+      }
       this.items = [
-        
         {
           label: 'Home',
           icon: 'pi pi-home',
@@ -42,8 +47,9 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-user',
           visible: isLoggedIn,
           items: [
-            { label: 'Profile', icon: 'pi pi-user', routerLink: ['/notfound'] },
-            { label: 'Settings', icon: 'pi pi-cog', routerLink: ['/editAccount'] },
+            { label: 'Profile', icon: 'pi pi-user', routerLink: ['/userProfile/', this.loggedInUserId]},
+            { label: 'Game list', icon: 'pi pi-cog', routerLink: ['/userGameList/', this.loggedInUserId]},
+            { label: 'Settings', icon: 'pi pi-cog', routerLink: ['/editAccount'] },       
             { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
           ],

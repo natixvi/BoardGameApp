@@ -5,7 +5,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
-import { NotFoundError } from '../exceptions/NotFoundError';
+import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { AddGameToList } from '../models/game/addGameToList';
 import { UserGameDetails } from '../models/userGame/UserGameDetails';
 import { EditUserGameDetails } from '../models/userGame/editUserGameDetails';
@@ -69,7 +69,7 @@ export class UserBoardGameService {
     } else if (error.status === 400) {
       return throwError(() => new BadRequestError(error.error));
     } else if (error.status === 404){
-      return throwError(() => new NotFoundError(error.error));
+      return throwError(() => new ResourceNotFoundError(error.error));
     }
     else {
       return throwError(() => new GeneralError(error.error));

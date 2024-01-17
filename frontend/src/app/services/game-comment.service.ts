@@ -5,7 +5,7 @@ import { AddGameComment } from '../models/comment/addGameComment';
 import { Observable, catchError, throwError } from 'rxjs';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
-import { NotFoundError } from '../exceptions/NotFoundError';
+import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { DuplicatedDataError } from '../exceptions/DuplicatedDataError';
 import { EditUserGameComment } from '../models/comment/editUserGameComment';
@@ -52,7 +52,7 @@ export class GameCommentService {
   } else if (error.status === 400) {
     return throwError(() => new BadRequestError(error.error));
   } else if (error.status === 404){
-    return throwError(() => new NotFoundError(error.error));
+    return throwError(() => new ResourceNotFoundError(error.error));
   } else if (error.status === 409){
     return throwError(() => new DuplicatedDataError(error.error));
   }

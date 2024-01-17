@@ -5,7 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { UserService } from '../../../services/user.service';
 import { MessageService } from 'primeng/api';
-import { NotFoundError } from '../../../exceptions/NotFoundError';
+import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError';
 import { EditUserData } from '../../../models/user/editUserData';
 import { InputTextModule } from 'primeng/inputtext';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
@@ -37,7 +37,7 @@ export class EditDataComponent implements OnInit {
         this.editProfileForm.controls['email'].setValue(result.email)
       },
       error: (e) =>{
-        if(e instanceof NotFoundError){
+        if(e instanceof ResourceNotFoundError){
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
           this.router.navigate(['notfound']);
         }

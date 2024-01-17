@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 import { UserLoginData } from '../models/user/userLoginData';
 import { UserRegisterData } from '../models/user/userRegisterData';
 import { EditUserData } from '../models/user/editUserData';
-import { NotFoundError } from '../exceptions/NotFoundError';
+import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { ChangeUserPasswordData } from '../models/user/changeUserPasswordData';
 import { UserInfo } from '../models/user/userInfo';
 import { DuplicatedDataError } from '../exceptions/DuplicatedDataError';
@@ -84,7 +84,7 @@ export class UserService {
     } else if (error.status === 400) {
       return throwError(() => new BadRequestError(error.error));
     } else if(error.status === 404){
-      return throwError(() => new NotFoundError(error.error));
+      return throwError(() => new ResourceNotFoundError(error.error));
     } else if (error.status == 409){
       return throwError( () => new DuplicatedDataError(error.error))
     }

@@ -7,7 +7,7 @@ import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { GameDetails } from '../models/game/gameDetail';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
-import { NotFoundError } from '../exceptions/NotFoundError';
+import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class GameService {
     } else if (error.status === 400) {
       return throwError(() => new BadRequestError(error.error));
     } else if (error.status === 404){
-      return throwError(() => new NotFoundError(error.error));
+      return throwError(() => new ResourceNotFoundError(error.error));
     }
     else {
       return throwError(() => new GeneralError(error.error));

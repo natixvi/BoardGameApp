@@ -11,13 +11,17 @@ import { authGuard } from './guards/auth.guard';
 import { EditDataComponent } from './components/user/edit-data/edit-data.component';
 import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 import { DeleteAccountComponent } from './components/user/delete-account/delete-account.component';
-import { GameAddFormComponent } from './components/game-add-form/game-add-form.component';
+import { ProfileComponent } from './components/user-profile/profile/profile.component';
+import { UserGameListComponent } from './components/user-profile/user-game-list/user-game-list.component';
+import { userGameListGuard } from './guards/user-game-list.guard';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
   {path: 'home', component: HomePageComponent},
   {path: 'games', component: GameComponent},
   {path: 'games/:id', component: GameDetailComponent},
+  {path: 'userProfile/:userId', component: ProfileComponent},
+  {path: 'userGameList/:userId', component: UserGameListComponent, canActivate:[userGameListGuard]},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},

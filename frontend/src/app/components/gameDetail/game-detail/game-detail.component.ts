@@ -24,6 +24,7 @@ import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 import { GameCommentService } from '../../../services/game-comment.service';
 import { Commentt } from '../../../models/comment/commentt';
+import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError';
 
 
 @Component({
@@ -110,8 +111,20 @@ export class GameDetailComponent implements OnInit {
             this.gameEditForm.controls['addToFavourites'].setValue(userGameDetails.isFavourite)
           } 
         },
-        error: (error) => {
-          console.error('Error while downloading game data', error);
+        error: (e) => {
+          if (e instanceof ResourceNotFoundError){
+            console.error("Board game not found");
+            this.router.navigate(['notfound']);
+          }
+          if (e instanceof BadRequestError){
+            console.error("Board game not found, bad request error");
+            this.router.navigate(['notfound']);
+          }
+          else
+          {
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Server connection error'})
+            
+          }
         }
       });
      });
