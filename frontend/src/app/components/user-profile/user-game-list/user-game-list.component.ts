@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
@@ -30,7 +30,7 @@ export class UserGameListComponent implements OnInit{
   currentUserId: number = 0;
   userBoardGameList: UserBoardGame[] = [];
   userInfo: UserInfo = { id: 0, nickName: '', email: ''};
-
+  router = inject(Router);
 
   constructor(private route: ActivatedRoute, private messageService : MessageService, private userBoardGameService: UserBoardGameService, private authService: AuthService, private userService: UserService){}
 

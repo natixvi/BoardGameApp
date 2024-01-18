@@ -1,8 +1,8 @@
 <div class="data-box">
     <div class="user-info">
-        <div class="right"></div>
-        <div class="user-name">{{userInfo.nickName}} game list</div>
-        <div class="button-return"><button pButton [routerLink]="['/userProfile', userId]" class="p-button-secondary p-button-text">Return to profile</button></div>
+        <div class="user-name">User: <span [routerLink]="['/userProfile', userId]" class="user">{{userInfo.nickName}}</span> </div>
+        <div class="header"> User board game collection</div>
+        <div class="button-return"><button pButton  class="p-button-secondary p-button-text">Favourite games</button></div>
     </div>
     <p-dataView #dv [value]="userBoardGameList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" filterBy="name">
         <ng-template pTemplate="header">
@@ -21,13 +21,13 @@
                     <div class="game-grid-detail">
                         <div class="game-grid-head">
                             <div class="image-box">
-                                <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.id]"/>
+                                <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
                                 <div class="hex"><div class="rating-text">{{game.rating === 0 ? '-': game.rating}}</div></div>
                             </div>
                         </div>
                         <div class="game-grid-desc">
                             <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
-                            <div class="game-user-rating">{{game.userRating}}</div>
+                            <div class="game-user-rating">User rating: {{game.userRating}}</div>
                         </div>
                     </div>  
                     <div class="game-grid-action">

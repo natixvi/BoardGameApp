@@ -10,15 +10,23 @@
     align-items: center;
     margin-bottom: 10px;
 }
-.right{
-    width: 164px;
+.user-name{
+    font-size: large;
+    width: 180px;
+    padding: 10px;
+}
+.user{
+    cursor: pointer;
 }
 
-div{
+.button-return button{
+    font-size: large;
+}
+.user-info div{
     align-self: center;
 }
 
-.user-name{
+.header{
     display: flex;
     justify-content: center;
     align-items: center;
