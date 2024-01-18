@@ -1,5 +1,20 @@
 <div class="data-box">
-    <p-dataView #dv [value]="userBoardGameList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" >
+    <div class="user-info">
+        <div class="right"></div>
+        <div class="user-name">{{userInfo.nickName}} game list</div>
+        <div class="button-return"><button pButton [routerLink]="['/userProfile', userId]" class="p-button-secondary p-button-text">Return to profile</button></div>
+    </div>
+    <p-dataView #dv [value]="userBoardGameList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" filterBy="name">
+        <ng-template pTemplate="header">
+            <div class="flex flex-col md:flex-row justify-content-between">
+                <div class="mb-2 md:mb-0">
+                <span class="p-input-icon-left mb-2 md:mb-0 search">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search" (input)="dv.filter($any($event).target.value)">
+                </span>
+                </div>
+            </div>
+        </ng-template>
         <ng-template let-game pTemplate="gridItem">
             <div class="col-12 md:col-6 lg:col-4 xl:col-3">
                 <div class="game-grid-item card">
@@ -7,8 +22,8 @@
                         <div class="game-grid-head">
                             <div class="image-box">
                                 <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.id]"/>
+                                <div class="hex"><div class="rating-text">{{game.rating === 0 ? '-': game.rating}}</div></div>
                             </div>
-                            <div class="hex"><div class="rating-text">{{game.rating === 0 ? '-': game.rating}}</div></div>
                         </div>
                         <div class="game-grid-desc">
                             <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>

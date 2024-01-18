@@ -48,7 +48,7 @@ public class AccountRepository : BaseRepository<User>, IAccountRepository
 
     public async Task<User?> GetUserById(int id)
     {
-        return await appDbContext.Users.Include(r => r.Role).Include(r => r.UserGames).Include(r => r.FavouriteUsers).FirstOrDefaultAsync(u => u.Id == id);
+        return await appDbContext.Users.Include(r => r.Role).FirstOrDefaultAsync(u => u.Id == id);
     }
     
     public async Task<List<User>> GetUsers()

@@ -43,7 +43,10 @@ export class UserService {
       })
       );
   }
-
+  getUserById(userId: number) : Observable<UserInfo>{
+    return this.http.get<UserInfo>(`${this.apiUrl}/Account/user/${userId}`).pipe(catchError(error => {
+      return this.handleError(error);}))
+  }
   getUserInfo() : Observable<UserInfo>{
     return this.http.get<UserInfo>(`${this.apiUrl}/Account/user-data`).pipe(catchError(error => {
       return this.handleError(error);}))

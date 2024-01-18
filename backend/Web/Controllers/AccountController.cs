@@ -41,6 +41,14 @@ public class AccountController: ControllerBase
         return Ok(userInfo);
     }
 
+    [HttpGet("user/{userId}")]
+    [AllowAnonymous]
+    public async Task<IActionResult> GetUserById([FromRoute] int userId)
+    {
+        var user = await accountService.GetUserById(userId);
+        return Ok(user);
+    }
+
     [HttpPut("update-profile")]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
     {

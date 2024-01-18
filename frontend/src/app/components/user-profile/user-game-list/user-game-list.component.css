@@ -4,6 +4,29 @@
     height: 100%;
 }
 
+.user-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.right{
+    width: 164px;
+}
+
+div{
+    align-self: center;
+}
+
+.user-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    color: #00539C;
+    font-size: x-large;
+}
+
 .game-grid-item {
     margin: 1rem;
     border: 1px solid #dee2e6;
@@ -18,11 +41,14 @@
     border-radius: 4px;
 }
 
-.game-grid-item .imagebox{  
-    padding: 15%;
+.game-grid-head{
     width: 100%;
-    margin: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+
 .game-grid-detail img{
     border-radius: 5%;
     object-fit: cover;
@@ -54,6 +80,16 @@
     justify-content: space-between;
     margin-bottom: 0;
 }
+/* 
+.game-grid-head{
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.img, .hex{
+    position: absolute;
+    vertical-align: bottom;
+} */
 
 @media screen and (max-width: 470px) {
     .flex-col.md\:flex-row {
@@ -80,11 +116,10 @@
 
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 765px) {
     .image-box{
-        width: 100%;
-        display: flex;
-        justify-content: center;
+        width: 50%;
+        
     }
 
     .game-grid-detail .image-box img{
@@ -92,6 +127,30 @@
     }
    
 }
-  .game-grid-head{
-    margin-bottom: 1rem;
-  }
+
+@media screen and (max-width: 600px) {
+    .image-box{
+        width: 70%;
+        
+    }
+
+    .game-grid-detail .image-box img{
+        width: 80%;
+    }
+   
+}
+
+@media screen and (max-width: 500px) {
+    .image-box{
+        width: 100%;
+    }
+
+    .image-box img{
+        width: 80%;
+    }
+
+    .user-info{
+        flex-direction: column;
+    }
+   
+}

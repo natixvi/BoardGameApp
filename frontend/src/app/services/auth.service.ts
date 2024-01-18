@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   //BehaviorSubject jest używany do śledzenia bieżącego stanu zalogowania, a Observable umożliwia subskrybowanie tych zmian.
 
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false); // Obiekt zachowujacy swoja wartosc w czasie, moze byc obserwowany, ale dodatkowo przechuwje swoja ostatnia wartosc,
