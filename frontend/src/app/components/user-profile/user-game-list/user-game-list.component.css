@@ -14,18 +14,20 @@
     border-top: 2px solid #dfdede;
     align-items: center;
     position: relative; 
+    height: 100px;
 }
 
 .user-info::before{
     content: "";
-    background-image: url('../../../../assets/images/back1.jpeg');
+    background-image: url('../../../../assets/images/pionek.jpg');
     background-size: cover;
     position: absolute;
+    background-position: center bottom;
     top: 0px;
     right: 0px;
     bottom: 0px;
     left: 0px;
-    opacity: 0.75;
+    opacity: 0.3;
 }
 
 .user-name{
@@ -33,14 +35,18 @@
     width: 180px;
     padding: 10px;
     position: relative;
+    font-weight: bolder;
 }
 .user{
     cursor: pointer;
 }
 
-.button-return button{
+.fav-game-link span{
+    cursor: pointer;
     font-size: large;
     position: relative;
+    font-weight: bolder;
+    padding-right: 10px;
 }
 .user-info div{
     align-self: center;
@@ -53,6 +59,7 @@
     font-weight: bolder;
     font-size: x-large;
     position: relative;
+    color: rgb(49, 49, 49);
 }
 
 .game-grid-item {

@@ -1,8 +1,9 @@
 <div class="data-box">
     <div class="user-info">
         <div class="user-name">User: <span [routerLink]="['/userProfile', userId]" class="user">{{userInfo.nickName}}</span> </div>
-        <div class="header"> User board game collection</div>
-        <div class="button-return"><button pButton  class="p-button-secondary p-button-text">Favourite games</button></div>
+        <!-- <div class="header"> User board game collection</div> -->
+        <div class="header"> USER BOARD GAME COLLECTION </div>
+        <div class="fav-game-link"><span [routerLink]="['/userProfile', userId]">Favourite games</span></div>
     </div>
     <p-dataView #dv [value]="userBoardGameList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" filterBy="name">
         <ng-template pTemplate="header">
