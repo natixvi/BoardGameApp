@@ -48,7 +48,7 @@ export class NavbarComponent implements OnInit {
           visible: isLoggedIn,
           items: [
             { label: 'Profile', icon: 'pi pi-user', routerLink: ['/userProfile/', this.loggedInUserId]},
-            { label: 'Game list', icon: 'pi pi-cog', routerLink: ['/userGameList/', this.loggedInUserId]},
+            { label: 'Game list', icon: 'pi pi-list', routerLink: ['/userGameList/', this.loggedInUserId]},
             { label: 'Settings', icon: 'pi pi-cog', routerLink: ['/editAccount'] },       
             { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },

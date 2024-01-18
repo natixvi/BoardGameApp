@@ -33,7 +33,7 @@ public class UserBoardGameController : ControllerBase
         return Ok(userFavBoardGames);
     }
 
-    [HttpPost("favourite/{gameId}/change-fav-status")]
+    [HttpPut("favourite/{gameId}/change-fav-status")]
     public async Task<IActionResult> ChangeUserGameFavouriteStatus([FromRoute] int gameId)
     {
         await userBoardGameService.ChangeUserGameFavouriteStatus(gameId);

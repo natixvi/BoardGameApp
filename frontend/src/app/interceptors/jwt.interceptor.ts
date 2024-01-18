@@ -8,13 +8,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class JwtInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {
-    console.log("jwt interceptor constructor")
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Inside JwtInterceptor intercept");
     const token = this.authService.getToken()
-    console.log(token)
     const currentDate = new Date() ;
     if (token) {
       const expirationDate = new Date(this.authService.getParsedToken().exp * 1000);
@@ -26,7 +23,6 @@ export class JwtInterceptor implements HttpInterceptor {
         });
       } 
       else {
-        console.log("inside inter logout")
         this.authService.logout();
       }
     }

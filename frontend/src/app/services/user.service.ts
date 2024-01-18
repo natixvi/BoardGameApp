@@ -31,8 +31,6 @@ export class UserService {
       }),
       catchError(error => {
         console.log('Błąd podczas logowania:' , error);
-        console.log(error.status);
-        console.log(error.error);
         return this.handleError(error);
       })
     );;

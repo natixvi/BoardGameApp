@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from '../config';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -7,15 +7,18 @@ import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { AddGameToList } from '../models/game/addGameToList';
-import { UserGameDetails } from '../models/userGame/UserGameDetails';
 import { EditUserGameDetails } from '../models/userGame/editUserGameDetails';
+import { UserBoardGame } from '../models/userGame/userBoardGame';
+import { UserGameDetails } from '../models/userGame/UserGameDetails';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserBoardGameService {
   private apiUrl = environment.apiUrl;
-
+  router = inject(Router);
+  
   constructor(private http: HttpClient,) { }
 
   isGameInUserList(gameId: number): Observable<boolean>{
@@ -27,6 +30,32 @@ export class UserBoardGameService {
     );
   }
 
+  getUserBoardGames(userId : number) : Observable<UserBoardGame[]>{
+    return this.http.get<UserBoardGame[]>(`${this.apiUrl}/userboardgame/${userId}`).pipe(
+      catchError(error => {
+        console.log('Error loading user board game list' , error);
+        return this.handleError(error)
+      })
+    );
+  }
+
+  getUserFavouriteGames(userId: number) : Observable<UserBoardGame[]>{
+    return this.http.get<UserBoardGame[]>(`${this.apiUrl}/userboardgame/${userId}/favourite`).pipe(
+      catchError(error => {
+        console.log('Error loading user favourite board game list' , error);
+        return this.handleError(error)
+      })
+    );
+  }
+
+  changeBoardGameFavStatus(gameId: number) : Observable<any>{
+    return this.http.put<any>(`${this.apiUrl}/userboardgame/favourite/${gameId}/change-fav-status`, {}).pipe(
+      catchError(error => {
+        console.log('Error while changing fav status on user board game' , error);
+        return this.handleError(error)
+      })
+    );
+  }
   addGameToUserList(gameId: number | null, addedGame: AddGameToList) : Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/userboardgame/add/${gameId}`, addedGame).pipe(
       catchError(error => {
@@ -67,8 +96,10 @@ export class UserBoardGameService {
     if (error.status === 401) {
       return throwError(() => new UnauthorizedError(error.error));
     } else if (error.status === 400) {
+      this.router.navigate(['notfound']);
       return throwError(() => new BadRequestError(error.error));
     } else if (error.status === 404){
+      this.router.navigate(['notfound']);
       return throwError(() => new ResourceNotFoundError(error.error));
     }
     else {

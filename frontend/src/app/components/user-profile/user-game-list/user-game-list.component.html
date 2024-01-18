@@ -1,1 +1,24 @@
-<p>user-game-list works!</p>
+<div class="data-box">
+    <p-dataView #dv [value]="userBoardGameList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" >
+        <ng-template let-game pTemplate="gridItem">
+            <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+                <div class="game-grid-item card">
+                    <div class="game-grid-detail">
+                        <div class="game-grid-head">
+                            <div class="image-box">
+                                <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.id]"/>
+                            </div>
+                            <div class="hex"><div class="rating-text">{{game.rating === 0 ? '-': game.rating}}</div></div>
+                        </div>
+                        <div class="game-grid-desc">
+                            <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
+                            <div class="game-user-rating">{{game.userRating}}</div>
+                        </div>
+                    </div>  
+                    <div class="game-grid-action">
+                     </div>     
+                </div>
+            </div>     
+        </ng-template>
+    </p-dataView>
+</div>

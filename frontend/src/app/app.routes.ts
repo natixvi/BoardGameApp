@@ -23,7 +23,7 @@ export const routes: Routes = [
   {path: 'games/:id', component: GameDetailComponent},
   {path: 'userProfile/:userId', component: ProfileComponent},
   {path: 'forbidden', component: ForbiddenPageComponent},
-  {path: 'userGameList/:userId', component: UserGameListComponent, canActivate:[userGameListGuard]},
+  {path: 'userGameList/:userId', component: UserGameListComponent},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},
