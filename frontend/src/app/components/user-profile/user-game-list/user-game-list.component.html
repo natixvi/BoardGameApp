@@ -22,7 +22,7 @@
                         <div class="game-grid-head">
                             <div class="image-box">
                                 <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
-                                <div class="hex"><div class="rating-text">{{game.rating === 0 ? '-': game.rating}}</div></div>
+                                <div class="hex"><div class="rating-text">Overall rate: {{game.rating === 0 ? '-': game.rating}}</div></div>
                             </div>
                         </div>
                         <div class="game-grid-desc">

@@ -12,9 +12,9 @@ body {
 
 .hex {
   position: relative;
-  width: 60px;
-  height: 34.64px;
-  line-height: 17px;
+  width: 82px;
+  height: 47.34px;
+  line-height: 23px;
   background-color: #f19364;
   color: white;
   text-align: center;
@@ -33,19 +33,19 @@ body {
   position: absolute;
   left: 0;
   width: 0;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
+  border-left: 41px solid transparent;
+  border-right: 41px solid transparent;
 }
 
 .hex:before {
   bottom: 100%;
-  border-bottom: 17.32px solid #f19364;
+  border-bottom: 23.67px solid #f19364;
 }
 
 .hex:after {
   top: 100%;
   width: 0;
-  border-top: 17.32px solid #f19364;
+  border-top:  23.67px solid #f19364;
 }
 
 
