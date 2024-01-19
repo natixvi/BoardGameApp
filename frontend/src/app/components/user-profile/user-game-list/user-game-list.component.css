@@ -81,6 +81,21 @@ i{
     color: #ffd000;
 }
 
+.game-name{
+    font-weight: 600;
+    font-size: large;
+    margin-bottom: 0.3rem;
+}
+
+::ng-deep .p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
+    color: #ffd000;
+}
+
+.game-name div{
+    display: inline;
+}
+
+
 .header{
     font-weight: bold;
     color: #3c3c3d;

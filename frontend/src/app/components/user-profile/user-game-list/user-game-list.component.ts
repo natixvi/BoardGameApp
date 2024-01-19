@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
+import { UserBoardGame } from '../../../models/userGame/userBoardGame';
 
 @Component({
   selector: 'app-user-game-list',
@@ -33,7 +34,6 @@ export class UserGameListComponent implements OnInit{
   rateValue: number = 0;
   userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: []};
   router = inject(Router);
-  isFavourite: boolean | undefined;
   openUserGameForm: boolean = false;
   isFavActive: boolean = false;
   selectedGameId: number | null = null;
@@ -89,8 +89,11 @@ export class UserGameListComponent implements OnInit{
     this.openUserGameForm = false;
   }
 
-  showEditUserGameForm(gameId: number){
-    this.selectedGameId = gameId;
+  showEditUserGameForm(game: UserBoardGame){
+    this.selectedGameId = game.boardGameId;
+    this.isFavActive = game.isFavourite
+    this.gameEditForm.controls['rating'].setValue(game.userRating),
+    this.gameEditForm.controls['addToFavourites'].setValue(game.isFavourite)
     this.openUserGameForm = true;
   }
 
@@ -142,7 +145,6 @@ export class UserGameListComponent implements OnInit{
         this.userBoardGameService.deleteGameFromUserList(gameId).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game deleted from the list!' });
-            this.isFavourite = false;
             this.rateValue = 0;
             this.ngOnInit();
           },

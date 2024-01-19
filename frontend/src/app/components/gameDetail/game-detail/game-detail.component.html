@@ -12,10 +12,11 @@
         <div class="general-info">
             <div>
                 <div class = "game-main">
-                    <div class = "game-name"><div>{{gameDetails.name}}</div>
-                    <div *ngIf="!isFavourite" class="pi pi-heart-fill nofav"></div>
-                    <div *ngIf="isFavourite" class="pi pi-heart-fill fav"></div> 
-                </div>
+                    <div class = "game-name">
+                        <div>{{gameDetails.name}}</div>
+                        <div *ngIf="!isFavourite" class="pi pi-heart-fill nofav"></div>
+                        <div *ngIf="isFavourite" class="pi pi-heart-fill fav"></div> 
+                    </div>
                     <!-- <div class="game-rating"><i class="pi pi-star-fill"></i> Rating: <span class="rating-value">{{gameDetails.rating === 0 ? '-' : gameDetails.rating}}</span></div> -->
                 </div>
                 <div class="game-details">

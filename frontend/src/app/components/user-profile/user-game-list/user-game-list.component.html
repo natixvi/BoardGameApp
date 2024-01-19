@@ -27,14 +27,16 @@
                         </div>
                         <div class="game-grid-desc">
                             <div class = "game-main">
-                                <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
-                                <div *ngIf="!isFavourite" class="pi pi-heart-fill nofav"></div>
-                                <div *ngIf="isFavourite" class="pi pi-heart-fill fav"></div> 
+                                <div class="game-name">
+                                    <div [routerLink]="['/games', game.id]"> {{game.name}}</div>
+                                    <div *ngIf="!game.isFavourite" class="pi pi-heart-fill nofav"></div>
+                                    <div *ngIf="game.isFavourite" class="pi pi-heart-fill fav"></div> 
+                                </div>
                             </div>
                             <div class="game-user-rating">
                                 <i class="pi pi-star-fill"></i>User rating: 
                                 <span class="rating-value">{{game.userRating === 0 ? '-' : game.userRating}}</span>
-                                <button pButton (click)="showEditUserGameForm(game.boardGameId)" class="p-button-secondary p-button-text">Edit</button>
+                                <button pButton (click)="showEditUserGameForm(game)" class="p-button-secondary p-button-text">Edit</button>
                                 <div *ngIf="openUserGameForm && selectedGameId === game.boardGameId; else noForm" class="overlay">
                                     <div class="container"> 
                                         <form [formGroup]="gameEditForm" (ngSubmit)="editUserGameDetails(game.boardGameId)">
@@ -60,7 +62,7 @@
                                        
                                       </div>
                                 </div>
-                                <ng-template #noForm></ng-template>
+                                <ng-template #noForm></ng-template> 
                             </div>
                             <p-button severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(game.boardGameId)"></p-button>   
                         </div>
