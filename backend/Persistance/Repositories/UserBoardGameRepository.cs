@@ -35,15 +35,16 @@ public class UserBoardGameRepository : BaseRepository<UserBoardGame>, IUserBoard
         return await appDbContext.UserBoardGames.FirstOrDefaultAsync(g => g.BoardGameId == gameId && g.UserId == userId);
     }
 
-    public async Task<List<UserBoardGame>?> GetUserBoardGames(int userId)
-    {
-        return await appDbContext.UserBoardGames.Include(g => g.BoardGame).Where(g => g.UserId == userId).ToListAsync();
-    }
+    /*    public async Task<List<UserBoardGame>?> GetUserBoardGames(int userId)
+        {
+            return await appDbContext.UserBoardGames.Include(g => g.BoardGame).Where(g => g.UserId == userId).ToListAsync();
+        }
 
-    public async Task<List<UserBoardGame>?> GetUserFavouriteBoardGames(int userId)
+    */
+/*    public async Task<List<UserBoardGame>?> GetUserFavouriteBoardGames(int userId)
     {
         return await appDbContext.UserBoardGames.Include(g => g.BoardGame).Where(g => g.UserId == userId && g.IsFavourite == true).ToListAsync();
-    }
+    }*/
 
     public async Task ChangeUserGameFavouriteStatus(UserBoardGame userBoardGame)
     {

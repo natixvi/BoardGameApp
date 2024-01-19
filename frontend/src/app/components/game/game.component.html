@@ -23,7 +23,6 @@
                         <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
                         <div class="game-rating"><i class="pi pi-star-fill"></i> Rating: <span class="rating-value">{{game.rating === 0 ? '-' : game.rating}}</span>
                         </div>
-
                         <div class="game-description">{{game.description}}</div>
                     </div> 
                     <div class="game-list-button" *ngIf="(isLoggedIn$ | async) as isLoggedIn; else notLoggedIn">
@@ -51,6 +50,12 @@
                         <div class="image-box">
                             <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.id]"/>
                         </div>
+                        <!-- <div class="game-grid-head">
+                            <div class="image-box">
+                                <img [src]="game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.id]"/>
+                            </div>
+                            <div class="hex"><div class="rating-text">Overall rate: {{game.rating === 0 ? '-' : game.rating}}</div></div>
+                        </div> -->
                         <div class="game-name" [routerLink]="['/games', game.id]">{{game.name}}</div>
                         <div class="game-description">{{game.description}}</div>
                     </div>

@@ -4,6 +4,7 @@ using Domain.Exceptions;
 using Domain.IRepositories;
 using Microsoft.AspNetCore.Identity;
 using Services.DTOs.User;
+using Services.DTOs.UserBoardGame;
 using Services.Interfaces;
 
 namespace Services.Services;
@@ -14,14 +15,16 @@ public class AccountService : IAccountService
     private readonly IMapper mapper;
     private readonly IJwtService jwtService;
     private readonly IUserContextService userContextService;
+    private readonly IUserBoardGameService userBoardGameService;
 
-    public AccountService(IAccountRepository accountRepository, IPasswordHasher<User> passwordHasher, IMapper mapper, IJwtService jwtService, IUserContextService userContextService) 
+    public AccountService(IAccountRepository accountRepository, IPasswordHasher<User> passwordHasher, IMapper mapper, IJwtService jwtService, IUserContextService userContextService, IUserBoardGameService userBoardGameService) 
     {
         this.accountRepository = accountRepository;
         this.passwordHasher = passwordHasher;
         this.mapper = mapper;
         this.jwtService = jwtService;
         this.userContextService = userContextService;
+        this.userBoardGameService = userBoardGameService;
     }
 
     public async Task<string?> LoginUser(LoginUserDto loginUser)
@@ -122,7 +125,16 @@ public class AccountService : IAccountService
     {
         var user = await accountRepository.GetUserById(id);
         if (user == null) throw new NotFoundException("User not found!");
-        return mapper.Map<UserDto>(user);
+        var usersDto = mapper.Map<UserDto>(user);
+        if(usersDto.UserBoardGames != null)
+        {
+            foreach (var game in usersDto.UserBoardGames)
+            {
+                game.Rating = await userBoardGameService.CalculateAverageRating(game.BoardGameId);
+            }
+        }
+      
+        return usersDto;
     }
 
 

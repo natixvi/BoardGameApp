@@ -32,7 +32,7 @@ import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError
     standalone: true,
     templateUrl: './game-detail.component.html',
     styleUrls: ['./game-detail.component.css'],
-    imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, InputTextareaModule, ReactiveFormsModule, RatingModule, FormsModule, OverlayPanelModule, GameAddFormComponent]
+    imports: [CommonModule, ButtonModule, DataViewModule, RouterModule, InputTextareaModule, ReactiveFormsModule, RatingModule, FormsModule, GameAddFormComponent]
 })
 export class GameDetailComponent implements OnInit {
   

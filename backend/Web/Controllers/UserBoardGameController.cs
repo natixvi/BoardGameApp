@@ -17,7 +17,7 @@ public class UserBoardGameController : ControllerBase
         this.userBoardGameService = userBoardGameService;
     }
 
-    [AllowAnonymous]
+    /*[AllowAnonymous]
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetUserBoardGames([FromRoute] int userId)
     {
@@ -32,7 +32,7 @@ public class UserBoardGameController : ControllerBase
         var userFavBoardGames = await userBoardGameService.GetUserFavouriteBoardGames(userId);
         return Ok(userFavBoardGames);
     }
-
+*/
     [HttpPut("favourite/{gameId}/change-fav-status")]
     public async Task<IActionResult> ChangeUserGameFavouriteStatus([FromRoute] int gameId)
     {

@@ -96,7 +96,7 @@ public class UserBoardGameService : IUserBoardGameService
     }
 
 
-    public async Task<List<UserBoardGameDto>?> GetUserBoardGames(int userId)
+/*    public async Task<List<UserBoardGameDto>?> GetUserBoardGames(int userId)
     {
         await CheckIfUserExist(userId);
         var userGames = await userBoardGameRepository.GetUserBoardGames(userId);
@@ -119,7 +119,7 @@ public class UserBoardGameService : IUserBoardGameService
             game.Rating = await CalculateAverageRating(game.BoardGameId);
         }
         return userFavGamesDto;
-    }
+    }*/
 
     public async Task ChangeUserGameFavouriteStatus(int gameId)
     {

@@ -7,7 +7,7 @@ public interface IUserBoardGameRepository : IBaseRepository<UserBoardGame>
     Task<bool> IsGameInUserList(int gameId, int? userId);
     Task<int> AddGameToUserList(UserBoardGame userBoardGame);
     Task<UserBoardGame?> GetUserBoardGameById(int gameId, int userId);
-    Task<List<UserBoardGame>?> GetUserBoardGames(int userId);
-    Task<List<UserBoardGame>?> GetUserFavouriteBoardGames(int userId);
+/*    Task<List<UserBoardGame>?> GetUserBoardGames(int userId);
+    Task<List<UserBoardGame>?> GetUserFavouriteBoardGames(int userId);*/
     Task ChangeUserGameFavouriteStatus(UserBoardGame userBoardGame);
 }
