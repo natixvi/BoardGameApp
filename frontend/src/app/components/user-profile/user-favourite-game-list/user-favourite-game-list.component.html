@@ -1,1 +1,10 @@
-<p>user-favourite-game-list works!</p>
+<app-generic-user-game-list
+      (changeInDataEvent)="onChangeGameEvent($event)"
+      [isCurrentUserList]="isLoggedInUserList"
+      [header]="'USER\'S FAVOURITE BOARD GAMES'"
+      [userInfo]="userInfo"
+      [userId]="userId"
+      [toggleButtonFn]="toogleButton"
+      [buttonName]="'User\'s all games'"
+> 
+</app-generic-user-game-list>

@@ -27,7 +27,24 @@ public class UserBoardGameService : IUserBoardGameService
     public async Task<double> CalculateAverageRating(int gameId)
     {
         var ratingList = await userBoardGameRepository.GetRatingListForGameId(gameId);
-        double avgRating = (ratingList.Any() ? ratingList.Where(r => r.Rating > 0).Average(r => r.Rating) : 0);
+        double avgRating = 0;
+        if (ratingList.Any())
+        {
+            var filterRatingList = ratingList.Where(r => r.Rating > 0).ToList();
+            if(filterRatingList.Any())
+            {
+                avgRating = filterRatingList.Average(r => r.Rating);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+        Console.WriteLine(avgRating);
         return Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
     }
 

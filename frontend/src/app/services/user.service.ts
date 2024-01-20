@@ -71,6 +71,7 @@ export class UserService {
       })
     )
   }
+  
   deleteAccount() : Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/Account/delete`).pipe(
       catchError( error => {

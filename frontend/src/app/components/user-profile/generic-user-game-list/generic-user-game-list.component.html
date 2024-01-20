@@ -1,76 +1,79 @@
-<div class="data-box">
-    <div class="user-info">
-        <div class="user-name">User: <span [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
-        <div class="header"> {{ header }}</div>
-        <div class="fav-game-link"><span (click)="triggerCallback()">{{buttonName}}</span></div>
-    </div>
-    <p-dataView #dv [value]="userInfo.userBoardGames"  [paginator]="true" [rows]="15" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" filterBy="name">
-        <ng-template pTemplate="header">
-            <div class="flex flex-col md:flex-row justify-content-between">
-                <div class="mb-2 md:mb-0">
-                <span class="p-input-icon-left mb-2 md:mb-0 search">
-                    <i class="pi pi-search"></i>
-                    <input type="search" pInputText placeholder="Search" (input)="dv.filter($any($event).target.value)">
-                </span>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template let-game pTemplate="gridItem">
-            <div class="col-12 md:col-6 lg:col-4 xl:col-3">
-                <div class="game-grid-item card">
-                    <div class="game-grid-detail">
-                        <div class="game-grid-head">
-                            <div class="image-box">
-                                <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
-                                <div class="hex"><div class="rating-text">Overall rate: {{game.rating === 0 ? '-': game.rating}}</div></div>
-                            </div>
-                        </div>
-                        <div class = "game-main">
-                            <div class="game-name">
-                                <div [routerLink]="['/games', game.id]"> {{game.name}}</div>
-                                <div *ngIf="!game.isFavourite" class="pi pi-heart-fill nofav"></div>
-                                <div *ngIf="game.isFavourite" class="pi pi-heart-fill fav"></div> 
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="game-grid-action">
-                        <div class="game-user-rating">
-                            <i class="pi pi-star-fill"></i>User rating: <span class="rating-value">{{game.userRating === 0 ? '-' : game.userRating}}</span>
-                            <button *ngIf="isCurrentUserList" pButton (click)="showEditUserGameForm(game)" class="p-button-secondary p-button-text">Edit</button>
-                            <div *ngIf="openUserGameForm && selectedGameId === game.boardGameId; else noForm" class="overlay">
-                                <div class="container"> 
-                                    <form [formGroup]="gameEditForm" (ngSubmit)="editUserGameDetails(game.boardGameId)">
-                                        <div class="header-add-form">
-                                            <div class="left"></div>
-                                            <div class="middle">Edit "{{game.name}}" on your list</div> 
-                                            <div class="pi pi-times right" (click)="closeEditForm()"></div>
-                                        </div>
-                                        <div class="form">
-                                            <div class="label">
-                                                <label for="rating">Rating: <p-rating formControlName="rating" [stars]="10" ></p-rating></label>
-                                            </div>
-                                            <div class="label">
-                                                <label  for="rating" class="favourites-label">
-                                                Add to Favorites
-                                                <i  *ngIf="isFavActive" (click)="onFavClick()" class="pi pi-heart-fill fav" ></i>
-                                                <i *ngIf="!isFavActive" (click)="onFavClick()" class="pi pi-heart-fill nofav" ></i>
-                                                </label>
-                                            </div>               
-                                            <button type="submit" [disabled]="gameEditForm.invalid">Edit game stats on list</button>
-                                        </div>
-                                    </form> 
-                                    
-                                    </div>
-                            </div>
-                            <ng-template #noForm></ng-template> 
-                        </div>
-                        <div class="delete-button">
-                            <p-button *ngIf="isCurrentUserList" severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(game.boardGameId)"></p-button>   
-                        </div>  
+<div class="cont">
+    <div class="data-box">
+        <div class="user-info">
+            <div class="user-name">User: <span [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
+            <div class="header"> {{ header }}</div>
+            <div class="fav-game-link"><span (click)="triggerCallback()">{{buttonName}}</span></div>
+        </div>
+        <p-dataView #dv [value]="userInfo.userBoardGames"  [paginator]="true" [rows]="15" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" filterBy="name">
+            <ng-template pTemplate="header">
+                <div class="flex flex-col md:flex-row justify-content-between">
+                    <div class="mb-2 md:mb-0">
+                    <span class="p-input-icon-left mb-2 md:mb-0 search">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Search" (input)="dv.filter($any($event).target.value)">
+                    </span>
                     </div>
-                    
+                </div>
+            </ng-template>
+            <ng-template let-game pTemplate="gridItem">
+                <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+                    <div class="game-grid-item card">
+                        <div class="game-grid-detail">
+                            <div class="game-grid-head">
+                                <div class="image-box">
+                                    <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
+                                    <div class="hex"><div class="rating-text">Overall rate: {{game.rating === 0 ? '-': game.rating}}</div></div>
+                                </div>
+                            </div>
+                            <div class = "game-main">
+                                <div class="game-name">
+                                    <div *ngIf="!game.isFavourite" class="pi pi-heart-fill nofav"></div>
+                                    <div *ngIf="game.isFavourite" class="pi pi-heart-fill fav"></div> 
+                                    <div [routerLink]="['/games', game.id]"> {{game.name}}</div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="game-grid-action">
+                            <div class="game-user-rating">
+                                <i class="pi pi-star-fill"></i><span>User rating:</span>&nbsp;<span class="rating-value">{{game.userRating === 0 ? '-' : game.userRating}}</span>
+                                <button *ngIf="isCurrentUserList" pButton (click)="showEditUserGameForm(game)" class="p-button-secondary p-button-text">Edit</button> 
+                                <div *ngIf="openUserGameForm && selectedGameId === game.boardGameId; else noForm" class="overlay">
+                                    <div class="container"> 
+                                        <form [formGroup]="gameEditForm" (ngSubmit)="editUserGameDetails(game.boardGameId)">
+                                            <div class="header-add-form">
+                                                <div class="left"></div>
+                                                <div class="middle">Edit "{{game.name}}" on your list</div> 
+                                                <div class="pi pi-times right" (click)="closeEditForm()"></div>
+                                            </div>
+                                            <div class="form">
+                                                <div class="label">
+                                                    <label for="rating">Rating: <p-rating formControlName="rating" [stars]="10" ></p-rating></label>
+                                                </div>
+                                                <div class="label">
+                                                    <label  for="rating" class="favourites-label">
+                                                    Add to Favorites
+                                                    <i  *ngIf="isFavActive" (click)="onFavClick()" class="pi pi-heart-fill fav" ></i>
+                                                    <i *ngIf="!isFavActive" (click)="onFavClick()" class="pi pi-heart-fill nofav" ></i>
+                                                    </label>
+                                                </div>               
+                                                <button type="submit" [disabled]="gameEditForm.invalid">Edit game stats on list</button>
+                                            </div>
+                                        </form> 
+                                        
+                                        </div>
+                                </div>
+                                <ng-template #noForm></ng-template> 
+                            </div>
+                            <div class="delete-button">
+                                <p-button *ngIf="isCurrentUserList" severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(game.boardGameId)"></p-button>   
+                            </div>  
+                        </div>
+                        
+                    </div>     
                 </div>     
-            </div>     
-        </ng-template>
-    </p-dataView>
+            </ng-template>
+        </p-dataView>
+    </div>
 </div>
+

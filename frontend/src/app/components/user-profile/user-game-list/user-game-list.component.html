@@ -1,9 +1,10 @@
 <app-generic-user-game-list
+      (changeInDataEvent)="onChangeGameEvent($event)"
       [isCurrentUserList]="isLoggedInUserList"
-      [header]="'USER BOARD GAME LIST'"
+      [header]="'USER\'S BOARD GAMES'"
       [userInfo]="userInfo"
       [userId]="userId"
       [toggleButtonFn]="toogleButton"
-      [buttonName]="'Favourite games'"
+      [buttonName]="'User\'s favourite games'"
 > 
 </app-generic-user-game-list>

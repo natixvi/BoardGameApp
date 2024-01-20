@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { InputTextModule } from 'primeng/inputtext';
 import { RatingModule } from 'primeng/rating';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
-import { AuthService } from '../../../services/auth.service';
-import { UserService } from '../../../services/user.service';
 import { UserInfo } from '../../../models/user/userInfo';
 import { UserBoardGame } from '../../../models/userGame/userBoardGame';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
@@ -21,7 +19,7 @@ import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetail
   templateUrl: './generic-user-game-list.component.html',
   styleUrls: ['./generic-user-game-list.component.css']
 })
-export class GenericUserGameListComponent implements OnInit {
+export class GenericUserGameListComponent{
 
   @Input() isCurrentUserList: boolean = false;
   @Input() userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: []};
@@ -29,6 +27,8 @@ export class GenericUserGameListComponent implements OnInit {
   @Input() buttonName: string = '';
   @Input() userId: number = 0;
   @Input() toggleButtonFn: ((userId: number) => void) | null = null;
+
+  @Output() changeInDataEvent = new EventEmitter<boolean>();
 
   rateValue: number = 0;
   router = inject(Router);
@@ -42,9 +42,6 @@ export class GenericUserGameListComponent implements OnInit {
   })
   
   constructor(private messageService : MessageService, private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private userBoardGameService: UserBoardGameService){}
-  
-  ngOnInit(): void {
-  }
   
   triggerCallback(): void {
     if (this.toggleButtonFn && this.userId) {
@@ -87,7 +84,7 @@ export class GenericUserGameListComponent implements OnInit {
           next: () => {
             this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game edited.'})
             this.openUserGameForm = false;
-            this.ngOnInit();
+            this.changeInDataEvent.emit(true);
           },
 
           error: (e) => {
@@ -114,7 +111,7 @@ export class GenericUserGameListComponent implements OnInit {
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game deleted from the list!' });
             this.rateValue = 0;
-            this.ngOnInit();
+            this.changeInDataEvent.emit(true);
           },
 
           error: (e) => {

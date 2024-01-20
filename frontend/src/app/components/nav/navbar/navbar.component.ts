@@ -15,7 +15,6 @@ import { MenuItem } from 'primeng/api';
   encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
-  // isNavbarCollapsed = true;
   items: MenuItem[] | undefined;
   router = inject(Router);
   isLoggedIn$: Observable<boolean> | undefined;
@@ -35,27 +34,29 @@ export class NavbarComponent implements OnInit {
         {
           label: 'Home',
           icon: 'pi pi-home',
-          routerLink: ['/home'],
+          routerLink: ['home'],
         },
         {
           label: 'Games',
           icon: 'pi pi-list',
-          routerLink: ['/games'],
+          routerLink: ['games'],
         },
         {
           label: 'Account',
           icon: 'pi pi-user',
           visible: isLoggedIn,
           items: [
-            { label: 'Profile', icon: 'pi pi-user', routerLink: ['/userProfile/', this.loggedInUserId]},
-            { label: 'Game list', icon: 'pi pi-list', routerLink: ['/userGameList/', this.loggedInUserId]},
-            { label: 'Settings', icon: 'pi pi-cog', routerLink: ['/editAccount'] },       
+            { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
+            // { label: 'Game list', icon: 'pi pi-list', url:`userGameList/${this.loggedInUserId}`},
+            // { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
+            { label: 'Game list', icon: 'pi pi-list', command: () => this.navigateToUserList()},
+            { label: 'Settings', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
             { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
           ],
         },
-        { label: 'Login', icon: 'pi pi-sign-in', visible: !isLoggedIn, routerLink: ['/login'] },
-        { label: 'Register', icon: 'pi pi-user-plus', visible: !isLoggedIn,routerLink: ['/register'] },
+        { label: 'Login', icon: 'pi pi-sign-in', visible: !isLoggedIn, routerLink: ['login'] },
+        { label: 'Register', icon: 'pi pi-user-plus', visible: !isLoggedIn,routerLink: ['register'] },
       ];
     });
   }
@@ -63,6 +64,12 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.authService.logout();
     this.router.navigate(['login']);
+  }
+
+  navigateToUserList(): void {
+    this.router.navigate(['userGameList', this.loggedInUserId]).then(() => {
+      window.location.reload();
+    });
   }
 
 }
