@@ -48,7 +48,12 @@ body {
   border-top:  23.67px solid #f19364;
 }
 
+@media screen and (max-width: 767px) {
+
+  ::ng-deep .p-confirmdialog div div {
+    width: 90% !important;
+  }
+}
 
 
-
-  
+ 

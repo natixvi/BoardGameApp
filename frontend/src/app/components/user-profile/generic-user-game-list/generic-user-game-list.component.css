@@ -1,0 +1,321 @@
+.data-box{
+    padding: 0 2rem 2rem 2rem;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.user-info{
+    padding: 15px 10px 15px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    border-bottom: 2px solid #dfdede; 
+    border-top: 2px solid #dfdede;
+    align-items: center;
+    position: relative; 
+    height: 100px;
+}
+
+.user-info::before{
+    content: "";
+    background-image: url('../../../../assets/images/pionek.jpg');
+    background-size: cover;
+    position: absolute;
+    background-position: center bottom;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.3;
+}
+
+.user-name{
+    font-size: large;
+    padding: 10px;
+    position: relative;
+    font-weight: bolder;
+}
+.user{
+    cursor: pointer;
+}
+
+.fav-game-link span{
+    cursor: pointer;
+    font-size: large;
+    position: relative;
+    font-weight: bolder;
+    padding-right: 10px;
+}
+
+.nofav{
+    color: #8a8a8a;
+    margin-left: 10px;
+    font-size: 19px;
+}
+.fav{
+    color: #ff0000 ;
+    margin-left: 10px;
+    font-size: 19px;
+}
+
+i{
+    margin-right: 5px;
+}
+
+.pi-star-fill{
+    color: #ffd000;
+}
+
+.game-name{
+    font-weight: 600;
+    font-size: large;
+    margin-bottom: 0.3rem;
+}
+
+::ng-deep .p-rating .p-rating-item.p-rating-item-active .p-rating-icon{
+    color: #ffd000;
+}
+
+.game-name div{
+    display: inline;
+}
+
+.header{
+    font-weight: bold;
+    color: #3c3c3d;
+}
+
+.header-add-form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #cacaca; 
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.header-add-form .middle {
+    flex-grow: 1;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+.header-add-form .left, .header-add-form .right {
+    flex-shrink: 0;
+}
+
+.container{
+    width: auto; 
+    height: auto;
+    background-color:#ffffff;
+    border: 1.5px solid #c7c7c7;
+    padding: 30px;
+    border-radius: 10px; 
+    box-shadow: 0 40px 40px 0 rgba(0, 0, 0, 0.2); 
+   
+}
+
+input::placeholder {
+    color: #a5a5a5; 
+}
+
+.container .label{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container .label label {
+    width: 100%;
+    color: #000000;
+}
+
+.container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #EEA47F;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.container button[type="submit"]:hover, .comment-form-container button[type="submit"]:hover{
+    background-color: #f19364;
+}
+
+
+.user-info div{
+    align-self: center;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-size: x-large;
+    position: relative;
+    color: rgb(49, 49, 49);
+}
+
+.game-grid-item {
+    margin: 1rem;
+    border: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    height: 97%;
+    padding: 2rem;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+}
+
+.game-grid-head{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-grid-detail img{
+    border-radius: 5%;
+    object-fit: cover;
+    transition: background-color 0.3s;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); 
+    cursor: pointer;
+}
+
+.game-grid-detail{
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.game-grid-item .game-description{
+    margin-bottom: 1rem;
+}
+
+.game-grid-item .game-name{
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+}
+.game-user-rating{
+    display: flex;
+    align-items: center;
+}
+
+.game-grid-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+
+/* 
+.game-grid-head{
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.img, .hex{
+    position: absolute;
+    vertical-align: bottom;
+} */
+
+@media screen and (max-width: 470px) {
+    .flex-col.md\:flex-row {
+        flex-direction: column-reverse !important;
+        margin-bottom: 0.3rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1700px) {
+    .game-grid-item img {
+      max-width: 90%; 
+    }
+    .game-grid-action 
+    {
+       flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .game-grid-action 
+    {
+       flex-direction: column;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .image-box{
+        width: 50%;
+        
+    }
+
+    .game-grid-detail .image-box img{
+        width: 80%;
+    }
+     .user-info{
+        flex-direction: column;
+        height: auto;
+     }
+
+     .header{
+        margin-bottom: 10px;
+        text-align: center;
+     }
+
+     .fav-game-link{
+        width: 100%;
+        display: flex;
+        justify-content: end;
+     }
+}
+
+@media screen and (max-width: 600px) {
+    .image-box{
+        width: 70%;
+        
+    }
+
+    .game-grid-detail .image-box img{
+        width: 80%;
+    }
+   
+}
+
+@media screen and (max-width: 500px) {
+    .image-box{
+        width: 100%;
+    }
+
+    .image-box img{
+        width: 80%;
+    }
+
+    .user-info{
+        flex-direction: column;
+    }
+   
+}

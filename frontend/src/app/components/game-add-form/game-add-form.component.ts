@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AddGameToList } from '../../models/game/addGameToList';
 import { UserBoardGameService } from '../../services/user-board-game.service';
-import { Location } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { AddGameFormService } from '../../services/add-game-form.service';
+
 @Component({
   selector: 'app-game-add-form',
   standalone: true,

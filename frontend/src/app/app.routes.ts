@@ -13,8 +13,8 @@ import { ChangePasswordComponent } from './components/user/change-password/chang
 import { DeleteAccountComponent } from './components/user/delete-account/delete-account.component';
 import { ProfileComponent } from './components/user-profile/profile/profile.component';
 import { UserGameListComponent } from './components/user-profile/user-game-list/user-game-list.component';
-import { userGameListGuard } from './guards/user-game-list.guard';
 import { ForbiddenPageComponent } from './components/nav/forbidden-page/forbidden-page.component';
+import { UserFavouriteGameListComponent } from './components/user-profile/user-favourite-game-list/user-favourite-game-list.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -24,6 +24,7 @@ export const routes: Routes = [
   {path: 'userProfile/:userId', component: ProfileComponent},
   {path: 'forbidden', component: ForbiddenPageComponent},
   {path: 'userGameList/:userId', component: UserGameListComponent},
+  {path: 'userFavouriteGameList/:userId', component: UserFavouriteGameListComponent},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},

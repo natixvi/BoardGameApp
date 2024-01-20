@@ -22,7 +22,7 @@
     padding: 1rem;
     display: flex;
     border-bottom: 1px solid rgba(202, 202, 202, 0.5);
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 .image-box{
@@ -296,13 +296,15 @@ input::placeholder {
     }    
 }
 
-
-
 @media (max-width: 833px) {
     .game-details{
         flex-direction: column;
         margin-top: 0.5rem; 
         
+    }
+
+    .game-grid-head{
+        margin-bottom: 20px;
     }
 
 }

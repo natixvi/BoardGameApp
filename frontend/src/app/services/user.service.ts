@@ -87,7 +87,6 @@ export class UserService {
       this.router.navigate(['forbidden']);
       return throwError(() => new UnauthorizedError(error.error));
     } else if (error.status === 400) {
-      this.router.navigate(['notfound']);
       return throwError(() => new BadRequestError(error.error));
     } else if(error.status === 404){
       this.router.navigate(['notfound']);
