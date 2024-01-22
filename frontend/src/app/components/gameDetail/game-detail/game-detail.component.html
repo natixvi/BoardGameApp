@@ -100,12 +100,12 @@
                     </div>
                 </form>
             </div>  
-            <p-dataView #dv [value]="comments"[paginator]="true" [rows]="2">
+            <p-dataView #dv [value]="comments" [paginator]="true" [rows]="10">
                 <ng-template let-comment pTemplate="listItem">
                     <div class="col-12">
                         <div lass="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
                             <div class="top-comment">
-                                <div class="comment-user">{{ comment.nickName }}</div>
+                                <div class="comment-user" [routerLink]="['/userProfile', comment.userId]">{{ comment.nickName }}</div>
                                 <div class= "comment-date">{{comment.createdDate | date: 'dd-MM-yyyy HH:mm':'pl'}}</div>
                             </div>  
                             <div class="comment-others">

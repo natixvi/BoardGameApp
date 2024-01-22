@@ -176,6 +176,7 @@ i{
     font-weight: bolder;
     order: 1;
     font-size: large;
+    cursor: pointer;
 }
 .comment-date{
     margin-top: 0.5rem;
@@ -245,6 +246,11 @@ i{
 .favourites-label .pi-heart-fill{
     cursor: pointer; 
 }
+
+.header-add-form .right{
+    cursor: pointer;
+}
+
 .container{
     width: auto; 
     height: auto;

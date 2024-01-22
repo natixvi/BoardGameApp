@@ -57,7 +57,7 @@ export class UserFavouriteGameListComponent implements OnInit{
         if (e instanceof ResourceNotFoundError){
           console.error("User not found");
         }
-        if (e instanceof BadRequestError){
+        else if (e instanceof BadRequestError){
           this.router.navigate(['notfound'])
           console.error("User not found, bad request error");
         }

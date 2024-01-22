@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-user',
           visible: isLoggedIn,
           items: [
-            { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
+            { label: 'Profile', icon: 'pi pi-user', command: () => this.navigateToUserProfile()},
             // { label: 'Game list', icon: 'pi pi-list', url:`userGameList/${this.loggedInUserId}`},
             // { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
             { label: 'Game list', icon: 'pi pi-list', command: () => this.navigateToUserList()},
@@ -64,6 +64,12 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.authService.logout();
     this.router.navigate(['login']);
+  }
+
+  navigateToUserProfile(): void {
+    this.router.navigate(['userProfile', this.loggedInUserId]).then(() => {
+      window.location.reload();
+    });
   }
 
   navigateToUserList(): void {

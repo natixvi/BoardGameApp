@@ -1,1 +1,55 @@
-<p>profile works!</p>
+<div class="cont">
+    <div class="data-box">
+        Profil usera: {{userId}}
+        <p *ngIf="isLoggedInUserProfile">To także jest twój własny profil</p>
+        <div class="user-data-box">
+            <div class="header">
+                <h3> User's first five games </h3>
+            </div>
+            <div class="detail-box">
+                <ng-container *ngFor="let game of userGameListFirst5; let i = index">
+                    <div class="game" >
+                        <div class="image-box">
+                            <img [src]="game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
+                        </div>
+                        <div class="game-name"> 
+                            {{game.name}}
+                        </div>
+                    </div>
+                    <ng-container *ngIf="i === userGameListFirst5.length - 1 && userGameListFirst5.length < userInfo.userBoardGames.length">
+                        <div class="ellipsis"[routerLink]="['/userGameList', userId]">...</div>
+                    </ng-container>
+                </ng-container>
+            </div>
+            <div class="button">
+                <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userGameList', userId]">See all details</button>
+            </div>
+        </div>
+        <div class="cont-2">
+
+        </div>
+        <div class="user-data-box">
+            <div class="header">
+                <h3> User's first five favourite games </h3>
+            </div>
+            <div class="detail-box">
+                <ng-container *ngFor="let game of userFavGameListFirst5; let i = index">
+                    <div class="game">
+                        <div class="image-box">
+                            <img [src]="game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
+                        </div>
+                        <div class="game-name"> 
+                            {{game.name}}
+                        </div>
+                    </div>
+                    <ng-container *ngIf="i === userFavGameListFirst5.length - 1 && userFavGameListFirst5.length < totalFavGames">
+                        <div class="ellipsis"[routerLink]="['/userFavouriteGameList', userId]">...</div>
+                    </ng-container>
+                </ng-container>
+            </div>
+            <div class="button">
+                <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userFavouriteGameList', userId]">See all details</button>
+            </div>
+        </div>
+    </div>
+</div>

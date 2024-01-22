@@ -165,7 +165,20 @@ input::placeholder {
     background-color: #f19364;
 }
 
+.favourites-label {
+    font-size: 16px;
+    display: block;    
+    padding: 0;
+    margin: 20px 0 20px 0;
+}
 
+.favourites-label .pi-heart-fill{
+    cursor: pointer; 
+}
+
+.header-add-form .right{
+    cursor: pointer;
+}
 .user-info div{
     align-self: center;
 }
