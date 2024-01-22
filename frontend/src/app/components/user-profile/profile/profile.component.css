@@ -13,8 +13,6 @@
 
 .user-data-box{
     width: 100%;
-    display: flex;
-    flex-direction: column;
     border: 1px solid #dee2e6;
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     border-radius: 10px;
@@ -22,7 +20,51 @@
     padding: 10px;
 }
 
+.header{
+    padding-left: 15px;
+}
+
 .detail-box{
+    width: 100%;
+
+}
+
+.game{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.image-box{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.image-box img{
+    width: 80%;
+    border-radius: 5%;
+    object-fit: cover;
+    transition: background-color 0.3s;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); 
+    cursor: pointer;
+}
+.game-name{
+    margin-top: auto;
+    display: flex;
+    text-align: center;
+    font-weight: 600;
+    font-size: medium;
+    margin-bottom: 0.3rem;
+} 
+.no-result{
+    padding: 10px 0 10px 25px;
+}
+
+/* .detail-box{
     width: 100%;
     display: flex;
 }
@@ -32,9 +74,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.header{
-    padding-left: 15px;
 }
 
 .image-box{
@@ -62,14 +101,9 @@ img{
     font-weight: 600;
     font-size: large;
     margin-bottom: 0.3rem;
-}
+} */
 
-.dotes{
-    display: flex;
-    align-items: flex-end;
-    padding-bottom: 15px;
-    font-size: larger;
-}
+
 .button{
     width: 100%;
     display: flex;
@@ -88,6 +122,31 @@ img{
 .ellipsis:hover {
 color: #000; 
 }
+
+/* .user-info{
+    padding: 15px 10px 15px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 10px 0;
+    border-bottom: 2px solid #dfdede; 
+    border-top: 2px solid #dfdede;
+    position: relative; 
+    height: 150px;
+}
+
+.user-info::before{
+    content: "";
+    background-image: url('../../../../assets/images/pionek.jpg');
+    background-size: cover;
+    position: absolute;
+    background-position: center bottom;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.3;
+} */
 
 
 
