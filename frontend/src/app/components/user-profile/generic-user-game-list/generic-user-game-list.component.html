@@ -25,7 +25,9 @@
                                     <img [src]=" game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
                                     <div class="hex"><div class="rating-text">Overall rate: {{game.rating === 0 ? '-': game.rating}}</div></div>
                                 </div>
-                            </div>
+                            </div>   
+                        </div>    
+                        <div class="game-grid-down">
                             <div class = "game-main">
                                 <div class="game-name">
                                     <div *ngIf="!game.isFavourite" class="pi pi-heart-fill nofav"></div>
@@ -33,8 +35,6 @@
                                     <div [routerLink]="['/games', game.id]"> {{game.name}}</div>
                                 </div>
                             </div>
-                        </div>    
-                        <div class="game-grid-action">
                             <div class="game-user-rating">
                                 <i class="pi pi-star-fill"></i><span>User rating:</span>&nbsp;<span class="rating-value">{{game.userRating === 0 ? '-' : game.userRating}}</span>
                                 <button *ngIf="isCurrentUserList" pButton (click)="showEditUserGameForm(game)" class="p-button-secondary p-button-text">Edit</button> 

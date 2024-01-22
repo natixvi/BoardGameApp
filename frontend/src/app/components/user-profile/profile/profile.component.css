@@ -11,22 +11,74 @@
     width: 100%;
 }
 
+.header{
+    padding-left: 15px;
+    font-weight: 700;
+    font-size: large;
+    margin-bottom: 1rem;
+}
+
+.top{
+    padding-bottom: 15px;
+    border-bottom: 1px solid #cacaca; 
+}
+
+.user{
+    width: 100%;
+    display: flex;
+    margin-bottom: 4rem;
+}
+
+.user-left-details {
+    display: flex;
+    flex-direction: column; 
+}
+
+.user-right-details{
+    flex: 1;
+    margin-left: 20px;
+}
+
+.user-right-details .user-email, .user-nickname {
+    margin: 0;
+}
+
+.bold{
+    font-weight: 500;
+}
+
+.user-info-head{
+    margin: 0 0 0.3rem 0;
+    font-weight: 700;
+    font-size: medium;
+}
+
+.user-left-details .image{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-left-details img{
+    width: 100px;
+}
+
+.header-down h3{
+    margin: 1em 0 0 0.3em;
+}
+
 .user-data-box{
     width: 100%;
     border: 1px solid #dee2e6;
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     border-radius: 10px;
-    margin: 1rem 0 1rem 0;
-    padding: 10px;
-}
-
-.header{
-    padding-left: 15px;
+    margin: 0.5rem 0 2rem 0;
+    padding: 30px 10px 10px 10px;
 }
 
 .detail-box{
     width: 100%;
-
 }
 
 .game{
@@ -51,6 +103,10 @@
     transition: background-color 0.3s;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); 
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 .game-name{
     margin-top: auto;
@@ -63,46 +119,6 @@
 .no-result{
     padding: 10px 0 10px 25px;
 }
-
-/* .detail-box{
-    width: 100%;
-    display: flex;
-}
-
-.game{
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.image-box{
-    flex: 1;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-img{
-    width: 80%;
-    border-radius: 5%;
-    object-fit: cover;
-    transition: background-color 0.3s;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); 
-    cursor: pointer;
-}
-.game-name{
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    font-size: large;
-    margin-bottom: 0.3rem;
-} */
-
 
 .button{
     width: 100%;
@@ -123,30 +139,32 @@ img{
 color: #000; 
 }
 
-/* .user-info{
-    padding: 15px 10px 15px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0 10px 0;
-    border-bottom: 2px solid #dfdede; 
-    border-top: 2px solid #dfdede;
-    position: relative; 
-    height: 150px;
+@media screen and (max-width: 500px) {
+    .user-right-details{
+        margin-left: 10px;
+    }
+    
+    .user-right-details p {
+        font-size: small;
+    }
+    
+    .user-left-details {
+        width: 100px;
+    }
+    .user-left-details .image{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-left-details img{
+        width: 80px;
+    }
+    .user-left-details button{
+        font-size: small;
+        padding: 0;
+    }
+    
 }
-
-.user-info::before{
-    content: "";
-    background-image: url('../../../../assets/images/pionek.jpg');
-    background-size: cover;
-    position: absolute;
-    background-position: center bottom;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.3;
-} */
-
-
 
