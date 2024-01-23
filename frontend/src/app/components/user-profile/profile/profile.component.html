@@ -2,14 +2,25 @@
     <div class="data-box">
         <!-- Profil usera: {{userId}}
         <p *ngIf="isLoggedInUserProfile">To także jest twój własny profil</p> -->
-        <div class="header top"> USER PROFILE</div>
+        <div class="header top">
+            <p> USER PROFILE </p>
+            <ng-container *ngIf="!isLoggedInUserProfile">
+                <ng-container *ngIf="!isUserInFavList; else notInUserList">
+                    <div class="user-button">
+                        <button pButton type="button" icon="pi pi-user-plus" pTooltip="Add user to favourite" class="p-button-secondary p-button-text"></button> 
+                    </div>   
+                </ng-container>
+                <ng-template #notInUserList>
+                    <div class="user-button"> 
+                        <button pButton type="button" icon="pi pi-user-minus" class="p-button-secondary p-button-text" pTooltip="Remove user from favourite" ></button>
+                    </div>  
+                </ng-template>  
+            </ng-container>
+        </div>
         <div class="user">
             <div class="user-left-details">
                 <div class="image">
                     <img src="../../../../assets/images/avatars/avatar2.svg"/>
-                </div>
-                <div *ngIf="!isLoggedInUserProfile" class="user-add-button">
-                    <button pButton class="p-button-secondary p-button-text">Add user to favourite</button>
                 </div>
             </div>
             <div class="user-right-details">
@@ -34,10 +45,10 @@
                             </div>
                         </div>
                     </div>
-                    </ng-container>
                     <div class="button">
                         <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userGameList', userId]">See more</button>
                     </div>
+                </ng-container>     
                 <ng-template #emptyList>
                     <div class="no-result">
                         No results found
@@ -50,7 +61,7 @@
         </div>
         <div class="user-data-box">
             <div class="grid detail-box">
-                <ng-container *ngIf="userInfo.userBoardGames.length > 0 ; else emptyList" >
+                <ng-container *ngIf="totalFavGames > 0 ; else emptyList" >
                     <ng-container *ngFor="let game of userFavGameListFirst5; let i = index">
                         <div class="col-6 md:col-4 lg:col-3 xl:col-2">
                             <div class="game" >
@@ -62,9 +73,6 @@
                                 </div>
                             </div>
                         </div>
-                        <ng-container *ngIf="i === userGameListFirst5.length - 1 && userGameListFirst5.length < totalFavGames">
-                            <div class="ellipsis"[routerLink]="['/userGameList', userId]">...</div>
-                        </ng-container>
                     </ng-container>
                     <div class="button">
                         <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userFavouriteGameList', userId]">See more</button>

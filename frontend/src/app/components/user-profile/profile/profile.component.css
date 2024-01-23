@@ -19,8 +19,16 @@
 }
 
 .top{
-    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid #cacaca; 
+}
+
+.top p{
+    margin-right: 5px;
+}
+.top .user-button{
+    padding-bottom: 5px;
 }
 
 .user{
@@ -54,7 +62,7 @@
 }
 
 .user-left-details .image{
-    width: 200px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,7 +114,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 .game-name{
     margin-top: auto;
@@ -150,12 +157,6 @@ color: #000;
     
     .user-left-details {
         width: 100px;
-    }
-    .user-left-details .image{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .user-left-details img{

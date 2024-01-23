@@ -22,7 +22,7 @@ import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetail
 export class GenericUserGameListComponent{
 
   @Input() isCurrentUserList: boolean = false;
-  @Input() userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: []};
+  @Input() userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: [], favouriteUsers: []};
   @Input() header: string = '';
   @Input() buttonName: string = '';
   @Input() userId: number = 0;

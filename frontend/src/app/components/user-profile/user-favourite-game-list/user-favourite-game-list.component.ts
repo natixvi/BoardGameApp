@@ -23,7 +23,7 @@ export class UserFavouriteGameListComponent implements OnInit{
   isLoggedIn: boolean = false;
   isLoggedInUserList: boolean = false;
   loggedInUserId: number = 0;
-  userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: []};
+  userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: [], favouriteUsers: []};
   router = inject(Router);
 
   constructor(private route: ActivatedRoute, private messageService : MessageService, private authService: AuthService, private userService: UserService){}

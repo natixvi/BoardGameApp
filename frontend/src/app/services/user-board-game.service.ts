@@ -9,7 +9,7 @@ import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { AddGameToList } from '../models/game/addGameToList';
 import { EditUserGameDetails } from '../models/userGame/editUserGameDetails';
 import { UserBoardGame } from '../models/userGame/userBoardGame';
-import { UserGameDetails } from '../models/userGame/UserGameDetails';
+import { UserGameDetails } from '../models/userGame/userGameDetails';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -56,6 +56,7 @@ export class UserBoardGameService {
       })
     );
   }
+  
   addGameToUserList(gameId: number | null, addedGame: AddGameToList) : Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/userboardgame/add/${gameId}`, addedGame).pipe(
       catchError(error => {
@@ -96,7 +97,6 @@ export class UserBoardGameService {
     if (error.status === 401) {
       return throwError(() => new UnauthorizedError(error.error));
     } else if (error.status === 400) {
-      this.router.navigate(['notfound']);
       return throwError(() => new BadRequestError(error.error));
     } else if (error.status === 404){
       this.router.navigate(['notfound']);
