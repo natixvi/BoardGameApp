@@ -10,4 +10,5 @@ public interface IAccountService
     Task UpdateUserPassword(ChangePasswordDto updateUserPasswordDto);
     Task DeleteAccount();
     Task<UserDto> GetUserById(int id);
+    Task<List<UserDto>> GetUsers();
 }

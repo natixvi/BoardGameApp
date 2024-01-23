@@ -113,31 +113,6 @@ public class UserBoardGameService : IUserBoardGameService
     }
 
 
-/*    public async Task<List<UserBoardGameDto>?> GetUserBoardGames(int userId)
-    {
-        await CheckIfUserExist(userId);
-        var userGames = await userBoardGameRepository.GetUserBoardGames(userId);
-        var userGamesDto = mapper.Map<List<UserBoardGameDto>>(userGames);
-        foreach (var game in userGamesDto)
-        {
-            game.Rating = await CalculateAverageRating(game.BoardGameId);
-        }
-        return userGamesDto;
-
-    }
-
-    public async Task<List<UserBoardGameDto>?> GetUserFavouriteBoardGames(int userId)
-    {
-        await CheckIfUserExist(userId);
-        var userGames = await userBoardGameRepository.GetUserFavouriteBoardGames(userId);
-        var userFavGamesDto = mapper.Map<List<UserBoardGameDto>>(userGames);
-        foreach (var game in userFavGamesDto)
-        {
-            game.Rating = await CalculateAverageRating(game.BoardGameId);
-        }
-        return userFavGamesDto;
-    }*/
-
     public async Task ChangeUserGameFavouriteStatus(int gameId)
     {
         var userId = GetUserContextId();
@@ -163,12 +138,5 @@ public class UserBoardGameService : IUserBoardGameService
         var game = await boardGameRepository.GetBoardGameById(gameId);
         if (game == null) throw new NotFoundException("Board game not found!");
     }
-
-    private async Task CheckIfUserExist(int userId)
-    {
-        var userExist = await accountRepository.CheckIfUserExist(userId);
-        if(!userExist) throw new NotFoundException("User not found!");
-    }
-
     
 }

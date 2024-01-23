@@ -80,6 +80,13 @@ public class AccountController: ControllerBase
         return Ok(roles);
     }
 
- 
+    [HttpGet("users")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetUsers()
+    {
+        var users = await accountService.GetUsers();
+        return Ok(users);
+    }
+
 }
 

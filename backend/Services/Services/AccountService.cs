@@ -4,7 +4,6 @@ using Domain.Exceptions;
 using Domain.IRepositories;
 using Microsoft.AspNetCore.Identity;
 using Services.DTOs.User;
-using Services.DTOs.UserBoardGame;
 using Services.Interfaces;
 
 namespace Services.Services;
@@ -58,24 +57,17 @@ public class AccountService : IAccountService
 
     public async Task<UserInfoDto> GetUser()
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new NotFoundException("User not found!");
-        var user = await accountRepository.GetUserById((int)userId);
-        if (user == null) throw new NotFoundException("User not found!");
+        var user = await IfUserExist();
         return mapper.Map<UserInfoDto>(user);
 
     }
 
     public async Task<string?> UpdateUser (UpdateUserDto updateUserDto)
     {
-        
-        var userId = userContextService.GetUserId;
-        Console.WriteLine("idusfhsdikhf: userif:" + userId);
-        if(userId == null) throw new BadRequestException("User cannot be edited!");
-        var user = await accountRepository.GetUserById((int)userId);
-        if(user == null) throw new NotFoundException("User not found!");
 
-        if(user.Email != updateUserDto.Email)
+        var user = await IfUserExist();
+
+        if (user.Email != updateUserDto.Email)
         {
             if (await accountRepository.EmailExist(updateUserDto.Email)) throw new DuplicateDataException("For this email there is already an account.");
             user.Email = updateUserDto.Email;
@@ -95,10 +87,7 @@ public class AccountService : IAccountService
 
     public async Task UpdateUserPassword(ChangePasswordDto updateUserPasswordDto)
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new BadRequestException("User cannot be edited!");
-        var user = await accountRepository.GetUserById((int)userId);
-        if (user == null) throw new NotFoundException("User not found!");
+        var user = await IfUserExist();
 
         var verifyPassword = passwordHasher.VerifyHashedPassword(user, user.Password, updateUserPasswordDto.OldPassword);
         if (verifyPassword == PasswordVerificationResult.Failed) throw new BadRequestException("Invalid old password");  
@@ -113,11 +102,7 @@ public class AccountService : IAccountService
 
     public async Task DeleteAccount()
     {
-        var userId = userContextService.GetUserId;
-        if (userId == null) throw new BadRequestException("User cannot be delited!");
-        var user = await accountRepository.GetUserById((int)userId);
-        if (user == null) throw new NotFoundException("User not found!");
-
+        var user = await IfUserExist();
         await accountRepository.Delete(user);
     }
 
@@ -125,6 +110,7 @@ public class AccountService : IAccountService
     {
         var user = await accountRepository.GetUserById(id);
         if (user == null) throw new NotFoundException("User not found!");
+
         var usersDto = mapper.Map<UserDto>(user);
         if(usersDto.UserBoardGames != null)
         {
@@ -136,12 +122,20 @@ public class AccountService : IAccountService
       
         return usersDto;
     }
-
-
     public async Task<List<UserDto>> GetUsers()
     {
         var users = await accountRepository.GetUsers();
         return mapper.Map<List<UserDto>>(users);
     }
 
+
+    private async Task<User> IfUserExist()
+    {
+        var userId = userContextService.GetUserId;
+        if (userId == null) throw new UnathorizedException("Incorrect or missing user ID, no authorization!");
+        var user = await accountRepository.GetUserById((int)userId);
+        if (user == null) throw new NotFoundException("User not found!");
+        return user;
+    }
+ 
 }

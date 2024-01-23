@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Services.DTOs.BoardGame;
 using Services.DTOs.Comment;
+using Services.DTOs.FavUser;
 using Services.DTOs.User;
 using Services.DTOs.UserBoardGame;
 
@@ -12,6 +13,10 @@ public class AutoMapperProfile: Profile
     public AutoMapperProfile()
     {
         CreateMap<User, UserDto>();
+        CreateMap<FavouriteUser, FavUserDto>()
+            .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.FavUser.NickName))
+            .ForMember(dest => dest.Email, c => c.MapFrom(src => src.FavUser.Email));
+
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();
         CreateMap<User, UserInfoDto>();

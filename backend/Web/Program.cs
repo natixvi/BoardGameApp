@@ -61,6 +61,8 @@ builder.Services.AddTransient<IGameCommentRepository, GameCommentRepository>();
 builder.Services.AddTransient<IGameCommentService, GameCommentService>();
 builder.Services.AddTransient<IUserBoardGameRepository, UserBoardGameRepository>();
 builder.Services.AddTransient<IUserBoardGameService, UserBoardGameService>();
+builder.Services.AddTransient<IFavouriteUserService, FavouriteUserService>();
+builder.Services.AddTransient<IFavouriteUserRepository, FavouriteUserRepository>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
