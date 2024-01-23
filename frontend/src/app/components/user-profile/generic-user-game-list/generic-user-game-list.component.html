@@ -1,7 +1,7 @@
 <div class="cont">
     <div class="data-box">
         <div class="user-info">
-            <div class="user-name">User: <span [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
+            <div class="user-name">User: <span pTooltip="Go back to user profile" [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
             <div class="header"> {{ header }}</div>
             <div class="fav-game-link"><span (click)="triggerCallback()">{{buttonName}}</span></div>
         </div>

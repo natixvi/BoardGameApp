@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/user-profile/profile/profile.comp
 import { UserGameListComponent } from './components/user-profile/user-game-list/user-game-list.component';
 import { ForbiddenPageComponent } from './components/nav/forbidden-page/forbidden-page.component';
 import { UserFavouriteGameListComponent } from './components/user-profile/user-favourite-game-list/user-favourite-game-list.component';
+import { FavUserListComponent } from './components/user-profile/fav-user-list/fav-user-list.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {path: 'forbidden', component: ForbiddenPageComponent},
   {path: 'userGameList/:userId', component: UserGameListComponent},
   {path: 'userFavouriteGameList/:userId', component: UserFavouriteGameListComponent},
+  {path: 'userFavouriteUserList/:userId', component: FavUserListComponent},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},

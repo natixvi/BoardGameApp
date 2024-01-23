@@ -75,7 +75,20 @@
 .header-down h3{
     margin: 1em 0 0 0.3em;
 }
+.header-down-fav h3{
+    margin: 1em 0 0.5em 0.3em;
+}
 
+.user-profile{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.user-name{
+    cursor: pointer;
+}
 .user-data-box{
     width: 100%;
     border: 1px solid #dee2e6;
@@ -133,18 +146,13 @@
     justify-content: flex-end;
 }
 
-.ellipsis {
-    cursor: pointer;
-    margin-top: auto;
-    padding: 0 5px;
-    margin-bottom: 10px;
-    font-size: 1.5em; 
-    font-weight: bold;
+.button-fav{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5em;
 }
 
-.ellipsis:hover {
-color: #000; 
-}
 
 @media screen and (max-width: 500px) {
     .user-right-details{

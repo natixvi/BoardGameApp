@@ -1,29 +1,27 @@
 import { Component, inject } from '@angular/core';
+import { UserInfo } from '../../../models/user/userInfo';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
-import { UserInfo } from '../../../models/user/userInfo';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AuthService } from '../../../services/auth.service';
+import { FavUserService } from '../../../services/fav-user.service';
 import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
-import { UserBoardGame } from '../../../models/userGame/userBoardGame';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { FavUser } from '../../../models/favUser/favUser';
-import { FavUserService } from '../../../services/fav-user.service';
-import { TooltipModule } from "primeng/tooltip"; 
 import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from "primeng/tooltip"; 
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-fav-user-list',
   standalone: true,
-  imports: [CommonModule, ButtonModule, RouterModule, TooltipModule, TableModule],
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  imports: [CommonModule, TableModule, RouterModule, ButtonModule, TooltipModule],
+  templateUrl: './fav-user-list.component.html',
+  styleUrls: ['./fav-user-list.component.css']
 })
-export class ProfileComponent {
+export class FavUserListComponent {
   userId: number = 0;
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
@@ -31,14 +29,9 @@ export class ProfileComponent {
   loggedInUserId: number = 0;
   userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: [], favouriteUsers: []};
   router = inject(Router);
-  userGameListFirst5: UserBoardGame[] = [];
-  userFavGameListFirst5: UserBoardGame[] = []
-  userFavUsersFirst3: FavUser[] = [];
-  totalFavGames: number = 0;
-  isUserInFavList: boolean | undefined;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private confirmationService: ConfirmationService, private authService: AuthService, private messageService : MessageService, private favUserService: FavUserService){}
-  
+
   ngOnInit(): void {
     this.route.params.subscribe({
       next: (param) => {
@@ -53,25 +46,6 @@ export class ProfileComponent {
         if(this.loggedInUserId === this.userId){
           this.isLoggedInUserProfile = true;
         }
-        else{
-          this.favUserService.isUserInFavUserList(this.userId).subscribe({
-            next: (data : boolean) => {
-              this.isUserInFavList = data;
-            },
-            error: (e) => {
-              if (e instanceof ResourceNotFoundError){
-                console.error("User not found");
-              }
-              else if (e instanceof BadRequestError){
-                this.router.navigate(['notfound'])
-                console.error("User not found, bad request error");
-              }
-              else{
-                this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
-              }
-            }
-          })
-        }
       }
     })
     this.getUserInfo();
@@ -81,10 +55,6 @@ export class ProfileComponent {
     this.userService.getUserById(this.userId).subscribe({
       next: (data: UserInfo) => {
         this.userInfo = data;
-        this.userGameListFirst5 = this.userInfo.userBoardGames.slice(0, 5);
-        this.totalFavGames = this.userInfo.userBoardGames.filter(g => g.isFavourite === true).length
-        this.userFavGameListFirst5 = this.userInfo.userBoardGames.filter(g => g.isFavourite === true).slice(0, 5);
-        this.userFavUsersFirst3 = this.userInfo.favouriteUsers.slice(0, 3);
       },
       error: (e) => {
         if (e instanceof ResourceNotFoundError){
@@ -97,28 +67,6 @@ export class ProfileComponent {
         else{
           this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
         }
-      }
-    })
-  }
-
-  addUserToFavList(){
-    this.favUserService.addUserToFavUserList(this.userId).subscribe({
-      next: () => {
-        this.messageService.add({severity: 'success', summary: 'Success', detail: 'User added to favourite list.'})
-        this.ngOnInit();
-      },
-      error: (e) =>{
-        if (e instanceof BadRequestError){
-          this.router.navigate(['notfound']);
-          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-        }
-        else if(e instanceof DuplicatedDataError){
-          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-        }
-        else if(e instanceof ResourceNotFoundError){
-          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-        }
-        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
       }
     })
   }
@@ -136,7 +84,6 @@ export class ProfileComponent {
           },
           error: (e) =>{
             if (e instanceof BadRequestError){
-              this.router.navigate(['notfound']);
               this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
             }
             else if(e instanceof DuplicatedDataError){
@@ -154,7 +101,5 @@ export class ProfileComponent {
         this.confirmationService.close();
       }
     })
-    
   }
-
 }

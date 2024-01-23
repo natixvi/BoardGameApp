@@ -11,11 +11,12 @@ import { UserBoardGameService } from '../../../services/user-board-game.service'
 import { UserInfo } from '../../../models/user/userInfo';
 import { UserBoardGame } from '../../../models/userGame/userBoardGame';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
+import { TooltipModule } from "primeng/tooltip"; 
 
 @Component({
   selector: 'app-generic-user-game-list',
   standalone: true,
-  imports: [CommonModule, DataViewModule, RouterModule, InputTextModule, ButtonModule, ReactiveFormsModule, RatingModule, FormsModule],
+  imports: [CommonModule, DataViewModule, RouterModule, InputTextModule, ButtonModule, ReactiveFormsModule, RatingModule, FormsModule, TooltipModule],
   templateUrl: './generic-user-game-list.component.html',
   styleUrls: ['./generic-user-game-list.component.css']
 })
