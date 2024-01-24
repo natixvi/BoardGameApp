@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Domain.Enums;
 
 namespace Persistance.Data;
 
@@ -12,10 +14,15 @@ public class AppDbContext : DbContext
     public DbSet<UserBoardGame> UserBoardGames { get; set; }
     public DbSet<FavouriteUser> FavouriteUsers { get; set; }
     public DbSet<GameComment> GameComments { get; set; }
+    public DbSet<UserRequest> UserRequests { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<UserRequest>()
+           .Property(r => r.State)
+           .HasConversion(new EnumToStringConverter<UserRequestState>());
+
         modelBuilder.Entity<FavouriteUser>()
             .HasIndex(f => new { f.UserId, f.FavUserId })
             .IsUnique();

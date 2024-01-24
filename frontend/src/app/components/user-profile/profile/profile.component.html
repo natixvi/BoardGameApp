@@ -39,13 +39,12 @@
                 <ng-template pTemplate="body" let-user>
                     <tr>
                         <td *ngIf="isLoggedInUserProfile; else notUserProfile" class="user-profile">
-                            <span class="user-name" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
+                            <span class="user-name" pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
                             <span><button pButton type="button" icon="pi pi-user-minus" class="p-button-danger p-button-text" pTooltip="Remove user from friends" (click)="removeUserFromFavList(user.favUserId)" ></button></span>
                         </td>
                         <ng-template #notUserProfile>
                             <td>
-                                <span [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
-                                <!-- <span pTooltip="Go to user profile"  [routerLink]="['/userProfile', user.favUserId]">{{ user.nickName }}</span> -->
+                                <span pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
                             </td>
                         </ng-template>
                     </tr>
