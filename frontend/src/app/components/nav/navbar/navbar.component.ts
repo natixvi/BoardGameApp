@@ -20,8 +20,6 @@ export class NavbarComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
   loggedInUserId: number = 0;
-  userRole: string | undefined;
-  isAdmin: boolean | undefined;
 
   constructor(public authService: AuthService, private confirmationService: ConfirmationService){}
 
@@ -29,11 +27,13 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
+      let isAdmin;  
+      console.error(isAdmin)
       if(this.isLoggedIn){
           this.loggedInUserId = this.authService.getParsedToken().Id.toString();
-          this.userRole = this.authService.getParsedToken().role.toString();
-          this.isAdmin = this.userRole === "Admin"
-
+          let userRole = this.authService.getParsedToken().role.toString();
+          isAdmin = userRole === "Admin"
+          console.error(isAdmin)
       }
       this.items = [
         {
@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit {
         { 
           label: 'Admin Panel', 
           icon: 'pi pi-user-edit', 
-          visible: this.isAdmin,
+          visible: isAdmin === true,
           items: [
             { label: 'Users', icon: 'pi pi-users'},
             { label: 'User requests', icon: 'pi pi-inbox'},
@@ -83,7 +83,6 @@ export class NavbarComponent implements OnInit {
       message: 'Are you sure you want to log out?',
       header: 'Logout',
       accept: () => {
-        this.isAdmin = false;
         this.authService.logout();
         this.confirmationService.close();
       },
