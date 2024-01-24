@@ -11,6 +11,7 @@ export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false); // Obiekt zachowujacy swoja wartosc w czasie, moze byc obserwowany, ale dodatkowo przechuwje swoja ostatnia wartosc,
   //która była wysłana, dzięki czemu nowi subskrybenci otrzymają bieżącą wartość od razu po subskrypcji.
   isLoggedIn$: Observable<boolean> = this._isLoggedIn$.asObservable(); //Wlasciwosc publiczna ($ bo obseravble - taka konwencja), dzieki ktorej mozna ja uzywac i subskybowac zmiany stanu zalogowania ale nie ozna go zmieniac
+  router = inject(Router);
 
   constructor() { 
     this.checkToken();
@@ -47,5 +48,6 @@ export class AuthService {
   logout(){
     this.removeToken();
     this._isLoggedIn$.next(false);
+    this.router.navigate(['login']);
   }
 }

@@ -4,7 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 
 @Component({
   standalone: true,
@@ -20,8 +20,10 @@ export class NavbarComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
   loggedInUserId: number = 0;
+  userRole: string | undefined;
+  isAdmin: boolean | undefined;
 
-  constructor(public authService: AuthService){}
+  constructor(public authService: AuthService, private confirmationService: ConfirmationService){}
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
@@ -29,6 +31,9 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = isLoggedIn;
       if(this.isLoggedIn){
           this.loggedInUserId = this.authService.getParsedToken().Id.toString();
+          this.userRole = this.authService.getParsedToken().role.toString();
+          this.isAdmin = this.userRole === "Admin"
+
       }
       this.items = [
         {
@@ -42,8 +47,18 @@ export class NavbarComponent implements OnInit {
           items: 
           [
             {label: 'Games', routerLink: ['games']},
-            {label: 'Top 5 Games', routerLink: ['topGames']}
+            {label: 'Top 10', routerLink: ['topGames']}
           ],
+        },
+        { 
+          label: 'Admin Panel', 
+          icon: 'pi pi-user-edit', 
+          visible: this.isAdmin,
+          items: [
+            { label: 'Users', icon: 'pi pi-users'},
+            { label: 'User requests', icon: 'pi pi-inbox'},
+            { label: 'Board game panel', icon: 'pi pi-cog'} 
+          ]
         },
         {
           label: 'Account',
@@ -52,7 +67,7 @@ export class NavbarComponent implements OnInit {
           items: [
             { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
             { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
-            { label: 'Settings', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
+            { label: 'Edit profile', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
             { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
           ],
@@ -64,8 +79,19 @@ export class NavbarComponent implements OnInit {
   }
   
   logout(){
-    this.authService.logout();
-    this.router.navigate(['login']);
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to log out?',
+      header: 'Logout',
+      accept: () => {
+        this.isAdmin = false;
+        this.authService.logout();
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.confirmationService.close();
+      }
+    })
   }
 
 }
+

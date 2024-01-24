@@ -1,27 +1,21 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { DataViewModule} from 'primeng/dataview';
 import { Game } from '../../models/game/game';
 import { GameService } from '../../services/game.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { BadRequestError } from '../../exceptions/BadRequestError';
-import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { UserBoardGameService } from '../../services/user-board-game.service';
 import { ResourceNotFoundError } from '../../exceptions/ResourceNotFoundError';
 import { Observable} from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
-import { GameAddFormComponent } from "../game-add-form/game-add-form.component";
 import { AddGameFormService } from '../../services/add-game-form.service';
+import { GameGenericComponent } from '../game-generic/game-generic.component';
 
 
 @Component({
     selector: 'app-game',
     standalone: true,
-    imports: [DataViewModule, DropdownModule, CommonModule, FormsModule, RouterModule, ButtonModule, InputTextModule, GameAddFormComponent],
+    imports: [ RouterModule, GameGenericComponent],
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'] 
 })
@@ -30,18 +24,11 @@ export class GameComponent implements OnInit {
     router = inject(Router);
     isLoggedIn$: Observable<boolean> | undefined;
     isLoggedIn: boolean = false;
-    selectedGameId: number | null = null;
   
-    constructor(private gameService : GameService, public addGameFormService: AddGameFormService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
+    constructor(private gameService : GameService, public authService: AuthService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
     ngOnInit() {
       this.initialData();
-    }
-
-    onAddGameEvent($event: boolean){
-      if($event){
-        this.initialData();
-      }
     }
     
     initialData(){
@@ -56,11 +43,6 @@ export class GameComponent implements OnInit {
         }
       });
     } 
-
-    openAddForm(gameId: number, gameName: string): void {
-      this.selectedGameId = gameId;
-      this.addGameFormService.openForm(gameId, gameName);
-    }
 
     getGames() {
       this.gameService.getGames().subscribe({
@@ -112,31 +94,10 @@ export class GameComponent implements OnInit {
     })
   }
 
-  deleteGameFromList(gameId : number) : void {
-    this.confirmationService.confirm({
-      message: "Are you sure you want to delete game from your list?",
-      header: "Delete confirmation",
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.userBoardGameService.deleteGameFromUserList(gameId).subscribe({
-          next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game deleted from the list!' });
-            this.initialData();
-          },
-
-          error: (e) => {
-            console.error('Error while deleting game', e);
-            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while deleting game.'});
-          }
-        })   
-        this.confirmationService.close();
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Delete game from list canceled.' });
-        this.confirmationService.close();
-      }
-    })
+  onChangeGameEvent($event: boolean){
+    if($event){
+      this.ngOnInit();
+    }
   }
-
 
 }
