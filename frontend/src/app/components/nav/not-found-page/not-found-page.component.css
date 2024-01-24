@@ -1,0 +1,30 @@
+.cont{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+p{
+    margin-top: 0;
+}
+@media (min-width: 500px) {
+    h1{
+        font-size: 3em;
+    }
+
+    p{
+        font-size: xx-large;
+    }
+}

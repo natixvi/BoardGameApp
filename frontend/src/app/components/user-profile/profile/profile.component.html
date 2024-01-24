@@ -64,9 +64,9 @@
         <div class="header-down">
             <h3> User's board game collection </h3>
         </div>
-        <div class="user-data-box">
+        <div class="user-data-box" *ngIf="userInfo.userBoardGames.length > 0 ; else emptyList">
             <div class="grid detail-box">
-                <ng-container *ngIf="userInfo.userBoardGames.length > 0 ; else emptyList" >
+                <ng-container>
                     <div *ngFor="let game of userGameListFirst5" class="col-6 md:col-4 lg:col-3 xl:col-2">
                         <div class="game" >
                             <div class="image-box">
@@ -81,19 +81,20 @@
                         <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userGameList', userId]">See more</button>
                     </div>
                 </ng-container>     
-                <ng-template #emptyList>
-                    <div class="no-result">
-                        No results found
-                    </div>
-                </ng-template>
             </div>
         </div>
+        <ng-template #emptyList>
+            <div class="no-result">
+                No results found
+            </div>
+        </ng-template>
+
         <div class="header-down">
             <h3> Favourite board games </h3>
         </div>
-        <div class="user-data-box">
+        <div class="user-data-box" *ngIf="totalFavGames > 0 ; else emptyList">
             <div class="grid detail-box">
-                <ng-container *ngIf="totalFavGames > 0 ; else emptyList" >
+                <ng-container>
                     <ng-container *ngFor="let game of userFavGameListFirst5; let i = index">
                         <div class="col-6 md:col-4 lg:col-3 xl:col-2">
                             <div class="game" >
@@ -110,12 +111,13 @@
                         <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userFavouriteGameList', userId]">See more</button>
                     </div>
                 </ng-container>
-                <ng-template #emptyList>
-                    <div class="no-result">
-                        No results found
-                    </div>
-                </ng-template>
             </div>
         </div>
+        <ng-template #emptyList>
+            <div class="no-result">
+                No results found
+            </div>
+        </ng-template>
+
     </div>
 </div>

@@ -43,38 +43,25 @@ export class GameAddFormComponent {
   }
 
   addGameToList() : void {
-    this.confirmationService.confirm({
-      message: "Are you sure you want to add game to your list?",
-      header: "Confirmation",
-      icon: 'pi pi-info-circle',
-      accept: () => {
-       
-        const addedGameData = {
-          rating: this.gameAddForm.get('rating')?.value, 
-          isFavourite: this.gameAddForm.get('addToFavourites')?.value
-        } as AddGameToList;
+      const addedGameData = {
+        rating: this.gameAddForm.get('rating')?.value, 
+        isFavourite: this.gameAddForm.get('addToFavourites')?.value
+      } as AddGameToList;
 
-        this.userBoardGameService.addGameToUserList(this.gameId, addedGameData).subscribe({
-          next: () => {
-            this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game added to list.'})
-            this.addedGameEvent.emit(true);
-            this.addGameFormService.closeForm();
-          },
+      this.userBoardGameService.addGameToUserList(this.gameId, addedGameData).subscribe({
+        next: () => {
+          this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game added to list.'})
+          this.addedGameEvent.emit(true);
+          this.addGameFormService.closeForm();
+        },
 
-          error: (e) => {
-            console.error('Error while adding game to list', e);
-            this.addGameFormService.closeForm();
-            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while adding game to list.'});
-          }
-        })
-        this.confirmationService.close();
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Add game to list canceled.' });
-        this.confirmationService.close();
-      }
-    })
+        error: (e) => {
+          console.error('Error while adding game to list', e);
+          this.addGameFormService.closeForm();
+          this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while adding game to list.'});
+        }
+      })
   }
 
- 
+  
 }

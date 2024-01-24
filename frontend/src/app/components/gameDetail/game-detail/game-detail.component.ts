@@ -220,47 +220,34 @@ export class GameDetailComponent implements OnInit {
   }
   
   addGameComment(){
-    this.confirmationService.confirm({
-      message: "Are you sure you want to add game comment?",
-      header: "Add comment confirmation",
-      icon: 'pi pi-info-circle',
-      accept: () => {
+      const currentDate = new Date();
+      currentDate.setHours(currentDate.getHours() + 1);
+      const isoDateString = currentDate.toISOString();
 
-        const currentDate = new Date();
-        currentDate.setHours(currentDate.getHours() + 1);
-        const isoDateString = currentDate.toISOString();
+      const addGameCommentData = {
+        commentDescription: this.commentControl.value,
+        createdDate: isoDateString
+      } as AddGameComment;
 
-        const addGameCommentData = {
-          commentDescription: this.commentControl.value,
-          createdDate: isoDateString
-        } as AddGameComment;
-
-
-        this.gameCommentService.addGameComment(this.gameId, addGameCommentData).subscribe({
-          next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game comment added!' });
-            this.ngOnInit();
-          },
-          error: (e) => {
-            if (e instanceof BadRequestError){
-              this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-            }
-            else if(e instanceof DuplicatedDataError){
-              this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
-            }
-            else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+      this.gameCommentService.addGameComment(this.gameId, addGameCommentData).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game comment added!' });
+          this.ngOnInit();
+        },
+        error: (e) => {
+          if (e instanceof BadRequestError){
+            this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
           }
-        })  
-        this.commentControl.reset(); 
-        this.showAddCommentForm = false;
-        this.confirmationService.close();
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Add game comment canceled.' });
-        this.confirmationService.close();
-      }
-    })
+          else if(e instanceof DuplicatedDataError){
+            this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+          }
+          else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+        }
+      })  
+      this.commentControl.reset(); 
+      this.showAddCommentForm = false;
   }
+
   enableEditCommentMode(comment : Commentt){
     comment.isEditMode = true;
   }
@@ -270,33 +257,23 @@ export class GameDetailComponent implements OnInit {
   }
 
   editUserComment(comment: Commentt){
-    this.confirmationService.confirm({
-      message: "Are you sure you want to edit game comment?",
-      header: "Edit user comment confirmation",
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        const editUserComment = {
-          commentDescription: comment.commentDescription
-        } as EditUserGameComment;
+      const editUserComment = {
+        commentDescription: comment.commentDescription
+      } as EditUserGameComment;
 
-        this.gameCommentService.editGameComment(comment.id, editUserComment).subscribe({
-          next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game comment edited!' });
-            comment.isEditMode = false;
-            this.ngOnInit();
-          },
-          error: (e) => {
-            console.error('Error while editing game comment', e);
-            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while editing game comment.'});
-          }
-        })   
+      this.gameCommentService.editGameComment(comment.id, editUserComment).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Game comment edited!' });
+          comment.isEditMode = false;
+          this.ngOnInit();
+        },
+        error: (e) => {
+          console.error('Error while editing game comment', e);
+          this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while editing game comment.'});
+        }
+      })   
         this.confirmationService.close();
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Edit user game comment canceled.' });
-        this.confirmationService.close();
-      }
-    })
+     
   }
 
   deleteUserComment(commentId: number){
