@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../config';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Game } from '../models/game/game';
 import { BadRequestError } from '../exceptions/BadRequestError';
@@ -28,6 +28,16 @@ export class GameService {
         })
       );
    }
+
+   getTopGames(topCount : number) : Observable<Game[]>{
+    const params = new HttpParams().set('topCount', topCount);
+    return this.http.get<Game[]>(`${this.apiUrl}/boardgame/top-games`, {params}).pipe(
+      catchError(error => {
+        console.log('Error while loading games:' , error);
+        return this.handleError(error);
+      })
+    );
+ }
 
    getGameById(gameId: number) : Observable<GameDetails>{
     return this.http.get<GameDetails>(`${this.apiUrl}/boardgame/${gameId}`).pipe(

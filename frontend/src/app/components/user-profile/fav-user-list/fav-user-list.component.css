@@ -53,6 +53,7 @@
     font-weight: bolder;
     position: relative;
 }
+
 .user-name-2{
  cursor: pointer;
 }
@@ -66,4 +67,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 5px;
+}
+@media screen and (max-width: 500px) {
+   
+    .user-info{
+        flex-direction: column;
+    }
+   
 }

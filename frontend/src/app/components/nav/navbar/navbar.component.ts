@@ -39,17 +39,19 @@ export class NavbarComponent implements OnInit {
         {
           label: 'Games',
           icon: 'pi pi-list',
-          routerLink: ['games'],
+          items: 
+          [
+            {label: 'Games', routerLink: ['games']},
+            {label: 'Top 5 Games', routerLink: ['topGames']}
+          ],
         },
         {
           label: 'Account',
           icon: 'pi pi-user',
           visible: isLoggedIn,
           items: [
-            { label: 'Profile', icon: 'pi pi-user', command: () => this.navigateToUserProfile()},
-            // { label: 'Game list', icon: 'pi pi-list', url:`userGameList/${this.loggedInUserId}`},
-            // { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
-            { label: 'Game list', icon: 'pi pi-list', command: () => this.navigateToUserList()},
+            { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
+            { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
             { label: 'Settings', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
             { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
@@ -64,18 +66,6 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.authService.logout();
     this.router.navigate(['login']);
-  }
-
-  navigateToUserProfile(): void {
-    this.router.navigate(['userProfile', this.loggedInUserId]).then(() => {
-      window.location.reload();
-    });
-  }
-
-  navigateToUserList(): void {
-    this.router.navigate(['userGameList', this.loggedInUserId]).then(() => {
-      window.location.reload();
-    });
   }
 
 }

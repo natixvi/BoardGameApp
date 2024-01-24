@@ -26,15 +26,19 @@ export class UserGameListComponent implements OnInit{
   userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: [], favouriteUsers: []};
   router = inject(Router);
 
-  constructor(private route: ActivatedRoute, private messageService : MessageService, private authService: AuthService, private userService: UserService){}
-
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, private messageService : MessageService, private authService: AuthService, private userService: UserService){
     this.route.params.subscribe({
       next: (param) => {
-        this.userId = Number(param['userId'])
+        this.userId = Number(param['userId']);
+        this.initialData();
       }
     })
+  }
 
+  ngOnInit(): void {
+    this.initialData()
+  }
+  initialData(){
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
@@ -47,7 +51,6 @@ export class UserGameListComponent implements OnInit{
     })
     this.getUserInfo();
   }
-
   getUserInfo(){
     this.userService.getUserById(this.userId).subscribe({
       next: (data: UserInfo) => {

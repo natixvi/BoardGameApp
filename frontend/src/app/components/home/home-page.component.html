@@ -3,9 +3,5 @@
 <div *ngIf="roles">Roles: {{ roles }}</div>
 <div *ngIf="authService.isLoggedIn$ | async as isLoggedIn">
     <p *ngIf="isLoggedIn">Hello, {{ authService.getParsedToken().Id}}!<br>
-      currdate: {{currentDate}}<br>
-      exp date:  {{ exp}}
-    </p>
-   
   </div>
 

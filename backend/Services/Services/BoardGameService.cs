@@ -32,6 +32,24 @@ public class BoardGameService : IBoardGameService
         return boardGamesDto;
     }
 
+    public async Task<List<BoardGameDto>?> GetTopGames(int numberOfTopGames)
+    {
+        if(numberOfTopGames > 0)
+        {
+            var boardGames = await gameRepository.GetBoardGames();
+            if (boardGames == null) return null;
+            var boardGamesDto = mapper.Map<List<BoardGameDto>>(boardGames);
+            foreach (var game in boardGamesDto)
+            {
+                game.Rating = await myBoardGameService.CalculateAverageRating(game.Id);
+            }
+            var topBoardGames = boardGamesDto.OrderByDescending(g => g.Rating).Where(g => g.Rating > 0).Take(numberOfTopGames).ToList();
+            return topBoardGames;
+        }
+        throw new BadRequestException("Incorrect query params");
+        
+    }
+
     public async Task<BoardGameDetailsDto> GetBoardGameById(int id)
     {
         var boardGame = await gameRepository.GetBoardGameById(id);

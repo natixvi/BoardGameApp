@@ -21,9 +21,9 @@ import { AddGameFormService } from '../../services/add-game-form.service';
 @Component({
     selector: 'app-game',
     standalone: true,
+    imports: [DataViewModule, DropdownModule, CommonModule, FormsModule, RouterModule, ButtonModule, InputTextModule, GameAddFormComponent],
     templateUrl: './game.component.html',
-    styleUrls: ['./game.component.css'],
-    imports: [DataViewModule, DropdownModule, CommonModule, FormsModule, RouterModule, ButtonModule, InputTextModule, GameAddFormComponent]
+    styleUrls: ['./game.component.css'] 
 })
 export class GameComponent implements OnInit {
     games: Game[] = [];

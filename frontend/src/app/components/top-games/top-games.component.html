@@ -1,4 +1,9 @@
 <div class="data-box">  
+    <div class="user-info">
+        <div style="width: 100px;"></div>
+        <div class="header"> TOP 10 GAMES </div>
+        <div class="link"><span [routerLink]="['/games']">Return to all games</span></div>
+    </div>
     <p-dataView #dv [value]="games" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50, 100]" filterBy="name">
         <ng-template pTemplate="header">
             <div class="flex flex-col md:flex-row justify-content-between">

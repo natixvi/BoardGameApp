@@ -24,6 +24,13 @@ public class BoardGameController : ControllerBase
         return Ok(boardGames);
     }
 
+    [HttpGet("top-games")]
+    public async Task<IActionResult> GetTopBoardGames([FromQuery] int topCount = 5)
+    {
+        var topBoardGames = await gameService.GetTopGames(topCount);
+        return Ok(topBoardGames);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetBoardGameById([FromRoute] int id)
     {

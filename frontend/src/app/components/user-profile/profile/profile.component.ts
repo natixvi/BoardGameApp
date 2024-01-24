@@ -21,7 +21,7 @@ import { TableModule } from 'primeng/table';
   standalone: true,
   imports: [CommonModule, ButtonModule, RouterModule, TooltipModule, TableModule],
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
   userId: number = 0;
@@ -37,14 +37,20 @@ export class ProfileComponent {
   totalFavGames: number = 0;
   isUserInFavList: boolean | undefined;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private confirmationService: ConfirmationService, private authService: AuthService, private messageService : MessageService, private favUserService: FavUserService){}
-  
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute, private userService: UserService, private confirmationService: ConfirmationService, private authService: AuthService, private messageService : MessageService, private favUserService: FavUserService){
     this.route.params.subscribe({
       next: (param) => {
-        this.userId = Number(param['userId'])
+        this.userId = Number(param['userId']);
+        this.initalData();
       }
     })
+  }
+  
+  ngOnInit(): void {
+   this.initalData();
+  }
+
+  initalData(){
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;

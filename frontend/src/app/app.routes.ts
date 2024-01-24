@@ -16,11 +16,13 @@ import { UserGameListComponent } from './components/user-profile/user-game-list/
 import { ForbiddenPageComponent } from './components/nav/forbidden-page/forbidden-page.component';
 import { UserFavouriteGameListComponent } from './components/user-profile/user-favourite-game-list/user-favourite-game-list.component';
 import { FavUserListComponent } from './components/user-profile/fav-user-list/fav-user-list.component';
+import { TopGamesComponent } from './components/top-games/top-games.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
   {path: 'home', component: HomePageComponent},
   {path: 'games', component: GameComponent},
+  {path: 'topGames', component: TopGamesComponent},
   {path: 'games/:id', component: GameDetailComponent},
   {path: 'userProfile/:userId', component: ProfileComponent},
   {path: 'forbidden', component: ForbiddenPageComponent},
