@@ -28,7 +28,7 @@
             </div>
             <div class="label">
                 <label for="description">Description: </label>
-                <input id="description" type="text" formControlName="description" pInputText placeholder="Description">
+                <textarea pInputTextarea id="description" type="text" formControlName="description" pInputText placeholder="Description" [autoResize]="true" rows="4"></textarea>
             </div>
             <div class="error-messages" *ngIf="addGameForm.controls.description.invalid && (addGameForm.controls.description.dirty || addGameForm.controls.description.touched)"> 
                 <small *ngIf="addGameForm.controls.description.errors?.['required']">

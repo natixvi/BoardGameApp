@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { AddBoardGame } from '../models/game/addBoardGame';
 import { DuplicatedDataError } from '../exceptions/DuplicatedDataError';
 import { UpdateBoardGame } from '../models/game/updateBoardGame';
+import { GameInfo } from '../models/game/gameInfo';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,15 @@ export class GameService {
 
   getGames() : Observable<Game[]>{
     return this.http.get<Game[]>(`${this.apiUrl}/boardgame`).pipe(
+      catchError(error => {
+        console.log('Error while loading board games:' , error);
+        return this.handleError(error);
+      })
+    );
+   }
+   
+   getGamesInfo() : Observable<GameInfo[]>{
+    return this.http.get<GameInfo[]>(`${this.apiUrl}/boardgame`).pipe(
       catchError(error => {
         console.log('Error while loading board games:' , error);
         return this.handleError(error);

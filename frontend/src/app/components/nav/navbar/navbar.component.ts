@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-list',
           items: 
           [
-            {label: 'Games', routerLink: ['games']},
+            {label: 'Board Games', routerLink: ['games']},
             {label: 'Top 10', routerLink: ['topGames']}
           ],
         },
@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit {
           items: [
             { label: 'Users', icon: 'pi pi-users'},
             { label: 'User requests', icon: 'pi pi-inbox'},
-            { label: 'Board game panel', icon: 'pi pi-cog', routerLink: ['boardGameSettings',]} 
+            { label: 'Board Games', icon: 'pi pi-cog', routerLink: ['boardGameSettings',]} 
           ]
         },
         {

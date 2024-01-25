@@ -9,11 +9,12 @@ import { DuplicatedDataError } from '../../../../exceptions/DuplicatedDataError'
 import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-create-board-game',
   standalone: true,
-  imports: [CommonModule ,ReactiveFormsModule, InputTextModule, ButtonModule],
+  imports: [CommonModule ,ReactiveFormsModule, InputTextModule, ButtonModule, InputTextareaModule],
   templateUrl: './create-board-game.component.html',
   styleUrls: ['./create-board-game.component.css']
 })
