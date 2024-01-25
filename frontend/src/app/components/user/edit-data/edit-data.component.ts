@@ -24,7 +24,7 @@ export class EditDataComponent implements OnInit {
     email: ['', [Validators.email, Validators.required]]
   }, {updateOn: 'submit'})
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private messageService: MessageService){}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private messageService: MessageService){}
 
   ngOnInit(): void {
     this.getUserInfo();

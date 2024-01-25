@@ -21,7 +21,7 @@
 
 .user-info::before{
     content: "";
-    background-image: url('../../../assets/images/pionek.jpg');
+    background-image: url('../../../../assets/images/pionek.jpg');
     background-size: cover;
     position: absolute;
     background-position: center bottom;

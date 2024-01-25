@@ -5,10 +5,10 @@ import { Router, RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { AddGameToList } from '../../models/game/addGameToList';
-import { UserBoardGameService } from '../../services/user-board-game.service';
+import { AddGameToList } from '../../../models/game/addGameToList';
+import { UserBoardGameService } from '../../../services/user-board-game.service';
 import { RatingModule } from 'primeng/rating';
-import { AddGameFormService } from '../../services/add-game-form.service';
+import { AddGameFormService } from '../../../services/add-game-form.service';
 
 @Component({
   selector: 'app-game-add-form',

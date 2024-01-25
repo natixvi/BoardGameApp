@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Game } from '../../models/game/game';
+import { Game } from '../../../models/game/game';
 import { DataViewModule } from 'primeng/dataview';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
@@ -8,11 +8,11 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { GameAddFormComponent } from '../game-add-form/game-add-form.component';
-import { GameService } from '../../services/game.service';
-import { AddGameFormService } from '../../services/add-game-form.service';
-import { AuthService } from '../../services/auth.service';
+import { GameService } from '../../../services/game.service';
+import { AddGameFormService } from '../../../services/add-game-form.service';
+import { AuthService } from '../../../services/auth.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { UserBoardGameService } from '../../services/user-board-game.service';
+import { UserBoardGameService } from '../../../services/user-board-game.service';
 import { Observable } from 'rxjs';
 
 @Component({

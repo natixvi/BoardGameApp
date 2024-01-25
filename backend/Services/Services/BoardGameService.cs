@@ -94,6 +94,8 @@ public class BoardGameService : IBoardGameService
 
     public async Task<int> CreateBoardGame(AddBoardGameDto addBoardGameDto)
     {
+        var game = await gameRepository.GetBoardGameByName(addBoardGameDto.Name);
+        if (game != null) throw new DuplicateDataException("Board game with this name already exist!");
         var boardGameId = await gameRepository.CreateBoardGame(mapper.Map<BoardGame>(addBoardGameDto));
         return (boardGameId);
     }

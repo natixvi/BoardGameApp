@@ -8,6 +8,7 @@ import { NavbarComponent } from './components/nav/navbar/navbar.component';
 import { registerLocaleData } from '@angular/common';
 
 import localePl from '@angular/common/locales/pl';
+
 registerLocaleData(localePl);
 
 @Component({

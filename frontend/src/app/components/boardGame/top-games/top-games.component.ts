@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Game } from '../../models/game/game';
+import { Game } from '../../../models/game/game';
 import { Observable } from 'rxjs';
-import { GameService } from '../../services/game.service';
-import { AuthService } from '../../services/auth.service';
+import { GameService } from '../../../services/game.service';
+import { AuthService } from '../../../services/auth.service';
 import {MessageService } from 'primeng/api';
-import { UserBoardGameService } from '../../services/user-board-game.service';
-import { BadRequestError } from '../../exceptions/BadRequestError';
-import { ResourceNotFoundError } from '../../exceptions/ResourceNotFoundError';
+import { UserBoardGameService } from '../../../services/user-board-game.service';
+import { BadRequestError } from '../../../exceptions/BadRequestError';
+import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError';
 import { GameGenericComponent } from '../game-generic/game-generic.component';
 
 @Component({

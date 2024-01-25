@@ -12,7 +12,7 @@ import { UserBoardGameService } from '../../../services/user-board-game.service'
 import { RatingModule } from 'primeng/rating';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
-import { GameAddFormComponent } from "../../game-add-form/game-add-form.component";
+import { GameAddFormComponent } from "../game-add-form/game-add-form.component";
 import { AddGameFormService } from '../../../services/add-game-form.service';
 import { UserGameDetails } from '../../../models/userGame/userGameDetails';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';

@@ -8,7 +8,7 @@ public interface IBoardGameService
     Task<List<BoardGameDto>?> GetBoardGames();
     Task<BoardGameDetailsDto> GetBoardGameById(int id);
     Task<List<BoardGameDto>?> GetTopGames(int numberOfTopGames);
-    Task UpdateBoardGame(int id, UpdateBoardGameDto updateBoardGameDto);
-    Task DeleteBoardGame(int id);
+    Task UpdateBoardGame(int gameId, UpdateBoardGameDto updateBoardGameDto);
+    Task DeleteBoardGame(int gameId);
     Task<int> CreateBoardGame(AddBoardGameDto addBoardGameDto);
 }

@@ -28,12 +28,10 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
       let isAdmin;  
-      console.error(isAdmin)
       if(this.isLoggedIn){
           this.loggedInUserId = this.authService.getParsedToken().Id.toString();
           let userRole = this.authService.getParsedToken().role.toString();
           isAdmin = userRole === "Admin"
-          console.error(isAdmin)
       }
       this.items = [
         {
@@ -57,7 +55,7 @@ export class NavbarComponent implements OnInit {
           items: [
             { label: 'Users', icon: 'pi pi-users'},
             { label: 'User requests', icon: 'pi pi-inbox'},
-            { label: 'Board game panel', icon: 'pi pi-cog'} 
+            { label: 'Board game panel', icon: 'pi pi-cog', routerLink: ['boardGameSettings',]} 
           ]
         },
         {
