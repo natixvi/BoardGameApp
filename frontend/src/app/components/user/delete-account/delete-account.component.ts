@@ -21,7 +21,7 @@ export class DeleteAccountComponent {
     this.confirmationService.confirm({
       message: "Are you sure you want to delete your account permamently?",
       header: "Delete confirmation",
-      icon: 'pi pi-info-circle',
+      icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.userService.deleteAccount().subscribe({
           next: () => {

@@ -60,8 +60,8 @@
                 <td>{{ game.time }}</td>
                 <td>{{ game.age }}</td>    
                 <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="showEditGameDialog(game)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteGame(game.id)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -71,22 +71,200 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Add Board Game" [modal]="true" styleClass="p-fluid">
-  <ng-template pTemplate="content">
-      <!-- <img [src]="game.imageUrl" [alt]="game.name" class="block m-auto pb-3" *ngIf="game.imageUrl" />
-      <div class="field">
-          <label for="name">Name</label>
-          <input type="text" pInputText id="name" [(ngModel)]="game.name" required autofocus />
-          <small class="p-error" *ngIf="submitted && !game.name">Name is required.</small>
-      </div>
-      <div class="field">
-          <label for="description">Description</label>
-          <textarea id="description" pInputTextarea [(ngModel)]="game.description" required rows="3" cols="20"></textarea>
-      </div> -->
-  </ng-template>
-
-  <ng-template pTemplate="footer">
-      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-      <button pButton pRipple label="Add" icon="pi pi-check" class="p-button-text" (click)="addGame()"></button>
-  </ng-template>
-</p-dialog>
+<p-dialog [(visible)]="editGameDialog" [style]="{ width: '450px' }" header="Edit Board Game" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="editGameForm">
+            <div class="label">
+                <label for="name">Name: </label>
+                <input id="name" type="text" formControlName="name" pInputText placeholder="Name">
+            </div>
+            <div class="error-messages" *ngIf="editGameForm.controls.name.invalid && (editGameForm.controls.name.dirty || editGameForm.controls.name.touched)"> 
+                <small *ngIf="editGameForm.controls.name.errors?.['maxlength']">
+                    Name must be at most 255 characters.
+                </small>
+                <small *ngIf="editGameForm.controls.name.errors?.['required']">
+                    Name is required.
+                </small>
+            </div>
+            <div class="label">
+                <label for="publisher">Publisher: </label>
+                <input id="publisher" type="text" formControlName="publisher" pInputText placeholder="Publisher">
+            </div>
+            <div class="error-messages" *ngIf="editGameForm.controls.publisher.invalid && (editGameForm.controls.publisher.dirty || editGameForm.controls.publisher.touched)"> 
+                <small *ngIf="editGameForm.controls.publisher.errors?.['maxlength']">
+                    Publisher must be at most 255 characters.
+                </small>
+                <small *ngIf="editGameForm.controls.publisher.errors?.['required']">
+                    Publisher is required.
+                </small>
+            </div>
+            <div class="label">
+                <label for="description">Description: </label>
+                <textarea pInputTextarea id="description" type="text" formControlName="description" pInputText placeholder="Description" [autoResize]="true" rows="4"></textarea>
+            </div>
+            <div class="error-messages" *ngIf="editGameForm.controls.description.invalid && (editGameForm.controls.description.dirty || editGameForm.controls.description.touched)"> 
+                <small *ngIf="editGameForm.controls.description.errors?.['required']">
+                    Description is required.
+                </small>
+            </div>
+            <div class="label">
+                <label for="players">Players: </label>
+                <input id="players" type="text" formControlName="players" pInputText placeholder="Players (eg. 1-4)">
+            </div>
+            <div class="error-messages" *ngIf="editGameForm.controls.players.invalid && (editGameForm.controls.players.dirty || editGameForm.controls.players.touched)"> 
+                <small *ngIf="editGameForm.controls.players.errors?.['maxlength']">
+                    Players must be at most 10 characters.
+                </small>
+                <small *ngIf="editGameForm.controls.players.errors?.['pattern']">
+                    Players must be at correct format (eg. 1-4).
+                </small>
+                <small *ngIf="editGameForm.controls.players.errors?.['required']">
+                    Players is required.
+                </small>
+            </div>
+            <div class="label">
+                <label for="time">Time: </label>
+                <input id="time" type="text" formControlName="time" pInputText placeholder="Time (eg. 40-120 Min)">
+            </div>
+            <div class="error-messages" *ngIf="editGameForm.controls.time.invalid && (editGameForm.controls.time.dirty || editGameForm.controls.time.touched)"> 
+                <small *ngIf="editGameForm.controls.time.errors?.['maxlength']">
+                    Time must be at most 10 characters.
+                </small>
+                <small *ngIf="editGameForm.controls.time.errors?.['pattern']">
+                    Time must be at correct format (eg. 40-120 Min).
+                </small>
+                <small *ngIf="editGameForm.controls.time.errors?.['required']">
+                    Time is required.
+                </small>
+            </div>
+            <div class="label">
+                <label for="age">Age: </label>
+                <input id="age" type="text" formControlName="age" pInputText placeholder="Age (eg. 15)">
+            </div>
+            <div class="error-messages" *ngIf="editGameForm.controls.age.invalid && (editGameForm.controls.age.dirty || editGameForm.controls.age.touched)"> 
+                <small *ngIf="editGameForm.controls.age.errors?.['maxlength']">
+                    Age must be at most 3 characters.
+                </small>
+                <small *ngIf="editGameForm.controls.age.errors?.['pattern']">
+                    Age must be at correct format (eg. 15).
+                </small>
+                <small *ngIf="editGameForm.controls.age.errors?.['required']">
+                    Age is required.
+                </small>
+            </div>
+            <div class="label">
+                <label for="imageUrl">Image url: </label>
+                <input id="imageUrl" type="text" formControlName="imageUrl" pInputText placeholder="Image url">
+            </div>
+            <div class="error-messages" *ngIf="editGameForm.controls.imageUrl.invalid && (editGameForm.controls.imageUrl.dirty || editGameForm.controls.imageUrl.touched)"> 
+                <small *ngIf="editGameForm.controls.imageUrl.errors?.['required']">
+                    Image url is required.
+                </small>
+            </div>
+            
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideEditDialog()"></button>
+        <button pButton pRipple label="Edit" icon="pi pi-check" class="p-button-text" (click)="editGame()"></button>
+    </ng-template>
+  </p-dialog>
+  
+  <p-dialog [(visible)]="addGameDialog" [style]="{ width: '450px' }" header="Add Board Game" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+      <form [formGroup]="addGameForm">
+          <div class="label">
+              <label for="name">Name: </label>
+              <input id="name" type="text" formControlName="name" pInputText placeholder="Name">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.name.invalid && (addGameForm.controls.name.dirty || addGameForm.controls.name.touched)"> 
+              <small *ngIf="addGameForm.controls.name.errors?.['maxlength']">
+                  Name must be at most 255 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.name.errors?.['required']">
+                  Name is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="publisher">Publisher: </label>
+              <input id="publisher" type="text" formControlName="publisher" pInputText placeholder="Publisher">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.publisher.invalid && (addGameForm.controls.publisher.dirty || addGameForm.controls.publisher.touched)"> 
+              <small *ngIf="addGameForm.controls.publisher.errors?.['maxlength']">
+                  Publisher must be at most 255 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.publisher.errors?.['required']">
+                  Publisher is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="description">Description: </label>
+              <textarea pInputTextarea id="description" type="text" formControlName="description" pInputText placeholder="Description" [autoResize]="true" rows="4"></textarea>
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.description.invalid && (addGameForm.controls.description.dirty || addGameForm.controls.description.touched)"> 
+              <small *ngIf="addGameForm.controls.description.errors?.['required']">
+                  Description is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="players">Players: </label>
+              <input id="players" type="text" formControlName="players" pInputText placeholder="Players (eg. 1-4)">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.players.invalid && (addGameForm.controls.players.dirty || addGameForm.controls.players.touched)"> 
+              <small *ngIf="addGameForm.controls.players.errors?.['maxlength']">
+                  Players must be at most 10 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.players.errors?.['pattern']">
+                  Players must be at correct format (eg. 1-4).
+              </small>
+              <small *ngIf="addGameForm.controls.players.errors?.['required']">
+                  Players is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="time">Time: </label>
+              <input id="time" type="text" formControlName="time" pInputText placeholder="Time (eg. 40-120 Min)">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.time.invalid && (addGameForm.controls.time.dirty || addGameForm.controls.time.touched)"> 
+              <small *ngIf="addGameForm.controls.time.errors?.['maxlength']">
+                  Time must be at most 10 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.time.errors?.['pattern']">
+                  Time must be at correct format (eg. 40-120 Min).
+              </small>
+              <small *ngIf="addGameForm.controls.time.errors?.['required']">
+                  Time is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="age">Age: </label>
+              <input id="age" type="text" formControlName="age" pInputText placeholder="Age (eg. 15)">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.age.invalid && (addGameForm.controls.age.dirty || addGameForm.controls.age.touched)"> 
+              <small *ngIf="addGameForm.controls.age.errors?.['maxlength']">
+                  Age must be at most 3 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.age.errors?.['pattern']">
+                  Age must be at correct format (eg. 15).
+              </small>
+              <small *ngIf="addGameForm.controls.age.errors?.['required']">
+                  Age is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="imageUrl">Image url: </label>
+              <input id="imageUrl" type="text" formControlName="imageUrl" pInputText placeholder="Image url">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.imageUrl.invalid && (addGameForm.controls.imageUrl.dirty || addGameForm.controls.imageUrl.touched)"> 
+              <small *ngIf="addGameForm.controls.imageUrl.errors?.['required']">
+                  Image url is required.
+              </small>
+          </div>
+          
+      </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideAddDialog()"></button>
+        <button pButton pRipple label="Add" icon="pi pi-check" class="p-button-text" (click)="addGame()" [disabled]="editGameForm.invalid"></button>
+    </ng-template>
+  </p-dialog>

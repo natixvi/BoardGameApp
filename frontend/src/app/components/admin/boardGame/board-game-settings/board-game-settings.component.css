@@ -5,3 +5,13 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+::ng-deep .p-dialog{
+    max-height: 80%;
+}
+
+@media screen and (max-width: 500px) {
+    ::ng-deep .p-dialog{
+        width: 90% !important;
+    }
+}

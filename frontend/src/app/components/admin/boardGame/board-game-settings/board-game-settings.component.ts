@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { GameService } from '../../../../services/game.service';
 import { Game } from '../../../../models/game/game';
@@ -15,11 +15,14 @@ import { GameInfo } from '../../../../models/game/gameInfo';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { AddBoardGame } from '../../../../models/game/addBoardGame';
+import { CreateBoardGameComponent } from '../create-board-game/create-board-game.component';
+import { DuplicatedDataError } from '../../../../exceptions/DuplicatedDataError';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-board-game-settings',
   standalone: true,
-  imports: [CommonModule, SelectButtonModule, FormsModule, TableModule, ToolbarModule, ButtonModule, RippleModule, InputTextModule, DialogModule],
+  imports: [CommonModule, SelectButtonModule,ReactiveFormsModule, FormsModule, InputTextareaModule, TableModule, ToolbarModule, ButtonModule, RippleModule, InputTextModule, DialogModule, CreateBoardGameComponent],
   templateUrl: './board-game-settings.component.html',
   styleUrls: ['./board-game-settings.component.css']
 })
@@ -28,12 +31,32 @@ export class BoardGameSettingsComponent implements OnInit{
   games: GameInfo[] = [];
   router = inject(Router);
   selectedGames!: GameInfo[] | null;
-  productDialog: boolean = false;
-  game!: AddBoardGame;
-  submitted: boolean = false;
+  addGameDialog: boolean = false;
+  editGameDialog: boolean = false;
+  addSubmitted: boolean = false;
+  editSubmitted: boolean = false;
 
+  addGameForm = this.fb.group({
+    name: ['', [Validators.required, Validators.maxLength(255)]],
+    publisher: ['', [Validators.required, Validators.maxLength(255)]],
+    description: ['', Validators.required],
+    players: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+$/)]],
+    time: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+ Min$/)]],
+    age: ['', [Validators.required, Validators.maxLength(3), Validators.pattern(/^\d+$/)]],
+    imageUrl: ['', [Validators.required]]
+  });
 
-  constructor(private gameService : GameService, private messageService : MessageService, private confirmationService: ConfirmationService){}
+  editGameForm = this.fb.group({
+    name: ['', [Validators.required, Validators.maxLength(255)]],
+    publisher: ['', [Validators.required, Validators.maxLength(255)]],
+    description: ['', Validators.required],
+    players: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+$/)]],
+    time: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+ Min$/)]],
+    age: [0, [Validators.required, Validators.maxLength(3), Validators.pattern(/^\d+$/)]],
+    imageUrl: ['', [Validators.required]]
+  });
+
+  constructor(private fb: FormBuilder, private gameService : GameService, private messageService : MessageService, private confirmationService: ConfirmationService){}
 
   ngOnInit(): void {
     this.initialData();
@@ -54,51 +77,94 @@ export class BoardGameSettingsComponent implements OnInit{
   }
 
   openNew() {
-    this.game = {
-      name: '',
-      publisher: '',
-      description: '',
-      players : '',
-      time  : '',
-      age : '',
-      imageUrl : ''  
-    };
-    this.submitted = false;
-    this.productDialog = true;
+    this.addSubmitted = false;
+    this.addGameDialog = true;
   }
 
-  
-  hideDialog() {
-    this.productDialog = false;
-    this.submitted = false;
+  hideAddDialog() {
+    this.addGameDialog = false;
+    this.addSubmitted = false;
+    this.addGameForm.reset();
   }
 
   addGame() {
-    this.submitted = true;
-    this.productDialog = false;
-    this.game = {
-        name: '',
-        publisher: '',
-        description: '',
-        players : '',
-        time  : '',
-        age : '',
-        imageUrl : ''  
-    };
+    this.addSubmitted = true;
+    this.addGameDialog = false;
+    if (this.addGameForm.invalid) {
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Incorrect added board game data!'});
+      return; 
+    }
+    const addBoardGameData = {
+      name: this.addGameForm.get('name')?.value,
+      publisher: this.addGameForm.get('publisher')?.value,
+      description: this.addGameForm.get('description')?.value,
+      players: this.addGameForm.get('players')?.value,
+      time: this.addGameForm.get('time')?.value,
+      age: this.addGameForm.get('age')?.value,
+      imageUrl: this.addGameForm.get('imageUrl')?.value,
+    } as AddBoardGame
+
+    this.gameService.addGame(addBoardGameData).subscribe({
+      next: () => {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Board game added!' })
+        this.initialData();
+        this.addGameForm.reset();
+      },
+      error: (e) => {
+        if (e instanceof BadRequestError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else if(e instanceof DuplicatedDataError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+      }
+    })
   }
 
+  showEditGameDialog(game: GameInfo){
+    this.editSubmitted = false;
+    
+    this.editGameForm.controls['name'].setValue(game.name),
+    this.editGameForm.controls['publisher'].setValue(game.publisher),
+    this.editGameForm.controls['description'].setValue(game.description),
+    this.editGameForm.controls['players'].setValue(game.players),
+    this.editGameForm.controls['time'].setValue(game.time),
+    this.editGameForm.controls['age'].setValue(game.age),
+    this.editGameForm.controls['imageUrl'].setValue(game.imageUrl),
+    this.editGameDialog = true;
+  }
+   
+  hideEditDialog() {
+    this.editGameDialog = false;
+    this.editSubmitted = false;
+  }
 
-// deleteSelectedProducts() {
-//   this.confirmationService.confirm({
-//       message: 'Are you sure you want to delete the selected products?',
-//       header: 'Confirm',
-//       icon: 'pi pi-exclamation-triangle',
-//       accept: () => {
-//           this.games = this.games.filter((val) => !this.selectedGames?.includes(val));
-//           this.selectedGames = null;
-//           this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Board Games Deleted', life: 3000 });
-//       }
-//   });
-// }
+  editGame() {
+    this.editGameDialog = true;
+    this.addGameDialog = false;
+  }
 
+  deleteGame(gameId : number){
+    this.confirmationService.confirm({
+      message: "Are you sure you want to delete selected board game?",
+      header: "Delete confirmation",
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.gameService.deleteGame(gameId).subscribe({
+          next: () => {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Board game deleted!' });
+            this.initialData();
+          },
+          error: (e) => {
+            console.error(e);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server connection error'});
+          }
+        })        
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Board game delete canceled.' });
+      }
+    })
+  }
 }
