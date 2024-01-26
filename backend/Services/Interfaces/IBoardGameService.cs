@@ -11,4 +11,5 @@ public interface IBoardGameService
     Task UpdateBoardGame(int gameId, UpdateBoardGameDto updateBoardGameDto);
     Task DeleteBoardGame(int gameId);
     Task<int> CreateBoardGame(AddBoardGameDto addBoardGameDto);
+    Task DeleteBoardGames(List<int> ids);
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError';
@@ -27,17 +27,15 @@ export class UserGameListComponent implements OnInit{
   router = inject(Router);
 
   constructor(private route: ActivatedRoute, private messageService : MessageService, private authService: AuthService, private userService: UserService){
-    this.route.params.subscribe({
-      next: (param) => {
-        this.userId = Number(param['userId']);
-        this.initialData();
-      }
-    })
   }
 
   ngOnInit(): void {
-    this.initialData()
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.userId = Number(params.get('userId'))
+      this.initialData()
+    })
   }
+
   initialData(){
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {

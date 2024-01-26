@@ -40,22 +40,22 @@ export class NavbarComponent implements OnInit {
           routerLink: ['home'],
         },
         {
-          label: 'Games',
+          label: 'Board games',
           icon: 'pi pi-list',
           items: 
           [
-            {label: 'Board Games', routerLink: ['games']},
+            {label: 'All', routerLink: ['games']},
             {label: 'Top 10', routerLink: ['topGames']}
           ],
         },
         { 
-          label: 'Admin Panel', 
+          label: 'Admin', 
           icon: 'pi pi-user-edit', 
           visible: isAdmin === true,
           items: [
             { label: 'Users', icon: 'pi pi-users'},
             { label: 'User requests', icon: 'pi pi-inbox'},
-            { label: 'Board Games', icon: 'pi pi-cog', routerLink: ['boardGameSettings',]} 
+            { label: 'Board games', icon: 'pi pi-cog', routerLink: ['boardGameSettings',]} 
           ]
         },
         {
@@ -64,7 +64,6 @@ export class NavbarComponent implements OnInit {
           visible: isLoggedIn,
           items: [
             { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
-            // { label: 'Profile', icon: 'pi pi-user', command: () => this.userProfile()},
             { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
             { label: 'Edit profile', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
             { separator: true, visible: isLoggedIn },
@@ -77,11 +76,6 @@ export class NavbarComponent implements OnInit {
     });
   }
   
-  // userProfile(){
-  //   this.router.navigate(['/userProfile', this.loggedInUserId]).then( () => 
-  //   window.location.reload())
-  // }
-
   logout(){
     this.confirmationService.confirm({
       message: 'Are you sure you want to log out?',

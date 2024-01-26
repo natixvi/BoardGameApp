@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router, RouterModule } from '@angular/router';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { Observable, Subscription, map, switchMap } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { UserInfo } from '../../../models/user/userInfo';
@@ -15,11 +15,13 @@ import { FavUserService } from '../../../services/fav-user.service';
 import { TooltipModule } from "primeng/tooltip"; 
 import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 import { TableModule } from 'primeng/table';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ButtonModule, RouterModule, TooltipModule, TableModule],
+  imports: [CommonModule, ButtonModule, RouterModule, TooltipModule, TableModule, AvatarModule, AvatarGroupModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
   providers: []
@@ -39,17 +41,13 @@ export class ProfileComponent {
   isUserInFavList: boolean | undefined;
   userSub: Subscription | undefined;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private confirmationService: ConfirmationService, private authService: AuthService, private messageService : MessageService, private favUserService: FavUserService){
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-  }
+  constructor(private route: ActivatedRoute, private userService: UserService, private confirmationService: ConfirmationService, private authService: AuthService, private messageService : MessageService, private favUserService: FavUserService){}
   
   ngOnInit(): void {  
-    this.route.params.subscribe({
-      next: (param) => {
-        this.userId = Number(param['userId']);
-      }
-    }) 
-    this.initalData();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.userId = Number(params.get('userId'))
+      this.initalData()
+    })
   }
 
   initalData(){
@@ -59,9 +57,10 @@ export class ProfileComponent {
       if(this.isLoggedIn){
         this.loggedInUserId = Number(this.authService.getParsedToken().Id);
         if(this.loggedInUserId === this.userId){
-          this.isLoggedInUserProfile = true;
-        }
+          this.isLoggedInUserProfile = true;  
+        } 
         else{
+          this.isLoggedInUserProfile = false;
           this.favUserService.isUserInFavUserList(this.userId).subscribe({
             next: (data : boolean) => {
               this.isUserInFavList = data;

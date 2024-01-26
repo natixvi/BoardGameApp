@@ -47,7 +47,7 @@
   background: #034c8b !important;
 }
 .p-menuitem-link {
-  font-size: 18px !important;
+  font-size: 17px !important;
 }
 
 @media screen and (max-width: 960px){
@@ -59,7 +59,6 @@
   }
 
 }
-
 
 .board-game-title {
   color: #ffffff;
@@ -80,7 +79,7 @@
 
 .p-menuitem-text {
   color: #ffffff;
-  padding: 8px 16px;
+  padding: 8px 8px;
 }
 
 .p-menuitem-icon {

@@ -71,7 +71,7 @@ export class BoardGameSettingsComponent implements OnInit{
         if (e instanceof BadRequestError){
           this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
         }
-        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error! " + e.message})
+        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error! "})
       }
       })
   }
@@ -192,4 +192,32 @@ export class BoardGameSettingsComponent implements OnInit{
       }
     })
   }
+
+  deleteSelectedGames(){
+    if(this.selectedGames !== null){
+      const selectedIds = this.selectedGames.map(game => game.id);
+      this.confirmationService.confirm({
+        message: 'Are you sure you want to delete the selected products?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.gameService.deleteSelectedGames(selectedIds).subscribe({
+            next: () => {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Board games deleted!' });
+              this.selectedGames = null;
+              this.initialData();
+            },
+            error: (e) => {
+              console.error(e);
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Server connection error'});
+            }
+          })        
+        },
+        reject: () => {
+          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Board games delete canceled.' });
+        }
+      });
+    }
+  }
+
 }

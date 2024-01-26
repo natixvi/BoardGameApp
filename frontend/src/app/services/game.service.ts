@@ -89,6 +89,21 @@ export class GameService {
     )
   }
 
+  deleteSelectedGames(ids: number[]): Observable<any>{
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: ids,
+    };
+    return this.http.delete<any>(`${this.apiUrl}/boardgame/delete`, options).pipe(
+      catchError(error => {
+        console.log('Error while delete board games:' , error);
+        return this.handleError(error);
+      })
+    )
+  }
+
   private handleError(error: HttpErrorResponse): Observable<any>{
     if (error.status === 401) {
       return throwError(() => new UnauthorizedError(error.error));

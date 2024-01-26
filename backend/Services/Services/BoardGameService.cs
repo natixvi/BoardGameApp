@@ -99,4 +99,14 @@ public class BoardGameService : IBoardGameService
         var boardGameId = await gameRepository.CreateBoardGame(mapper.Map<BoardGame>(addBoardGameDto));
         return (boardGameId);
     }
+
+    public async Task DeleteBoardGames(List<int> ids)
+    {
+        foreach (int id in ids)
+        {
+            var boardGame = await gameRepository.GetBoardGameById(id);
+            if (boardGame == null) throw new NotFoundException("Board game not found!");
+            await gameRepository.Delete(boardGame);
+        }
+    }
 }

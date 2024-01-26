@@ -62,5 +62,13 @@ public class BoardGameController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("delete")]
+    public async Task<IActionResult> DeleteBoardGames([FromQuery] List<int> idList)
+    {
+        await gameService.DeleteBoardGames(idList);
+        return NoContent();
+    }
+
 }
 
