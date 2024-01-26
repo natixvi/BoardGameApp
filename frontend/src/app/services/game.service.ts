@@ -90,13 +90,11 @@ export class GameService {
   }
 
   deleteSelectedGames(ids: number[]): Observable<any>{
-    const options = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: ids,
-    };
-    return this.http.delete<any>(`${this.apiUrl}/boardgame/delete`, options).pipe(
+    let params = new HttpParams()
+    ids.forEach(id => {
+      params = params.append('ids', id.toString());
+    });
+    return this.http.delete<any>(`${this.apiUrl}/boardgame/delete`, {params}).pipe(
       catchError(error => {
         console.log('Error while delete board games:' , error);
         return this.handleError(error);

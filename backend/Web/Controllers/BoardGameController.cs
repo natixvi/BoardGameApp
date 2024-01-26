@@ -64,9 +64,13 @@ public class BoardGameController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpDelete("delete")]
-    public async Task<IActionResult> DeleteBoardGames([FromQuery] List<int> idList)
+    public async Task<IActionResult> DeleteBoardGames([FromQuery] IEnumerable<int> ids)
     {
-        await gameService.DeleteBoardGames(idList);
+        foreach(int id in ids)
+        {
+            Console.WriteLine(id);
+        }
+        await gameService.DeleteBoardGames(ids);
         return NoContent();
     }
 

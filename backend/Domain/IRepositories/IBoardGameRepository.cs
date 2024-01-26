@@ -7,4 +7,5 @@ public interface IBoardGameRepository : IBaseRepository<BoardGame>
     Task<BoardGame?> GetBoardGameById(int id);
     Task<int> CreateBoardGame(BoardGame game);
     Task<BoardGame?> GetBoardGameByName(string name);
+    Task DeleteBoardGames(IEnumerable<int> gameIds);
 }

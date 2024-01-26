@@ -36,4 +36,11 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
         var game = await appDbContext.BoardGames.FirstOrDefaultAsync(g => g.Name == name);
         return game;
     }
+
+    public async Task DeleteBoardGames(IEnumerable<int> gameIds) { 
+        var gamesToDelete =  await appDbContext.BoardGames.Where(g => gameIds.Contains(g.Id)).ToListAsync();
+        appDbContext.BoardGames.RemoveRange(gamesToDelete);
+        await appDbContext.SaveChangesAsync();
+    }
+
 }

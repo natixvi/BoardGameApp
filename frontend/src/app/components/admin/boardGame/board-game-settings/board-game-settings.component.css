@@ -10,6 +10,12 @@
     max-height: 80%;
 }
 
+form div{
+    margin-bottom: 10px;
+}
+input{
+    margin-top: 5px;
+}
 @media screen and (max-width: 500px) {
     ::ng-deep .p-dialog{
         width: 90% !important;

@@ -100,13 +100,16 @@ public class BoardGameService : IBoardGameService
         return (boardGameId);
     }
 
-    public async Task DeleteBoardGames(List<int> ids)
+    public async Task DeleteBoardGames(IEnumerable<int> ids)
     {
-        foreach (int id in ids)
+        if(ids == null) throw new BadRequestException("You didn't add games to delete!");
+        await gameRepository.DeleteBoardGames(ids);
+        /*var deletedGame = await */
+       /* foreach (int id in ids)
         {
             var boardGame = await gameRepository.GetBoardGameById(id);
             if (boardGame == null) throw new NotFoundException("Board game not found!");
             await gameRepository.Delete(boardGame);
-        }
+        }*/
     }
 }
