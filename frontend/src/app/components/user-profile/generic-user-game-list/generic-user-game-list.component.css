@@ -1,4 +1,5 @@
 .cont{
+    padding: 2rem;
     min-width: 300px;
     max-width: 1550px;
     margin-left: auto;
@@ -6,7 +7,6 @@
 
 }
 .data-box{
-    padding: 0 2rem 2rem 2rem;
     height: 100%;
     width: 100%;
 }
@@ -24,48 +24,21 @@
     z-index: 999;
 }
 
-.user-info{
-    padding: 15px 10px 15px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0 10px 0;
-    border-bottom: 2px solid #dfdede; 
-    border-top: 2px solid #dfdede;
-    align-items: center;
-    position: relative; 
-    height: 100px;
-}
-
-.user-info::before{
-    content: "";
-    background-image: url('../../../../assets/images/pionek.jpg');
-    background-size: cover;
-    position: absolute;
-    background-position: center bottom;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.3;
-}
-
 .user-name{
-    font-size: large;
     padding: 10px;
-    position: relative;
+    font-size: large;
     font-weight: bolder;
+    margin-right: 20px;
 }
 .user{
     cursor: pointer;
 }
 
 .fav-game-link span{
-    cursor: pointer;
     font-size: large;
-    position: relative;
+    padding: 10px;
     font-weight: bolder;
-    padding-right: 10px;
+    cursor: pointer;
 }
 
 .nofav{
@@ -102,8 +75,9 @@ i{
 }
 
 .header{
-    font-weight: bold;
-    color: #3c3c3d;
+    font-weight: bolder;
+    font-size: x-large;
+    color: rgb(49, 49, 49);
 }
 
 .header-add-form{
@@ -178,19 +152,6 @@ input::placeholder {
 
 .header-add-form .right{
     cursor: pointer;
-}
-.user-info div{
-    align-self: center;
-}
-
-.header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bolder;
-    font-size: x-large;
-    position: relative;
-    color: rgb(49, 49, 49);
 }
 
 .game-grid-item {
@@ -283,7 +244,13 @@ input::placeholder {
     }
 
 }
-
+@media screen and (max-width: 1000px){
+    ::ng-deep .p-toolbar{
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+     }
+}
 @media screen and (max-width: 767px) {
     .image-box{
         width: 50%;
@@ -293,10 +260,6 @@ input::placeholder {
     .game-grid-detail .image-box img{
         width: 80%;
     }
-     .user-info{
-        flex-direction: column;
-        height: auto;
-     }
 
      .header{
         margin-bottom: 10px;
@@ -331,8 +294,4 @@ input::placeholder {
         width: 80%;
     }
 
-    .user-info{
-        flex-direction: column;
-    }
-   
 }

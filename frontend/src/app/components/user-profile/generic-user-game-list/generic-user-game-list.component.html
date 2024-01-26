@@ -1,10 +1,16 @@
 <div class="cont">
     <div class="data-box">
-        <div class="user-info">
-            <div class="user-name">User: <span pTooltip="Go back to user profile" [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
-            <div class="header"> {{ header }}</div>
-            <div class="fav-game-link"><span (click)="triggerCallback()">{{buttonName}}</span></div>
-        </div>
+        <p-toolbar styleClass="mb-4 gap-2">
+            <ng-template pTemplate="left">
+                <div class="user-name">User: <span pTooltip="Go back to user profile" [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
+            </ng-template>
+            <ng-template pTemplate="center">
+              <h3 class="m-0 header">{{header}}</h3>
+            </ng-template>
+            <ng-template pTemplate="right">
+                <div class="fav-game-link"><span (click)="triggerCallback()">{{buttonName}}</span></div>
+            </ng-template>
+        </p-toolbar>
         <p-dataView #dv [value]="userInfo.userBoardGames"  [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 15, 100]" layout="grid" filterBy="name">
             <ng-template pTemplate="header">
                 <div class="flex flex-col md:flex-row justify-content-between">

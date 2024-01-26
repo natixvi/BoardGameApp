@@ -1,9 +1,15 @@
 <div class="data-box">  
-    <div class="user-info">
-        <div style="width: 100px;"></div>
-        <div class="header"> TOP 10 GAMES </div>
-        <div class="link"><span [routerLink]="['/games']">Return to all games</span></div>
-    </div>
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <div style="width: 200px;"></div>
+        </ng-template>
+        <ng-template pTemplate="center">
+          <h3 class="m-0 header">TOP 10 GAMES</h3>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <div class="link"><span [routerLink]="['/games']">Return to all games</span></div>
+        </ng-template>
+    </p-toolbar> 
     <app-game-generic
     (changeInDataEvent)="onChangeGameEvent($event)"
     [games]="topGames">

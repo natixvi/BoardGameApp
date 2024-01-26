@@ -1,10 +1,16 @@
 <div class="cont">
     <div class="data-box">
-        <div class="user-info">
-            <div class="user-name">User: <span pTooltip="Go back to user profile"  [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
-            <div class="header"> USER FRIENDS </div>
-            <div style="width: 100px;"></div>
-        </div>
+        <p-toolbar styleClass="mb-4 gap-2">
+            <ng-template pTemplate="left">
+                <div class="user-name">User: <span pTooltip="Go back to user profile"  [routerLink]="['/userProfile', userInfo.id]" class="user">{{userInfo.nickName}}</span> </div>
+            </ng-template>
+            <ng-template pTemplate="center">
+              <h3 class="m-0 header"> USER FRIENDS </h3>
+            </ng-template>
+            <ng-template pTemplate="right">
+                <div style="width: 100px;"></div>
+            </ng-template>
+        </p-toolbar> 
         <ng-container *ngIf="userInfo.favouriteUsers.length > 0 ; else emptyList" >
             <p-table [value]="userInfo.favouriteUsers" [tableStyle]="{ 'min-width': '10rem' }">
                 <ng-template pTemplate="header">

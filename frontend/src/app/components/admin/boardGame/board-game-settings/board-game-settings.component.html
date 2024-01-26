@@ -160,13 +160,12 @@
                 <small *ngIf="editGameForm.controls.imageUrl.errors?.['required']">
                     Image url is required.
                 </small>
-            </div>
-            
+            </div>   
         </form>
     </ng-template>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideEditDialog()"></button>
-        <button pButton pRipple label="Edit" icon="pi pi-check" class="p-button-text" (click)="editGame()"></button>
+        <button pButton pRipple label="Edit" icon="pi pi-check" class="p-button-text" (click)="editGame()" [disabled]="editGameForm.invalid"></button>
     </ng-template>
   </p-dialog>
   
@@ -265,6 +264,8 @@
     </ng-template>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideAddDialog()"></button>
-        <button pButton pRipple label="Add" icon="pi pi-check" class="p-button-text" (click)="addGame()" [disabled]="editGameForm.invalid"></button>
+        <button pButton pRipple label="Add" icon="pi pi-check" class="p-button-text" (click)="addGame()" [disabled]="addGameForm.invalid"></button>
     </ng-template>
   </p-dialog>
+
+ 

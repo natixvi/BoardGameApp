@@ -4,16 +4,18 @@ import { Game } from '../../../models/game/game';
 import { Observable } from 'rxjs';
 import { GameService } from '../../../services/game.service';
 import { AuthService } from '../../../services/auth.service';
-import {MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError';
 import { GameGenericComponent } from '../game-generic/game-generic.component';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
   selector: 'app-top-games',
   standalone: true,
-  imports: [ RouterModule, GameGenericComponent],
+  imports: [RouterModule, GameGenericComponent, ToolbarModule, RatingModule],
   templateUrl: './top-games.component.html',
   styleUrls: ['./top-games.component.css']
 })

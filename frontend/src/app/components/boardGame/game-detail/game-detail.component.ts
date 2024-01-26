@@ -73,7 +73,6 @@ export class GameDetailComponent implements OnInit {
       this.isLoggedIn = isLoggedIn;
       if(this.isLoggedIn){
           this.userId = this.authService.getParsedToken().Id;
-          console.error(this.userId )
       }
       this.getGameDetails(this.isLoggedIn).pipe(
         switchMap((gameDetails: GameDetails) => 

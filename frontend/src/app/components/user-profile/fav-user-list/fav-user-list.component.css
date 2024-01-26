@@ -1,4 +1,5 @@
 .cont{
+    padding: 2rem;
     min-width: 300px;
     max-width: 1550px;
     margin-left: auto;
@@ -6,44 +7,13 @@
 
 }
 .data-box{
-    padding: 0 2rem 2rem 2rem;
     height: 100%;
     width: 100%;
 }
 
-.user-info{
-    padding: 15px 10px 15px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0 20px 0;
-    border-bottom: 2px solid #dfdede; 
-    border-top: 2px solid #dfdede;
-    position: relative; 
-    height: 100px;
-    width: 100%;
-}
-
-.user-info::before{
-    content: "";
-    background-image: url('../../../../assets/images/pionek.jpg');
-    background-size: cover;
-    position: absolute;
-    background-position: center bottom;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.3;
-}
-
 .header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-weight: bolder;
     font-size: x-large;
-    position: relative;
     color: rgb(49, 49, 49);
 }
 
@@ -68,6 +38,15 @@
     justify-content: space-between;
     padding: 5px;
 }
+
+@media screen and (max-width: 767px) {
+    ::ng-deep .p-toolbar{
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+     }
+}
+
 @media screen and (max-width: 500px) {
    
     .user-info{

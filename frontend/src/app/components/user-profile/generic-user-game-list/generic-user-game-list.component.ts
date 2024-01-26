@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -12,11 +12,12 @@ import { UserInfo } from '../../../models/user/userInfo';
 import { UserBoardGame } from '../../../models/userGame/userBoardGame';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
 import { TooltipModule } from "primeng/tooltip"; 
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-generic-user-game-list',
   standalone: true,
-  imports: [CommonModule, DataViewModule, RouterModule, InputTextModule, ButtonModule, ReactiveFormsModule, RatingModule, FormsModule, TooltipModule],
+  imports: [CommonModule, DataViewModule, RouterModule, InputTextModule, ButtonModule, ReactiveFormsModule, RatingModule, FormsModule, TooltipModule, ToolbarModule],
   templateUrl: './generic-user-game-list.component.html',
   styleUrls: ['./generic-user-game-list.component.css']
 })

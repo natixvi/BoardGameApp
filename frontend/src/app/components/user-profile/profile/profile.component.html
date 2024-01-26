@@ -69,7 +69,7 @@
                     <div *ngFor="let game of userGameListFirst5" class="col-6 md:col-4 lg:col-3 xl:col-2">
                         <div class="game" >
                             <div class="image-box">
-                                <img [src]="game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
+                                <img [src]="game.imageUrl" [alt]="game.name"  class="shadow-4" [routerLink]="['/games', game.boardGameId]"/>
                             </div>
                             <div class="game-name"> 
                                 {{game.name}}

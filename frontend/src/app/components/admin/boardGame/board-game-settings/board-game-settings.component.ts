@@ -18,11 +18,12 @@ import { AddBoardGame } from '../../../../models/game/addBoardGame';
 import { CreateBoardGameComponent } from '../create-board-game/create-board-game.component';
 import { DuplicatedDataError } from '../../../../exceptions/DuplicatedDataError';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { UpdateBoardGame } from '../../../../models/game/updateBoardGame';
 
 @Component({
   selector: 'app-board-game-settings',
   standalone: true,
-  imports: [CommonModule, SelectButtonModule,ReactiveFormsModule, FormsModule, InputTextareaModule, TableModule, ToolbarModule, ButtonModule, RippleModule, InputTextModule, DialogModule, CreateBoardGameComponent],
+  imports: [CommonModule, SelectButtonModule, ReactiveFormsModule, FormsModule, InputTextareaModule, TableModule, ToolbarModule, ButtonModule, RippleModule, InputTextModule, DialogModule, CreateBoardGameComponent],
   templateUrl: './board-game-settings.component.html',
   styleUrls: ['./board-game-settings.component.css']
 })
@@ -33,8 +34,7 @@ export class BoardGameSettingsComponent implements OnInit{
   selectedGames!: GameInfo[] | null;
   addGameDialog: boolean = false;
   editGameDialog: boolean = false;
-  addSubmitted: boolean = false;
-  editSubmitted: boolean = false;
+  editGameId: number = -1;
 
   addGameForm = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(255)]],
@@ -52,7 +52,7 @@ export class BoardGameSettingsComponent implements OnInit{
     description: ['', Validators.required],
     players: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+$/)]],
     time: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+ Min$/)]],
-    age: [0, [Validators.required, Validators.maxLength(3), Validators.pattern(/^\d+$/)]],
+    age: ['', [Validators.required, Validators.maxLength(3), Validators.pattern(/^\d+$/)]],
     imageUrl: ['', [Validators.required]]
   });
 
@@ -77,18 +77,15 @@ export class BoardGameSettingsComponent implements OnInit{
   }
 
   openNew() {
-    this.addSubmitted = false;
     this.addGameDialog = true;
   }
 
   hideAddDialog() {
-    this.addGameDialog = false;
-    this.addSubmitted = false;
-    this.addGameForm.reset();
+      this.addGameDialog = false;
+
   }
 
   addGame() {
-    this.addSubmitted = true;
     this.addGameDialog = false;
     if (this.addGameForm.invalid) {
       this.messageService.add({severity: 'error', summary: 'Error', detail: 'Incorrect added board game data!'});
@@ -122,27 +119,55 @@ export class BoardGameSettingsComponent implements OnInit{
     })
   }
 
-  showEditGameDialog(game: GameInfo){
-    this.editSubmitted = false;
-    
+  showEditGameDialog(game: GameInfo){    
     this.editGameForm.controls['name'].setValue(game.name),
     this.editGameForm.controls['publisher'].setValue(game.publisher),
     this.editGameForm.controls['description'].setValue(game.description),
     this.editGameForm.controls['players'].setValue(game.players),
     this.editGameForm.controls['time'].setValue(game.time),
-    this.editGameForm.controls['age'].setValue(game.age),
+    this.editGameForm.controls['age'].setValue(game.age.toString()),
     this.editGameForm.controls['imageUrl'].setValue(game.imageUrl),
+    this.editGameId = game.id;
     this.editGameDialog = true;
   }
    
   hideEditDialog() {
     this.editGameDialog = false;
-    this.editSubmitted = false;
+    this.editGameId = -1;
   }
 
   editGame() {
-    this.editGameDialog = true;
-    this.addGameDialog = false;
+    this.editGameDialog = false;
+    if (this.editGameForm.invalid) {
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'Incorrect added board game data!'});
+      return; 
+    }
+    const editBoardGameData = {
+      name: this.editGameForm.get('name')?.value,
+      publisher: this.editGameForm.get('publisher')?.value,
+      description: this.editGameForm.get('description')?.value,
+      players: this.editGameForm.get('players')?.value,
+      time: this.editGameForm.get('time')?.value,
+      age: this.editGameForm.get('age')?.value,
+      imageUrl: this.editGameForm.get('imageUrl')?.value,
+    } as UpdateBoardGame
+    
+    this.gameService.updateGame(this.editGameId, editBoardGameData).subscribe({
+      next: () => {
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Board game edited!' })
+        this.initialData();
+      },
+      error: (e) => {
+        if (e instanceof BadRequestError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else if(e instanceof DuplicatedDataError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
+      }
+    })
+    this.editGameId = -1;
   }
 
   deleteGame(gameId : number){

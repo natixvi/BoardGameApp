@@ -64,6 +64,7 @@ export class NavbarComponent implements OnInit {
           visible: isLoggedIn,
           items: [
             { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
+            // { label: 'Profile', icon: 'pi pi-user', command: () => this.userProfile()},
             { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
             { label: 'Edit profile', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
             { separator: true, visible: isLoggedIn },
@@ -76,6 +77,11 @@ export class NavbarComponent implements OnInit {
     });
   }
   
+  // userProfile(){
+  //   this.router.navigate(['/userProfile', this.loggedInUserId]).then( () => 
+  //   window.location.reload())
+  // }
+
   logout(){
     this.confirmationService.confirm({
       message: 'Are you sure you want to log out?',

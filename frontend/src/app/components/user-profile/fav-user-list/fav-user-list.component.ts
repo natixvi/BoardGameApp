@@ -13,11 +13,12 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from "primeng/tooltip"; 
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-fav-user-list',
   standalone: true,
-  imports: [CommonModule, TableModule, RouterModule, ButtonModule, TooltipModule],
+  imports: [CommonModule, TableModule, RouterModule, ButtonModule, TooltipModule, ToolbarModule],
   templateUrl: './fav-user-list.component.html',
   styleUrls: ['./fav-user-list.component.css']
 })

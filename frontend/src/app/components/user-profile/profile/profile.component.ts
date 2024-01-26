@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, ParamMap, Params, Router, RouterModule } from '@angular/router';
+import { Observable, Subscription, switchMap } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { UserInfo } from '../../../models/user/userInfo';
@@ -22,6 +22,7 @@ import { TableModule } from 'primeng/table';
   imports: [CommonModule, ButtonModule, RouterModule, TooltipModule, TableModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
+  providers: []
 })
 export class ProfileComponent {
   userId: number = 0;
@@ -36,18 +37,19 @@ export class ProfileComponent {
   userFavUsersFirst3: FavUser[] = [];
   totalFavGames: number = 0;
   isUserInFavList: boolean | undefined;
+  userSub: Subscription | undefined;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private confirmationService: ConfirmationService, private authService: AuthService, private messageService : MessageService, private favUserService: FavUserService){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
+  
+  ngOnInit(): void {  
     this.route.params.subscribe({
       next: (param) => {
         this.userId = Number(param['userId']);
-        this.initalData();
       }
-    })
-  }
-  
-  ngOnInit(): void {
-   this.initalData();
+    }) 
+    this.initalData();
   }
 
   initalData(){
