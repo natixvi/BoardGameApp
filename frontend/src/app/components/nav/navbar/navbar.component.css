@@ -19,6 +19,9 @@
     }
 }
 
+.board-game-header{
+  cursor: pointer;
+}
 .p-menubar {
   background-color: #00539C;
   border: 0; 

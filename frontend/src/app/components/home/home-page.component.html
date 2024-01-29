@@ -1,7 +1,30 @@
-<p>home-page works!</p>
-<button (click)="getRoles()">Get Roles</button>
-<div *ngIf="roles">Roles: {{ roles }}</div>
-<div *ngIf="authService.isLoggedIn$ | async as isLoggedIn">
-    <p *ngIf="isLoggedIn">Hello, {{ authService.getParsedToken().Id}}!<br>
+<div class="cont">
+  <div class="image">
+    <img src="../../../assets/images/boradGameMap.jpg" alt="SVG Image">
+  </div>  
+  <div class="description">
+    <div *ngIf="isLoggedIn; else notLoggedIn" class="loggedin">
+      <p>
+        Browse through your favourite games, save them and share your experience with other users.
+      </p>
+      <button pButton label="Search board games" [routerLink]="['/games']"></button>
+    </div>
+    <ng-template #notLoggedIn>
+      <div class="not-loggedin">
+        <p>
+          Join the community for board game lovers,
+          share your passion with other players while saving your journey 
+          and let yourself discover new experiences. 
+        </p>
+        <button pButton label="Join now" [routerLink]="['/register']"></button>
+        <span class="link" [routerLink]="['/login']">
+           Already have an account? Login here.
+        </span>
+      </div>
+    </ng-template>
+
+      
   </div>
+ 
+</div>
 

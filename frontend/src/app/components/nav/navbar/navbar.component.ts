@@ -35,17 +35,12 @@ export class NavbarComponent implements OnInit {
       }
       this.items = [
         {
-          label: 'Home',
-          icon: 'pi pi-home',
-          routerLink: ['home'],
-        },
-        {
           label: 'Board games',
           icon: 'pi pi-list',
           items: 
           [
-            {label: 'All', routerLink: ['games']},
-            {label: 'Top 10', routerLink: ['topGames']}
+            {label: 'All games', routerLink: ['games']},
+            {label: 'Top 10 games', routerLink: ['topGames']}
           ],
         },
         { 
@@ -53,7 +48,6 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-user-edit', 
           visible: isAdmin === true,
           items: [
-            { label: 'Users', icon: 'pi pi-users'},
             { label: 'User requests', icon: 'pi pi-inbox'},
             { label: 'Board games', icon: 'pi pi-cog', routerLink: ['boardGameSettings',]} 
           ]
