@@ -5,13 +5,14 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { MenubarModule } from 'primeng/menubar';
 import { ConfirmationService, MenuItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [RouterModule, CommonModule, MenubarModule],
+  imports: [RouterModule, CommonModule, MenubarModule, ButtonModule],
   encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
   loggedInUserId: number = 0;
+  
 
   constructor(public authService: AuthService, private confirmationService: ConfirmationService){}
 
@@ -64,8 +66,9 @@ export class NavbarComponent implements OnInit {
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
           ],
         },
+        
         { label: 'Login', icon: 'pi pi-sign-in', visible: !isLoggedIn, routerLink: ['login'] },
-        { label: 'Register', icon: 'pi pi-user-plus', visible: !isLoggedIn,routerLink: ['register'] },
+        { label: 'Register',icon: 'pi pi-user-plus', visible: !isLoggedIn,routerLink: ['register']},
       ];
     });
   }
