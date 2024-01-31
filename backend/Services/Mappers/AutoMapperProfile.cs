@@ -5,6 +5,7 @@ using Services.DTOs.Comment;
 using Services.DTOs.FavUser;
 using Services.DTOs.User;
 using Services.DTOs.UserBoardGame;
+using Services.DTOs.UserRequest;
 
 namespace Services.Mappers;
 
@@ -37,5 +38,10 @@ public class AutoMapperProfile: Profile
             .ForMember(dest => dest.UserRating, c => c.MapFrom(src => src.Rating));
 
         CreateMap<AddGameCommentDto, GameComment>();
+
+        CreateMap<AddUserRequestDto, UserRequest>();
+
+        CreateMap<UserRequest, UserRequestDto>()
+            .ForMember(dest => dest.UserName, c => c.MapFrom(src => src.User.NickName));
     }
 }
