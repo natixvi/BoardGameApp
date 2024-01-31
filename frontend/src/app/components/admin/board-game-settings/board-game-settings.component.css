@@ -20,4 +20,8 @@ input{
     ::ng-deep .p-dialog{
         width: 90% !important;
     }
+    ::ng-deep .p-dialog{
+        margin-top: 50px;
+    }
+    
 }

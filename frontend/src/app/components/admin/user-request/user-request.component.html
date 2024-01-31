@@ -9,7 +9,7 @@
         [rows]="10" 
         [tableStyle]="{'min-width': '50rem'}" 
         [paginator]="true"
-        [globalFilterFields]="['userName', 'status', 'messageTitle']"
+        [globalFilterFields]="['userName', 'status', 'messageTitle', 'createdTime']"
         [rowHover]="true" 
         dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -26,18 +26,20 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="user" style="min-width:15rem">User <p-sortIcon field="user"></p-sortIcon></th>
+                <th pSortableColumn="userName" style="min-width:15rem">User <p-sortIcon field="userName"></p-sortIcon></th>
                 <th>Message title</th>
                 <th pSortableColumn="status" style="min-width:15rem">Status <p-sortIcon field="status"></p-sortIcon></th>
-                <th></th>
+                <th pSortableColumn="createdTime" style="min-width:15rem">Date <p-sortIcon field="createdTime"></p-sortIcon></th>
+                <th>Details</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-request>
             <tr>
                 <td><span pTooltip="Go to user profile" [routerLink]="['/userProfile/', request.userId]" style="cursor: pointer;">{{request.userName}}</span></td>
                 <td>{{request.messageTitle}}</td>
-                <td><i class="pi pi-tag" style="margin-right: 10px;"></i>{{request.status}}</td>
-                <td><button pButton pRipple icon="pi pi-ellipsis-h" class="p-button-rounded p-button-secondary mr-2" (click)="showRequestDetail(request)"></button></td>
+                <td><p-tag [value]="request.status" [severity]="getSeverity(request.status)" styleClass="tag"></p-tag></td>
+                <td>{{request.createdTime | date: 'dd-MM-yyyy HH:mm':'pl'}}</td>
+                <td><button pButton pRipple pTooltip="See all messages details" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-secondary p-button-text mr-2" (click)="showRequestDetail(request)"></button></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -51,25 +53,27 @@
 <p-dialog [(visible)]="showDialog" [style]="{ width: '450px' }" header="User Request Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="message-title">
-            <span style="font-weight: 700;">Title: </span><span>{{selectedRequest?.messageTitle}}</span>
+            <span class="label">Title: </span><span>{{selectedRequest?.messageTitle}}</span>
         </div>
         <div class="message-body">
             <span>{{selectedRequest?.messageBody}}</span>
         </div>
         <div>
-            Status: 
-            <div class="card flex justify-content-center">
-                <div class="flex flex-column gap-3">
-                    <div *ngFor="let status of statuses" class="field-radio">
-                        <p-radioButton [inputId]="status.key" name="status" [value]="status" [(ngModel)]="selectedStatus" class="p-radiobutton"></p-radioButton>
-                        <label [for]="status.key" class="ml-2">{{ status.name }}</label>
+        <div class="status">
+            <span class="label">Status: </span>
+            <div class="card flex">
+                <div class="flex flex-wrap gap-3">
+                    <div *ngFor="let status of availableStatuses" class="field-radio">
+                        <p-radioButton [name]="status" [value]="status" [(ngModel)]="selectedStatus" [inputId]="status"></p-radioButton>
+                        <label [for]="status" class="ml-2">{{status}}</label>
                     </div>
                 </div>
             </div>
+        </div> 
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveChanges()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveChanges()" [disabled]="selectedRequest?.status === selectedStatus"></button>
     </ng-template>
   </p-dialog>
