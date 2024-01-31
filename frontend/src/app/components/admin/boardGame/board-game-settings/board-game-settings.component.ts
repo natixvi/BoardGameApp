@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { GameService } from '../../../../services/game.service';
-import { Game } from '../../../../models/game/game';
 import { Router } from '@angular/router';
 import { BadRequestError } from '../../../../exceptions/BadRequestError';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -15,7 +14,6 @@ import { GameInfo } from '../../../../models/game/gameInfo';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { AddBoardGame } from '../../../../models/game/addBoardGame';
-import { CreateBoardGameComponent } from '../create-board-game/create-board-game.component';
 import { DuplicatedDataError } from '../../../../exceptions/DuplicatedDataError';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { UpdateBoardGame } from '../../../../models/game/updateBoardGame';
@@ -23,7 +21,7 @@ import { UpdateBoardGame } from '../../../../models/game/updateBoardGame';
 @Component({
   selector: 'app-board-game-settings',
   standalone: true,
-  imports: [CommonModule, SelectButtonModule, ReactiveFormsModule, FormsModule, InputTextareaModule, TableModule, ToolbarModule, ButtonModule, RippleModule, InputTextModule, DialogModule, CreateBoardGameComponent],
+  imports: [CommonModule, SelectButtonModule, ReactiveFormsModule, FormsModule, InputTextareaModule, TableModule, ToolbarModule, ButtonModule, RippleModule, InputTextModule, DialogModule],
   templateUrl: './board-game-settings.component.html',
   styleUrls: ['./board-game-settings.component.css']
 })

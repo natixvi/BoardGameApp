@@ -17,8 +17,8 @@ import { UserFavouriteGameListComponent } from './components/user-profile/user-f
 import { FavUserListComponent } from './components/user-profile/fav-user-list/fav-user-list.component';
 import { TopGamesComponent } from './components/boardGame/top-games/top-games.component';
 import { BoardGameSettingsComponent } from './components/admin/boardGame/board-game-settings/board-game-settings.component';
-import { CreateBoardGameComponent } from './components/admin/boardGame/create-board-game/create-board-game.component';
 import { DeleteAccountComponent } from './components/user/delete-account/delete-account.component';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -37,7 +37,6 @@ export const routes: Routes = [
   {path: 'editUserData', component: EditDataComponent, canActivate:[authGuard]},
   {path: 'changePassword', component: ChangePasswordComponent, canActivate:[authGuard]},
   {path: 'deleteAccount', component: DeleteAccountComponent, canActivate:[authGuard]},
-  {path: 'boardGameSettings', component: BoardGameSettingsComponent},
-  {path: 'addBoardGame', component: CreateBoardGameComponent},
+  {path: 'boardGameSettings', component: BoardGameSettingsComponent, canActivate:[adminGuard]},
   {path: '**', component: NotFoundPageComponent}
 ];
