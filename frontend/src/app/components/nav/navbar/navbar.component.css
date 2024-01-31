@@ -108,32 +108,16 @@
 .p-menubar .p-icon{
   color: #ffffff;
 }
-.p-dropdown-items .p-dropdown-item {
+.card .p-dropdown-items .p-dropdown-item {
   background-color: #00539C !important;
   color: #ffffff;
 }
 
-.p-dropdown-items .p-dropdown-item:hover {
+.card .p-dropdown-items .p-dropdown-item:hover {
   background-color: #034c8b;
   cursor: pointer;
 }
 
-/* .end-menu{
-  height: 100%;
-}
-.end-menu span{
- margin-right: 30px;
- color: #ffffff;
- cursor: pointer;
- height: 100%;
-}
 
-.end-menu span:hover{
-  background: #034c8b;
- }
-
-.end-menu span i{
-  margin-right: 20px;
-} */
 
 

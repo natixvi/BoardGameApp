@@ -8,10 +8,9 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { GameAddFormComponent } from '../game-add-form/game-add-form.component';
-import { GameService } from '../../../services/game.service';
 import { AddGameFormService } from '../../../services/add-game-form.service';
 import { AuthService } from '../../../services/auth.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { UserBoardGameService } from '../../../services/user-board-game.service';
 import { Observable } from 'rxjs';
 
@@ -28,16 +27,41 @@ export class GameGenericComponent implements OnInit {
   isLoggedIn$: Observable<boolean> | undefined;
   isLoggedIn: boolean = false;
 
+  sortOptions: SelectItem[] = [];
+  sortKey!: string;
+  sortField!: string;
+  sortOrder!: number;
+
   selectedGameId: number | null = null;
 
-  constructor(private gameService : GameService, public addGameFormService: AddGameFormService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
+  constructor(public addGameFormService: AddGameFormService, public authService: AuthService, private confirmationService: ConfirmationService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
   ngOnInit(){
     this.isLoggedIn$ = this.authService.isLoggedIn$;
     this.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
     });
+
+    this.sortOptions = [
+      { label: 'Name A -> Z', value: 'name' },
+      { label: 'Name Z -> A', value: '!name' },
+      { label: 'Rating Low to High ', value: 'rating' },
+      { label: 'Rating High to Low', value: '!rating' }
+    ];
   } 
+  
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+        this.sortOrder = -1;
+        this.sortField = value.substring(1, value.length);
+    }
+    else {
+        this.sortOrder = 1;
+        this.sortField = value;
+    }
+  }
 
   onAddGameEvent($event: boolean){
     if($event){

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,15 +13,16 @@ import { UserBoardGame } from '../../../models/userGame/userBoardGame';
 import { EditUserGameDetails } from '../../../models/userGame/editUserGameDetails';
 import { TooltipModule } from "primeng/tooltip"; 
 import { ToolbarModule } from 'primeng/toolbar';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-generic-user-game-list',
   standalone: true,
-  imports: [CommonModule, DataViewModule, RouterModule, InputTextModule, ButtonModule, ReactiveFormsModule, RatingModule, FormsModule, TooltipModule, ToolbarModule],
+  imports: [CommonModule, DataViewModule, RouterModule, InputTextModule, ButtonModule, ReactiveFormsModule, RatingModule, FormsModule, TooltipModule, ToolbarModule, DropdownModule],
   templateUrl: './generic-user-game-list.component.html',
   styleUrls: ['./generic-user-game-list.component.css']
 })
-export class GenericUserGameListComponent{
+export class GenericUserGameListComponent implements OnInit{
 
   @Input() isCurrentUserList: boolean = false;
   @Input() userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: [], favouriteUsers: []};
@@ -38,12 +39,41 @@ export class GenericUserGameListComponent{
   isFavActive: boolean = false;
   selectedGameId: number | null = null;
 
+  sortOptions: SelectItem[] = [];
+  sortKey!: string;
+  sortField!: string;
+  sortOrder!: number;
+
   gameEditForm = this.formBuilder.group({
     rating: [0],
     addToFavourites: [false]
   })
   
   constructor(private messageService : MessageService, private formBuilder: FormBuilder, private confirmationService: ConfirmationService, private userBoardGameService: UserBoardGameService){}
+  
+  ngOnInit(): void {
+    this.sortOptions = [
+      { label: 'Name A -> Z', value: 'name' },
+      { label: 'Name Z -> A', value: '!name' },
+      { label: 'Overall Rating Low to High ', value: 'rating' },
+      { label: 'Overall Rating High to Low', value: '!rating' },
+      { label: 'User Rating Low to High ', value: 'userRating' },
+      { label: 'User Rating High to Low', value: '!userRating' }
+    ];
+  }
+  
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+        this.sortOrder = -1;
+        this.sortField = value.substring(1, value.length);
+    }
+    else {
+        this.sortOrder = 1;
+        this.sortField = value;
+    }
+  }
   
   triggerCallback(): void {
     if (this.toggleButtonFn && this.userId) {

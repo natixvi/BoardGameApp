@@ -53,10 +53,10 @@
 <p-dialog [(visible)]="showDialog" [style]="{ width: '450px' }" header="User Request Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="message-title">
-            <span class="label">Title: </span><span>{{selectedRequest?.messageTitle}}</span>
+            <span class="label">Title: </span><span>{{selectedRequest.messageTitle}}</span>
         </div>
         <div class="message-body">
-            <span>{{selectedRequest?.messageBody}}</span>
+            <span>{{selectedRequest.messageBody}}</span>
         </div>
         <div>
         <div class="status">
@@ -74,6 +74,6 @@
     </ng-template>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveChanges()" [disabled]="selectedRequest?.status === selectedStatus"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveChanges()" [disabled]="selectedRequest.status === selectedStatus"></button>
     </ng-template>
   </p-dialog>
