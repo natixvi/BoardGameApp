@@ -25,13 +25,30 @@ public class UserRequestController : ControllerBase
         return Ok(usersRequests);
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpPut("{id}/change-state")]
+    public async Task<IActionResult> ChangeRequestState([FromRoute] int id, ChangeUserRequestStatusDto statusDto)
+    {
+        await userRequestService.ChangeState(id, statusDto);
+        return Ok("User request with id: " + id + " has been updated.");
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserRequestById([FromRoute] int id)
+    {
+        var userRequest =  await userRequestService.GetUserRequestById(id);
+        return Ok(userRequest);
+    }
+
     [HttpGet("user/messages")]
     public async Task<IActionResult> GetRequestByUserId()
     {
         var userRequests = await userRequestService.GetRequestByUserId();
         return Ok(userRequests);
     }
-   
+    
+
     [HttpPost("create")]
     public async Task<IActionResult> CreateUserRequest([FromBody] AddUserRequestDto addUserRequestDto)
     {
@@ -39,4 +56,5 @@ public class UserRequestController : ControllerBase
         Console.WriteLine(userRequestId);   
         return Created($"/UserRequest/{userRequestId}", null);
     }
+
 }

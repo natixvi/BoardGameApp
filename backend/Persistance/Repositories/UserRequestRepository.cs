@@ -31,4 +31,10 @@ public class UserRequestRepository : BaseRepository<UserRequest>, IUserRequestRe
         var userRequests = await appDbContext.UserRequests.Where(r => r.UserId == userId).ToListAsync();
         return userRequests;
     }
+
+    public async Task<UserRequest?> GetRequestById(int requestId)
+    {
+        var userRequest = await appDbContext.UserRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == requestId);
+        return userRequest;
+    }
 }

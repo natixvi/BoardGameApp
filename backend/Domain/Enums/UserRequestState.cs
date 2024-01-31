@@ -3,5 +3,5 @@ public enum UserRequestState
 {
     Active,
     Done,
-    Discard,
+    Discard
 }

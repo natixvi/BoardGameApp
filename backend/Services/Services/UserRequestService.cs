@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Exceptions;
 using Domain.IRepositories;
 using Services.DTOs.UserRequest;
@@ -41,6 +42,28 @@ public class UserRequestService : IUserRequestService
         return mapper.Map<List<UserRequestDto>>(userRequests);
     }
 
+    public async Task ChangeState(int requestId, ChangeUserRequestStatusDto stateDto)
+    {
+        var userRequest = await userRequestRepository.GetRequestById(requestId);
+        if (userRequest == null) throw new NotFoundException("User request not found");
+        if (Enum.TryParse<UserRequestState>(stateDto.Status, out var newStatus) && Enum.IsDefined(typeof(UserRequestState), newStatus))
+        {
+            userRequest.State = newStatus;
+            await userRequestRepository.Update(userRequest);
+        }
+        else
+        {
+            throw new BadRequestException("Invalid status");
+        }
+
+    }
+
+    public async Task<UserRequestDto?> GetUserRequestById(int requestId)
+    {
+        var userRequest = await userRequestRepository.GetRequestById(requestId);
+        if (userRequest == null) throw new NotFoundException("User request not found");
+        return mapper.Map<UserRequestDto>(userRequest);
+    }
     private int? GetUserContextId()
     {
         var userId = userContextService.GetUserId;
