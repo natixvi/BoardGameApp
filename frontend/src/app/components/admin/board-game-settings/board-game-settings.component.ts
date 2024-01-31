@@ -1,22 +1,22 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { GameService } from '../../../../services/game.service';
+import { GameService } from '../../../services/game.service';
 import { Router } from '@angular/router';
-import { BadRequestError } from '../../../../exceptions/BadRequestError';
+import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
-import { GameInfo } from '../../../../models/game/gameInfo';
+import { GameInfo } from '../../../models/game/gameInfo';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
-import { AddBoardGame } from '../../../../models/game/addBoardGame';
-import { DuplicatedDataError } from '../../../../exceptions/DuplicatedDataError';
+import { AddBoardGame } from '../../../models/game/addBoardGame';
+import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { UpdateBoardGame } from '../../../../models/game/updateBoardGame';
+import { UpdateBoardGame } from '../../../models/game/updateBoardGame';
 
 @Component({
   selector: 'app-board-game-settings',

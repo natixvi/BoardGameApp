@@ -10,6 +10,8 @@ import { DuplicatedDataError } from '../exceptions/DuplicatedDataError';
 import { GeneralError } from '../exceptions/GeneralError';
 import { CreateUserRequest } from '../models/userRequest/createUserRequest';
 import { ChangeRequestStatus } from '../models/userRequest/changeRequestStatus';
+import { UserRequest } from '../models/userRequest/userRequest';
+import { ForbiddenError } from '../exceptions/ForbiddenError';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,8 @@ import { ChangeRequestStatus } from '../models/userRequest/changeRequestStatus';
 export class UserRequestService {
 
   private apiUrl = environment.apiUrl;
-
+  router = inject(Router);
+  
   constructor(private http: HttpClient) { }
 
   createUserRequest(userRequest: CreateUserRequest) : Observable<any>{
@@ -29,8 +32,8 @@ export class UserRequestService {
     );
   }
 
-  getAllRequests() : Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/userrequest`).pipe(
+  getAllRequests() : Observable<UserRequest[]>{
+    return this.http.get<UserRequest[]>(`${this.apiUrl}/userrequest`).pipe(
       catchError(error => {
         console.log('Error while get users requests:' , error);
         return this.handleError(error);
@@ -47,8 +50,8 @@ export class UserRequestService {
     );
   }
 
-  getUserRequests() : Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/userrequest/user/messages`).pipe(
+  getUserRequests() : Observable<UserRequest[]>{
+    return this.http.get<UserRequest[]>(`${this.apiUrl}/userrequest/user/messages`).pipe(
       catchError(error => {
         console.log('Error while get user requests:' , error);
         return this.handleError(error);
@@ -63,6 +66,9 @@ export class UserRequestService {
       return throwError(() => new BadRequestError(error.error));
     } else if (error.status === 404){
       return throwError(() => new ResourceNotFoundError(error.error));
+    } else if (error.status === 403){
+      this.router.navigate(['forbidden'])
+      return throwError(() => new ForbiddenError(error.error));
     } 
     else {
       return throwError(() => new GeneralError(error.error));

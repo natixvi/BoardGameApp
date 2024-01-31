@@ -16,7 +16,7 @@ import { ForbiddenPageComponent } from './components/nav/forbidden-page/forbidde
 import { UserFavouriteGameListComponent } from './components/user-profile/user-favourite-game-list/user-favourite-game-list.component';
 import { FavUserListComponent } from './components/user-profile/fav-user-list/fav-user-list.component';
 import { TopGamesComponent } from './components/boardGame/top-games/top-games.component';
-import { BoardGameSettingsComponent } from './components/admin/boardGame/board-game-settings/board-game-settings.component';
+import { BoardGameSettingsComponent } from './components/admin/board-game-settings/board-game-settings.component';
 import { DeleteAccountComponent } from './components/user/delete-account/delete-account.component';
 import { adminGuard } from './guards/admin.guard';
 

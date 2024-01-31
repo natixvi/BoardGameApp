@@ -9,7 +9,7 @@ import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { AddGameToList } from '../models/game/addGameToList';
 import { EditUserGameDetails } from '../models/userGame/editUserGameDetails';
 import { UserBoardGame } from '../models/userGame/userBoardGame';
-import { UserGameDetails } from '../models/userGame/userGameDetails';
+import { UserGameDetails } from '../models/userGame/UserGameDetails';
 import { Router } from '@angular/router';
 
 @Injectable({
