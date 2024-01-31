@@ -50,8 +50,8 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-user-edit', 
           visible: isAdmin === true,
           items: [
-            { label: 'User requests', icon: 'pi pi-inbox'},
-            { label: 'Board games', icon: 'pi pi-cog', routerLink: ['boardGameSettings',]} 
+            { label: 'User requests', icon: 'pi pi-inbox', routerLink: ['userRequests',]},
+            { label: 'Board games', icon: 'pi pi-cog', routerLink: ['boardGameSettings']} 
           ]
         },
         {

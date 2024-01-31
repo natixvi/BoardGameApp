@@ -7,5 +7,5 @@ public class UserRequestDto
     public string MessageTitle { get; set; }
     public string MessageBody { get; set; }
     public DateTime CreatedTime { get; set; }
-    public string State { get; set; }
+    public string Status { get; set; }
 }

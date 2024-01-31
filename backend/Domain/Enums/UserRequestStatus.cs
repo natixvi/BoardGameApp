@@ -1,5 +1,5 @@
 ﻿namespace Domain.Enums;
-public enum UserRequestState
+public enum UserRequestStatus
 {
     Active,
     Done,

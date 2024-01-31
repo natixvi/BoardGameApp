@@ -26,10 +26,10 @@ public class UserRequestController : ControllerBase
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPut("{id}/change-state")]
-    public async Task<IActionResult> ChangeRequestState([FromRoute] int id, ChangeUserRequestStatusDto statusDto)
+    [HttpPut("{id}/change-status")]
+    public async Task<IActionResult> ChangeRequestStatus([FromRoute] int id, ChangeUserRequestStatusDto statusDto)
     {
-        await userRequestService.ChangeState(id, statusDto);
+        await userRequestService.ChangeStatus(id, statusDto);
         return Ok("User request with id: " + id + " has been updated.");
     }
 

@@ -5,5 +5,5 @@ export interface UserRequest{
     messageTitle: string,
     messageBody: string,
     createdTime: Date,
-    state: string
+    status: string
 }

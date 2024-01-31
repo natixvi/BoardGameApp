@@ -41,8 +41,8 @@ export class UserRequestService {
     );
   }
 
-  changeRequestState(requestId: number, state: ChangeRequestStatus) : Observable<string>{
-    return this.http.put(`${this.apiUrl}/userrequest/${requestId}/change-state`, state, {responseType: 'text'} ).pipe(
+  changeRequestStatus(requestId: number, state: ChangeRequestStatus) : Observable<string>{
+    return this.http.put(`${this.apiUrl}/userrequest/${requestId}/change-status`, state, {responseType: 'text'} ).pipe(
       catchError(error => {
         console.log('Error while changing request status:' , error);
         return this.handleError(error);

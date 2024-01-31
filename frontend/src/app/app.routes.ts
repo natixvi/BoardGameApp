@@ -19,6 +19,7 @@ import { TopGamesComponent } from './components/boardGame/top-games/top-games.co
 import { BoardGameSettingsComponent } from './components/admin/board-game-settings/board-game-settings.component';
 import { DeleteAccountComponent } from './components/user/delete-account/delete-account.component';
 import { adminGuard } from './guards/admin.guard';
+import { UserRequestComponent } from './components/admin/user-request/user-request.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -38,5 +39,6 @@ export const routes: Routes = [
   {path: 'changePassword', component: ChangePasswordComponent, canActivate:[authGuard]},
   {path: 'deleteAccount', component: DeleteAccountComponent, canActivate:[authGuard]},
   {path: 'boardGameSettings', component: BoardGameSettingsComponent, canActivate:[adminGuard]},
+  {path: 'userRequests', component: UserRequestComponent, canActivate:[adminGuard]},
   {path: '**', component: NotFoundPageComponent}
 ];

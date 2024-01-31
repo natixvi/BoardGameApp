@@ -24,7 +24,7 @@ public class UserRequestService : IUserRequestService
         var userId = GetUserContextId();
         var userRequest = mapper.Map<UserRequest>(addUserRequestDto);
         userRequest.UserId = (int)userId;
-        userRequest.State = Domain.Enums.UserRequestState.Active;
+        userRequest.Status = UserRequestStatus.Active;
 
         return await userRequestRepository.CreateUserRequest(userRequest);
     }
@@ -42,13 +42,13 @@ public class UserRequestService : IUserRequestService
         return mapper.Map<List<UserRequestDto>>(userRequests);
     }
 
-    public async Task ChangeState(int requestId, ChangeUserRequestStatusDto stateDto)
+    public async Task ChangeStatus(int requestId, ChangeUserRequestStatusDto stateDto)
     {
         var userRequest = await userRequestRepository.GetRequestById(requestId);
         if (userRequest == null) throw new NotFoundException("User request not found");
-        if (Enum.TryParse<UserRequestState>(stateDto.Status, out var newStatus) && Enum.IsDefined(typeof(UserRequestState), newStatus))
+        if (Enum.TryParse<UserRequestStatus>(stateDto.Status, out var newStatus) && Enum.IsDefined(typeof(UserRequestStatus), newStatus))
         {
-            userRequest.State = newStatus;
+            userRequest.Status = newStatus;
             await userRequestRepository.Update(userRequest);
         }
         else

@@ -9,5 +9,5 @@ public class UserRequest
     public string MessageTitle { get; set; }
     public string MessageBody { get; set; } 
     public DateTime CreatedTime { get; set; }
-    public UserRequestState State { get; set; }
+    public UserRequestStatus Status { get; set; }
 }

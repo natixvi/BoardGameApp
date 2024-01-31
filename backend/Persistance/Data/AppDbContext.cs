@@ -20,8 +20,8 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<UserRequest>()
-           .Property(r => r.State)
-           .HasConversion(new EnumToStringConverter<UserRequestState>());
+           .Property(r => r.Status)
+           .HasConversion(new EnumToStringConverter<UserRequestStatus>());
 
         modelBuilder.Entity<FavouriteUser>()
             .HasIndex(f => new { f.UserId, f.FavUserId })
