@@ -1,7 +1,12 @@
 <div class="container">  
+    <div class="header">
+        <p>Don't see a board game that interests you on the list? Send us a request and we will try to add it.<br>
+            If you have any other questions don't be afraid to ask. We are here for you.
+        </p>
+    </div>
     <form class="form" [formGroup]="userRequestForm" (ngSubmit)="sendRequest()">
-        <p>Don't see a board game that interests you on the list? Send us a request and we will try to add it.<br>If you have any other questions don't be afraid to ask. We are here for you.</p>
         <div class="content">
+            <h3>Message</h3>
             <div class="label">
                 <label for="messageTitle">Title: </label>
                 <input id="messageTitle" formControlName="messageTitle" type="text" pInputText placeholder="Message title">
@@ -22,3 +27,5 @@
         </div>
     </form> 
 </div>
+
+

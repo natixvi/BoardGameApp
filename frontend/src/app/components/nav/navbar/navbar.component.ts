@@ -47,7 +47,7 @@ export class NavbarComponent implements OnInit {
           ],
         },
         {
-          label: 'My boardgame lists', 
+          label: 'My collections', 
           icon: 'pi pi-book',  
           visible: isLoggedIn,
           routerLink: ['userGameList/', this.loggedInUserId]
@@ -57,7 +57,7 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-envelope',  
           visible: isLoggedIn && isAdmin === false,
           items: [
-            { label: 'Sended requests', icon: 'pi pi-envelope'},
+            { label: 'Sended requests status', icon: 'pi pi-envelope'},
             { label: 'Send us a request', icon: 'pi pi-send', routerLink: ['sendRequest']},       
           ],
         }, 

@@ -9,20 +9,18 @@
 .navbar{
   width: 100%;
   background-color: #00539C;
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
   z-index: 1000;
 }
 
-.content {
+.content-main{
   flex: 1;
   z-index: 500;
   background-color: #ffffff; 
-  margin-top: 80px;
 }
 
-footer {
+.footer {
   background-color: #00539C;
   color: #ffffff;
   padding: 10px;

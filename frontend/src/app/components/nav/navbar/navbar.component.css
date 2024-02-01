@@ -39,6 +39,7 @@
   padding: 10px 20px;
 }
 
+
 .p-menubar .logo {
   margin-right: 10px;
 }
@@ -50,7 +51,7 @@
   background: #034c8b !important;
 }
 .p-menuitem-link {
-  font-size: 17px !important;
+  font-size: 15px !important;
 }
 
 @media screen and (max-width: 960px){
@@ -65,7 +66,7 @@
 
 .board-game-title {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 
