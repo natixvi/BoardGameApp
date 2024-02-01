@@ -17,6 +17,7 @@ import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 import { TableModule } from 'primeng/table';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { UserOnOtherProfile } from '../../../models/favUser/userOnOtherProfile';
 
 @Component({
   selector: 'app-profile',
@@ -37,6 +38,7 @@ export class ProfileComponent {
   userGameListFirst5: UserBoardGame[] = [];
   userFavGameListFirst5: UserBoardGame[] = []
   userFavUsersFirst5: FavUser[] = [];
+  usersWhoAddedUserToFriends: UserOnOtherProfile[] = [];
   totalFavGames: number = 0;
   isUserInFavList: boolean | undefined;
   userSub: Subscription | undefined;
@@ -82,6 +84,7 @@ export class ProfileComponent {
       }
     })
     this.getUserInfo();
+    this.getUsersWhoAddedSelectUserToFriends(this.userId);
   }
 
   getUserInfo(){
@@ -104,6 +107,24 @@ export class ProfileComponent {
         else{
           this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
         }
+      }
+    })
+  }
+
+  getUsersWhoAddedSelectUserToFriends(userId: number){
+    this.favUserService.getUsersWhoAddedSelectUserToFriends(userId).subscribe({
+      next: (data: UserOnOtherProfile[]) => {
+        this.usersWhoAddedUserToFriends = data.slice(0, 5);
+      },
+      error: (e) =>{
+        if (e instanceof BadRequestError){
+          this.router.navigate(['notfound']);
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else if(e instanceof ResourceNotFoundError){
+          this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
+        }
+        else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
       }
     })
   }

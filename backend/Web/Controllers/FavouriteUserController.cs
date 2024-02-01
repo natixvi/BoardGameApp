@@ -15,12 +15,19 @@ public class FavouriteUserController: ControllerBase
     {
         this.favouriteUserService = favouriteUserService;
     }
-
     [HttpGet("is-user-in-list/{favUserId}")]
     public async Task<IActionResult> IsUserInFavUserList([FromRoute] int favUserId)
     {
         var isUserInFavUserList = await favouriteUserService.IsUserInFavUserList(favUserId);
         return Ok(isUserInFavUserList);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("{userId}/user-on-other-profiles")]
+    public async Task<IActionResult> GetUsersWhoAddedSelectUserToFriends([FromRoute] int userId)
+    {
+        var userWhoAddedSelectUserToFriends = await favouriteUserService.GetUsersWhoAddedSelectUserToFriends(userId);
+        return Ok(userWhoAddedSelectUserToFriends);
     }
 
     [HttpPost("add/{favUserId}")]

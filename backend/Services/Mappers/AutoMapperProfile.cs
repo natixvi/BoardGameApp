@@ -15,8 +15,10 @@ public class AutoMapperProfile: Profile
     {
         CreateMap<User, UserDto>();
         CreateMap<FavouriteUser, FavUserDto>()
-            .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.FavUser.NickName))
-            .ForMember(dest => dest.Email, c => c.MapFrom(src => src.FavUser.Email));
+            .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.FavUser.NickName));
+
+        CreateMap<FavouriteUser, UserOnOtherProfile>()
+            .ForMember(dest => dest.NickName, c => c.MapFrom(src => src.User.NickName));
 
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();

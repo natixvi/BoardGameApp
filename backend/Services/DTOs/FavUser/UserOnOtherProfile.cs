@@ -1,6 +1,7 @@
 ﻿namespace Services.DTOs.FavUser;
-public class FavUserDto
+public class UserOnOtherProfile
 {
-    public int FavUserId { get; set; }
+    public int UserId { get; set; }
     public string NickName { get; set; }
+
 }

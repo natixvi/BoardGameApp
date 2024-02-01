@@ -30,4 +30,9 @@ public class FavouriteUserRepository : BaseRepository<FavouriteUser>, IFavourite
     {
         return await appDbContext.FavouriteUsers.FirstOrDefaultAsync(g => g.UserId == userId && g.FavUserId == deletedUserId);
     }
+
+    public async Task<List<FavouriteUser>?> GetUsersWhoAddedSelectUserToFriends(int userId)
+    {
+        return await appDbContext.FavouriteUsers.Where(f => f.FavUserId == userId).Include(f => f.User).ToListAsync();
+    }
 }

@@ -107,7 +107,7 @@
                             <div class="col-6 md:col-4 lg:col-3 xl:col-2">
                                 <div class="data">
                                     <div class="image-box">
-                                        <p-avatar size='large' icon="pi pi-user" styleClass="mr-2"></p-avatar>
+                                        <p-avatar size='large' icon="pi pi-user"></p-avatar>
                                     </div>
                                     <div *ngIf="isLoggedInUserProfile; else notUserProfile" class="fav-user-name"> 
                                         <span class="user-name" pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
@@ -115,7 +115,7 @@
                                     </div>
                                     <ng-template #notUserProfile>
                                         <div class="fav-user-name">
-                                            <span pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
+                                            <span class="user-name" pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
                                         </div>
                                     </ng-template>
                                 </div>
@@ -128,7 +128,45 @@
         <ng-template #emptyList>
             <div class="no-result">
                 No results found
-            </div>
+            </div>      
         </ng-template>
+
+        <ng-container *ngIf="isLoggedInUserProfile">
+            <div class="header-down">
+                <div class="header-left">
+                    <h3> Me on other profiles </h3>
+                    <span>{{usersWhoAddedUserToFriends.length}} on other profiles</span>
+                </div>
+                <div class="button">
+                    <button pButton class="p-button-secondary p-button-text" [routerLink]="['/meOnOtherProfiles']">See more</button>
+                </div>
+            </div>
+            <ng-container *ngIf="usersWhoAddedUserToFriends.length > 0 ; else emptyList" >
+                <div class="user-data-box">
+                    <div class="grid detail-box">
+                        <ng-container>
+                            <ng-container *ngFor="let user of usersWhoAddedUserToFriends">
+                                <div class="col-6 md:col-4 lg:col-3 xl:col-2">
+                                    <div class="data" style="display: flex; align-items: center; justify-content: center;">
+                                        <div class="image-box" >
+                                            <p-avatar size='large' icon="pi pi-user"></p-avatar>
+                                        </div>
+                                        <div class="fav-user-name" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                                            <span class="user-name" pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.userId]">{{ user.nickName }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #emptyList>
+                <div class="no-result">
+                    No results found
+                </div>
+            </ng-template>
+        </ng-container>
+
     </div>
 </div>

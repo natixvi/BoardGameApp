@@ -1,6 +1,8 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Exceptions;
 using Domain.IRepositories;
+using Services.DTOs.FavUser;
 using Services.Interfaces;
 
 namespace Services.Services;
@@ -9,12 +11,14 @@ public class FavouriteUserService : IFavouriteUserService
     private readonly IAccountRepository accountRepository;
     private readonly IUserContextService userContextService;
     private readonly IFavouriteUserRepository favouriteUserRepository;
+    private readonly IMapper mapper;
 
-    public FavouriteUserService(IAccountRepository accountRepository, IUserContextService userContextService, IFavouriteUserRepository favouriteUserRepository)
+    public FavouriteUserService(IAccountRepository accountRepository, IUserContextService userContextService, IFavouriteUserRepository favouriteUserRepository, IMapper mapper)
     {
         this.accountRepository = accountRepository;
         this.userContextService = userContextService;
         this.favouriteUserRepository = favouriteUserRepository;
+        this.mapper = mapper;
     }
 
     public async Task<int> AddUserToFavList(int favUserId)
@@ -44,6 +48,13 @@ public class FavouriteUserService : IFavouriteUserService
         if (favUser == null) throw new BadRequestException("User is not in fav user list");
         await favouriteUserRepository.Delete(favUser);
 
+    }
+
+    public async Task<List<UserOnOtherProfile>?> GetUsersWhoAddedSelectUserToFriends(int userId)
+    {
+        if (!await accountRepository.CheckIfUserExist(userId)) throw new NotFoundException("User not found!");
+        var userWhoAddedSelectUserToFriends = await favouriteUserRepository.GetUsersWhoAddedSelectUserToFriends(userId);
+        return mapper.Map<List<UserOnOtherProfile>>(userWhoAddedSelectUserToFriends);
     }
 
     public async Task<bool> IsUserInFavUserList(int favUserId)

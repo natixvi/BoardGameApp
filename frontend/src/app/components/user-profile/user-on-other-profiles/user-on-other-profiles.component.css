@@ -1,0 +1,50 @@
+.cont{
+    padding: 2rem;
+    min-width: 300px;
+    max-width: 1550px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.data-box{
+    height: 100%;
+    width: 100%;
+}
+
+.user-name{
+    font-size: medium;
+    padding: 10px;
+    font-weight: bolder;
+    position: relative;
+}
+
+.user-name-2{
+ cursor: pointer;
+}
+
+.user{
+cursor: pointer;
+}
+
+.user-profile{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+@media screen and (max-width: 767px) {
+    ::ng-deep .p-toolbar{
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+     }
+}
+
+@media screen and (max-width: 500px) {
+   
+    .user-info{
+        flex-direction: column;
+    }
+   
+}

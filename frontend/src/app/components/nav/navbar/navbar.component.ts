@@ -39,12 +39,28 @@ export class NavbarComponent implements OnInit {
         {
           label: 'Board games',
           icon: 'pi pi-list',
+          routerLink: ['games'],
           items: 
           [
             {label: 'All games', routerLink: ['games']},
             {label: 'Top 10 games', routerLink: ['topGames']}
           ],
         },
+        {
+          label: 'My boardgame lists', 
+          icon: 'pi pi-book',  
+          visible: isLoggedIn,
+          routerLink: ['userGameList/', this.loggedInUserId]
+        },
+        {
+          label: 'Messages', 
+          icon: 'pi pi-envelope',  
+          visible: isLoggedIn && isAdmin === false,
+          items: [
+            { label: 'Sended requests', icon: 'pi pi-envelope'},
+            { label: 'Send us a request', icon: 'pi pi-send'},       
+          ],
+        }, 
         { 
           label: 'Admin', 
           icon: 'pi pi-user-edit', 
@@ -60,13 +76,11 @@ export class NavbarComponent implements OnInit {
           visible: isLoggedIn,
           items: [
             { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
-            { label: 'Game list', icon: 'pi pi-list',  routerLink: ['userGameList/', this.loggedInUserId]},
             { label: 'Edit profile', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
             { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
           ],
-        },
-        
+        },     
         { label: 'Login', icon: 'pi pi-sign-in', visible: !isLoggedIn, routerLink: ['login'] },
         { label: 'Register',icon: 'pi pi-user-plus', visible: !isLoggedIn,routerLink: ['register']},
       ];

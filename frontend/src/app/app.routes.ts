@@ -20,6 +20,7 @@ import { BoardGameSettingsComponent } from './components/admin/board-game-settin
 import { DeleteAccountComponent } from './components/user/delete-account/delete-account.component';
 import { adminGuard } from './guards/admin.guard';
 import { UserRequestComponent } from './components/admin/user-request/user-request.component';
+import { UserOnOtherProfilesComponent } from './components/user-profile/user-on-other-profiles/user-on-other-profiles.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -32,6 +33,7 @@ export const routes: Routes = [
   {path: 'userGameList/:userId', component: UserGameListComponent},
   {path: 'userFavouriteGameList/:userId', component: UserFavouriteGameListComponent},
   {path: 'userFavouriteUserList/:userId', component: FavUserListComponent},
+  {path: 'meOnOtherProfiles', component: UserOnOtherProfilesComponent},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},

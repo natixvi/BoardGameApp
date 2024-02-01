@@ -7,6 +7,7 @@ import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { ResourceNotFoundError } from '../exceptions/ResourceNotFoundError';
 import { GeneralError } from '../exceptions/GeneralError';
+import { UserOnOtherProfile } from '../models/favUser/userOnOtherProfile';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,14 @@ export class FavUserService {
     );
   }
 
+  getUsersWhoAddedSelectUserToFriends(userId: number) : Observable<UserOnOtherProfile[]>{
+    return this.http.get<UserOnOtherProfile[]>(`${this.apiUrl}/favouriteuser/${userId}/user-on-other-profiles`).pipe(
+      catchError(error => {
+        console.log('Error while get user profile who add user to fav user list' , error);
+        return this.handleError(error);
+      })
+    );
+  }
   deleteUserFromFavUserList(favUserId: number): Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/favouriteuser/delete/${favUserId}`).pipe(
       catchError(error => {
