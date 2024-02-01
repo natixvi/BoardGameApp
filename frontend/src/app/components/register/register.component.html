@@ -8,6 +8,9 @@
             <small *ngIf="registerForm.controls.nickName.errors?.['required']">
                 NickName is required.
             </small>
+            <small *ngIf="registerForm.controls.nickName.errors?.['maxlength']">
+                NickName must be no longer than 100 characters.
+            </small>
         </div>
         <div class="label">
             <label>Email: <input formControlName="email" type="text" pInputText placeholder="Email"></label>

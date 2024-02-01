@@ -1,1 +1,24 @@
-<p>create-user-request works!</p>
+<div class="container">  
+    <form class="form" [formGroup]="userRequestForm" (ngSubmit)="sendRequest()">
+        <p>Don't see a board game that interests you on the list? Send us a request and we will try to add it.<br>If you have any other questions don't be afraid to ask. We are here for you.</p>
+        <div class="content">
+            <div class="label">
+                <label for="messageTitle">Title: </label>
+                <input id="messageTitle" formControlName="messageTitle" type="text" pInputText placeholder="Message title">
+            </div>
+            <div class="error-messages" *ngIf="userRequestForm.controls.messageTitle.invalid && (userRequestForm.controls.messageTitle.dirty || userRequestForm.controls.messageTitle.touched)">
+                <small *ngIf="userRequestForm.controls.messageTitle.errors?.['required']">
+                    Title is required.
+                </small>
+                <small *ngIf="userRequestForm.controls.messageTitle.errors?.['maxlength']">
+                    The title must be no longer than 100 characters.
+                </small>
+            </div>
+            <div class="label">
+                <label for="messageBody">Content: </label>
+                <textarea id="messageBody" pInputTextarea [autoResize]="true" placeholder="Comment description..." formControlName="messageBody" rows="4"></textarea>
+            </div>
+            <button pButton type="submit"  icon="pi pi-send" label="Send us a message" [disabled]="userRequestForm.invalid"></button>
+        </div>
+    </form> 
+</div>

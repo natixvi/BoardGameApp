@@ -21,6 +21,7 @@ import { DeleteAccountComponent } from './components/user/delete-account/delete-
 import { adminGuard } from './guards/admin.guard';
 import { UserRequestComponent } from './components/admin/user-request/user-request.component';
 import { UserOnOtherProfilesComponent } from './components/user-profile/user-on-other-profiles/user-on-other-profiles.component';
+import { CreateUserRequestComponent } from './components/userRequest/create-user-request/create-user-request.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -40,6 +41,7 @@ export const routes: Routes = [
   {path: 'editUserData', component: EditDataComponent, canActivate:[authGuard]},
   {path: 'changePassword', component: ChangePasswordComponent, canActivate:[authGuard]},
   {path: 'deleteAccount', component: DeleteAccountComponent, canActivate:[authGuard]},
+  {path: 'sendRequest', component: CreateUserRequestComponent, canActivate:[authGuard]},
   {path: 'boardGameSettings', component: BoardGameSettingsComponent, canActivate:[adminGuard]},
   {path: 'userRequests', component: UserRequestComponent, canActivate:[adminGuard]},
   {path: '**', component: NotFoundPageComponent}
