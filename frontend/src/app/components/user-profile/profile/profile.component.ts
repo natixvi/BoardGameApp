@@ -36,7 +36,7 @@ export class ProfileComponent {
   router = inject(Router);
   userGameListFirst5: UserBoardGame[] = [];
   userFavGameListFirst5: UserBoardGame[] = []
-  userFavUsersFirst3: FavUser[] = [];
+  userFavUsersFirst5: FavUser[] = [];
   totalFavGames: number = 0;
   isUserInFavList: boolean | undefined;
   userSub: Subscription | undefined;
@@ -91,7 +91,7 @@ export class ProfileComponent {
         this.userGameListFirst5 = this.userInfo.userBoardGames.slice(0, 5);
         this.totalFavGames = this.userInfo.userBoardGames.filter(g => g.isFavourite === true).length
         this.userFavGameListFirst5 = this.userInfo.userBoardGames.filter(g => g.isFavourite === true).slice(0, 5);
-        this.userFavUsersFirst3 = this.userInfo.favouriteUsers.slice(0, 3);
+        this.userFavUsersFirst5 = this.userInfo.favouriteUsers.slice(0, 5);
       },
       error: (e) => {
         if (e instanceof ResourceNotFoundError){

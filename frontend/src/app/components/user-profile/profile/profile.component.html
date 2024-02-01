@@ -24,48 +24,21 @@
                 <p class="user-nickname"><span class="bold">Nickname:</span> {{userInfo.nickName}}</p>
             </div>
         </div>
-        <div class="header-down-fav">
-            <h3> Friends </h3>
-        </div>
-        <ng-container *ngIf="userInfo.favouriteUsers.length > 0 ; else emptyList" >
-            <p-table [value]="userFavUsersFirst3" [tableStyle]="{ 'min-width': '10rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>NickName</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-user>
-                    <tr>
-                        <td *ngIf="isLoggedInUserProfile; else notUserProfile" class="user-profile">
-                            <span class="user-name" pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
-                            <span><button pButton type="button" icon="pi pi-user-minus" class="p-button-danger p-button-text" pTooltip="Remove user from friends" (click)="removeUserFromFavList(user.favUserId)" ></button></span>
-                        </td>
-                        <ng-template #notUserProfile>
-                            <td>
-                                <span pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
-                            </td>
-                        </ng-template>
-                    </tr>
-                </ng-template>
-            </p-table>
-            <div class="button-fav">
-                <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userFavouriteUserList', userId]">See more</button>
-            </div>
-        </ng-container>
-        <ng-template #emptyList>
-            <div class="no-result">
-                No results found
-            </div>
-        </ng-template>
 
         <div class="header-down">
-            <h3> User's board game collection </h3>
+            <div class="header-left">
+                <h3> User's board game collection </h3>
+                <span>{{userInfo.userBoardGames.length}} games</span>
+            </div> 
+            <div class="button">
+                <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userGameList', userId]">See more</button>
+            </div>
         </div>
         <div class="user-data-box" *ngIf="userInfo.userBoardGames.length > 0 ; else emptyList">
             <div class="grid detail-box">
                 <ng-container>
                     <div *ngFor="let game of userGameListFirst5" class="col-6 md:col-4 lg:col-3 xl:col-2">
-                        <div class="game" >
+                        <div class="data" >
                             <div class="image-box">
                                 <img [src]="game.imageUrl" [alt]="game.name"  class="shadow-4" [routerLink]="['/games', game.boardGameId]"/>
                             </div>
@@ -74,9 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="button">
-                        <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userGameList', userId]">See more</button>
-                    </div>
+                    
                 </ng-container>     
             </div>
         </div>
@@ -87,14 +58,20 @@
         </ng-template>
 
         <div class="header-down">
-            <h3> Favourite board games </h3>
+            <div class="header-left">
+                <h3> Favourite board games </h3>
+                <span>{{totalFavGames}} favourite games</span>
+            </div>
+            <div class="button">
+                <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userFavouriteGameList', userId]">See more</button>
+            </div>
         </div>
         <div class="user-data-box" *ngIf="totalFavGames > 0 ; else emptyList">
             <div class="grid detail-box">
                 <ng-container>
                     <ng-container *ngFor="let game of userFavGameListFirst5; let i = index">
                         <div class="col-6 md:col-4 lg:col-3 xl:col-2">
-                            <div class="game" >
+                            <div class="data" >
                                 <div class="image-box">
                                     <img [src]="game.imageUrl" [alt]="game.name" [routerLink]="['/games', game.boardGameId]"/>
                                 </div>
@@ -104,9 +81,6 @@
                             </div>
                         </div>
                     </ng-container>
-                    <div class="button">
-                        <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userFavouriteGameList', userId]">See more</button>
-                    </div>
                 </ng-container>
             </div>
         </div>
@@ -116,5 +90,45 @@
             </div>
         </ng-template>
 
+        <div class="header-down">
+            <div class="header-left">
+                <h3> Friends </h3>
+                <span>{{userInfo.favouriteUsers.length}} friends</span>
+            </div>
+            <div class="button">
+                <button pButton class="p-button-secondary p-button-text" [routerLink]="['/userFavouriteUserList', userId]">See more</button>
+            </div>
+        </div>
+        <ng-container *ngIf="userInfo.favouriteUsers.length > 0 ; else emptyList" >
+            <div class="user-data-box">
+                <div class="grid detail-box">
+                    <ng-container>
+                        <ng-container *ngFor="let user of userFavUsersFirst5">
+                            <div class="col-6 md:col-4 lg:col-3 xl:col-2">
+                                <div class="data">
+                                    <div class="image-box">
+                                        <p-avatar size='large' icon="pi pi-user" styleClass="mr-2"></p-avatar>
+                                    </div>
+                                    <div *ngIf="isLoggedInUserProfile; else notUserProfile" class="fav-user-name"> 
+                                        <span class="user-name" pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
+                                        <span><button pButton type="button" icon="pi pi-user-minus" class="p-button-danger p-button-text" pTooltip="Remove user from friends" (click)="removeUserFromFavList(user.favUserId)" ></button></span>
+                                    </div>
+                                    <ng-template #notUserProfile>
+                                        <div class="fav-user-name">
+                                            <span pTooltip="Go to user profile" [routerLink]="['/userProfile/', user.favUserId]">{{ user.nickName }}</span>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #emptyList>
+            <div class="no-result">
+                No results found
+            </div>
+        </ng-template>
     </div>
 </div>
