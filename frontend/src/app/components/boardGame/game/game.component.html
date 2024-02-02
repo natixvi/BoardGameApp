@@ -1,9 +1,6 @@
 <div class="data-box">  
-
-    <p-progressBar *ngIf="!dataLoaded" mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
-    <app-game-generic *ngIf="dataLoaded"
+    <app-game-generic 
     (changeInDataEvent)="onChangeGameEvent($event)"
     [games]="games">
     </app-game-generic>     
-
 </div>

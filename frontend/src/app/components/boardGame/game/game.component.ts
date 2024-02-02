@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-game',
     standalone: true,
-    imports: [ CommonModule, RouterModule, GameGenericComponent,ProgressBarModule],
+    imports: [ CommonModule, RouterModule, GameGenericComponent],
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'] 
 })
@@ -25,7 +25,6 @@ export class GameComponent implements OnInit {
     router = inject(Router);
     isLoggedIn$: Observable<boolean> | undefined;
     isLoggedIn: boolean = false;
-    dataLoaded: boolean = false;
   
     constructor(private gameService : GameService, public authService: AuthService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
@@ -50,7 +49,6 @@ export class GameComponent implements OnInit {
       this.gameService.getGames().subscribe({
         next: (data : Game[]) =>{
           this.games = data;
-          this.dataLoaded = true;
         },
         error: (e) => {
           if (e instanceof BadRequestError){
@@ -68,12 +66,12 @@ export class GameComponent implements OnInit {
             this.checkIfGameIsInUserList(game);
           })
           this.games = data;
-          this.dataLoaded = true;
         },
         error: (e) => {
           if (e instanceof BadRequestError){
             this.messageService.add({severity: 'error', summary: 'Error', detail: e.message});
           }
+          
           else this.messageService.add({severity: 'error', summary: 'Error', detail: "Server connection Error!"})
         }
        })
