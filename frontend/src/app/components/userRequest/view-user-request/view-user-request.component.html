@@ -1,1 +1,63 @@
-<p>view-user-request works!</p>
+<div class="container-block">
+    <p-toolbar styleClass="mb-4 justify-content-center h-5rem">
+          <h3 class="m-0">Sended requests status</h3>
+    </p-toolbar>
+
+    <p-table  
+        #dt 
+        [value]="usersRequests" 
+        [rows]="10" 
+        [tableStyle]="{'min-width': '50rem'}" 
+        [paginator]="true"
+        [globalFilterFields]="['status', 'messageTitle', 'createdTime']"
+        [rowHover]="true" 
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <div style="width: 10px;"></div>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Message title</th>
+                <th pSortableColumn="status" style="min-width:15rem">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th pSortableColumn="createdTime" style="min-width:15rem">Date <p-sortIcon field="createdTime"></p-sortIcon></th>
+                <th>Details</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-request>
+            <tr>
+                <td>{{request.messageTitle}}</td>
+                <td><p-tag [value]="request.status" [severity]="getSeverity(request.status)" styleClass="tag"></p-tag></td>
+                <td>{{request.createdTime | date: 'dd-MM-yyyy HH:mm':'pl'}}</td>
+                <td><button pButton pRipple pTooltip="See all messages details" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-secondary p-button-text mr-2" (click)="showRequestDetail(request)"></button></td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{usersRequests ? usersRequests.length : 0 }} products.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="showDialog" [style]="{ width: '450px' }" header="Message Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="message-title">
+            <span class="label">Title: </span><span>{{selectedRequest.messageTitle}}</span>
+        </div>
+        <div class="message-body">
+            <span>{{selectedRequest.messageBody}}</span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    </ng-template>
+</p-dialog>

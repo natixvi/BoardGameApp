@@ -46,7 +46,7 @@
                             </div>
                             <div class="game-user-rating">
                                 <i class="pi pi-star-fill"></i><span>User rating:</span>&nbsp;<span class="rating-value">{{game.userRating === 0 ? '-' : game.userRating}}</span>
-                                <button *ngIf="isCurrentUserList" pButton (click)="showEditUserGameForm(game)" class="p-button-secondary p-button-text">Edit</button> 
+                                <button *ngIf="isCurrentUserList && !favView" pButton (click)="showEditUserGameForm(game)" class="p-button-secondary p-button-text">Edit</button> 
                                 <div *ngIf="openUserGameForm && selectedGameId === game.boardGameId; else noForm" class="overlay">
                                     <div class="container"> 
                                         <form [formGroup]="gameEditForm" (ngSubmit)="editUserGameDetails(game.boardGameId)">
@@ -74,7 +74,7 @@
                                 </div>
                                 <ng-template #noForm></ng-template> 
                             </div>
-                            <div class="delete-button">
+                            <div *ngIf="!favView" class="delete-button">
                                 <p-button *ngIf="isCurrentUserList" severity="danger" label="Remove" icon="pi pi-minus" iconPos="right" (onClick)="deleteGameFromList(game.boardGameId)"></p-button>   
                             </div>  
                         </div>

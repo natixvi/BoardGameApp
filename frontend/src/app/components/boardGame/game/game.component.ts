@@ -9,12 +9,14 @@ import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError
 import { Observable} from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { GameGenericComponent } from '../game-generic/game-generic.component';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
     selector: 'app-game',
     standalone: true,
-    imports: [ RouterModule, GameGenericComponent],
+    imports: [ CommonModule, RouterModule, GameGenericComponent,ProgressBarModule],
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'] 
 })
@@ -23,11 +25,12 @@ export class GameComponent implements OnInit {
     router = inject(Router);
     isLoggedIn$: Observable<boolean> | undefined;
     isLoggedIn: boolean = false;
+    dataLoaded: boolean = false;
   
     constructor(private gameService : GameService, public authService: AuthService, private messageService : MessageService, private userBoardGameService: UserBoardGameService) {}
 
     ngOnInit() {
-      this.initialData();
+      this.initialData();      
     }
     
     initialData(){
@@ -47,6 +50,7 @@ export class GameComponent implements OnInit {
       this.gameService.getGames().subscribe({
         next: (data : Game[]) =>{
           this.games = data;
+          this.dataLoaded = true;
         },
         error: (e) => {
           if (e instanceof BadRequestError){
@@ -64,6 +68,7 @@ export class GameComponent implements OnInit {
             this.checkIfGameIsInUserList(game);
           })
           this.games = data;
+          this.dataLoaded = true;
         },
         error: (e) => {
           if (e instanceof BadRequestError){

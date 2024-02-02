@@ -57,8 +57,8 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-envelope',  
           visible: isLoggedIn && isAdmin === false,
           items: [
-            { label: 'Sended requests status', icon: 'pi pi-envelope'},
-            { label: 'Send us a request', icon: 'pi pi-send', routerLink: ['sendRequest']},       
+            { label: 'Sended requests status', icon: 'pi pi-envelope', routerLink: ['sendedMessages']},
+            { label: 'Send us a request', icon: 'pi pi-send', routerLink: ['sendMessage']},       
           ],
         }, 
         { 

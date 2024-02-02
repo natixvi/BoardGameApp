@@ -29,6 +29,7 @@ export class GenericUserGameListComponent implements OnInit{
   @Input() header: string = '';
   @Input() buttonName: string = '';
   @Input() userId: number = 0;
+  @Input() favView: boolean = false;
   @Input() toggleButtonFn: ((userId: number) => void) | null = null;
 
   @Output() changeInDataEvent = new EventEmitter<boolean>();

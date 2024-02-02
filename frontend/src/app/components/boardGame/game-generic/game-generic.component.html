@@ -5,10 +5,10 @@
                 <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" [style]="{'min-width':'15em'}"></p-dropdown> 
             </div>
             <div class="mb-2 md:mb-0">
-            <span class="p-input-icon-left mb-2 md:mb-0 search">
-                <i class="pi pi-search"></i>
-                <input type="search" pInputText placeholder="Search" (input)="dv.filter($any($event).target.value)">
-            </span>
+                <span class="p-input-icon-left mb-2 md:mb-0 search">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search" (input)="dv.filter($any($event).target.value)">
+                </span>
             </div>
             <div class="md:ml-2">
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
