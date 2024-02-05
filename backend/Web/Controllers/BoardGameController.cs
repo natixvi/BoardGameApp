@@ -43,7 +43,6 @@ public class BoardGameController : ControllerBase
         var boardGameId = await gameService.CreateBoardGame(addBoardGameDto);
         return Created($"/boardgame/{boardGameId}", null);
     }
-    }
 
     [Authorize(Roles = "Admin")]
     [HttpPut("update/{id}")]

@@ -2,7 +2,6 @@
 using Domain.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Data;
-using System;
 
 namespace Persistance.Repositories;
 public class BoardGameRequestRepository : BaseRepository<BoardGameRequest>, IBoardGameRequestRepository
@@ -15,25 +14,25 @@ public class BoardGameRequestRepository : BaseRepository<BoardGameRequest>, IBoa
     }
     public async Task<int> AddBoardGameRequest(BoardGameRequest game)
     {
-        appDbContext.AddBoardGameRequests.Add(game);
+        appDbContext.BoardGameRequests.Add(game);
         await appDbContext.SaveChangesAsync();
         return game.Id;
     }
     public async Task<List<BoardGameRequest>> GetAll()
     {
-        var usersBoardGameRequests = await appDbContext.AddBoardGameRequests.Include(r => r.User).ToListAsync();
+        var usersBoardGameRequests = await appDbContext.BoardGameRequests.Include(r => r.User).ToListAsync();
         return usersBoardGameRequests;
     }
 
-    public async Task<List<BoardGameRequest>?> GetBoardGameRequestByUserId(int userId)
+    public async Task<List<BoardGameRequest>?> GetBoardGameRequestsByUserId(int userId)
     {
-        var userBoardGameRequests = await appDbContext.AddBoardGameRequests.Where(r => r.UserId == userId).ToListAsync();
+        var userBoardGameRequests = await appDbContext.BoardGameRequests.Where(r => r.UserId == userId).ToListAsync();
         return userBoardGameRequests;
     }
 
     public async Task<BoardGameRequest?> GetBoardGameRequestById(int requestId)
     {
-        var userBoardGameRequest = await appDbContext.AddBoardGameRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == requestId);
+        var userBoardGameRequest = await appDbContext.BoardGameRequests.Include(r => r.User).FirstOrDefaultAsync(r => r.Id == requestId);
         return userBoardGameRequest;
     }
 }

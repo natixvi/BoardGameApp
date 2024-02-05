@@ -3,7 +3,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.IRepositories;
-using Services.DTOs.BoardGame;
+using Services.DTOs.BoardGameRequest;
 using Services.DTOs.UserRequest;
 using Services.Interfaces;
 
@@ -12,9 +12,9 @@ public class BoardGameRequestService : IBoardGameRequestService
 {
     private readonly IBoardGameRequestRepository boardGameRequestRepository;
     private readonly IUserContextService userContextService;
-    private readonly Mapper mapper;
+    private readonly IMapper mapper;
 
-    public BoardGameRequestService(IBoardGameRequestRepository boardGameRequestRepository ,IUserContextService userContextService, Mapper mapper)
+    public BoardGameRequestService(IBoardGameRequestRepository boardGameRequestRepository ,IUserContextService userContextService, IMapper mapper)
     {
         this.boardGameRequestRepository = boardGameRequestRepository;
         this.userContextService = userContextService;
@@ -33,27 +33,27 @@ public class BoardGameRequestService : IBoardGameRequestService
         return (addBoardGameRequestId);
     }
 
-    public async Task<List<UserRequestDto>> GetAll()
+    public async Task<List<BoardGameRequestDto>> GetAll()
     {
-        var usersBoardGameRequests = await boardGameRequestRepository.GetAll();
-        return mapper.Map<List<UserRequestDto>>(usersBoardGameRequests);
+        var boardGameRequests = await boardGameRequestRepository.GetAll();
+        return mapper.Map<List<BoardGameRequestDto>>(boardGameRequests);
     }
 
-    public async Task<List<UserRequestDto>?> GetRequestByUserId()
+    public async Task<List<BoardGameRequestDto>?> GetBoardGameRequestsByUserId()
     {
         var userId = GetUserContextId();
-        var userBoardGameRequests = await boardGameRequestRepository.GetBoardGameRequestByUserId((int)userId);
-        return mapper.Map<List<UserRequestDto>>(userBoardGameRequests);
+        var boardGameRequests = await boardGameRequestRepository.GetBoardGameRequestsByUserId((int)userId);
+        return mapper.Map<List<BoardGameRequestDto>>(boardGameRequests);
     }
 
     public async Task ChangeStatus(int requestId, ChangeUserRequestStatusDto stateDto)
     {
-        var userBoardGameRequest = await boardGameRequestRepository.GetBoardGameRequestById(requestId);
-        if (userBoardGameRequest == null) throw new NotFoundException("User request not found");
+        var boardGameRequest = await boardGameRequestRepository.GetBoardGameRequestById(requestId);
+        if (boardGameRequest == null) throw new NotFoundException("Boad game request not found");
         if (Enum.TryParse<UserRequestStatus>(stateDto.Status, out var newStatus) && Enum.IsDefined(typeof(UserRequestStatus), newStatus))
         {
-            userBoardGameRequest.Status = newStatus;
-            await boardGameRequestRepository.Update(userBoardGameRequest);
+            boardGameRequest.Status = newStatus;
+            await boardGameRequestRepository.Update(boardGameRequest);
         }
         else
         {
@@ -62,12 +62,13 @@ public class BoardGameRequestService : IBoardGameRequestService
 
     }
 
-    public async Task<UserRequestDto?> GetUserRequestById(int requestId)
+    public async Task<BoardGameRequestDto?> GetBoardGameRequestById(int requestId)
     {
-        var userRequest = await userRequestRepository.GetRequestById(requestId);
-        if (userRequest == null) throw new NotFoundException("User request not found");
-        return mapper.Map<UserRequestDto>(userRequest);
+        var boardGameRequest = await boardGameRequestRepository.GetBoardGameRequestById(requestId);
+        if (boardGameRequest == null) throw new NotFoundException("Boad game request not found");
+        return mapper.Map<BoardGameRequestDto>(boardGameRequest);
     }
+
     private int? GetUserContextId()
     {
         var userId = userContextService.GetUserId;

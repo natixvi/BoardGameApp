@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using Services.DTOs.BoardGame;
+using Services.DTOs.BoardGameRequest;
 using Services.DTOs.Comment;
 using Services.DTOs.FavUser;
 using Services.DTOs.User;
@@ -33,6 +34,8 @@ public class AutoMapperProfile: Profile
         CreateMap<AddUserBoardGameDto, BoardGame>();
 
         CreateMap<AddBoardGameRequestDto, BoardGameRequest>();
+        CreateMap<BoardGameRequest, BoardGameRequestDto>()
+            .ForMember(dest => dest.UserName, c => c.MapFrom(src => src.User.NickName));
 
         CreateMap<UserBoardGame, UserBoardGameDetails>();
         CreateMap<EditUserBoardGameDetails, UserBoardGame>();
