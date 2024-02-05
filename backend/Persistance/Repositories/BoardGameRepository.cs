@@ -30,7 +30,7 @@ public class BoardGameRepository : BaseRepository<BoardGame>, IBoardGameReposito
         await appDbContext.SaveChangesAsync();
         return game.Id;
     }
-
+   
     public async Task<BoardGame?> GetBoardGameByName(string name)
     {
         var game = await appDbContext.BoardGames.FirstOrDefaultAsync(g => g.Name == name);

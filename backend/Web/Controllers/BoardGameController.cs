@@ -1,8 +1,6 @@
-﻿using Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.DTOs.BoardGame;
-using Services.DTOs.Comment;
 using Services.Interfaces;
 
 namespace Web.Controllers;
@@ -44,6 +42,7 @@ public class BoardGameController : ControllerBase
     {
         var boardGameId = await gameService.CreateBoardGame(addBoardGameDto);
         return Created($"/boardgame/{boardGameId}", null);
+    }
     }
 
     [Authorize(Roles = "Admin")]
