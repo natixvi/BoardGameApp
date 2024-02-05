@@ -10,7 +10,7 @@ import { BadRequestError } from '../../../exceptions/BadRequestError';
 import { MessageService } from 'primeng/api';
 import { UnauthorizedError } from '../../../exceptions/UnauthorizedError';
 import { ForbiddenError } from '../../../exceptions/ForbiddenError';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
@@ -18,7 +18,7 @@ import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-view-user-request',
   standalone: true,
-  imports: [CommonModule, ToolbarModule, TableModule, ButtonModule, TagModule, InputTextModule, TooltipModule, DialogModule],
+  imports: [CommonModule, ToolbarModule, TableModule, ButtonModule, RouterModule, TagModule, InputTextModule, TooltipModule, DialogModule],
   templateUrl: './view-user-request.component.html',
   styleUrls: ['./view-user-request.component.css']
 })

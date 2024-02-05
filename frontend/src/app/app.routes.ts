@@ -23,6 +23,8 @@ import { UserRequestComponent } from './components/admin/user-request/user-reque
 import { UserOnOtherProfilesComponent } from './components/user-profile/user-on-other-profiles/user-on-other-profiles.component';
 import { CreateUserRequestComponent } from './components/userRequest/create-user-request/create-user-request.component';
 import { ViewUserRequestComponent } from './components/userRequest/view-user-request/view-user-request.component';
+import { CreateBoardGameRequestComponent } from './components/userRequest/create-board-game-request/create-board-game-request.component';
+import { UserBoardGameRequestComponent } from './components/admin/user-board-game-request/user-board-game-request.component';
 
 export const routes: Routes = [
   {path: '', pathMatch:'full', redirectTo: 'home'},
@@ -35,16 +37,19 @@ export const routes: Routes = [
   {path: 'userGameList/:userId', component: UserGameListComponent},
   {path: 'userFavouriteGameList/:userId', component: UserFavouriteGameListComponent},
   {path: 'userFavouriteUserList/:userId', component: FavUserListComponent},
-  {path: 'meOnOtherProfiles', component: UserOnOtherProfilesComponent},
+  {path: 'meOnOtherProfiles', component: UserOnOtherProfilesComponent, canActivate:[authGuard]},
   {path: 'login', component: LoginComponent, canActivate:[loginGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[loginGuard]},
   {path: 'editAccount', component: EditAccountComponent, canActivate:[authGuard]},
   {path: 'editUserData', component: EditDataComponent, canActivate:[authGuard]},
   {path: 'changePassword', component: ChangePasswordComponent, canActivate:[authGuard]},
   {path: 'deleteAccount', component: DeleteAccountComponent, canActivate:[authGuard]},
-  {path: 'sendMessage', component: CreateUserRequestComponent, canActivate:[authGuard]},
-  {path: 'sendedMessages', component: ViewUserRequestComponent, canActivate:[authGuard]},
+  {path: 'sendRequest', component: CreateUserRequestComponent, canActivate:[authGuard]},
+  {path: 'requests', component: ViewUserRequestComponent, canActivate:[authGuard]},
+  {path: 'sendAddBoardGameRequest', component: CreateBoardGameRequestComponent, canActivate:[authGuard]},
+  {path: 'addBoardGameRequests', component: CreateBoardGameRequestComponent, canActivate:[authGuard]},
   {path: 'boardGameSettings', component: BoardGameSettingsComponent, canActivate:[adminGuard]},
   {path: 'userRequests', component: UserRequestComponent, canActivate:[adminGuard]},
+  {path: 'usersAddBoardGameRequests', component: UserBoardGameRequestComponent, canActivate:[adminGuard]},
   {path: '**', component: NotFoundPageComponent}
 ];

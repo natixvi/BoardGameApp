@@ -5,7 +5,7 @@ import { UserRequestService } from '../../../services/user-request.service';
 import { CreateUserRequest } from '../../../models/userRequest/createUserRequest';
 import { UnauthorizedError } from '../../../exceptions/UnauthorizedError';
 import { BadRequestError } from '../../../exceptions/BadRequestError';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
@@ -14,7 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'app-create-user-request',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextareaModule, ButtonModule, InputTextModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, InputTextareaModule, ButtonModule, InputTextModule],
   templateUrl: './create-user-request.component.html',
   styleUrls: ['./create-user-request.component.css']
 })

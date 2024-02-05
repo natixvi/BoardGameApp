@@ -53,12 +53,12 @@ export class NavbarComponent implements OnInit {
           routerLink: ['userGameList/', this.loggedInUserId]
         },
         {
-          label: 'Messages', 
+          label: 'Request', 
           icon: 'pi pi-envelope',  
           visible: isLoggedIn && isAdmin === false,
           items: [
-            { label: 'Sended requests status', icon: 'pi pi-envelope', routerLink: ['sendedMessages']},
-            { label: 'Send us a request', icon: 'pi pi-send', routerLink: ['sendMessage']},       
+            { label: 'Requests', routerLink: ['requests']},
+            { label: 'Send us a request',  routerLink: ['sendRequest']}   
           ],
         }, 
         { 
@@ -66,8 +66,9 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-user-edit', 
           visible: isAdmin === true,
           items: [
-            { label: 'User requests', icon: 'pi pi-inbox', routerLink: ['userRequests',]},
-            { label: 'Board games', icon: 'pi pi-cog', routerLink: ['boardGameSettings']} 
+            { label: 'User requests', routerLink: ['userRequests']},
+            { label: 'Add board game requests', routerLink: ['usersAddBoardGameRequests']},
+            { label: 'Board games', routerLink: ['boardGameSettings']} 
           ]
         },
         {

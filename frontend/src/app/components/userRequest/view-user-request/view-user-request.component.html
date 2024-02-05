@@ -1,6 +1,14 @@
 <div class="container-block">
-    <p-toolbar styleClass="mb-4 justify-content-center h-5rem">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <div style="width: 100px;"></div>
+        </ng-template>
+        <ng-template pTemplate="center">
           <h3 class="m-0">Sended requests status</h3>
+      </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Add boardGame requests" pTooltip="Go to add board game requests status" class="p-button-secondary p-button-text" [routerLink]="['/addBoardGameRequests']"></button>
+        </ng-template>
     </p-toolbar>
 
     <p-table  
@@ -16,12 +24,12 @@
         [showCurrentPageReport]="true"
     >
         <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
-                <div style="width: 10px;"></div>
+            <div class="flex align-items-center justify-content-between">   
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Search..." />
                 </span>
+                <button pButton pRipple label="New" pTooltip="Send us request" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/sendRequest']"></button>
             </div>
         </ng-template>
         <ng-template pTemplate="header">

@@ -5,6 +5,7 @@
     transform: translate(-50%, -50%);
     width: auto; 
     min-height: 60%;
+    max-height: 80%;
     background-color:#ffffff;
     border: 1.5px solid #c7c7c7;
     border-radius: 10px;
@@ -13,14 +14,11 @@
     display: flex;
     flex-direction: column;
 }
+
 .header{
-    padding: 50px 30px 0 30px;
+    padding: 30px 30px 0 30px;
 }
-#link{
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: bolder;
-}
+
 .form{
     flex: 1;
     width: 100%;
@@ -33,12 +31,12 @@
 .form::before{
     position: absolute;
     content: "";
-    width: 480px;
-    height: 540px;
+    width: 580px;
+    height: 640px;
     background-color: rgb(243, 229, 222);
     transform: rotate(45deg);
-    left: -180px;
-    bottom: 60px;
+    left: -300px;
+    bottom: 80px;
     z-index: -1;
     border-radius: 30px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
@@ -55,8 +53,8 @@ p{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 5rem;
-    width: 60%;
+    margin-bottom: 3rem;
+    width: 80%;
 }
 .content .label{
     width: 100%;
@@ -68,6 +66,7 @@ p{
 
 
 .container button[type="submit"] {
+    margin-top: 10px;
     width: 100%;
     padding: 10px;
     background-color: #EEA47F;;
