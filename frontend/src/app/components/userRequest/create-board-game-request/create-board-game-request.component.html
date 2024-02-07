@@ -4,7 +4,8 @@
             Don't see a board game that interests you?<br> Add board game and we will try to add it.
         </p>
     </div>
-    <form class="form" [formGroup]="addGameForm" (ngSubmit)="addBoardGameRequest()">
+    <div class="body">
+        <form class="form" [formGroup]="addGameForm">
             <div class="content">
                 <div class="label">
                     <label for="name">Name: </label>
@@ -93,7 +94,10 @@
                         Image url is required.
                     </small>
                 </div> 
-                <button pButton type="submit"  icon="pi pi-send" label="Send add board game request" [disabled]="addGameForm.invalid"></button>
             </div>
-    </form>
+        </form>
+    </div>
+    <div class="footer">
+        <button pButton type="submit"  icon="pi pi-send" label="Send add board game request" [disabled]="addGameForm.invalid" (click)="addBoardGameRequest()"></button>
+    </div>
 </div>

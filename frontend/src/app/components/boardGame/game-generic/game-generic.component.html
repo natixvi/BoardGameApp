@@ -1,4 +1,13 @@
-<p-dataView #dv [value]="games" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50, 100]" filterBy="name,rating,publisher" [sortField]="sortField" [sortOrder]="sortOrder">
+<p-dataView #dv 
+    [value]="games" 
+    [paginator]="true" 
+    [rows]="10" 
+    [rowsPerPageOptions]="[10, 25, 50, 100]" 
+    filterBy="name,rating,publisher" 
+    [sortField]="sortField" 
+    [sortOrder]="sortOrder"
+    emptyMessage= "Don't see a board game that interests you? Add board game on contact panel and we will try to add it."
+>
     <ng-template pTemplate="header">
         <div class="flex flex-col md:flex-row justify-content-between">
             <div class="md:ml-2">

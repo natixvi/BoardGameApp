@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: auto; 
-    min-height: 60%;
+    min-height: 80%;
     max-height: 80%;
     background-color:#ffffff;
     border: 1.5px solid #c7c7c7;
@@ -15,37 +15,46 @@
     flex-direction: column;
 }
 
+.container::before{
+    position: absolute;
+    content: "";
+    width: 620px;
+    height: 680px;
+    background-color: rgb(243, 229, 222);
+    transform: rotate(45deg);
+    left: -400px;
+    bottom: 10px;
+    z-index: -1;
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
+}
+
 .header{
     padding: 30px 30px 0 30px;
 }
 
-.form{
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.body{
+    padding: 30px;
+    height: auto;
+    overflow: auto;
 }
 
-.form::before{
-    position: absolute;
-    content: "";
-    width: 580px;
-    height: 640px;
-    background-color: rgb(243, 229, 222);
-    transform: rotate(45deg);
-    left: -300px;
-    bottom: 80px;
-    z-index: -1;
-    border-radius: 30px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
+.footer{
+    padding: 0px 30px 30px 30px;
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center; 
 }
 
 p{
     text-align: center;
     font-size: large;
     font-weight: bolder;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .content{
@@ -53,20 +62,18 @@ p{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 3rem;
-    width: 80%;
 }
+
 .content .label{
     width: 100%;
 }
 .content .label label,input,textarea{
     width: 100%;
-    margin-bottom: 5px;
+    margin: 5px 0 5px 0;
 }
 
-
 .container button[type="submit"] {
-    margin-top: 10px;
+    margin-top: 20px;
     width: 100%;
     padding: 10px;
     background-color: #EEA47F;;
@@ -126,7 +133,7 @@ p{
         font-size: small;
     }
     .container button[type="submit"]{
-        font-size: small;
+        font-size: x-small;
     }
     ::ng-deep .container .pi{
         font-size: small;

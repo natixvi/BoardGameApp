@@ -4,7 +4,7 @@
           <div style="width: 100px;"></div>
         </ng-template>
         <ng-template pTemplate="center">
-          <h3 class="m-0">Sended requests status</h3>
+          <h3 class="m-0">Sended messages status</h3>
       </ng-template>
         <ng-template pTemplate="right">
             <button pButton pRipple label="Add boardGame requests" pTooltip="Go to add board game requests status" class="p-button-secondary p-button-text" [routerLink]="['/addBoardGameRequests']"></button>
@@ -50,7 +50,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                In total there are {{usersRequests ? usersRequests.length : 0 }} products.
+                In total there are {{usersRequests ? usersRequests.length : 0 }} sended requests.
             </div>
         </ng-template>
     </p-table>
@@ -66,6 +66,6 @@
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Close" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     </ng-template>
 </p-dialog>

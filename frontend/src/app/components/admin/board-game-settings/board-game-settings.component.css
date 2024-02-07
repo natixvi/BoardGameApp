@@ -13,6 +13,13 @@
 form div{
     margin-bottom: 10px;
 }
+
+.error-messages small{
+    display: block;
+    color: #ff5252; 
+    margin: 0 0 5px 0;
+} 
+
 input{
     margin-top: 5px;
 }

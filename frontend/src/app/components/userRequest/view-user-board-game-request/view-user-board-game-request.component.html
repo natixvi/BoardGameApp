@@ -1,1 +1,95 @@
-<p>view-user-board-game-request works!</p>
+<div class="container-block">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+          <div style="width: 100px;"></div>
+        </ng-template>
+        <ng-template pTemplate="center">
+          <h3 class="m-0">Sended add board game requests status</h3>
+      </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Other messages" pTooltip="Go to other messages" class="p-button-secondary p-button-text" [routerLink]="['/messages']"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table  
+        #dt 
+        [value]="userBoardGameRequests" 
+        [rows]="10" 
+        [tableStyle]="{'min-width': '50rem'}" 
+        [paginator]="true"
+        [globalFilterFields]="['status', 'messageTitle', 'createdTime']"
+        [rowHover]="true" 
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">   
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Search..." />
+                </span>
+                <button pButton pRipple label="Add board game" pTooltip="Add board game request" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/sendAddBoardGameRequest']"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Board game</th>
+                <th pSortableColumn="status" style="min-width:15rem">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th pSortableColumn="createdTime" style="min-width:15rem">Date <p-sortIcon field="createdTime"></p-sortIcon></th>
+                <th>Details</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-request>
+            <tr>
+                <td>{{request.name}}</td>
+                <td><p-tag [value]="request.status" [severity]="getSeverity(request.status)" styleClass="tag"></p-tag></td>
+                <td>{{request.createdTime | date: 'dd-MM-yyyy HH:mm':'pl'}}</td>
+                <td><button pButton pRipple pTooltip="See all messages details" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-secondary p-button-text mr-2" (click)="showRequestDetail(request)"></button></td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{userBoardGameRequests ? userBoardGameRequests.length : 0 }} sended add board game requests.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="showDialog" [style]="{ width: '450px' }" header=" Details of the added board game" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="detail">
+            <span class="label">Name: </span><span>{{selectedRequest.name}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Publisher: </span><span>{{selectedRequest.publisher}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Description:</span>
+        </div>
+        <div class="description">
+            <span>{{selectedRequest.description}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Players: </span><span>{{selectedRequest.players}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Time: </span><span>{{selectedRequest.time}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Age: </span><span>{{selectedRequest.age}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">ImageUrl: </span><span>{{selectedRequest.imageUrl}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">CreatedTime: </span><span>{{selectedRequest.createdTime | date: 'dd-MM-yyyy HH:mm':'pl'}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Status: </span><p-tag [value]="selectedRequest.status" [severity]="getSeverity(selectedRequest.status)" styleClass="tag"></p-tag>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Close" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    </ng-template>
+</p-dialog>
