@@ -29,7 +29,7 @@
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Search..." />
                 </span>
-                <button pButton pRipple label="New" pTooltip="Send us request" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/sendRequest']"></button>
+                <button pButton pRipple label="New" pTooltip="Send us message" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/sendMessage']"></button>
             </div>
         </ng-template>
         <ng-template pTemplate="header">

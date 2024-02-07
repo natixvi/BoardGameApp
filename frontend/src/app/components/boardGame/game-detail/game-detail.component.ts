@@ -57,7 +57,7 @@ export class GameDetailComponent implements OnInit {
     addToFavourites: [false]
   })
   
-  commentControl = new FormControl('', [Validators.maxLength(1000)]);
+  commentControl = new FormControl('', [Validators.required ,Validators.maxLength(1000)]);
 
   constructor( private route: ActivatedRoute, private gameCommentService: GameCommentService, private formBuilder: FormBuilder, public addGameFormService: AddGameFormService, public authService: AuthService, private userBoardGameService: UserBoardGameService, private confirmationService: ConfirmationService, private gameService: GameService, private messageService: MessageService){
   }
