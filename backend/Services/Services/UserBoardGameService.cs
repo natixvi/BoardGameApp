@@ -44,7 +44,6 @@ public class UserBoardGameService : IUserBoardGameService
         {
             return 0;
         }
-        Console.WriteLine(avgRating);
         return Math.Round(Math.Floor(avgRating * 100d) / 100d, 2);
     }
 

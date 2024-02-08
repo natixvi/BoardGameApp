@@ -52,8 +52,7 @@ public class UserRequestController : ControllerBase
     [HttpPost("create")]
     public async Task<IActionResult> CreateUserRequest([FromBody] AddUserRequestDto addUserRequestDto)
     {
-        var userRequestId  = await userRequestService.CreateUserRequest(addUserRequestDto);
-        Console.WriteLine(userRequestId);   
+        var userRequestId  = await userRequestService.CreateUserRequest(addUserRequestDto); 
         return Created($"/UserRequest/{userRequestId}", null);
     }
 

@@ -73,7 +73,6 @@ public class AccountService : IAccountService
             user.Email = updateUserDto.Email;
         }
 
-        Console.WriteLine(user.NickName + "  dto: " + updateUserDto.NickName);
         if (user.NickName != updateUserDto.NickName)
         {
             if (await accountRepository.NickNameExist(updateUserDto.NickName)) throw new DuplicateDataException("This nickname is already taken.");

@@ -27,7 +27,6 @@ public class JwtService : IJwtService
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.JwtKey));
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        Console.WriteLine(jwtSettings.JwtExpireTime);
         var exp = DateTime.Now.AddMinutes(jwtSettings.JwtExpireTime);
 
         var token = new JwtSecurityToken(jwtSettings.JwtIssuer, jwtSettings.JwtIssuer, claims, expires : exp, signingCredentials: cred);
