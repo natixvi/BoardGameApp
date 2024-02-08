@@ -1,1 +1,207 @@
-<p>user-board-game-request works!</p>
+<div class="container-block">
+    <p-toolbar styleClass="mb-4 justify-content-center h-5rem">
+        <h3 class="m-0">Manage User Add Board Game Requests</h3>
+    </p-toolbar>
+
+    <p-table  
+        #dt 
+        [value]="usersRequests" 
+        [rows]="10" 
+        [tableStyle]="{'min-width': '50rem'}" 
+        [paginator]="true"
+        [globalFilterFields]="['status', 'messageTitle', 'createdTime']"
+        [rowHover]="true" 
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between" id="myHeader">   
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="userName" style="min-width:15rem">User <p-sortIcon field="userName"></p-sortIcon></th>
+                <th pSortableColumn="name" style="min-width:15rem">Board game title <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="status" style="min-width:15rem">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th pSortableColumn="createdTime" style="min-width:15rem">Date <p-sortIcon field="createdTime"></p-sortIcon></th>
+                <th>Details</th>
+                <th style="display: flex; justify-content: center;">Add</th> 
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-request>
+            <tr>
+                <td><span pTooltip="Go to user profile" [routerLink]="['/userProfile/', request.userId]" style="cursor: pointer;">{{request.userName}}</span></td>
+                <td>{{request.name}}</td>
+                <td><p-tag [value]="request.status" [severity]="getSeverity(request.status)" styleClass="tag"></p-tag></td>
+                <td>{{request.createdTime | date: 'dd-MM-yyyy HH:mm':'pl'}}</td>
+                <td><button pButton pRipple pTooltip="See all messages details" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-secondary p-button-text mr-2" (click)="showRequestDetail(request)"></button></td>
+                <td *ngIf="request.status === 'Active'" style="display: flex; justify-content: center;"><button pButton pRipple  pTooltip="Add board game" icon="pi pi-plus" class="p-button-rounded p-button-success" (click)="openAddGameDialog(request)"></button></td>
+                <td *ngIf="request.status !== 'Active'"></td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{usersRequests ? usersRequests.length : 0 }} add board game requests.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="showDialog" [style]="{ width: '450px' }" header=" Details of the board game request" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p style="display: flex; font-size: medium; font-weight: bolder;">Board game details:</p>
+        <div class="detail">
+            <span class="label">Name: </span><span>{{selectedRequest.name}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Publisher: </span><span>{{selectedRequest.publisher}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Description:</span>
+        </div>
+        <div class="description">
+            <span>{{selectedRequest.description}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Players: </span><span>{{selectedRequest.players}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Time: </span><span>{{selectedRequest.time}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">Age: </span><span>{{selectedRequest.age}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">ImageUrl: </span><span>{{selectedRequest.imageUrl}}</span>
+        </div>
+        <p style="display: flex; font-size: medium; font-weight: bolder;">Other infos:</p>
+        <div class="detail">
+            <span class="label">Username: </span><span>{{selectedRequest.userName}}</span>
+        </div>
+        <div class="detail">
+            <span class="label">CreatedTime: </span><span>{{selectedRequest.createdTime | date: 'dd-MM-yyyy HH:mm':'pl'}}</span>
+        </div>
+        <div class="detail">
+            <div class="status">
+                <span class="label">Status: </span>
+                <div class="card flex">
+                    <div class="flex flex-wrap gap-3">
+                        <div *ngFor="let status of availableStatuses" class="field-radio">
+                            <p-radioButton [name]="status" [value]="status" [(ngModel)]="selectedStatus" [inputId]="status"></p-radioButton>
+                            <label [for]="status" class="ml-2">{{status}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Change status" icon="pi pi-check" class="p-button-text" (click)="saveChanges()" [disabled]="selectedRequest.status === selectedStatus"></button>
+    </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="addGameDialog" [style]="{ width: '450px' }" header="Add Board Game" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+      <form [formGroup]="addGameForm">
+          <div class="label">
+              <label for="name">Name: </label>
+              <input id="name" type="text" formControlName="name" pInputText placeholder="Name">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.name.invalid"> 
+              <small *ngIf="addGameForm.controls.name.errors?.['maxlength']">
+                  Name must be at most 255 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.name.errors?.['required']">
+                  Name is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="publisher">Publisher: </label>
+              <input id="publisher" type="text" formControlName="publisher" pInputText placeholder="Publisher">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.publisher.invalid"> 
+              <small *ngIf="addGameForm.controls.publisher.errors?.['maxlength']">
+                  Publisher must be at most 255 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.publisher.errors?.['required']">
+                  Publisher is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="description">Description: </label>
+              <textarea pInputTextarea id="description" type="text" formControlName="description" pInputText placeholder="Description" [autoResize]="true" rows="4"></textarea>
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.description.invalid"> 
+              <small *ngIf="addGameForm.controls.description.errors?.['required']">
+                  Description is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="players">Players: </label>
+              <input id="players" type="text" formControlName="players" pInputText placeholder="Players (eg. 1-4)">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.players.invalid"> 
+              <small *ngIf="addGameForm.controls.players.errors?.['maxlength']">
+                  Players must be at most 10 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.players.errors?.['pattern']">
+                  Players must be at correct format (eg. 1-4).
+              </small>
+              <small *ngIf="addGameForm.controls.players.errors?.['required']">
+                  Players is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="time">Time: </label>
+              <input id="time" type="text" formControlName="time" pInputText placeholder="Time (eg. 40-120 Min)">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.time.invalid"> 
+              <small *ngIf="addGameForm.controls.time.errors?.['maxlength']">
+                  Time must be at most 10 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.time.errors?.['pattern']">
+                  Time must be at correct format (eg. 40-120 Min).
+              </small>
+              <small *ngIf="addGameForm.controls.time.errors?.['required']">
+                  Time is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="age">Age: </label>
+              <input id="age" type="text" formControlName="age" pInputText placeholder="Age (eg. 15)">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.age.invalid"> 
+              <small *ngIf="addGameForm.controls.age.errors?.['maxlength']">
+                  Age must be at most 3 characters.
+              </small>
+              <small *ngIf="addGameForm.controls.age.errors?.['pattern']">
+                  Age must be at correct format (eg. 15).
+              </small>
+              <small *ngIf="addGameForm.controls.age.errors?.['required']">
+                  Age is required.
+              </small>
+          </div>
+          <div class="label">
+              <label for="imageUrl">Image url: </label>
+              <input id="imageUrl" type="text" formControlName="imageUrl" pInputText placeholder="Image url">
+          </div>
+          <div class="error-messages" *ngIf="addGameForm.controls.imageUrl.invalid"> 
+              <small *ngIf="addGameForm.controls.imageUrl.errors?.['required']">
+                  Image url is required.
+              </small>
+          </div>
+          
+      </form>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideAddDialog()"></button>
+        <button pButton pRipple label="Add" icon="pi pi-check" class="p-button-text" (click)="addBoardGame()" [disabled]="addGameForm.invalid"></button>
+    </ng-template>
+  </p-dialog>

@@ -1,0 +1,103 @@
+.container-block{
+    padding: 2rem;
+    min-width: 300px;
+    max-width: 1550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.detail{
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+}
+.message-title .label{
+    margin-right: 5px;
+}
+
+.label{
+    font-weight: 600;
+    display: block;
+    margin-right: 5px;
+}
+
+.description{
+    margin-bottom: 1rem;
+    border: 1px solid #cacaca; 
+    min-height: 100px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.status .label{
+    margin-bottom: 0.5rem;
+}
+
+::ng-deep .p-dialog{
+    max-height: 80%;
+}
+
+:host ::ng-deep .tag {
+    width: 60px;
+}
+
+form div{
+    margin-bottom: 10px;
+}
+
+.error-messages small{
+    display: block;
+    color: #ff5252; 
+    margin: 0 0 5px 0;
+} 
+
+form input{
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 1000px){
+    ::ng-deep .p-toolbar {
+        flex-direction: column;
+    } 
+
+    h3{
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    ::ng-deep .p-dialog{
+        width: 90% !important;
+    }
+
+    #myHeader{
+        flex-direction: column;
+    }
+    #myHeader #button{
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    #myHeader span{
+        width: 100%;
+    }
+    #myHeader span input{
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    #myHeader span input{
+        width: 100%;
+    }
+    ::ng-deep .p-toolbar {
+        flex-direction: column;
+    }
+
+    ::ng-deep .p-dialog{
+        width: 90% !important;
+    }
+    ::ng-deep .p-dialog{
+        margin-top: 50px;
+    }
+}

@@ -23,7 +23,13 @@ form div{
 input{
     margin-top: 5px;
 }
+
+
 @media screen and (max-width: 500px) {
+    ::ng-deep .p-toolbar {
+        flex-direction: column;
+    }
+
     ::ng-deep .p-dialog{
         width: 90% !important;
     }

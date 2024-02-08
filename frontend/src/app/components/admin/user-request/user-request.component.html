@@ -59,21 +59,21 @@
             <span>{{selectedRequest.messageBody}}</span>
         </div>
         <div>
-        <div class="status">
-            <span class="label">Status: </span>
-            <div class="card flex">
-                <div class="flex flex-wrap gap-3">
-                    <div *ngFor="let status of availableStatuses" class="field-radio">
-                        <p-radioButton [name]="status" [value]="status" [(ngModel)]="selectedStatus" [inputId]="status"></p-radioButton>
-                        <label [for]="status" class="ml-2">{{status}}</label>
+            <div class="status">
+                <span class="label">Status: </span>
+                <div class="card flex">
+                    <div class="flex flex-wrap gap-3">
+                        <div *ngFor="let status of availableStatuses" class="field-radio">
+                            <p-radioButton [name]="status" [value]="status" [(ngModel)]="selectedStatus" [inputId]="status"></p-radioButton>
+                            <label [for]="status" class="ml-2">{{status}}</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div> 
+            </div> 
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
         <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveChanges()" [disabled]="selectedRequest.status === selectedStatus"></button>
+        <button pButton pRipple label="Change status" icon="pi pi-check" class="p-button-text" (click)="saveChanges()" [disabled]="selectedRequest.status === selectedStatus"></button>
     </ng-template>
   </p-dialog>

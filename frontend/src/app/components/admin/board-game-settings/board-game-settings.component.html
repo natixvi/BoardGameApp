@@ -7,8 +7,10 @@
       <h3 class="m-0">Manage Board Games</h3>
   </ng-template>
     <ng-template pTemplate="right">
-      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-      <button pButton pRipple  icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedGames()" [disabled]="!selectedGames || !selectedGames.length"></button> 
+        <div id="right">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <button pButton pRipple  icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedGames()" [disabled]="!selectedGames || !selectedGames.length"></button> 
+        </div>
     </ng-template>
   </p-toolbar>
 

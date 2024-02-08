@@ -212,6 +212,13 @@ i{
     margin-left: 40px;
 }
 
+.error-messages small{
+    display: block;
+    color: #ff5252; 
+    margin: 0 0 10px 0;
+} 
+
+
 .header{
     font-weight: bold;
     color: #3c3c3d;

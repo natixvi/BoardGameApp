@@ -35,8 +35,36 @@
     width: 60px;
 }
 
+@media screen and (max-width: 1000px){
+    ::ng-deep .p-toolbar {
+        flex-direction: column;
+    }
+  
+}
+
 @media screen and (max-width: 500px) {
     ::ng-deep .p-dialog{
         width: 90% !important;
+    }
+
+    #myHeader{
+        flex-direction: column;
+    }
+    #myHeader #button{
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+    }
+    #myHeader span{
+        width: 100%;
+    }
+    #myHeader span input{
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    #myHeader span input{
+        width: 100%;
     }
 }

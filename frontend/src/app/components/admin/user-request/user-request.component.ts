@@ -71,6 +71,7 @@ export class UserRequestComponent implements OnInit{
     this.selectedRequest = { } as UserRequest;
     this.selectedStatus = "";
   }
+  
   saveChanges(){
     this.showDialog = false;
     const newStatus = {
