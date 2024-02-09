@@ -48,7 +48,7 @@
                 <td>{{request.name}}</td>
                 <td><p-tag [value]="request.status" [severity]="getSeverity(request.status)" styleClass="tag"></p-tag></td>
                 <td>{{request.createdTime | date: 'dd-MM-yyyy HH:mm':'pl'}}</td>
-                <td><button pButton pRipple pTooltip="See all messages details" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-secondary p-button-text mr-2" (click)="showRequestDetail(request)"></button></td>
+                <td><button pButton pRipple pTooltip="See board game details" icon="pi pi-ellipsis-h" class="p-button-rounded p-button-secondary p-button-text mr-2" (click)="showRequestDetail(request)"></button></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">

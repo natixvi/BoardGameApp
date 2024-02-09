@@ -9,14 +9,15 @@ import { ResourceNotFoundError } from '../../../exceptions/ResourceNotFoundError
 import { Observable} from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { GameGenericComponent } from '../game-generic/game-generic.component';
-import { ProgressBarModule } from 'primeng/progressbar';
 import { CommonModule } from '@angular/common';
+import { ToolbarModule } from 'primeng/toolbar';
+import { RatingModule } from 'primeng/rating';
 
 
 @Component({
     selector: 'app-game',
     standalone: true,
-    imports: [ CommonModule, RouterModule, GameGenericComponent],
+    imports: [ CommonModule, RouterModule, GameGenericComponent,  ToolbarModule, RatingModule],
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'] 
 })

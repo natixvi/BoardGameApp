@@ -1,4 +1,7 @@
-<div class="data-box">  
+<div class="data-box">
+    <p-toolbar styleClass="mb-4 justify-content-center h-5rem">
+        <h3 class="m-0">ALL BOARD GAMES</h3>
+    </p-toolbar>
     <app-game-generic 
     (changeInDataEvent)="onChangeGameEvent($event)"
     [games]="games">

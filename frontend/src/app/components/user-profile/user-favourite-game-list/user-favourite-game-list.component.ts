@@ -25,6 +25,8 @@ export class UserFavouriteGameListComponent implements OnInit{
   loggedInUserId: number = 0;
   userInfo: UserInfo = { id: 0, nickName: '', email: '', userBoardGames: [], favouriteUsers: []};
   router = inject(Router);
+  header: string = "USER\'S FAVOURITE BOARD GAMES"; 
+  buttonName: string = "User\'s all games"; 
 
   constructor(private route: ActivatedRoute, private messageService : MessageService, private authService: AuthService, private userService: UserService){}
 
@@ -41,6 +43,8 @@ export class UserFavouriteGameListComponent implements OnInit{
         this.loggedInUserId = Number(this.authService.getParsedToken().Id);
         if(this.loggedInUserId === this.userId){
           this.isLoggedInUserList = true;
+          this.header = "MY FAVOURITE BOARD GAMES"; 
+          this.buttonName = "My all games"; 
         }
       }
     })

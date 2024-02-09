@@ -220,12 +220,6 @@ input::placeholder {
     align-items: center;
 }
 
-@media screen and (max-width: 470px) {
-    .flex-col.md\:flex-row {
-        flex-direction: column-reverse !important;
-        margin-bottom: 0.3rem;
-    }
-}
 
 @media screen and (min-width: 992px) and (max-width: 1700px) {
     .game-grid-item img {
@@ -273,10 +267,26 @@ input::placeholder {
      }
 }
 
+@media screen and (max-width: 630px) {
+    .flex-col.md\:flex-row {
+        flex-direction: column-reverse !important;
+        margin-bottom: 0.3rem;
+    }
+    
+    .myHeader span{
+        width: 100%;
+    }
+    ::ng-deep .p-inputtext{
+        width: 100%;
+    }
+    ::ng-deep .p-dropdown{
+        width: 100%;
+    }
+}   
+
 @media screen and (max-width: 600px) {
     .image-box{
-        width: 70%;
-        
+        width: 70%;  
     }
 
     .game-grid-detail .image-box img{
@@ -294,4 +304,5 @@ input::placeholder {
         width: 80%;
     }
 
+   
 }

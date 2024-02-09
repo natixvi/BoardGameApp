@@ -172,19 +172,45 @@ i{
   } 
 
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 709px) {
     .flex-col.md\:flex-row {
         flex-direction: column-reverse !important;
         margin-bottom: 0.3rem;
     }
+
+    .header span{
+        width: 50%;
+    }
+    ::ng-deep .p-inputtext{
+        width: 100%;
+    }
+    ::ng-deep .p-dropdown{
+        width: 50%;
+    }
+
     .search input {
         margin-top: 10px;
     }
     .p-dataViewLayoutOptions {
         margin-left: auto;
     }
+    
 
 }
+
+@media (max-width: 500px){
+    .header span{
+        width: 100%;
+    }
+    ::ng-deep .p-inputtext{
+        width: 100%;
+    }
+    ::ng-deep .p-dropdown{
+        width: 100%;
+    }
+    
+}
+
 @media (min-width: 992px) and (max-width: 1700px) {
     .game-grid-item img {
       max-width: 90%; 

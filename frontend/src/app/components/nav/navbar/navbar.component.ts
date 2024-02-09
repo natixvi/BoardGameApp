@@ -57,8 +57,8 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-envelope',  
           visible: isLoggedIn,
           items: [
-            { label: 'Send us a message',  routerLink: ['sendMessage']},
-            { label: 'Sended messages', routerLink: ['messages']},
+            { label: 'Send us a message', icon: 'pi pi-send',  routerLink: ['sendMessage']},
+            { label: 'Add board game', icon: 'pi pi-plus', routerLink: ['sendAddBoardGameRequest']}
           ],
         }, 
         { 
@@ -66,9 +66,9 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-user-edit', 
           visible: isAdmin === true,
           items: [
-            { label: 'Messages', routerLink: ['userMessages']},
+            { label: 'User messages', routerLink: ['userMessages']},
             { label: 'Manage board games', routerLink: ['boardGameSettings']},
-            { label: 'Add board game requests', routerLink: ['usersAddBoardGameRequests']},
+            { label: 'Manage add board game requests', routerLink: ['usersAddBoardGameRequests']},
             
           ]
         },
@@ -78,7 +78,9 @@ export class NavbarComponent implements OnInit {
           visible: isLoggedIn,
           items: [
             { label: 'Profile', icon: 'pi pi-user', routerLink: ['userProfile', this.loggedInUserId]},
-            { label: 'Edit profile', icon: 'pi pi-cog', routerLink: ['editAccount'] },       
+            { label: 'Edit profile', icon: 'pi pi-cog', routerLink: ['editAccount'] },  
+            { label: 'Sended messages', icon: 'pi pi-envelope', routerLink: ['messages']},     
+            { label: 'Add board game requests', icon: 'pi pi-list', routerLink: ['addBoardGameRequests']},
             { separator: true, visible: isLoggedIn },
             { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() },
           ],
