@@ -42,6 +42,7 @@ export class ViewUserRequestComponent implements OnInit{
         this.usersRequests.forEach((request: UserRequest) => {
           request.createdTime = new Date(request.createdTime);            
         });
+        this.usersRequests?.sort((a, b) => new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime());
       },
       error: (e) => {
         if (e instanceof BadRequestError){

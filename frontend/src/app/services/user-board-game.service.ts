@@ -48,8 +48,8 @@ export class UserBoardGameService {
     );
   }
 
-  changeBoardGameFavStatus(gameId: number) : Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/userboardgame/favourite/${gameId}/change-fav-status`, {}).pipe(
+  changeBoardGameFavStatus(gameId: number) : Observable<string>{
+    return this.http.put(`${this.apiUrl}/userboardgame/favourite/${gameId}/change-fav-status`, {}, {responseType: 'text'}).pipe(
       catchError(error => {
         console.log('Error while changing fav status on user board game' , error);
         return this.handleError(error)

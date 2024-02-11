@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -10,15 +10,19 @@ import { DuplicatedDataError } from '../../../exceptions/DuplicatedDataError';
 import { BoardGameRequestService } from '../../../services/board-game-request.service';
 import { CreateBoardGameRequest } from '../../../models/boardGameRequest/createBoardGameRequest';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create-board-game-request',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule, InputTextareaModule, ButtonModule, InputTextModule, ScrollPanelModule],
+  imports: [CommonModule,ReactiveFormsModule, InputTextareaModule, ButtonModule, InputTextModule, ScrollPanelModule, RouterModule],
   templateUrl: './create-board-game-request.component.html',
   styleUrls: ['./create-board-game-request.component.css']
 })
 export class CreateBoardGameRequestComponent {
+
+  router = inject(Router);
+  
   addGameForm = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(255)]],
     publisher: ['', [Validators.required, Validators.maxLength(255)]],
@@ -54,7 +58,7 @@ export class CreateBoardGameRequestComponent {
     this.boardGameReqService.createBoardGameRequest(addBoardGameData).subscribe({
       next: () => {
         this.messageService.add({severity: 'success', summary: 'Success', detail: 'Board game request sended!' })
-        this.addGameForm.reset();
+        this.router.navigate(['/addBoardGameRequests']);
       },
       error: (e) => {
         if (e instanceof BadRequestError){

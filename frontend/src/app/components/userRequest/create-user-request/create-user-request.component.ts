@@ -48,7 +48,7 @@ export class CreateUserRequestComponent {
     this.userRequestService.createUserRequest(requestData).subscribe({
       next: () =>{
         this.messageService.add({severity: 'success', summary: 'Success', detail: 'Message has been sent.'})
-        this.userRequestForm.reset();
+        this.router.navigate(['/messages']);
       },
       error: (e) =>{
         if (e instanceof UnauthorizedError) {

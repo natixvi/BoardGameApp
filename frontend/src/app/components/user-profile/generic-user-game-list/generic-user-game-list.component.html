@@ -39,9 +39,9 @@
                         <div class="game-grid-down">
                             <div class = "game-main">
                                 <div class="game-name">
-                                    <div *ngIf="!game.isFavourite" class="pi pi-heart-fill nofav"></div>
-                                    <div *ngIf="game.isFavourite" class="pi pi-heart-fill fav"></div> 
-                                    <div [routerLink]="['/games', game.id]"> {{game.name}}</div>
+                                    <div *ngIf="favView" (click)="toggleFavourite(game.boardGameId)" class="pi pi-heart-fill heart-cursor" [ngClass]="{'fav': game.isFavourite, 'nofav': !game.isFavourite}"></div>
+                                    <div *ngIf="!favView" class="pi pi-heart-fill" [ngClass]="{'fav': game.isFavourite, 'nofav': !game.isFavourite}"></div>
+                                    <div [routerLink]="['/games', game.boardGameId]"> {{game.name}}</div>
                                 </div>
                             </div>
                             <div class="game-user-rating">

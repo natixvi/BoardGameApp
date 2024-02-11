@@ -42,6 +42,7 @@ export class ViewUserBoardGameRequestComponent {
         this.userBoardGameRequests.forEach((request: BoardGameRequest) => {
           request.createdTime = new Date(request.createdTime);            
         });
+        this.userBoardGameRequests?.sort((a, b) => new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime());
       },
       error: (e) => {
         if (e instanceof BadRequestError){

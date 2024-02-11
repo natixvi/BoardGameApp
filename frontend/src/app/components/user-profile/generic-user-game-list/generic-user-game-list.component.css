@@ -41,6 +41,7 @@
     cursor: pointer;
 }
 
+
 .nofav{
     color: #8a8a8a;
     margin-right: 10px;
@@ -51,6 +52,11 @@
     margin-right: 10px;
     font-size: 19px;
 }
+
+.heart-cursor{
+    cursor: pointer;
+}
+
 
 i{
     margin-right: 5px;

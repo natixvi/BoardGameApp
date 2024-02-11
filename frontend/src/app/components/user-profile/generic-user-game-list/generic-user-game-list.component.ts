@@ -99,6 +99,34 @@ export class GenericUserGameListComponent implements OnInit{
     this.isFavActive = !this.isFavActive;
     this.gameEditForm.get('addToFavourites')?.setValue(this.isFavActive)
   }
+
+  toggleFavourite(gameId: number){
+    console.error(gameId)
+    this.confirmationService.confirm({
+      message: "Are you sure you want to remove game from your favourite list?",
+      header: "Confirmation",
+      icon: 'pi pi-info-circle',
+      accept: () => {
+
+        this.userBoardGameService.changeBoardGameFavStatus(gameId).subscribe({
+          next: () => {
+            this.messageService.add({severity: 'success', summary: 'Success', detail: 'Game edited.'})
+            this.changeInDataEvent.emit(true);
+          },
+
+          error: (e) => {
+            console.error('Error while remove game from favourite list', e);
+            this.messageService.add({severity: 'error', summary: 'Error', detail: 'Error while remove game from favourite list.'});
+          }
+        })
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Remove game from favourite list canceled.' });
+        this.confirmationService.close();
+      }
+    })
+  }
   
   editUserGameDetails(gameId: number){
     console.error(this.gameEditForm.get('rating')?.value)
