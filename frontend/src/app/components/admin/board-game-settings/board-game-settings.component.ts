@@ -38,8 +38,8 @@ export class BoardGameSettingsComponent implements OnInit{
     name: ['', [Validators.required, Validators.maxLength(255)]],
     publisher: ['', [Validators.required, Validators.maxLength(255)]],
     description: ['', Validators.required],
-    players: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+$/)]],
-    time: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+ Min$/)]],
+    players: ['', [Validators.required, Validators.maxLength(10)]],
+    time: ['', [Validators.required, Validators.maxLength(10)]],
     age: ['', [Validators.required, Validators.maxLength(3), Validators.pattern(/^\d+$/)]],
     imageUrl: ['', [Validators.required]]
   });
@@ -48,8 +48,8 @@ export class BoardGameSettingsComponent implements OnInit{
     name: ['', [Validators.required, Validators.maxLength(255)]],
     publisher: ['', [Validators.required, Validators.maxLength(255)]],
     description: ['', Validators.required],
-    players: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+$/)]],
-    time: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^\d+-\d+ Min$/)]],
+    players: ['', [Validators.required, Validators.maxLength(10)]],
+    time: ['', [Validators.required, Validators.maxLength(10)]],
     age: ['', [Validators.required, Validators.maxLength(3), Validators.pattern(/^\d+$/)]],
     imageUrl: ['', [Validators.required]]
   });

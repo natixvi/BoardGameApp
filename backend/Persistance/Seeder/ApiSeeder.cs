@@ -15,19 +15,18 @@ public class ApiSeeder
         this.context = context;
         this.passwordHasher = passwordHasher;
     }
-    //Zapełnianie bazy danych wstępnymi danymi
     public void Seed()
     {
         if (context.Database.CanConnect())
         {
-            var pendingMigrations = context.Database.GetPendingMigrations(); //Pobieranie listy migracji, które nie zostały jeszcze wykonane do bazy
+            var pendingMigrations = context.Database.GetPendingMigrations(); 
 
             if (pendingMigrations != null && pendingMigrations.Any())
             {
-                context.Database.Migrate(); //Jesli są jakies migracje linjka ta wykona je, zaktualizuje baze aby przygotować ją przed dalszym użyciem
+                context.Database.Migrate();
             }
 
-            if (!context.Roles.Any()) //Jeśli nie istnieją żadne rekordy w tabeli Roles to kod się wykona
+            if (!context.Roles.Any()) 
             {
                 context.Database.OpenConnection();
                 context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Roles ON");
@@ -112,7 +111,7 @@ public class ApiSeeder
                 Players = "1-4",
                 Time = "30-120 Min",
                 Age = 12,
-                ImageUrl = "https://cf.geekdo-images.com/6GqH14TJJhza86BX5HCLEQ__itemrep/img/ETni1QwddAVjM-xLhciF0UM0FxQ=/fit-in/246x300/filters:strip_icc()/pic5674958.jpg"
+                ImageUrl = "https://files.rebel.pl/products/100/302/_2000997/rebel-zaginiona-wyspa-Arnak_box3d_PL.png"
             },
             new BoardGame()
             {
@@ -128,7 +127,7 @@ public class ApiSeeder
                 Players = "1-5",
                 Time = "90-120 Min",
                 Age = 14,
-                ImageUrl = "https://cf.geekdo-images.com/7k_nOxpO9OGIjhLq2BUZdA__itemrep/img/RVh5N-_HcMziJ3M6Q1eLTlj8XIQ=/fit-in/246x300/filters:strip_icc()/pic3163924.jpg"
+                ImageUrl = "https://files.rebel.pl/products/1065/5759/_2005100/scythe.jpg"
             },
             new BoardGame()
             {
@@ -144,7 +143,7 @@ public class ApiSeeder
                 Players = "1-4",
                 Time = "60-120 Min",
                 Age = 14,
-                ImageUrl = "https://cf.geekdo-images.com/fjE7V5LNq31yVEW_yuqI-Q__itemrep/img/nyVhVuXdmw-1sigbocTKG81UInM=/fit-in/246x300/filters:strip_icc()/pic3918905.png"
+                ImageUrl = "https://files.rebel.pl/products/100/303/_109580/rebel-gra-ekonomiczna-everdell-box3d.png"
             },
             new BoardGame()
             {
@@ -157,7 +156,7 @@ public class ApiSeeder
                 Players = "2",
                 Time = "30-45 Min",
                 Age = 10,
-                ImageUrl = "https://cf.geekdo-images.com/zdagMskTF7wJBPjX74XsRw__itemrep/img/x5L93n_pSsxfFZ0Ir-JqtjLf-Jw=/fit-in/246x300/filters:strip_icc()/pic2576399.jpg"
+                ImageUrl = "https://files.rebel.pl/products/100/1281/_98221/pojedynek_3d.jpg"
             },
             new BoardGame()
             {
@@ -173,7 +172,7 @@ public class ApiSeeder
                 Players = "1-4",
                 Time = "30-45 Min",
                 Age = 10,
-                ImageUrl = "https://cf.geekdo-images.com/MjeJZfulbsM1DSV3DrGJYA__itemrep/img/RjD03wEf_LoX0EF4DhnW6f0xNHU=/fit-in/246x300/filters:strip_icc()/pic5100691.jpg"
+                ImageUrl = "https://files.rebel.pl/products/1065/5759/_2006299/Cascadia_3Dbox_PL.png"
             },
             new BoardGame()
             {
@@ -187,7 +186,7 @@ public class ApiSeeder
                 Players = "1-4",
                 Time = "90-120 Min",
                 Age = 13,
-                ImageUrl = "https://cf.geekdo-images.com/kjCm4ZvPjIZxS-mYgSPy1g__itemrep/img/7AXozbOIxk5MDpn_RNlat4omAcc=/fit-in/246x300/filters:strip_icc()/pic7013651.jpg"
+                ImageUrl = "https://files.rebel.pl/products/100/302/_2000658/spirit_island_3d.jpg"
             },
             new BoardGame()
             {
@@ -201,7 +200,7 @@ public class ApiSeeder
                 Players = "2-5",
                 Time = "90 Min",
                 Age = 14,
-                ImageUrl = "https://cf.geekdo-images.com/_al0scMG_pQfGVM31Scf1Q__itemrep/img/E60DF99hzvTXPdT9hVuh9u6xXUI=/fit-in/246x300/filters:strip_icc()/pic6107853.jpg"
+                ImageUrl = "https://files.rebel.pl/products/100/371/_2007597/Ankh-bogowie-egiptu-pudelko.jpg"
             },
             new BoardGame()
             {
@@ -213,7 +212,7 @@ public class ApiSeeder
                 Players = "2-4",
                 Time = "60-90 Min",
                 Age = 10,
-                ImageUrl = "https://cf.geekdo-images.com/JUAUWaVUzeBgzirhZNmHHw__itemrep/img/sQgkl-_hydBVvQHAMLt2Zk_3dwI=/fit-in/246x300/filters:strip_icc()/pic4254509.jpg"
+                ImageUrl = "https://files.rebel.pl/products/100/302/_110788/www.portalgames.pl-root-1625.png"
             },
             new BoardGame()
             {
@@ -229,7 +228,7 @@ public class ApiSeeder
                 Players = "2-4",
                 Time = "60-90 Min",
                 Age = 12,
-                ImageUrl = "https://cf.geekdo-images.com/zi0KYvDC394VpxF3b5bpzA__itemrep/img/Sb6eGQ6fOfu4vaEFgCQwVp3y8kY=/fit-in/246x300/filters:strip_icc()/pic6034602.jpg"
+                ImageUrl = "https://files.rebel.pl/products/100/302/_2002325/rebel-gra-strategiczna-wiedzmia-skala-box3d.png"
             },
             new BoardGame()
             {
@@ -242,7 +241,7 @@ public class ApiSeeder
                 Players = "1-4",
                 Time = "60-120 Min",
                 Age = 14,
-                ImageUrl = "https://cf.geekdo-images.com/FbFnaTx3aT5dM18K_bR_Pg__itemrep/img/spcA9lqJ28nt3L9-PDqc2taxFX4=/fit-in/246x300/filters:strip_icc()/pic3165731.jpg"
+                ImageUrl = "https://files.rebel.pl/products/100/1379/_24428/portal-games-kooperacyjna-robinson-crusoe-nowa-edycja-box-.png"
             }
 
         };
