@@ -1,7 +1,11 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Persistance.Data;
+using System;
+using System.Data;
+using System.Resources;
 
 namespace Persistance.Seeder;
 
@@ -102,12 +106,12 @@ public class ApiSeeder
             {
                 Name = "Lost Ruins of Arnak",
                 Publisher = "Rebel",
-                Description = "Lost Ruins of Arnak - an adventure game in which " +
-                "you play the role of explorers who want to explore the uninhabited island of " +
-                "Arnak. As it turns out, this island has traces of a great civilization - " +
-                "explore all the undiscovered corners of the island, find the lost artifacts, " +
-                "face the guards defending the island and learn the great mystery of " +
-                "Arnak Island.",
+                Description = "The Lost Island of Arnak is a game combining the mechanics of deck building and worker deployment."+
+                "Participants will explore successive corners of the board and discover unknown territories, " +
+                "skilfully managing the resources they have gathered. In addition to the classic effects, " +
+                "the available cards will also be used to deploy workers, and as more parts of the island are" + 
+                " discovered, there will be completely new actions that we can perform. Some of these will require specific" +
+                " resources, so building a solid base will be key.",
                 Players = "1-4",
                 Time = "30-120 Min",
                 Age = 12,
@@ -117,13 +121,14 @@ public class ApiSeeder
             {
                 Name = "Scythe",
                 Publisher = "Phalanx",
-                Description = "The ashes of the Great War still shroud the snow in " +
-                "1920's Europia. The capitalist city-state known simply as \"The Factory,\" " +
-                "which had been a driving force in the war thanks to the mechs it produced, " +
-                "slammed its doors, attracting the attention of several nearby countries...." +
-                "Representatives of five factions have gathered in a small but highly desirable" +
-                " area. Who will gain glory and fortune by establishing their empire as the leader " +
-                "of Eastern Europe?",
+                Description = "Representatives of five factions have come together in a small but highly desirable area." + 
+                "Who will gain glory and fortune by creating their empire as the leader of Eastern Europe? " +
+                "Scythe is a strategic board game for one to five players, in which you will take on the role of" +
+                " leader of one of the nations of Eastern Europe in an alternative reality of the 1920s. " + 
+                "You will explore and conquer more territories.You will recruit new recruits and gather resources. " +
+                "Eventually, you'll send fearsome combat mechs into battle to crush other players. And all this for glory," + 
+                " fame and money. The winner of the game will be the player with the most coins accumulated. The more coins you collect,"+ 
+                " the more popular you become, the more developed your army becomes, and the more land and resources you control.",
                 Players = "1-5",
                 Time = "90-120 Min",
                 Age = 14,
@@ -133,13 +138,12 @@ public class ApiSeeder
             {
                 Name = "Everdell",
                 Publisher = "Rebel",
-                Description = "In the charming valley of Everdell, under the branches of tall trees, among mossy boulders, a " +
-                "civilization of forest animals is developing. Many years have passed since its beginnings and the time has " +
-                "finally come to explore new territories and establish brand new cities. When you sit down to play the game, " +
-                "you will take on the role of the leader of a group of creatures that set out to conquer the unknown. You'll" +
-                " have to build a lot of buildings, learn about new creatures and get carried away with the upcoming events. " +
-                "It's going to be a busy year! Everdell is a dynamic game based on assignment mechanics. It seduces with " +
-                "its beautiful execution and offers many paths to victory, making it a real pleasure to explore.",
+                Description = "In the lovely Everdell Valley, under the branches of tall trees, among mossy boulders, a civilisation" +
+                " of forest animals is developing. Many years have passed since its beginnings and it is finally time to explore new lands" +
+                " and establish brand new cities. When you sit down to play the game, you will take on the role of leader of a group of creatures" +
+                " that set out to conquer the unknown. You'll need to build lots of buildings, meet new creatures and let yourself be carried" +
+                " away by the upcoming events. It's going to be a busy year! Everdell is a dynamic game based on worker assignment mechanics." +
+                " It seduces with its beautiful execution and offers many paths to victory, making it a real pleasure to explore.",
                 Players = "1-4",
                 Time = "60-120 Min",
                 Age = 14,
@@ -149,10 +153,12 @@ public class ApiSeeder
             {
                 Name = "7 Wonders Duel",
                 Publisher = "Rebel",
-                Description = "Lead your civilization to greatness by nurturing its military and scientific development" +
-                " and constructing extraordinary Buildings and Wonders. 7 Wonders of the World: Duel is a 2-player" +
-                " game that uses some of the main concepts of the bestseller 7 Wonders of the World, but also offers new " +
-                "challenges, specially tailored for 2-player play",
+                Description = "Lead your civilisation to greatness by nurturing its military and scientific development and constructing extraordinary" +
+                " Buildings and Wonders. 7 Wonders of the World: Duel is a 2-player game that builds on some of the core concepts of" +
+                " the bestselling 7 Wonders of the World, but also offers new challenges specifically tailored for 2-player play. " +
+                "The game introduces an innovative way of picking cards before the game - we arrange them according to a given pattern, " +
+                "and we are only allowed to pick cards that are not covered by other cards. By choosing one card, we discover another, making" +
+                " it available to my opponent, which leads to difficult choices and dilemmas during the game.)",
                 Players = "2",
                 Time = "30-45 Min",
                 Age = 10,
@@ -162,13 +168,14 @@ public class ApiSeeder
             {
                 Name = "Cascadia",
                 Publisher = "Lucky Duck Games",
-                Description = "In the charming valley of Everdell, under the branches of tall trees, among mossy boulders, a " +
-                "civilization of forest animals is developing. Many years have passed since its beginnings and the time has " +
-                "finally come to explore new territories and establish brand new cities. When you sit down to play the game, " +
-                "you will take on the role of the leader of a group of creatures that set out to conquer the unknown. You'll" +
-                " have to build a lot of buildings, learn about new creatures and get carried away with the upcoming events. " +
-                "It's going to be a busy year! Everdell is a dynamic game based on assignment mechanics. It seduces with " +
-                "its beautiful execution and offers many paths to victory, making it a real pleasure to explore.",
+                Description = "Throw yourself into a picturesque land in North America and create a vibrant Cascadia environment." +
+                " On your turn, choose a pair of tiles and a token and add them to your expanding ecosystem. Lay out as large an area of" +
+                " mountains, rivers or prairie as possible and deploy animals in scoring layouts. Despite the very simple 'pick" +
+                " and place' rules, the game offers interesting decisions and great depth of gameplay." +
+                " Thanks to the modular board and variable objectives, each game will be different and will also appeal to advanced players." +
+                " Cascadia includes several game modes including a solo and family variant, making it easily adaptable to the age, sophistication" +
+                " and number of players. Thanks to the achievement system and scenarios, each successive game will be just as interesting, " +
+                "presenting new challenges for players.",
                 Players = "1-4",
                 Time = "30-45 Min",
                 Age = 10,
@@ -178,11 +185,16 @@ public class ApiSeeder
             {
                 Name = "Spirit Island",
                 Publisher = "Lacerta",
-                Description = "Spirit Island is a cooperative title for advanced players. Players work together to save the island from " +
-                "invaders using the abilities and special powers of the spirits they play as. The basic game includes eight ghosts to choose " +
-                "from. Each is characterized by a different level of complexity, has different powers and requires different styles of play from " +
-                "players. In addition, the game allows you to increase the difficulty level by using one of the four available scenarios or selecting " +
-                "a specific opponent.",
+                Description = "Since time immemorial, powerful spirits have lived on an isolated island." +
+                " They are an integral part of the natural world, as well as something above it." +
+                " The Dahans - the island's indigenous inhabitants - live in harmony with the spirits and respect them, but approach their actions" +
+                " with a certain amount of caution. Unfortunately, invaders from distant lands have appeared on the island and are upsetting the" +
+                " natural balance, destroying the spirits' presence and everything else in their path. As spirits, you must join forces and drive" +
+                " the invaders off the island... before it's too late! Spirit Island is a co-operative title for advanced players." +
+                " Players work together to save the island from invaders using the abilities and special powers of the spirits they play as." +
+                " The basic game includes eight ghosts to choose from. Each is characterised by a different level of complexity, has differen" +
+                "t powers and requires different playing styles from players. In addition, the game allows the difficulty level to be increased" +
+                " by using one of the four available scenarios or selecting a specific opponent.",
                 Players = "1-4",
                 Time = "90-120 Min",
                 Age = 13,
@@ -192,11 +204,14 @@ public class ApiSeeder
             {
                 Name = "Ankh: Gods of Egypt",
                 Publisher = "Portal Games",
-                Description = "Ankh: Gods of Egypt is an advanced strategy board game by the brilliant Eric M. Lang (Cthulhu: Death May Die, Blodboorne)," +
-                " closing his ancient trilogy, which also includes Blood Rage and Rising Sun. After Viking Scandinavia and feudal Japan comes ancient Egypt!" +
+                Description = "There used to be many gods reigning in Egypt. But those days are gone. There cannot be enough glory for everyone." +
+                " The figures of those whose names are spoken rarely dwindle and fall into oblivion. Only a few remain in the Egyptian pantheon." +
+                " They are the ones who will stand up to fight for power over the multitude of souls. Ankh: Gods of Egypt is an advanced," +
+                " strategic board game by the brilliant Eric M. Lang (Cthulhu: Death May Die, Blodboorne), and is the conclusion of his ancient trilogy" +
+                ", which also includes Blood Rage and Rising Sun. After Viking Scandinavia and feudal Japan, it's time for ancient Egypt! " +
                 "Take on the role of one of the five Egyptian gods and lead a dedicated army to ultimate rule in the land on the Nile. " +
-                "Develop your character, gain valuable allies and fight for more followers. Only they can ensure your survival and make your name " +
-                "immortal. When the battle dust settles, only one god will be remembered in Egypt.",
+                "Develop your character, gain valuable allies and fight for more followers. Only they can ensure your survival and make your name immortal." +
+                " When the battle dust settles, only one god will be remembered in Egypt.",
                 Players = "2-5",
                 Time = "90 Min",
                 Age = 14,
@@ -206,9 +221,13 @@ public class ApiSeeder
             {
                 Name = "Root",
                 Publisher = "Portal Games",
-                Description = "Root is a dynamic game telling the story of the war for influence in the Great Forest. " +
-                "Players take control of one of four factions vying to seize power and prove that its representatives are " +
-                "the rightful rulers of the vast Woodland.",
+                Description = "The wicked Marquise de Kot rules the great forest with a firm hand. Under her rule, " +
+                "the forest creatures form factions, gather resources and prepare to overthrow his rule. In the midst of " +
+                "the forest glades, the scent of rebellion is palpable, a war against the oppressor that could break out at the " +
+                "most unexpected moment. The stage is ready, the actors know their roles. The time has now come to decide the " +
+                "fate of the Forest Polan. It is up to you to decide which group will ultimately take root in Forest Garden for ever." +
+                " Root is a dynamic game telling the story of the war for influence in the Great Forest. Players take control of one " +
+                "of four factions vying to seize power and prove that its representatives are the rightful rulers of the vast Forest.",
                 Players = "2-4",
                 Time = "60-90 Min",
                 Age = 10,
@@ -218,12 +237,15 @@ public class ApiSeeder
             {
                 Name = "Witchstone",
                 Publisher = "Rebel",
-                Description = "Witch Rock is a board game in which you take on the role of learned guild masters gathered around " +
-                "an ancient sacred stone. Each person occupies 1 of the 4 towers and starts the game from there. Prepare spells in " +
-                "your cauldrons and create a network of magical energy around the Witch Rock. Send out your witches, fish out magic " +
-                "crystals from your cauldrons and make good use of your pentagram and magic wands. However, don't forget about predictions " +
-                "if you want to ensure victory! Not all opportunities are always available, so you have to use the opportunities that come your " +
-                "way wisely. After 11 rounds, the one of you who accumulates the most victory points will win the game and become the Chosen " +
+                Description = "Once every 100 years, prominent witches and accomplished wizards gather in a remote corner of the world," +
+                " the location of which is a closely guarded secret. They meet to renew the web of energy produced by the legendary Witch Rock." +
+                " Secret spells and rituals allow them to preserve and enhance their own powers, and whoever demonstrates the greatest proficiency" +
+                " in magic will secure immense energy and prestige for the next 100 years until the next gathering. Witch Rock is a board game in which" +
+                " you take on the role of learned guild masters gathered around an ancient sacred stone. Each person occupies 1 of the 4 towers and " +
+                "starts the game from there. Prepare spells in your cauldrons and create a network of magical energy around the Witch Rock. Send out " +
+                "your witches, fish out magic crystals from your cauldrons and make good use of your pentagram and magic wands. However, don't forget " +
+                "your predictions if you want to ensure victory! Not all opportunities are always available, so you have to use the opportunities that " +
+                "come your way wisely. After 11 rounds, the one of you who accumulates the most victory points will win the game and become the Chosen " +
                 "One of the Witch's Rock.",
                 Players = "2-4",
                 Time = "60-90 Min",
@@ -234,10 +256,16 @@ public class ApiSeeder
             {
                 Name = "Robinson Crusoe: Adventures on the Cursed Island",
                 Publisher = "Portal Games",
-                Description = "Robinson Crusoe: Adventure on the Cursed Island is a great game by Portal. This time you are kidnapped " +
-                "to a deserted island and thrown into a vortex of extraordinary adventures that will happen to a group of castaways! " +
+                Description = "Robinson Crusoe: Adventure on a Cursed Island is Portal's big game. This time you are kidnapped to a " +
+                "deserted island and thrown into a whirlwind of extraordinary adventures that will happen to a group of castaways! " +
                 "You will build a shawl, a palisade, weapons, you will create items, you will try to do your best to... to survive. " +
-                "You will search for food, fight with beasts, protect yourselves from bad weather....",
+                "You will search for food, fight beasts, protect yourself from bad weather.... " +
+                "Take on the role of one of the four members of the ship's crew (cook, carpenter, explorer or soldier) and face the adventure. " +
+                "Use your abilities to help your companions, discuss a plan of action and put it into action! " +
+                "Search for treasures. Discover the secrets of the island. Achieve the objectives of one of six exciting scenarios. " +
+                "Start by building and setting fire to a woodpile to summon help, then move on to more adventures. " +
+                "Become exorcists on a cursed island. Become treasure hunters on an island of volcanoes. " +
+                "Take on the role of rescuers and rescue a beautiful lady who is stranded on a lonely rock far from shore....",
                 Players = "1-4",
                 Time = "60-120 Min",
                 Age = 14,
