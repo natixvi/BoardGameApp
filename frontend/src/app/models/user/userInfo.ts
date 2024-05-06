@@ -8,3 +8,7 @@ export interface UserInfo{
     userBoardGames: UserBoardGame[],
     favouriteUsers: FavUser[]
 }
+
+
+
+

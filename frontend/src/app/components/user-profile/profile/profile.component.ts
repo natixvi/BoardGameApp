@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, ParamMap, Params, Router, RouterModule } from '@angular/router';
-import { Observable, Subscription, map, switchMap } from 'rxjs';
+import { ActivatedRoute, ParamMap, Router, RouterModule } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
 import { UserInfo } from '../../../models/user/userInfo';

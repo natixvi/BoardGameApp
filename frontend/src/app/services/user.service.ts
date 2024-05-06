@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { environment } from '../config';
-import { Observable, catchError, of, tap, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { UnauthorizedError } from '../exceptions/UnauthorizedError';
 import { BadRequestError } from '../exceptions/BadRequestError';
 import { GeneralError } from '../exceptions/GeneralError';
@@ -73,15 +73,16 @@ export class UserService {
     )
   }
   
+  getRoles(): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/Account/roles`);
+  }
+
   deleteAccount() : Observable<any>{
     return this.http.delete<any>(`${this.apiUrl}/Account/delete`).pipe(
       catchError( error => {
         return this.handleError(error)
       })
     )
-  }
-  getRoles(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/Account/roles`);
   }
 
   private handleError(error: HttpErrorResponse): Observable<any>{

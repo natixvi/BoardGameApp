@@ -29,8 +29,11 @@ public class JwtService : IJwtService
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var exp = DateTime.Now.AddMinutes(jwtSettings.JwtExpireTime);
 
-        var token = new JwtSecurityToken(jwtSettings.JwtIssuer, jwtSettings.JwtIssuer, claims, expires : exp, signingCredentials: cred);
+        var token = new JwtSecurityToken(jwtSettings.JwtIssuer, jwtSettings.JwtIssuer,
+            claims, expires : exp, signingCredentials: cred);
         return new JwtSecurityTokenHandler().WriteToken(token);
 
     }
 }
+
+
