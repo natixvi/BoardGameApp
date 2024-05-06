@@ -23,22 +23,24 @@ export class UserService {
   private apiUrl = environment.apiUrl;
   router = inject(Router);
   
-  constructor(private http: HttpClient, private authService: AuthService) {  console.log('userservice created!');}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   login(credentials: UserLoginData) : Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/Account/login`, credentials).pipe(
+    return this.http.post<any>(`${this.apiUrl}/Account/login`, credentials).
+    pipe(
       tap((response) => { 
         this.authService.login(response.token);
       }),
       catchError(error => {
-        console.log('Błąd podczas logowania:' , error);
+        console.log('Error while logging in:' , error);
         return this.handleError(error);
       })
     );;
   }
 
   register(registerData: UserRegisterData) : Observable<string>{
-    return this.http.post(`${this.apiUrl}/Account/register`, registerData, { responseType: "text"}).pipe(
+    return this.http.post(`${this.apiUrl}/Account/register`, registerData, { responseType: "text"}).
+    pipe(
       catchError( error => {
         return this.handleError(error);
       })
