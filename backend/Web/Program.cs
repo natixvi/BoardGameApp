@@ -77,7 +77,8 @@ builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("BoardGameAppDbContext"), b => b.MigrationsAssembly("Persistance")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("BoardGameAppDbContext"),
+        b => b.MigrationsAssembly("Persistance")));
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
