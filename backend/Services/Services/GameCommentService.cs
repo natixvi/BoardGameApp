@@ -27,7 +27,8 @@ public class GameCommentService : IGameCommentService
         await CheckIfGameExist(gameId);
 
         var ifUserCreateCommentAlready = await IfUserCreatedComment(gameId);
-        if (ifUserCreateCommentAlready) throw new DuplicateDataException("Game comment can be added just once!");
+        if (ifUserCreateCommentAlready) 
+            throw new DuplicateDataException("Game comment can be added just once!");
 
         var gameComment = mapper.Map<GameComment>(addGameCommentDto);
 
