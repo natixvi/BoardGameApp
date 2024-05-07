@@ -43,7 +43,8 @@ public class BoardGameService : IBoardGameService
             {
                 game.Rating = await myBoardGameService.CalculateAverageRating(game.Id);
             }
-            var topBoardGames = boardGamesDto.OrderByDescending(g => g.Rating).Where(g => g.Rating > 0).Take(numberOfTopGames).ToList();
+            var topBoardGames = boardGamesDto.OrderByDescending(g => g.Rating).
+                Where(g => g.Rating > 0).Take(numberOfTopGames).ToList();
             return topBoardGames;
         }
         throw new BadRequestException("Incorrect query params");
