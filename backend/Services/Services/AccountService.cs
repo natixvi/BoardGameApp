@@ -69,13 +69,15 @@ public class AccountService : IAccountService
 
         if (user.Email != updateUserDto.Email)
         {
-            if (await accountRepository.EmailExist(updateUserDto.Email)) throw new DuplicateDataException("For this email there is already an account.");
+            if (await accountRepository.EmailExist(updateUserDto.Email)) 
+                throw new DuplicateDataException("For this email there is already an account.");
             user.Email = updateUserDto.Email;
         }
 
         if (user.NickName != updateUserDto.NickName)
         {
-            if (await accountRepository.NickNameExist(updateUserDto.NickName)) throw new DuplicateDataException("This nickname is already taken.");
+            if (await accountRepository.NickNameExist(updateUserDto.NickName)) 
+                throw new DuplicateDataException("This nickname is already taken.");
             user.NickName = updateUserDto.NickName;
         }
         await accountRepository.Update(user);   
