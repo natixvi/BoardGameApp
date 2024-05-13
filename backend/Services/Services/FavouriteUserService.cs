@@ -44,7 +44,8 @@ public class FavouriteUserService : IFavouriteUserService
     public async Task DeleteUserFromFavList(int deletedUserId)
     {
         var userId = await IfUserExist();
-        if (! await accountRepository.CheckIfUserExist(deletedUserId)) throw new NotFoundException("Deleted user not found!");
+        if (! await accountRepository.CheckIfUserExist(deletedUserId)) 
+            throw new NotFoundException("Deleted user not found!");
 
         var favUser = await favouriteUserRepository.GetFavUser((int)userId, deletedUserId);
         if (favUser == null) throw new BadRequestException("User is not in fav user list");
