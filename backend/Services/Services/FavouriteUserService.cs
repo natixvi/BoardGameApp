@@ -24,9 +24,11 @@ public class FavouriteUserService : IFavouriteUserService
     public async Task<int> AddUserToFavList(int favUserId)
     {
         var userId = await IfUserExist();
-        if (! await accountRepository.CheckIfUserExist(favUserId)) throw new NotFoundException("Added user not found!");
+        if (! await accountRepository.CheckIfUserExist(favUserId)) 
+            throw new NotFoundException("Added user not found!");
 
-        if (await IsUserInFavUserList(favUserId)) throw new DuplicateDataException("User can be added to fav user list just once!");
+        if (await IsUserInFavUserList(favUserId)) 
+            throw new DuplicateDataException("User can be added to fav user list just once!");
 
         var favUser = new FavouriteUser
         {
