@@ -66,7 +66,7 @@ export class NavbarComponent implements OnInit {
           icon: 'pi pi-user-edit', 
           visible: isAdmin === true,
           items: [
-            { label: 'User messages', routerLink: ['userMessages']},
+            { label: 'Manage user messages', routerLink: ['userMessages']},
             { label: 'Manage board games', routerLink: ['boardGameSettings']},
             { label: 'Manage add board game requests', routerLink: ['usersAddBoardGameRequests']},
             

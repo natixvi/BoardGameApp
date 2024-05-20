@@ -32,7 +32,8 @@ public class AccountService : IAccountService
         if (user == null) throw new BadRequestException("Invalid email or password");
 
         var verifyPassword = passwordHasher.VerifyHashedPassword(user, user.Password, loginUser.Password);
-        if(verifyPassword == PasswordVerificationResult.Failed) throw new BadRequestException("Invalid email or password");
+        if(verifyPassword == PasswordVerificationResult.Failed) 
+            throw new BadRequestException("Invalid email or password");
 
         var token = jwtService.GenerateJwtToken(user);
         return token;

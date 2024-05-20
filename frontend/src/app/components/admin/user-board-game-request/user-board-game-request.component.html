@@ -16,7 +16,8 @@
         [showCurrentPageReport]="true"
     >
         <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between" id="myHeader">   
+            <div class="flex align-items-center justify-content-between" id="myHeader"> 
+                <div style="width: 10px;"></div>  
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Search..." />
