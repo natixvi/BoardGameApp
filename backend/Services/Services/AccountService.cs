@@ -41,10 +41,13 @@ public class AccountService : IAccountService
 
     public async Task RegisterUser(RegisterUserDto registerUserDto)
     {
-        if (await accountRepository.NickNameExist(registerUserDto.NickName)) throw new DuplicateDataException("This nickname is already taken.");
-        if (await accountRepository.EmailExist(registerUserDto.Email)) throw new DuplicateDataException("For this email there is already an account.");
+        if (await accountRepository.NickNameExist(registerUserDto.NickName)) 
+            throw new DuplicateDataException("This nickname is already taken.");
+        if (await accountRepository.EmailExist(registerUserDto.Email)) 
+            throw new DuplicateDataException("For this email there is already an account.");
 
-        if (registerUserDto.Password != registerUserDto.ConfirmPassword) throw new PasswordsMustBeTheSameException("Passwords must be the same!");
+        if (registerUserDto.Password != registerUserDto.ConfirmPassword) 
+            throw new PasswordsMustBeTheSameException("Passwords must be the same!");
 
         var user = mapper.Map<User>(registerUserDto);
         var hashedPassword = passwordHasher.HashPassword(user, registerUserDto.Password);
