@@ -25,7 +25,25 @@ public class AccountService : IAccountService
         this.userContextService = userContextService;
         this.userBoardGameService = userBoardGameService;
     }
+    public async Task RegisterUser(RegisterUserDto registerUserDto)
+    {
+        if (await accountRepository.NickNameExist(registerUserDto.NickName))
+            throw new DuplicateDataException("This nickname is already taken.");
+        if (await accountRepository.EmailExist(registerUserDto.Email))
+            throw new DuplicateDataException("For this email there is already an account.");
 
+        if (registerUserDto.Password != registerUserDto.ConfirmPassword)
+            throw new PasswordsMustBeTheSameException("Passwords must be the same!");
+
+        var user = mapper.Map<User>(registerUserDto);
+        var hashedPassword = passwordHasher.HashPassword(user, registerUserDto.Password);
+        user.Password = hashedPassword;
+
+        var defaultRoleId = await accountRepository.GetDefaultRegisterUserRole();
+        user.RoleId = defaultRoleId;
+
+        await accountRepository.RegisterUser(user);
+    }
     public async Task<string?> LoginUser(LoginUserDto loginUser)
     {
         var user = await accountRepository.GetUserByEmail(loginUser.Email);
@@ -39,26 +57,7 @@ public class AccountService : IAccountService
         return token;
     }
 
-    public async Task RegisterUser(RegisterUserDto registerUserDto)
-    {
-        if (await accountRepository.NickNameExist(registerUserDto.NickName)) 
-            throw new DuplicateDataException("This nickname is already taken.");
-        if (await accountRepository.EmailExist(registerUserDto.Email)) 
-            throw new DuplicateDataException("For this email there is already an account.");
-
-        if (registerUserDto.Password != registerUserDto.ConfirmPassword) 
-            throw new PasswordsMustBeTheSameException("Passwords must be the same!");
-
-        var user = mapper.Map<User>(registerUserDto);
-        var hashedPassword = passwordHasher.HashPassword(user, registerUserDto.Password);
-        user.Password = hashedPassword;
-
-        var defaultRoleId = await accountRepository.GetDefaultRegisterUserRole();
-        user.RoleId = defaultRoleId;
-
-        await accountRepository.RegisterUser(user);
-    }
-
+   
     public async Task<UserInfoDto> GetUser()
     {
         var user = await IfUserExist();
