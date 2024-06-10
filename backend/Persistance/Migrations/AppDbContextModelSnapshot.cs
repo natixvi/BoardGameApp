@@ -59,7 +59,7 @@ namespace Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BoardGames");
+                    b.ToTable("BoardGames", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.BoardGameRequest", b =>
@@ -110,7 +110,7 @@ namespace Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BoardGameRequests");
+                    b.ToTable("BoardGameRequests", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.FavouriteUser", b =>
@@ -135,7 +135,7 @@ namespace Persistance.Migrations
                     b.HasIndex("UserId", "FavUserId")
                         .IsUnique();
 
-                    b.ToTable("FavouriteUsers");
+                    b.ToTable("FavouriteUsers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.GameComment", b =>
@@ -165,7 +165,7 @@ namespace Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("GameComments");
+                    b.ToTable("GameComments", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Role", b =>
@@ -182,7 +182,7 @@ namespace Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -218,7 +218,7 @@ namespace Persistance.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserBoardGame", b =>
@@ -247,7 +247,7 @@ namespace Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserBoardGames");
+                    b.ToTable("UserBoardGames", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UserRequest", b =>
@@ -280,7 +280,7 @@ namespace Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRequests");
+                    b.ToTable("UserRequests", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.BoardGameRequest", b =>
