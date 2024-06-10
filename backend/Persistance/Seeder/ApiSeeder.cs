@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Persistance.Data;
 
 namespace Persistance.Seeder;
@@ -19,24 +18,24 @@ public class ApiSeeder
     {
         if (context.Database.CanConnect())
         {
-            var pendingMigrations = context.Database.GetPendingMigrations(); 
+            /*var pendingMigrations = context.Database.GetPendingMigrations(); 
 
             if (pendingMigrations != null && pendingMigrations.Any())
             {
                 context.Database.Migrate();
             }
-
+*/
             if (!context.Roles.Any()) 
             {
-                context.Database.OpenConnection();
-                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Roles ON");
+               /* context.Database.OpenConnection();
+                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Roles ON");*/
 
                 var roles = GetRoles();
                 context.Roles.AddRange(roles);
                 context.SaveChanges();
 
-                context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Roles OFF");
-                context.Database.CloseConnection();
+          /*      context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Roles OFF");
+                context.Database.CloseConnection();*/
 
             }
             if (!context.Users.Any()) 

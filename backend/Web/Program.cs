@@ -76,9 +76,12 @@ builder.Services.AddScoped<ApiSeeder>();
 builder.Services.AddHttpContextAccessor();
 
 
-builder.Services.AddDbContext<AppDbContext>(options =>
+/*builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("BoardGameAppDbContext"),
-        b => b.MigrationsAssembly("Persistance")));
+        b => b.MigrationsAssembly("Persistance")));*/
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseInMemoryDatabase("BoardGameAppDb"));
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
